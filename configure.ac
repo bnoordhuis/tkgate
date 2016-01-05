@@ -143,6 +143,7 @@ AC_CHECK_HEADERS([limits.h malloc.h stdlib.h string.h sys/param.h sys/time.h uni
 
 AC_CHECK_HEADERS([iconv.h])
 AC_SEARCH_LIBS([iconv_open], [iconv])
+AC_SEARCH_LIBS([log], [m])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
