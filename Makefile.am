@@ -18,6 +18,7 @@
 #
 
 AUTOMAKE_OPTIONS = foreign
+ACLOCAL_AMFLAGS = -I m4
 
 #
 # List of directories that contain data files necessary for tkgate to run.

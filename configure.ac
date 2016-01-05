@@ -4,6 +4,7 @@ dnl	generate the file "configure", which is run during TkGate installation
 dnl	to configure the system for the local environment.
 
 AC_INIT([tkgate],[2.0-b10])
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 AC_PREREQ(2.57)
 AC_CONFIG_HEADER(config.h)
