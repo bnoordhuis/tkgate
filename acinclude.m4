@@ -155,25 +155,10 @@ AC_DEFUN([TKG_WORDSIZE],[
 #	values			List to merge
 #
 # Results:
-#	Sets the variable TKGATE_WORDSIZE to 32 or 64
+#	Same as input.  Previous version mangled -framework switches.
 #
 #--------------------------------------------------------------------
-AC_DEFUN([TKG_MERGE],[
-   L=""
-   for v in $2; do
-     add_ok=1
-     for q in $L; do
-	if test X$q = X$v; then
-	  add_ok=0
-	  break
-        fi
-     done
-     if test "$add_ok" = "1"; then
-       L="$L $v"
-     fi
-   done
-   $1=$L
-])
+AC_DEFUN([TKG_MERGE],[$1="$2"])
 
 #--------------------------------------------------------------------
 # TKG_GETTCLTRYDIRS
