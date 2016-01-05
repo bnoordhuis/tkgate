@@ -44,16 +44,16 @@ AC_DEFUN([TKG_SET_PREFIX],[
 #--------------------------------------------------------------------
 AC_DEFUN([TKG_USE_SIGSET],[
   AC_MSG_CHECKING([how to set signal handlers])
-  AC_CACHE_VAL(signal_ok,
-     AC_TRY_COMPILE([#include <signal.h>], [signal(0,0);], [signal_ok=yes], [signal_ok=no]))
-  AC_CACHE_VAL(sigset_ok,
-     AC_TRY_COMPILE([#include <signal.h>], [sigset(0,0);], [sigset_ok=yes], [sigset_ok=no]))
+  AC_CACHE_VAL(_cv_signal_ok,
+     AC_TRY_COMPILE([#include <signal.h>], [signal(0,0);], [_cv_signal_ok=yes], [_cv_signal_ok=no]))
+  AC_CACHE_VAL(_cv_sigset_ok,
+     AC_TRY_COMPILE([#include <signal.h>], [sigset(0,0);], [_cv_sigset_ok=yes], [_cv_sigset_ok=no]))
 
-  if test "$signal_ok" = "yes"; then
+  if test "$_cv_signal_ok" = "yes"; then
     AC_DEFINE(TKGATE_SIGSET, 0, [Use sigset instead of signal if set.])
     AC_MSG_RESULT([signal()])
   else
-    if test "$sigset_ok" = "yes"; then
+    if test "$_cv_sigset_ok" = "yes"; then
       AC_DEFINE(TKGATE_SIGSET, 1, [Use sigset instead of signal if set.])
       AC_MSG_RESULT([sigset()])
     else
@@ -141,10 +141,10 @@ AC_DEFUN([TKG_CHECK_ICONV_H],[
 #
 #--------------------------------------------------------------------
 AC_DEFUN([TKG_WORDSIZE],[
-  AC_CACHE_CHECK([word size], wordsize,
+  AC_CACHE_CHECK([word size], _cv_wordsize,
     AC_RUN_IFELSE(AC_LANG_PROGRAM([#include <stdlib.h> #include <stdio.h>], [return sizeof(unsigned) == 8 ? 0 : 1;]),
-	[wordsize=64], [wordsize=32]))
-  if test $wordsize = 32; then
+	[_cv_wordsize=64], [_cv_wordsize=32]))
+  if test $_cv_wordsize = 32; then
     AC_DEFINE(TKGATE_WORDSIZE, 32, [Word size of machine.])
   else
     AC_DEFINE(TKGATE_WORDSIZE, 64, [Word size of machine.])
