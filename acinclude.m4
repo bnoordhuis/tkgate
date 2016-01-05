@@ -141,14 +141,10 @@ AC_DEFUN([TKG_CHECK_ICONV_H],[
 #
 #--------------------------------------------------------------------
 AC_DEFUN([TKG_WORDSIZE],[
-  AC_CACHE_CHECK([word size], _cv_wordsize,
-    AC_RUN_IFELSE(AC_LANG_PROGRAM([#include <stdlib.h> #include <stdio.h>], [return sizeof(unsigned) == 8 ? 0 : 1;]),
-	[_cv_wordsize=64], [_cv_wordsize=32]))
-  if test $_cv_wordsize = 32; then
-    AC_DEFINE(TKGATE_WORDSIZE, 32, [Word size of machine.])
-  else
-    AC_DEFINE(TKGATE_WORDSIZE, 64, [Word size of machine.])
-  fi
+  AC_CHECK_SIZEOF([unsigned])
+  AS_IF([test "$ac_cv_sizeof_unsigned" -eq 8],
+        [AC_DEFINE(TKGATE_WORDSIZE, 64, [Word size of machine.])],
+        [AC_DEFINE(TKGATE_WORDSIZE, 32, [Word size of machine.])])
 ])
 
 #--------------------------------------------------------------------
