@@ -140,7 +140,9 @@ AC_FUNC_ALLOCA
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([limits.h malloc.h stdlib.h string.h sys/param.h sys/time.h unistd.h])
-TKG_CHECK_ICONV_H
+
+AC_CHECK_HEADERS([iconv.h])
+AC_SEARCH_LIBS([iconv_open], [iconv])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -186,9 +188,9 @@ TKG_WORDSIZE
 #
 # Merge all path information
 #
-TKG_MERGE(TKGATE_IPATH, [$TCL_IPATH $TK_IPATH $X_CFLAGS $ICONV_IPATH])
-TKG_MERGE(TKGATE_LPATH, [$TCL_LPATH $TCL_LPATH $ICONV_LPATH])
-TKG_MERGE(TKGATE_LIB, [$TCL_LIB $TK_LIB $X_PRE_LIBS -lX11 $X_EXTRA_LIBS $ICONV_LIB])
+TKG_MERGE(TKGATE_IPATH, [$TCL_IPATH $TK_IPATH $X_CFLAGS])
+TKG_MERGE(TKGATE_LPATH, [$TCL_LPATH $TCL_LPATH])
+TKG_MERGE(TKGATE_LIB, [$TCL_LIB $TK_LIB $X_PRE_LIBS -lX11 $X_EXTRA_LIBS])
 
 #############################################################################
 #

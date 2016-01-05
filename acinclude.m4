@@ -88,47 +88,6 @@ fi
 ])
 
 #--------------------------------------------------------------------
-# TKG_CHECK_ICONV_H
-#
-#	Check to see if we can find iconv.h
-#
-# Arguments:
-#       None.
-#
-# Results:
-#	HAVE_ICONV_H
-#	ICONV_IPATH
-#	ICONV_LPATH
-#	ICONV_LIB
-#
-#--------------------------------------------------------------------
-AC_DEFUN([TKG_CHECK_ICONV_H],[
-  AC_MSG_CHECKING([for iconv.h])
-  for p in $TKGATE_INCDIRS; do
-    if test -f $p/iconv.h; then
-      iconv_h_dir=$p
-    fi
-  done
-  for p in $TKGATE_LIBDIRS; do
-    if test -f $p/libiconv.a; then
-      iconv_lib_dir=$p
-    fi
-  done
-  if test "X$iconv_h_dir" = "X"; then
-    AC_MSG_RESULT([not found])
-  else
-    AC_MSG_RESULT([found in $iconv_h_dir])
-    AC_DEFINE(HAVE_ICONV_H, 1, [Does the iconv.h header exist on this machine?])
-    ICONV_IPATH="-I$iconv_h_dir"
-    if test "X$iconv_lib_dir" != "X"; then
-      ICONV_LPATH="-L$iconv_lib_dir"
-      ICONV_LIB="-liconv"
-    fi
-  fi
-])
-
-
-#--------------------------------------------------------------------
 # TKG_WORDSIZE
 #
 #	Check the word size on the current machine
