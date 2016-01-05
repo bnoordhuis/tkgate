@@ -100,7 +100,7 @@ wire w2;    //: /sn:0 {0}(240,140)(255,140){1}
   //: /line:"<h3>Creating a Simple Circuit</h3>"
   //: /line:""
   //: /line:"Now create an OR gate.  Right click in the dashed line box then select"
-  //: /line:"<font color=red2>Make &rarr;   Gate &rarr;   OR</font> from the popup menu."
+  //: /line:"<font color=red2>Components &rarr;   Gate &rarr;   OR</font> from the popup menu."
   //: /end
   //: comment g0 @(532,85) /sn:0
   //: /line:"<font color=green4>Hint: You can also use the keyboard"
@@ -164,7 +164,7 @@ module PAGE2();
   //: /line:"<h3>Creating a Simple Circuit</h3>"
   //: /line:""
   //: /line:"Start by creating an AND gate.  Right click in the dashed line box then select"
-  //: /line:"<font color=red2>Make &rarr;   Gate &rarr;   AND</font> from the popup menu."
+  //: /line:"<font color=red2>Components &rarr;   Gate &rarr;   AND</font> from the popup menu."
   //: /end
   //: comment g0 @(10,310) /sn:0 /R:14 /anc:1
   //: /line:"<tutorial-navigation>"
@@ -195,7 +195,7 @@ wire w5;    //: /sn:0 {0}(299,237)(314,237){1}
   //: /line:"<h3>Creating a Simple Circuit</h3>"
   //: /line:""
   //: /line:"Next create two switches.  Right click in each of the two dashed line box then"
-  //: /line:"select <font color=red2>Make &rarr;   I/O &rarr;   Switch</font> from the popup menu."
+  //: /line:"select <font color=red2>Components &rarr;   I/O &rarr;   Switch</font> from the popup menu."
   //: /end
   //: comment g0 @(532,86) /sn:0
   //: /line:"<font color=green4>Hint: You can also use the keyboard"

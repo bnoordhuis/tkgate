@@ -434,7 +434,7 @@ wire w0;    //: /sn:0 {0}(189,190)(179,190)(179,160){1}
   //: comment g15 @(22,25)
   //: /line:"This is the definition for module \"bar\". Ports A, B and C are inputs, and ports X, Y and Z are"
   //: /line:"outputs.  Try adding an additional output port \"W\" from the output of the XOR gate below."
-  //: /line:"Right click at the position you want to create the port then select <font color=red2>Make &rarr;   Module &rarr;   Module"
+  //: /line:"Right click at the position you want to create the port then select <font color=red2>Components &rarr;   Module &rarr;   Module"
   //: /line:"Output</font> from the popup menu.  Enter \"W\" for the net name in the dialog box."
   //: /line:""
   //: /line:""

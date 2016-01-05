@@ -187,7 +187,7 @@ module PAGE7();
   //: /line:"Neither of these \"gates\" has any effect on the simulation results."
   //: /line:""
   //: /line:"Comments are blocks of text such as those used to construct this tutorial.  Comments are created by right clicking"
-  //: /line:"and selecting <font color=red2>Make &rarr;   Comment</font> from the popup menu.  When you create a comment, the properties box will"
+  //: /line:"and selecting <font color=red2>Components &rarr;   Comment</font> from the popup menu.  When you create a comment, the properties box will"
   //: /line:"appear immediately allowing you to enter the text of the comment.  Comments can contain limited html tags including links"
   //: /line:"to other circuit files, or short cuts to specific gates in your circuit."
   //: /line:""
