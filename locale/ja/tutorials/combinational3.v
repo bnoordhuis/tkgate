@@ -37,7 +37,7 @@ wire S;    //: {0}(341,238)(-39:360,238)(360,210){1}
   //: /line:"<h3>Combinational Circuit Simulation</h3> <b>(setting probes)</b>"
   //: /line:""
   //: /line:"Press the \"<img src=\"simstart.gif\"> <font color=red2>Simulate</font>\" tab again, to enter simulation mode.  This time right click on a wire (e.g., the"
-  //: /line:"one labeled \"S\") and slect \"Add/Delete Probe\" from the popup menu.  The will set a probe on that"
+  //: /line:"one labeled \"S\") and select \"Add/Delete Probe\" from the popup menu.  The will set a probe on that"
   //: /line:"wire and bring up the logic analyzer window.  Set probes on some more wires, then unpause the"
   //: /line:"simulator by pressing <img src=sim_go.gif>.  Click on the switches to change their state and observe how the logic"
   //: /line:"analyzer is updated."
