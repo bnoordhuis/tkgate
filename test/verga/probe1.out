@@ -1,0 +1,33 @@
+valueof top.a 32'hx @ 0
+valueof top.i 32'hx @ 0
+tell bob top.i 32'h0 @ 0
+tell bob top.a 32'h0 @ 0
+tell bob top.i 32'h1 @ 1
+tell bob top.i 32'h2 @ 2
+tell bob top.a 32'h2 @ 2
+tell bob top.i 32'h3 @ 3
+tell bob top.i 32'h4 @ 4
+tell bob top.a 32'h4 @ 4
+tell bob top.i 32'h5 @ 5
+tell bob top.i 32'h6 @ 6
+tell bob top.a 32'h6 @ 6
+tell bob top.i 32'h7 @ 7
+tell bob top.i 32'h8 @ 8
+tell bob top.a 32'h8 @ 8
+tell bob top.i 32'h9 @ 9
+tell bob top.i 32'ha @ 10
+tell bob top.a 32'ha @ 10
+tell bob top.i 32'hb @ 11
+tell bob top.i 32'hc @ 12
+tell bob top.a 32'hc @ 12
+tell bob top.i 32'hd @ 13
+tell bob top.i 32'he @ 14
+tell bob top.a 32'he @ 14
+tell bob top.i 32'hf @ 15
+tell bob top.i 32'h10 @ 16
+tell bob top.a 32'h10 @ 16
+tell bob top.i 32'h11 @ 17
+tell bob top.i 32'h12 @ 18
+tell bob top.a 32'h12 @ 18
+tell bob top.i 32'h13 @ 19
+tell bob top.i 32'h14 @ 20

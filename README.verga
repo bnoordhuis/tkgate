@@ -1,0 +1,38 @@
+This file contains notes on the internal commands sent between tkgate and the simulator verga.
+
+Commands recognized by simulator:
+
+$script <file>					Read a verilog script file
+$show <net>					Show current value of net
+$sendto <q> <value>				Put value in named channel
+$cpath <n>					Do a critical path analysis
+$set <net> <value>				Set a net to a value
+$break <id> <expr>				Create a breakpoint
+$delete_break <id>				Delete a breakpoint
+$probe <net> [<who>]				Monitor a net
+$unprobe <net> [<who>]				Remove a monitor from a net
+$memload <fmt> <file> [<mem>]			Load a memory(s) from a file
+$memdump <fmt> <file> <mem>			Dump a memory to a file.
+$time						Report current time
+$step [<n>]					Step simulator a number of epochs.
+$addclock <net>					Register 'net' as a clock.
+$stepclock <+/-> <ncycle> <nafter> [<gate>]	Step simulator a number of clock cycles.
+$wait						Wait for all events to be executed.
+$stop						Pause simulator.
+$go						Put simulator in continuos mode.
+$exit						Exit the simulator
+
+Commands sent from simulator to tkgate: 
+
+stop @ <t>					Indicate simulator is stopped
+break <n> @ <t>					Indicate simulator is stopped at a breakpoint
+time @ <t>					Report of current simulator
+valueof <who> <net> <value>  @ <t>		Report value of a net to a tkgate listener
+comment <text>					Comment command.  Ignored by tkgate.
+echo <text>					Text to be displayed as is.
+error file <text>				Error message with
+error gate <gate> <text>			Error occuring related to a gate/module
+error net <net> <text>				Error occuring related to a net
+error run <text>				Run-time error report
+error command <text>				Error in command from tkgate
+

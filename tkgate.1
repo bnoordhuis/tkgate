@@ -1,0 +1,74 @@
+.TH TKGATE 1
+.SH "NAME"
+tkgate \- Tcl/Tk based digital circuit editor and simulator
+.SH "SYNOPSIS"
+.B tkgate
+[\-xqs] [\-X script] [\-l file] [\-p file] [\-P printer] [files...]
+.SH "DESCRIPTION"
+\fITkGate \fR
+is a graphical editor and event driven simulator for digital circuits
+with a tcl/tk-based interface.  Supported circuit elements include
+basic gates (AND, OR, etc.), tri-state gates, adders, multipliers,
+registers, memories and mos transistors.  Hierarchical design is also
+supported with support for user defined modules.  Save files are based
+on the Verilog netlist format.
+
+TkGate documentation can be found at:
+.PP
+http://www.tkgate.org
+
+.SH "OPTIONS"
+
+The options are as follows:
+.TP 15
+\-X script
+Automaticaly start the simulator and execute the specified simulation script. 
+.TP 15
+\-p file
+Print circuit to file without starting GUI.
+.TP 15
+\-P printer
+Print circuit to printer without starting GUI.
+.TP 15
+\-l file
+Read the specified file as a library.
+.TP 15
+\-x
+Automaticaly start the simulator.
+.TP 15
+\-q
+Suppress startup messages.
+.TP 15
+\-s
+Excute with a synchronous X server connection.  This option is primarily for debugging.
+.TP 15
+\-L lang
+Specify a locality to use if tkgate has been configued for Japanese
+support.  The locality should be either "ASCII" for English, or "ja_JP.EUC" for Japanese. This option can also be set via the LANG environment variable.
+
+.SH "HISTORY & CREDITS"
+
+TkGate begin life as an undergraduate project at Carnegie Mellon
+University (CMU) in 1987.  At that time it was called simply 'gate'
+and ran under the 'wm' window manager, a windowing system developed at
+CMU before X11 was widely used.  In this incarnation it was used by
+students in the computer architecture course at CMU to develop a
+simple microprocessor (dubbed "The Bat Computer").  After laying
+dormant for several years, it was resurrected in 1991 and ported to
+run under X11 with the Xlib API.  In this incarnation it was used
+several times by students in the introductory digital logic course,
+but after the author graduated and left CMU, it went into hibernation
+again.  This Tcl/Tk incarnation was begun in 1998.  While there is
+certainly some cruftyness in the implementation in places due to the
+multiple reincarnations, many new features have been added since the
+older wm and X11 versions, and the interface has been made much easier
+to use.
+
+.SH "SEE ALSO"
+gmac(1)
+
+.SH "AUTHOR"
+Jeffery Hansen (hansen@tkgate.org)
+
+.SH "COPYRIGHT"
+Copyright (c) 1987-2007 by Jeffery Hansen

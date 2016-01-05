@@ -1,0 +1,23 @@
+/* XPM */
+static char * replicate_xpm[] = {
+"16 16 4 1",
+" 	c yellow",
+".	c black",
+"X	c blue",
+"o	c white",
+"                ",
+"            .   ",
+"           .    ",
+"          .     ",
+"     XXXX       ",
+"     XoooX      ",
+"     XooooX     ",
+"   XXXXoooX     ",
+"   XoooXoX      ",
+"   XooooX       ",
+" XXXXoooX       ",
+" XoooXoX        ",
+" XooooX         ",
+" XooooX         ",
+" XoooX          ",
+" XXXX           "};

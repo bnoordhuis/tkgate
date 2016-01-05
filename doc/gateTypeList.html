@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>List of Built-In Gate Types</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H2>A. List of Built-In Gate Types</H2>
+ 
+<TABLE BORDER COLS=4 NOSAVE >
+<TR>
+<TH WIDTH="100">Name</TH>
+
+<TH WIDTH="100">Keywords(s)</TH>
+
+<TH WIDTH="100">Shortcut(s)</TH>
+
+<TH WIDTH="100">Symbol</TH>
+
+<TH WIDTH="400">Description</TH>
+</TR>
+
+<TR NOSAVE>
+<TD WIDTH="100">AND</TD>
+
+<TD WIDTH="100">and, nand</TD>
+
+<TD WIDTH="100"><table><tr><td>a</td></tr><tr><td>A</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF" NOSAVE><IMG SRC="fig/g_and.gif"></TD>
+
+<TD>Outputs the logical AND of the input signals.&nbsp;  All of the inputs
+must be have either the same bit width as the output, or be single bit.&nbsp; 
+In the case of a gate with mixed multi- and single-bit inputs, the single-bit
+inputs are assumed to be connected to across all bits of the multi-bit signals.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">OR</TD>
+
+<TD WIDTH="100">or, nor</TD>
+
+<TD WIDTH="100"><table><tr><td>o</td></tr><tr><td>O</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_or.gif"></TD>
+
+<TD>Outputs the logical OR of the input signals.&nbsp;  All of the inputs
+must be have either the same bit width as the output, or be single bit.&nbsp; 
+In the case of a gate with mixed multi- and single-bit inputs, the single-bit
+inputs are replicated to all of the other bits.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">XOR</TD>
+
+<TD WIDTH="100">xor, xnor</TD>
+
+<TD WIDTH="100"><table><tr><td>x</td></tr><tr><td>X</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_xor.gif"></TD>
+
+<TD>Outputs the logical XOR of the input signals.&nbsp;  All of the inputs
+must be have either the same bit width as the output, or be single bit.&nbsp; 
+In the case of a gate with mixed multi- and single-bit inputs, the single-bit
+inputs are replicated to all of the other bits.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Buffer</TD>
+
+<TD WIDTH="100">buf, not</TD>
+
+<TD WIDTH="100"><table><tr><td>b</td></tr><tr><td>I</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_buf.gif"></TD>
+
+<TD>Buffers the input signal.&nbsp;  If the input signal is a value other
+than logic-1 or logic-0 (e.g., floating) the output will be the unknown
+signal.&nbsp;  The inputs and outputs must have the same bit width.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Tri-State Buffer</TD>
+
+<TD WIDTH="100">bufif1, bufif0, 
+<BR>notif1,notif0</TD>
+
+<TD WIDTH="100"><table><tr><td>t</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_bufif.gif"></TD>
+
+<TD>Outputs a buffered signal when the enable line (top) is logic-1.&nbsp; 
+Note that an inverter placed on the output of a tri-state buffer is not
+equivalent to connecting the output to a separate inverter element.&nbsp; 
+With an inverted output, a logic-0 on the enable line will result in floating
+output (i.e., Verilog notif behavior).&nbsp;  The input and output must
+have the same bit width, and the enable line must be single bit.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Reduction Gates</TD>
+
+<TD WIDTH="100">and, nand,
+<br> or, nor,
+<br> xor, xnor
+</TD>
+
+<td width="100"><table>
+<tr><td>Ctl-r a</td><td>Ctl-r A</td></tr>
+<tr><td>Ctl-r o</td><td>Ctl-r O</td></tr>
+<tr><td>Ctl-r x</td><td>Ctl-r X</td></tr>
+</table></td>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_red.gif"></TD>
+
+<TD>Outputs the logical AND of all of the bits on the input.&nbsp;  Reduction
+gates for OR and XOR are also available.&nbsp;  The output must be single-bit.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Constants</TD>
+
+<TD WIDTH="100">supply1, supply0</TD>
+
+<TD WIDTH="100"><table><tr><td width=50>g</td><td>v</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_supply.gif" ></TD>
+
+<TD>Outputs a logic-1 or logic-0.&nbsp;  There are no bit-width restrictions.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Switch</TD>
+
+<TD WIDTH="100">switch</TD>
+
+<TD WIDTH="100"><table><tr><td>s</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_switch.gif" HEIGHT=45 WIDTH=59></TD>
+
+<TD>Outputs a single-bit logic value according to the switch setting.&nbsp; 
+Clicking on a switch while in simulation mode will toggle its state.&nbsp; 
+The output must be single-bit.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Dip Switch</TD>
+
+<TD WIDTH="100">dip</TD>
+
+<TD WIDTH="100"><table><tr><td>d</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_dip.gif" HEIGHT=59 WIDTH=93></TD>
+
+<TD>Outputs a multi-bit signal according to the switch setting.&nbsp; 
+Clicking on a dip switch while in simulation mode will enable a hex value
+for the switch to be entered.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Tty</TD>
+
+<TD WIDTH="100">tty</TD>
+
+<TD WIDTH="100"><table><tr><td>d</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_tty.gif"></TD>
+
+<TD>Tty gates can be used to model an interactive terminal.&nbsp;  Your
+circuit can send characters to be displayed on the tty, or receive
+<h3></h3>characters that were typed in the tty.&nbsp;  See the <a href="gateSim.html#ttys">section on ttys</a> in
+the simulator manual for details on how to use ttys.
+ 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Clock</TD>
+
+<TD WIDTH="100">clock</TD>
+
+<TD WIDTH="100"><table><tr><td>c</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_clock.gif" HEIGHT=59 WIDTH=129></TD>
+
+<TD>Outputs a clock signal with a specified pulse-width (f), phase (p),
+and duty width(dw).&nbsp;  The output must be single bit.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Concat</TD>
+
+<TD WIDTH="100">concat</TD>
+
+<TD WIDTH="100"><table><tr><td>w</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_merge.gif" HEIGHT=54 WIDTH=59></TD>
+
+<TD>Combines multiple wires into a single multi-bit wire.&nbsp;  The sum
+of the bits on the left side must add up to the bit width of the right
+side.&nbsp;  The current implementation has a limitation that all signals
+must flow in the same direction.&nbsp;  That is, you must put all of the
+driving gates on either the left or right.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Wire Tap</TD>
+
+<TD WIDTH="100">n/a</TD>
+
+<TD WIDTH="100"><table><tr><td>n/a</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_tap.gif"></TD>
+
+<TD>Pulls off a sub-range of a multi-bit wire.&nbsp; This gate type is not
+created through the menus like most other gates, but by dropping the
+end of a wire on a wire of a larger bit-width.&nbsp;  You can use the
+"Properties..." option from the "Gate" menu to select the bit range to
+be extracted.&nbsp;  This gate can only be used to "read" the value of a wire,
+and cannot be used to "wire" a value on a multi-bit bus.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Adder</TD>
+
+<TD WIDTH="100">add</TD>
+
+<TD WIDTH="100"><table><tr><td>+</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_add.gif" HEIGHT=71 WIDTH=90></TD>
+
+<TD>Outputs the sum of the inputs.&nbsp;  The inputs must have the same
+bit width as the output, and the carry-in and -out must be single bit.&nbsp; 
+The carry-in line is indicated by the dot.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Divider</TD>
+
+<TD WIDTH="100">div</TD>
+
+<TD WIDTH="100"><table><tr><td>/</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_div.gif" HEIGHT=69 WIDTH=98></TD>
+
+<TD>Outputs the quotient and remainder of the inputs.&nbsp;  The left input
+is the dividend, and the right input is the divisor.&nbsp;  There are no
+bit-width restrictions, but if the result does not fit in the supplied
+bit-width, it may be truncated.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Multiplier</TD>
+
+<TD WIDTH="100">mult</TD>
+
+<TD WIDTH="100"><table><tr><td>*</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_mul.gif" HEIGHT=67 WIDTH=89></TD>
+
+<TD>Outputs the product of the inputs.&nbsp;  There are no bit-width restrictions,
+but if the result does not fit in the supplied bit-width, it may be truncated.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Multiplexer</TD>
+
+<TD WIDTH="100">mux</TD>
+
+<TD WIDTH="100"><table><tr><td>m</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_mux.gif" HEIGHT=67 WIDTH=85></TD>
+
+<TD>Outputs the input selected by the select line.&nbsp;  The bit-width
+of the inputs must match the bit-width of the output, and the bit-width
+of the select line must be the ceiling of the base-2 log of the number
+of input lines.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Decoder</TD>
+
+<TD WIDTH="100">demux</TD>
+
+<TD WIDTH="100"><table><tr><td>D 2</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_demux.gif"></TD>
+
+<TD>Outputs the input selected by the select line.&nbsp;  The bit-width
+of the inputs must match the bit-width of the output, and the bit-width
+of the select line must be the ceiling of the base-2 log of the number
+of input lines.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Left Shift</TD>
+
+<TD WIDTH="100">lshift</TD>
+
+<TD WIDTH="100"><table><tr><td>S L</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_lshift.gif"></TD>
+
+<TD>Performs a logical shift-left of the input.&nbsp;  The input and output
+must have the same bit width, and the bit-width of the shift select line
+must be the ceiling of the base-2 log of the input/output bit-width.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Right Shift</TD>
+
+<TD WIDTH="100">rshift</TD>
+
+<TD WIDTH="100"><table><tr><td>S R</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_rshift.gif"></TD>
+
+<TD>Performs a logical shift-right of the input.&nbsp;  The input and output
+must have the same bit width, and the bit-width of the shift select line
+must be the ceiling of the base-2 log of the input/output bit-width.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Arithmetic Shift</TD>
+
+<TD WIDTH="100">arshift</TD>
+
+<TD WIDTH="100"><table><tr><td>S A</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_arshift.gif"></TD>
+
+<TD>Performs an arithmetic shift-right of the input.&nbsp; The input
+and output must have the same bit width, and the bit-width of the
+shift select line must be the ceiling of the base-2 log of the
+input/output bit-width.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Roll</TD>
+
+<TD WIDTH="100">roll</TD>
+
+<TD WIDTH="100"><table><tr><td>S O</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_roll.gif"></TD>
+
+<TD>Rolls the input bits to the left.&nbsp;  The input and output
+must have the same bit width, and the bit-width of the shift select line
+must be the ceiling of the base-2 log of the input/output bit-width.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Register</TD>
+
+<TD WIDTH="100">register</TD>
+
+<TD WIDTH="100"><table><tr><td>r</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_reg.gif" HEIGHT=48 WIDTH=110></TD>
+
+<TD>Outputs the current value of the register, and stores the input
+value on a positive edge on the clock line.  The data value is only
+loaded when the active-low enable (EN) line is asserted.  The register
+can be cleared asynchronously with the active-low clear (CL) line.
+The input and output must have the same bit width, and the clock, EN
+and CL lines must be single-bit.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Flip-Flop</TD>
+
+<TD WIDTH="100">ff</TD>
+
+<TD WIDTH="100"><table><tr><td>f</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_ff.gif" HEIGHT=59 WIDTH=73></TD>
+
+<TD>Outputs the current value and inverted value of the
+flip-flop, and stores the input value on a positive edge on the clock
+line.  The data value is only loaded when the active-low enable (E)
+line is asserted.  The flip-flop can be cleared asynchronously with the
+active-low clear (C) line.  The input and output must have the same
+bit width, and the clock, E and C lines must be single-bit.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">RAM</TD>
+
+<TD WIDTH="100">ram</TD>
+
+<TD WIDTH="100"><table><tr><td>R</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_ram.gif" HEIGHT=87 WIDTH=95></TD>
+
+<TD>When the chip-select line (CS) and output enable (OE) lines are low,
+the memory value addressed by the address line (A) is output to the data
+line (D).&nbsp;   When the chip select line and the write enable line
+(WE) are low, the value present on the data line is stored in the memory
+at the address specified by the address line.&nbsp;  The control lines,
+CS, OE, WE must be single-bit.&nbsp;  The address and data lines must be
+no more than 32 bits.&nbsp;  RAMs can be initialized from a file at simulation
+time.&nbsp; </TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">ROM</TD>
+
+<TD WIDTH="100">rom</TD>
+
+<TD WIDTH="100"><table><tr><td>u</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_rom.gif" HEIGHT=73 WIDTH=84></TD>
+
+<TD>When the output enable line (OE) is low,  the memory value addressed
+by the address line (A) is output to the data line (D).&nbsp;   The
+output enable line must be single bit, and the address and data lines must
+be no more than 32 bits.&nbsp;  ROMs can be initialized from a file at simulation
+time.&nbsp; </TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">NMOS Trans.</TD>
+
+<TD WIDTH="100">nmos</TD>
+
+<TD WIDTH="100"><table><tr><td>Ctl-t n</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_nmos.gif" HEIGHT=62 WIDTH=53></TD>
+
+<TD>Implements a Verilog-style NMOS element.&nbsp;  All signals must have
+the same bit width.&nbsp;  NMOS elements with multi-bit inputs and outputs
+are treated as parallel transistors.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">PMOS Trans.</TD>
+
+<TD WIDTH="100">pmos</TD>
+
+<TD WIDTH="100"><table><tr><td>Ctl-t p</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_pmos.gif" HEIGHT=68 WIDTH=54></TD>
+
+<TD>Implements a Verilog-style PMOS element.&nbsp;  All signals must have
+the same bit width.&nbsp;  PMOS elements with multi-bit inputs and outputs
+are treated as parallel transistors.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">LED</TD>
+
+<TD WIDTH="100">led</TD>
+
+<TD WIDTH="100"><table>
+<tr><td>l</td><td>L 8</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td width=50>L s</td><td>L h</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td>L d</td></tr>
+</table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_led.gif" HEIGHT=149 WIDTH=116></TD>
+
+<TD>
+
+LED Indicator elements which can display the values of signals in your
+circuit.  The different types of LED are indicated by a property flag
+of the basic LED circuit element.  The types from upper left are: bit,
+bar graph, direct, hexadecimal and decimal.  The number of digits or
+bars is automatically determined from the size of the input wire.  For
+the three types of 7-segment LEDs, the interpretation of the input
+data depends on the type.  For direct LEDs, each 7-bits of the input
+signal directly control one segment of the LED numbered from
+top-to-bottom, left-to-right.  For hexadecimal LEDs, each four bit
+group controls one digit.  For decimal LEDs, the value of the input
+signal is displayed as an unsigned decimal value.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Module</TD>
+
+<TD WIDTH="100"><I>name</I></TD>
+
+<TD WIDTH="100"><table><tr><td>M</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_block.gif" HEIGHT=88 WIDTH=101></TD>
+
+<TD>Implements a user-defined module.&nbsp;  An arbitrary number of inputs,
+outputs and inout ports can be used with no restrictions on bit width.&nbsp; 
+The name of the module is used in the save file and cannot be the same
+as any of the built-in gates.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Comment</TD>
+
+<TD WIDTH="100">comment</TD>
+
+<TD WIDTH="100"><table><tr><td>C</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_comment.gif"></TD>
+
+<TD>Comments can be used to place embed text into a circuit diagram.  Comments have no effect
+on the behavior of circuits.</TD>
+</TR>
+
+<TR>
+<TD WIDTH="100">Frame</TD>
+
+<TD WIDTH="100">frame</TD>
+
+<TD WIDTH="100"><table><tr><td>F</td></tr></table></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="100" BGCOLOR="#FFFFFF"><IMG SRC="fig/g_frame.gif"></TD>
+
+<TD>Frames can be used to create visual segmentation of a circuit diagram.  Frames have no effect
+on the behavior of circuits.
+</TD>
+</TR>
+</TABLE>
+
+</body>
+</html>

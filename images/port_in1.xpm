@@ -1,0 +1,28 @@
+/* XPM */
+static char * input_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+" 	c magenta",
+".	c #cccccc",
+"X	c #ddddff",
+"o	c #7f7f7f",
+"O	c blue",
+"+	c #008b00",
+/* pixels */
+"  ............  ",
+" .............. ",
+"..XXXXXXXXXXXXoo",
+"..XXXXXXXXXXXXoo",
+"..XOOXXXXXXXXXoo",
+"..XXOOXXXXXXXXoo",
+"..XXXOOXXXXXXXoo",
+"..XXXXOO+++++Xoo",
+"..XXXOOOXXXXXXoo",
+"..XXOOXXXXXXXXoo",
+"..XOOXXXXXXXXXoo",
+"..XXXXXXXXXXXXoo",
+"..XXXXXXXXXXXXoo",
+"..XXXXXXXXXXXXoo",
+" .ooooooooooooo ",
+"  oooooooooooo  "};

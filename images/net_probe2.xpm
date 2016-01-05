@@ -1,0 +1,28 @@
+/* XPM */
+static char * net_probe2_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+" 	c white",
+".	c #cccccc",
+"X	c #ddddff",
+"o	c black",
+"O	c #7f7f7f",
+"+	c red",
+/* pixels */
+"  ............  ",
+" .............. ",
+"..XXXXXXXXXXooOO",
+"..XXXXXXXXXoooOO",
+"..XXXXXXXXooooOO",
+"..XXXXXXXooooXOO",
+"..XXXXXXooooXXOO",
+"..XXXXXooooXXXOO",
+"..XXXXXoooXXXXOO",
+"..XXXoooXXXXXXOO",
+"..++++o+++++++OO",
+"..++++o+++++++OO",
+"..XXooXXXXXXXXOO",
+"..XXXXXXXXXXXXOO",
+" .OOOOOOOOOOOOO ",
+"  OOOOOOOOOOOO  "};

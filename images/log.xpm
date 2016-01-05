@@ -1,0 +1,29 @@
+/* XPM */
+static char * log_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 7 1",
+/* colors */
+" 	c white",
+".	c #FFFF55552222",
+"X	c #555565655757",
+"o	c yellow",
+"O	c brown",
+"+	c #FFFFF0F0E0E0",
+"@	c black",
+/* pixels */
+"             .  ",
+"            ... ",
+"           Xo...",
+" OOOOOO OOXooo. ",
+"O++++++@+XoooXO ",
+"O+@@+@+@XoooX+O ",
+"O++++++XoooX++O ",
+"O@+@@+XoooX+++O ",
+"O++++XoooX++++O ",
+"O+@+XoooX+++++O ",
+"O+++@@oX++++++O ",
+"O+@+@@X@++++++O ",
+"O++++++@++++++O ",
+"O++++++@++++++O ",
+"OOOOOOO@OOOOOOO ",
+"O      O      O "};

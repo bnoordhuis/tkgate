@@ -1,0 +1,28 @@
+/* XPM */
+static char * blk_claim_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+" 	c magenta",
+".	c magenta4",
+"X	c red",
+"o	c white",
+"O	c #a52a2a",
+"+	c #eedddd",
+/* pixels */
+"                ",
+"                ",
+"     .......    ",
+"   XX.......XX  ",
+"   XX..ooo..XX  ",
+"     ..OOOOOOOO ",
+"   OOOO++++++++O",
+"OOO+++++++OOOOO ",
+"+++++++++++++++O",
+"++++++++++OOOOO ",
+"+++++++++++++++O",
+"++++++++++OOOOO ",
+"OO+++++++++++++O",
+"  OOOOOOOOOOOOO ",
+"     .......    ",
+"                "};

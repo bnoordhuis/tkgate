@@ -1,0 +1,7 @@
+a=12345678  b=abcd0123  x=12345678abcd0123  c=12345678  d=abcd0123
+a=345678  b=cd0123  x=345678cd0123  c=345678  d=cd0123
+this is a test of some strings being concatenated.
+hello world! hello world! hello world! hello world! hello world! 
+abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd 
+ABC:ABC:ABC:ABC:
+XYZ:XYZ:XYZ:XYZ:

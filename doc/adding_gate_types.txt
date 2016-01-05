@@ -1,0 +1,61 @@
+This file contains a crude explaination of how to add new primitive
+gate types to tkgate.  It will be made more useful in the future
+if there is demand for it.
+
+In order to add new primitive circuit elements to tkgate, you will
+need to write a .c file for the editor (in src/tkgate) and for the
+simulator (in src/gsim).  You can look at and.c for the AND gate, and
+register.c for the register.  You will need to create a bitmap file
+with the symbol for you gate in each of the four rotations in both
+bold and non-bold.  For most gates, all eight icons are in one bitmap
+file.  Look at bitmaps/and.b for an example (if you have the 'bitmap'
+program, this will allow you to view and edit these files).  You then
+need to create tables for describing the bitmap, the positions of
+wires, and properties of the circuit element.  For example:
+
+static iconDimensions and_iconDims[] = {
+  {0, 0, 20, 15, 10, 7},
+  ...
+};
+
+Defines the icons to use for each of the four rotations (numbered
+counter clockwise).  This says that in rotation 0, the offset for the
+AND gate icon has an offset of (0,0) (from upper left), the icon is 20
+pixels wide and 15 high, and the center point is 10 pixels from the
+left side of the icon and 7 from the top.  There is also a BoldOffset
+value which is the y offset to add to the icon offset to get the bold
+versions of the icons.  The "locate" data structures define the
+position of "pads" and the direction of wires connected to those pads
+in the standard rotation (rotation 0).  A "pad" is specified by two
+(x,y) values defining a line along which ports for that pad will be
+placed.  Most gates, such as registers allow only one port per pad and
+the two end points are the same.  For AND gates which can have
+multiple inputs, the endpoints are the coordinates of the two
+left-hand corners of the gate.
+
+You will also have to write a block of postscript code to be able to
+print circuits with your circuit element.  This is what the psAnd
+declaration in the AND gate definition is doing.
+
+The next step is to create the gate info block for your type.  This
+includes pointers to the icon and wire position structures, properties
+of the gates and function pointers to functions for operating on the
+gate.  For most of these functions you can use the "Generic" functions
+just as the AND gate does.
+
+The last step is to create an init_youtype() function which calls the
+appropriate registration functions (again you can copy the AND gate
+example if there is nothing too unusual about the gate).  Add a call
+to the init_ function to the function MakeHashTables() in
+src/tkgate/functions.c and you are done with the editor-side
+definition.
+
+For the simulator side definition is similar in that you create also
+create an initialized data structure and define an init_ fuction, but
+the data is slightly different.  The most important function for the
+simulator is the yourtype_processEvent() function.  This is called
+whenever an input signal on the gate changes values and is responsible
+for scheduling a change on an output port.  It can also read/write
+state information on the gate or send special internal events to
+itself.
+

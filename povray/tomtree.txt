@@ -1,0 +1,804 @@
+TOMTREE - Treegenerator for POVRAY
+version MAR.2000
+by Tom Aust
+Aust-Anfertigungen
+www.aust-anfertigungen.de
+
+___________________________________________________________________________
+
+The tomtree.zip archive contains:
+___________________________________________________________________________
+
+TOMTREE.inc
+	This is the generator. After copying it into your include-file path 
+	there is no reason to touch it. The settings will be made in seperate 
+	inc-files for each different trees.
+	
+TOMLEAF.inc
+	Here are some leaves, simple leaves and better height_field leaves.
+	To keep tomtree.zip quite small I've added only a few variations of 
+	one typical HF-leaf and one HF-blossom.
+
+TESTTREE.inc
+	This is a settINC to try, watch and learn what happens after changing 
+	the values. Now the values make a very straight, rather empty tree for 
+	better observation what's going on. 
+	
+BIRCH.inc
+	An example settINC.
+
+OLIVE.inc
+	Another example settINC.
+
+PALM.inc
+	A third example settINC. 
+
+TREE.pov
+	A simple scene file to show how to use TomTree in your scene.
+	If you want trees of DIFFERENT kind in your scene you should add 
+	both, the other settINC and - again - tomtree.inc. 
+	(The camera is adjusted in a ratio of 1 to 1)
+
+LEAF.tga
+	Source-image for the HF-leaves in tomleaf.inc.
+
+LEAF.gif
+	Source-image for the texture for the leaves "...LEAF_tex".
+	If you use these own-textured leaves the global "FOLIAGE_COLOR" shows 
+	no effect and each leaf has the same texture.
+
+LEAFx.tga
+	This is the source-image for cutting out the HF-leaf in a natural shape.
+
+BLOSSOM.tga
+	Source-image for the HF-blossoms in tomleaf.inc.
+
+tomtree.txt
+	This file. Below I will try to explain each option of the settINCs.
+
+
+__________________________________________________________________________________
+__________________________________________________________________________________
+
+TRIAL OF AN EXPLANATION
+__________________________________________________________________________________
+__________________________________________________________________________________
+
+Tomtrees have a
+ 
+	TRUNK
+	ROOTS at the trunk,
+	BRANCHES at the trunk,
+	TWIGS at the branches,
+	BUNCHES at the twigs, and these bunches are made of 
+	TWIG_RAMIFICATION, 
+	LEAVES and
+	BLOSSOMS. 
+	
+Although the TWIG_RAMIFICATION belongs structural to the wooden part of 
+the tree it will be handled with the bunch, like the leaves. Each bunch has 
+one TWIG_RAMIFICATION. 
+
+The long measures of the parts of the tree are in relationship to each other.
+So, I recommend you think about a real tree with its real longmeasures and set the 
+values perhaps in centimeter so the unit is good for the leaves as well as for the 
+whole tree. Regardless of the unit you will choose, TomTree scales down every tree 
+to 1 unit at the end of calculation, so that in your scenefile you can scale it up 
+to your request.
+
+
+About the options:
+__________________
+
+___________________________________________________________________________________
+// T R E E
+___________________________________________________________________________________
+
+BRANCHES
+	Set the number of all branches at the tree. 
+
+TWIGS
+	Set the number for the twigs at a branch; multiplied by the number of branches 
+	results in all twigs at the tree. 
+
+BUNCHES
+	Set the number for the bunches at a twig; multiplied by all twigs results in all 
+	bunches at the tree. 
+
+LEAVES
+	Set the number for the leaves in a bunch; multiplied by all bunches results in 
+	all leaves at the tree.
+
+BLOSSOMS
+	Set the number for the blossoms in a bunch; multiplied by all bunches results in 
+	all blossoms at the tree. 
+ROOTS
+	Set the number of all roots at the tree. 
+
+BRANCH_RANDOM
+	Any different value results in a different branch-arrangement of the same kind of 
+	tree.
+
+TWIG_RANDOM
+	And if you are not satisfied with the arrangement of twigs at the branch, play here. 
+
+ROOT_RANDOM
+	The same possibility for the roots. 
+
+___________________________________________________________________________________
+// T R U N K
+	(Mathematical trunk-length:
+	FIRST_BRANCH_AT_TRUNK + BRANCH_AREA_AT_TRUNK + mathematical branch-length)
+___________________________________________________________________________________
+
+TRUNK_RADIUS
+	This, of course, is the radius of the trunk to determine its thickness. 
+
+TRUNK_STRENGTH
+	Decreasing this value saves parsingtime, increasing is needed if the trunk 
+	falls in pieces (in the case of very long trunk or/and very wide bend). 
+	It's a factor and 1 is a normal value.
+
+TRUNK_BEND_X
+TRUNK_BEND_Z
+	In connection with the following TRUNK_CURVE and TRUNK_SNAG with their 
+	frequencies you have the chance of interlocked, irregular forming of the 
+	trunk. Play with their combinations.
+	There are seperate values for the trunk-bend in the two lateral directions (X,Z). 
+	TRUNK_BEND_X/Z gives the width of the outer bend of the trunk, probably with 
+	about 1 or 2 archs (TRUNK_BEND_X/Z_FREQUENCY). TRUNK_BEND_X/Z has usually a higher 
+	value than TRUNK_CURVE, and TRUNK_CURVE is usually wider than TRUNK_SNAG. 
+	Then, by the way of contrast, TRUNK_BEND_X/Z_FREQUENCY should be smaller than 
+	the TRUNK_CURVE_FREQUENCY, which should be smaller than TRUNK_SNAG_FREQUENCY.
+
+TRUNK_BEND_X_FREQUENCY
+TRUNK_BEND_Z_FREQUENCY
+	I have mentioned, TRUNK_BEND_X/Z_FREQUENCY is the number of outer arches of the 
+	trunk. You may set different values for the two lateral directions. 
+
+TRUNK_CURVE
+	It's the width of the inner bend of the trunk. Inside the outer bend, you 
+	have set with TRUNK_BEND_X/Z, you have a higher number (TRUNK_CURVE_FREQUENCY) 
+	of inner curve. 
+
+TRUNK_CURVE_FREQUENCY
+	Here you set the number of inner curves of the trunk. 
+
+TRUNK_SNAG
+	Inside the inner bend, here you set the width for the smallest bend, the snag. 
+
+TRUNK_SNAG_FREQUENCY
+	And the number of snags in the trunk. 
+
+TRUNK_SPIRAL
+	Additional to the bend of the trunk it's angle-value for a corkscrew 
+	looking trunk. 360 = one turn. 
+
+TRUNK_TAPER
+	Here you adjust how much the trunk tapers off towards its top-end.
+	Example: 0 = trunk-top has the same thickness as the trunk-base. 
+	1 = the trunk-top-end has no thickness and this is the mathematical top-end 
+	of the whole tree. Nevertheless the trunk is cut at the highest branch. 
+ 
+FIRST_BRANCH_AT_TRUNK
+	This is the distance from the base of the trunk (the ground) to the 
+	lowest/first branch at the tree. 
+
+BRANCH_AREA_AT_TRUNK
+	This is the distance between the lowest/first and the highest/last branch 
+	at the trunk.
+
+__________________________________________________________________________________
+// B R A N C H
+	(Mathematical branch-length:
+	FIRST_TWIG_AT_BRANCH + TWIG_AREA_AT_BRANCH + mathematical twig-length)
+___________________________________________________________________________________
+
+BRANCH_THICKNESS_CHANGE
+	The thickness of the branch depends on the thickness of the trunk, 
+	given by TRUNK_RADIUS. 
+	Here you can adjust the branch-thickness. It's a factor, so, 1 means that 
+	the branch-base has the same thickness as the trunk at this point.
+
+BRANCH_STRENGTH
+	As for the trunk, decreasing this value saves parsingtime, increasing is 
+	needed if the branches fall in pieces (in the case of very long branches 
+	or/and very wide bend). It's a factor and 1 is a normal value. 
+	0 makes the branches invisable (unlike to the BRANCH_NUMBER, 0 doesn't 
+	switch off following twigs, bunches and leaves).
+
+BRANCH_BEND
+	In connection with the following BRANCH_CURVE and BRANCH_SNAG with their 
+	frequencies you have the chance of interlocked, irregular forming of your 
+	branches. Play with their combinations. 
+	BRANCH_BEND gives the width of the outer bend of the branch, probably with 
+	about 1 or 2 archs (BRANCH_BEND_FREQUENCY). BRANCH_BEND has usually a higher 
+	value than BRANCH_CURVE, and BRANCH_CURVE is usually wider than BRANCH_SNAG. 
+	Then, by the way of contrast, BRANCH_BEND_FREQUENCY should be smaller than 
+	the BRANCH_CURVE_FREQUENCY, which should be smaller than BRANCH_SNAG_FREQUENCY. 
+
+BRANCH_BEND_FREQUENCY
+	I have mentioned, BRANCH_BEND_FREQUENCY is the number of outer arches of the 
+	branch. 
+
+HORIZONTAL_BRANCH_BEND_SWITCH
+	Switch off (0) the main horizontal bend if you only want a vertical bend (perhaps 
+	the branch should grow at a wall). 
+	Otherwise the value is 1. Nevertheless other values are possible. For example, 
+	if you set 1.5, the horizontal bend is 50 percent wider than the vertical bend. 
+
+EXTRA_NOISE_SWITCH
+	Default is 1; Sometimes it's annoying, if you need more regular arcs in the branch,
+	for example at the palmtree in PALM.inc. In this case set the value to 0 in order 
+	to switch this additional noise off. It only affects the BRANCH_BEND and twig-bend.
+
+BRANCH_CURVE
+	It's the width of the inner bend of the branch. Inside the outer bend (BRANCH_BEND), 
+	you have a higher number (BRANCH_CURVE_FREQUENCY) of inner curve. 
+
+BRANCH_CURVE_FREQUENCY
+	Here you set the number of inner curves of the branch, as I've said above. 
+
+HORIZONTAL_BRANCH_CURVE_SWITCH
+	Like the HORIZONTAL_BRANCH_BEND_SWITCH 0 switches off the horizontal curve.
+
+BRANCH_LONGITUDINAL_CURVE
+	An additional value for less or more lengthwise branch-irregularity. 
+	Examples: 0 = no lengthwise curve; 1=equal to lateral direction. 
+
+BRANCH_SNAG
+	It's the width for the innermost bend of the branch. Inside the inner bend, 
+	here you set the width for the smallest bend, the snag. 
+
+BRANCH_SNAG_FREQUENCY
+	And, of course, the number of snags at the branch. 
+
+BRANCH_REDUCTION
+	Towards the top of the tree usually the branches become smaller. Here is 
+	the value to adjust this. Examples: 0 = no reduction; 0.5 = the highest 
+	branch at the tree has about the half size from the lowest. The twigs and bunches 
+	of the branch will be reduced too towards the top of tree. 
+	If you want that the bunches with their leaves keep their size you can set 
+	a corresponding negative value for BUNCH_TAPER_OF_AT_TREE. 
+
+BRANCH_TAPER
+	Here you adjust how much the branch tapers off towards its end.
+	Example: 0 = branch-end has the same thickness as the branch-base. 
+	1 = the branch-end has no thickness. 
+	The twigs and bunches of the branch will be reduced towards the branch-end too. 
+	If you want that the bunches with their leaves keep their size you can set 
+	a corresponding negative value for BUNCH_TAPER_OF_AT_BRANCH. 
+
+BRANCH_END_EQUALIZER
+	It's not noticable if the TWIG_THICKNESS (TWIG_THICKNESS_CHANGE) is set to 
+	the same value as the BRANCH_THICKNESS. But if the twigs are set to be more 
+	thin than the branches and you set the BRANCH_END_EQUALIZER to 1 the branch will 
+	adapt to the same thickness as the last twig towards the end of the branch. 
+	This feature only works if the following BRANCH_TIP is 0.
+
+BRANCH_TIP
+	BRANCH_TIP adjusts how long the branch will be continued after its last twig. 
+	For example, 0 means that the branch ends at its last/outermost twig 
+	(with the thickness of this twig). 1 = the branch ends at its mathematical end. 
+
+BRANCH_TURN_SWITCH
+	To switch on (1) or off (0) the random rotation of the branch around its 
+	longitudinal axis. 
+
+BRANCH_ALTERNATE_SWITCH
+	To switch on (1) the reciprocal position of the branches at the trunk.
+	If it's set to 0, the branches rotate randomly around the trunk.
+
+BRANCH_SPIRAL
+	Additional to the bend of the branch it's angle-value for a corkscrew 
+	looking branch. 360 = one turn.
+
+BRANCH_ANGLE
+	This is the start-angle for the first/lowest branch at the trunk. 
+	0 means that the lowest branch arises from the trunk in horizontal direction. 
+	Values greater than 0 result in upwards inclination.
+
+BRANCH_ANGLE_SCOPE
+	For more irregularity this is a random oscillation-scope (angle) for 
+	each branch.
+
+BRANCH_ALIGNMENT
+	After setting the angle for the lowest/first branch at the tree normally 
+	the branches towards the top of the tree align with the trunk (value = 1).
+	Here you can change this alignment. For example 0 means, that there is no 
+	alignment and all branches have the same angle as the lowest branch.
+
+STRAIGHTEN_TOWARDS_TOP
+	IF you have set a bend for your branches, but want to straighten them towards 
+	the top of the tree increase this value. 0 = no straightening; 1 = the highest 
+	branch is straight.
+
+FIRST_TWIG_AT_BRANCH
+	This is the distance from the branch-base at the trunk to the first twig at the 
+	branch.
+
+TWIG_AREA_AT_THE_BRANCH
+	The distance between the first and the last twig at the branch. 
+
+___________________________________________________________________________________
+// T W I G
+	(Mathematical twig-length:
+	FIRST_BUNCH_AT_TWIG + BUNCH_AREA_AT_TWIG + mathematical bunch-length)
+___________________________________________________________________________________
+	
+TWIG_STRENGTH
+	The normal value is 1. 
+	If you have many twigs and want to decrease parsingtime you may try to decrease 
+	this value until the twigs fall in pieces.
+	If you have very long twigs, and therefore the twigs fall in pieces, 
+	than increase the value for TWIG_STRENGTH (increases parsingtime too).
+	If you don't need twigs but want to have leaves, set this value to 0.
+
+TWIG_THICKNESS_CHANGE
+	The thickness of the twig depends on the thickness of the branch (the 
+	branch-thickness itself depends on the TRUNK_RADIUS). Here you can change the 
+	thickness of the twig with a factor.
+	So, 1 = the base of the twig has the same thickness as the branch at this point.
+	0.5 = the base of the twig has the half of the size as the branch at this point.
+
+HORIZONTAL_TWIG_ANGLE
+	It's the angle of the twig to the branch in horizontal direction.
+
+VERTICAL_TWIG_ANGLE
+	And for the vertical direction.
+
+HORIZONTAL_TWIG_ANGLE_SCOPE
+	In addition to the HORIZONTAL_TWIG_ANGLE this is a scope for a 
+	random oscillation of the angle for each twig at the branch.
+
+VERTICAL_TWIG_ANGLE_SCOPE
+	And the scope for the VERTICAL_TWIG_ANGLE.
+
+HORIZONTAL_TWIG_ALIGNMENT
+	If it is 0, than all twigs at the branch keep the angle which is determined 
+	by the HORIZONTAL_TWIG_ANGLE.
+	If it is 1 for example, than this angle decreases with each twig towards the branch-end
+	and the last twig at the branch is aligned with the branch.
+	
+VERTICAL_TWIG_ALIGNMENT
+	And the same for the vertical direction.
+
+TWIG_TURN_SWITCH
+	To switch on (1) or off (0) the random rotation of the twig around its own 
+	longitudinal axis. 
+
+TWIG_ALTERNATE_SWITCH
+	If it's 0, than the twigs rotate automatically around the branch in a random 
+	manner.
+	If it's 1, the twigs have a reciprocal horizontal direction with the given 
+	HORIZONTAL_ and VERTICAL_TWIG_ANGLE (like the leaves at the palmtree). 
+
+TWIG_CURVE_ADJUSTMENT
+	The bend, curve and snag of the twigs depend on the bend, curve and snag of the 
+	branches. Here you can increase or decrease it for the twigs.
+	1 = the same bend, curve and snag as for the branches.
+	0 = straight twigs.
+
+TWIG_CURVE_FREQUENCY_ADJUSTMENT
+	To adjust the number of bends, curves and snags at the twig which depends on 
+	the branch. 
+	1 = the same number of bends curves and snags at the twig.
+
+TWIG_TAPER
+	1 is the default and the twig ends in a tip.
+	The lower this value the thicker the twig-end will be.
+	With 0 you get the same thickness at the start and end of the twigs (what for?)
+ 
+TWIG_TIP
+	Here you can lengthen or shorten the twig after the last bunch at the twig. 
+	0 = the twig ends at the last bunch-base.
+	Up to 1, which lengthen the twig up to the outermost leaf. 
+
+STRAIGHTEN_TOWARDS_BRANCH_END
+	Like the STRAIGHTEN_TOWARDS_TOP for the branches it's the straightening of the 
+	twigs towards each branch-end.
+		
+TWIG_RAMIFICATION_ORDER
+	Here you may set an additional ramification. It's a repetition of the 
+	twig (1. order), which may have a repetition itself (2. order) and a repetition 
+	at the repetition at the repetition (3. order) at the twigs. 
+	The size, orientation and quantity will be controlled by the bunches.
+	There are 4 possible values for TWIG_RAMIFICATION_ORDER:
+	0 = no additional twig-ramification;
+	1 = each bunch gets a twig-ramification of 1. order (a twig-repetition) 
+	at the twig.
+	2 = each bunch gets a twig-ramification of 2. order at the twig.
+	3 = each bunch gets a twig-ramification of 3. order at the twig.
+	(To create a very ramified tree doesn't need too much parsingtime because it doesn't 
+	need too many original branches and twigs to be calculated.)
+
+LAST_RAMIFICATION_NUMBER
+	It's the number of 2.order-twig-ramifications at the 1.order-twig-ramification 
+	and also the number of 3.order-twig-ramis at each 2.order-twig-rami. 
+	So, for example, it is set to 4, than you have for each bunch one 1.order-rami, 
+	four 2.order-ramis and sixteen 3.order-ramis.
+
+TWIG_RAMIFICATION_THICKNESS_CHANGE
+	Because the size of the twig-ramifications is controlled by the bunches it may be 
+	that the thickness of the twig-ramification must be adjusted here. It's a factor, 
+	so, 1 means no change of the thickness.
+
+TWIG_RAMIFICATION_CURVE_ADJUSTMENT
+	This is for the ramis, the same as for the twigs with TWIG_CURVE_ADJUSTMENT.								
+
+RAMI_CURVE_FREQUENCY_ADJUSTMENT
+	This is for the ramis, the same as for the twigs with TWIG_CURVE_FREQUENCY_ADJUSTMENT. 
+
+TWIG_RAMIFICATION_STRENGTH
+	To save parsingtime decrease this value until the twig-ramification falls in pieces.
+	If the twig-ramification falls in pieces increase this value.
+	(Like for the twigs with TWIG_STRENGTH, for the branches with BRANCH_STRENGTH, 
+	for the trunk with TRUNK_STRENGTH and for the roots with ROOT_STRENGTH.) 
+
+FIRST_BUNCH_AT_TWIG
+	This is the distance from the base of the twig at the branch to the first bunch 
+	at the twig.
+
+BUNCH_AREA_AT_TWIG
+	This is the distance between the first and last bunch at the twig.
+
+___________________________________________________________________________________
+// B U N C H
+	Unlike the trunk, the root, the branch, the twig, the twig-ramification, 
+	the leaf or blossom the bunch is not a real element of the tree but only a 
+	combination of one twig-ramification and a partial quantity of the leaves and 
+	blossoms.
+	(Mathematical bunch-length:
+	BUNCH_MAJOR_RADIUS + BUNCH_MINOR_RADIUS + leaf-length)
+___________________________________________________________________________________
+
+BUNCH_MAJOR_RADIUS
+	This is the distance from the bunch-base at the twig to the innermost leaf in 
+	the bunch.
+
+BUNCH_MINOR_RADIUS
+	This is the distance between the innermost and outermost leaf in the bunch.
+
+HORIZONTAL_BUNCH_FUNNEL
+	The bunch fans out up to this angle (degree) in horizontal direction.
+
+VERTICAL_BUNCH_FUNNEL
+	And the oscillation between this angle in vertical direction.
+
+ROTATION_BUNCH_FUNNEL
+	If you set here an angle (degree) greater than 0 the HORIZONTAL_BUNCH_FUNNEL 
+	and the VERTICAL_BUNCH_FUNNEL will be switched off and the leaves will turned 
+	around the longitudinal bunch-axis after the bunch fans out up to the given angle. 
+	So, for example if a value of 180 is set the leaves in the bunch describe a half-
+	sphere. In this funneltype the leaves are placed in concentrical direction. Unlike 
+	this the HORIZONTAL_ and VERTICAL_BUNCH_FUNNEL lets fan out the leaves by keeping 
+	the direction of each leaf.
+
+	(All three funnels determine, how much the twig-ramification will be spread out)
+
+HORIZONTAL_BUNCH_ANGLE
+	The horizontal fixed angle of the first bunch at the twig to the twig. 
+
+VERTICAL_BUNCH_ANGLE
+	The vertical fixed angle of the first bunch at the twig to the twig.
+	(Remember, the bunch contains the twig-ramification, so, it's the inclination-angle 
+	for the twig-ramification too.)
+
+HORIZONTAL_BUNCH_ANGLE_SCOPE
+	This is the oscillation scope as addition to the HORIZONTAL_BUNCH_ANGLE for 
+	more irregularity among the bunches.
+
+VERTICAL_BUNCH_ANGLE_SCOPE
+	And the additional oscillation scope for the VERTICAL_BUNCH_ANGLE.
+
+BUNCH_TURN_SWITCH
+	To switch on (1) or off (0) the rotation of the bunch around the twig after the 
+	HORIZONTAL_ and/or VERTICAL_BUNCH_ANGLE. Each bunch has its own random 
+	value of rotation around the twig.
+
+BUNCH_TURN_SHIFT
+	Although the bunches will turn around the twig after the BUNCH_TURN_SWITCH is on (1),
+	the BUNCH_TURN_SHIFT determines if the leaves keep their upside up (1) or not (0).
+
+BUNCH_ALTERNATE_SWITCH
+	In addition to the fixed HORIZONTAL_ and VERTICAL_BUNCH_ANGLE you can 
+	switch on (1) or off (0) the reciprocal directions of the bunches (like the 
+	leaves at the palmtree; in this example each bunch has one leaf).
+
+HORIZONTAL_BUNCH_ALIGNMENT
+	If this value is set to 0 each bunch at the twig hold the angle to the twig 
+	you have set with the HORIZONTAL_BUNCH_ANGLE. 
+	If it is set to 1 the bunches decrease their angle to the twig towards the twig-end, 
+	so that the last bunch at the twig is aligned with the twig. You may use other 
+	values. Perhaps you have a HORIZONTAL_BUNCH_ANGLE of 90 (degrees) and set the 
+	HORIZONTAL_BUNCH_ALIGNMENT to 0.5 the last bunch at the twig has an angle of 45° 
+	towards the twig.
+
+VERTICAL_BUNCH_ALIGNMENT
+	The same for the VERTICAL_BUNCH_ANGLE and the alignment towards twig.
+
+BUNCH_TAPER_OFF_AT_TWIG
+	This makes the bunches smaller towards the twig-end if the value is greater than 0.
+	0 = same size for all bunches at the twig.
+	0.5 = the last bunch at the twig has the half size of the first one.
+	1 = the size of the last bunch at the twig goes to 0.
+
+BUNCH_TAPER_OFF_AT_BRANCH
+	The same for the size-reduction of the bunches at the branch towards the branch-end.
+	This has no effect to the twigs and branches, so it's often better to adjust the 
+	taper-off at the branches with BRANCH_TAPER. Than you have the possibility to set 
+	a negative value for the balance against the BRANCH_TAPER.
+
+BUNCH_TAPER_OFF_AT_TREE
+	And, of course, the same for the size-reduction of the bunches towards the top of 
+	the tree.
+	This has no effect to the twigs and branches, so it's often better to adjust the 
+	taper-off at the tree with BRANCH_REDUCTION. Than you have the possibility to set 
+	a negative value for the balance against the BRANCH_REDUCTION.
+
+BUNCH_ARC_AT_TWIG
+	Normally tomtree lets shrink the bunches towards the twig-end in a linear manner.
+	BUNCH_ARC_AT_TWIG is an additional factor of the given size value (BUNCH_MAJOR_RADIUS+
+	BUNCH_MINOR_RADIUS+LEAF_LENGTH) in x,y,z direction.
+	If BUNCH_ARC_AT_TWIG is <0,0,0> there is no change. <2,0.5,1> for example says that 
+	the innermost bunch at the twig starts with the given size, then towards the middle 
+	of the BUNCH_AREA_AT_TWIG the bunch-size increases to the triple length (x), 
+	is 1.5 times higher (y), and has the double size of breadth. 
+	Then, the outermost bunch at the twig has the given size again with its normal 
+	shrinking.
+
+BUNCH_ARC_AT_BRANCH
+	The same for the non-linear size-changing of the bunches along the branch.
+
+BUNCH_DEFORM
+	I'm not sure if this is a real useful point?!
+	It's for an additional distortion of the whole bunch. The values for the 
+	<x,y,z>-factor (the longitudinal bunch-axis is the x-axis).
+	But the leaves, blossoms and twig-ramification will be distorted too. Up to now 
+	I've never used it.
+
+___________________________________________________________________________________
+// L E A F
+___________________________________________________________________________________
+
+#include "TOMLEAF.INC"
+	This is the source for the LEAF_TYPE. In TOMLEAF.INC are some simple leaves 
+	and some variations of a height_field leaf and a height_field blossom. I 
+	preferr the HF-leaves(blossoms), because of much more realistic shape without 
+	increasing parsing- and rendertime too much. If the amount of leaves goes 
+	beyond your RAMsize you better select a non-CSG leaftype.
+	Of course, TOMLEAF.inc contains only a few examples in order to keep the 
+	downloadsize of TOMTREE.zip rather small. 
+	
+LEAF_TYPE
+	The name of the leaf you have specified in your (TOM)LEAF.INC above.
+
+LEAF_LENGTH
+	I have said it, I think it's the best way to think in real-life measure like cm.
+	So a typical LEAF_LENGTH could be 10 (cm). There is a built-in scope of length. 
+
+LEAF_BREADTH
+	The width of the leaf, with a built-in scope.
+
+LEAF_HEIGHT
+	It means the height of the arch the leaves describe. For normal leaves it may be 
+	not too high, but palmleaves for example should be not so straight.
+
+MAX_LEAF_TILT
+	For the swinging irregularity of the leaves at the tree I have built in an 
+	oscillation. MAX_LEAF_TILT means this oscillation of turn around the 
+	longitudinal leaf-axis. 
+
+MAX_LEAF_TURN
+	The same for the oscillation of turn around the axis of leaf-height. 
+
+LEAF_INCLINATION
+	Before you set the oscillation of leaves around the lateral axis in the next 
+	point (MAX_INCLINATION_SCOPE) here you can set a fixed inclination, a turn around the 
+	lateral axis of the leaves or inclination to the longitudinal axis 
+	(perhaps you want all leaves in a bunch are hanging down).
+
+MAX_INCLINATION_SCOPE
+	And, as I said, the oscillation of inclination added to the fixed inclination.
+
+__________________________________________________________________________________
+// B L O S S O M
+___________________________________________________________________________________
+
+BLOSSOM
+	The name of blossom you find in TOMLEAF.INC or your own LEAF.INCs.
+
+BLOSSOM_LENGTH
+	Or height; the length of the blossom along its longitudinal axis.
+
+BLOSSOM_WIDTH
+	This is the value for the lateral extension.
+
+BLOSSOM_INCLINATION
+	Like the LEAF_INCLINATION it's a fixed inclination to the longitudinal 
+	axis.
+
+BLOSSOM_COLOR
+	Set the RGB-values for your blossoms (perhaps there will be a better texturing 
+	in the future).
+
+___________________________________________________________________________________
+// R O O T
+___________________________________________________________________________________
+
+FIRST_ROOT_AT_TRUNK
+	This is the distance from the trunk-base (the ground) to the uppermost root 
+	at the trunk. 
+
+ROOT_LENGTH
+	Unlike the twig, branch, trunk the root mustn't show consideration for any 
+	ramification and therefore you can set directly a length for the root.  
+
+ROOT_THICKNESS_CHANGE
+	The root-thickness depends on the thickness of the trunk, which is determined 
+	with the TRUNK_RADIUS. With ROOT_THICKNESS_CHANGE as a factor you adjust the 
+	root-thickness.
+	So, 1 means that the root has at its base the same thickness as the trunk at 
+	this point. Or, for example, 0.5 = half thickness of the trunk.
+
+ROOT_STRENGTH
+	As for the twigs(-ramis), branches and trunk, decreasing this value saves parsingtime, 
+	increasing is needed if the roots fall in pieces (in the case of very long roots 
+	or/and very wide bend). It's a factor and 1 is a normal value. 
+	0 switches off the roots.
+
+ROOT_BEND
+	And once more again:
+	In connection with the following ROOT_CURVE and ROOT_SNAG and their frequencies 
+	you have the chance of interlocked, irregular forming of your roots. Play with the
+	combinations. 
+	ROOT_BEND gives the width of the outer bend of the root, probably with 
+	about 1 or 2 archs (ROOT_BEND_FREQUENCY). ROOT_BEND has usually a higher 
+	value than ROOT_CURVE which has usually a higher value than ROOT_SNAG. 
+	Then, by the way of contrast, ROOT_BEND_FREQUENCY should be smaller than the 
+	ROOT_CURVE_FREQUENCY,... 
+
+ROOT_BEND_FREQUENCY
+	It's the number of outer arches of the root.
+
+ROOT_CURVE
+	It's the width of the inner bend of the root. 
+
+ROOT_CURVE_FREQUENCY
+	It's the number of inner arches of the root. 
+
+ROOT_SNAG
+	Inside the inner bend, here you set the width for the innermost bend, the snag. 
+
+ROOT_SNAG_FREQUENCY
+	And the number of snags in the root.
+
+ROOT_TURN_SWITCH
+	To switch on (1) or off (0) the random rotation of each root around its own 
+	longitudinal axis. 
+
+ROOT_ANGLE
+	This is the start-angle for the first/highest root at the trunk. 
+	0 means that the first/highest root arises from the trunk in horizontal direction. 
+	Values greater than 0 result in downwards inclination. 
+
+ROOT_ALIGNMENT
+	If it is 0, than all roots have the same angle as it is determined 
+	by the ROOT_ANGLE.
+	If it is 1 for example, than the last/lowest root points vertical downwards.
+
+___________________________________________________________________________________
+// B A R K
+___________________________________________________________________________________
+
+SUNKEN_TRUNK_COLOR
+RAISED_TRUNK_COLOR
+	To simulate the bark, here you have two colors, may be light and dark. 
+	For example, for the bark of a birch (it's more a grain than a bark) it 
+	could be <1,1,1> and <0,0,0>.
+
+FOLIAGE_COLOR_AT_BRANCH_END
+	If this point is switched on (1), the color of the bark (determined through the 
+	previous points) changes smoothly into the FOLIAGECOLOR towards the branch-end.
+	Where the transition happens is determined with the following HORIZONTAL- and 
+	VERTICAL_SCAR_SHRINKING. 
+
+TRUNK_SCAR_WIDTH
+TRUNK_SCAR_HEIGHT
+	Typically the bark has a vertical direction, so the value for TRUNK_SCAR_HEIGHT 
+	is greater than the value for TRUNK_SCAR_WIDTH. But if we look at the grain of 
+	the birch again it shows a horizontal direction with the higher value for the 
+	TRUNK_SCAR_WIDTH.
+
+HORIZONTAL_SCAR_SHRINKING	
+	I have built in an automatically shrinking of the scar outwards to the whole tree. 
+	So the values for TRUNK_SCAR_WIDTH and TRUNK_SCAR_HEIGHT are mainly for the trunk. 
+	Towards the branchends the scar becomes smaller and smaller. 
+	This shrinking area discribes an halfsphere if HORIZONTAL_SCAR_SHRINKING is 1. 
+	This is good for a tree which are nearly spherical itself, but if you want to 
+	create a long, thin tree you may adjust the lateral shrinking by setting a lower 
+	value. 
+	So, for example 0.5 lets happen the lateral shrinking twice as fast as the 
+	shrinking towards the top of the tree.
+
+VERTICAL_SCAR_SHRINKING
+	In addition to the previous point you can stretch the shrinking in vertical 
+	direction.
+	
+SCAR_DEPTH
+	In addition to the last points for the grain of the bark SCAR_DEPTH is a value 
+	for a normal, which simulates a three-dimensional appearance with the same 
+	width, height and turbulence as the grain has.
+
+PALM_TRUNK
+	Look at the palmtree. It has a "real" bark in horizontal direction. 1 produces 
+	a very gnarled horizontal oriented bark (Use also the TRUNK_STRENGTH to influence 
+	the appearance). 0 disables the palm-trunk-bark.
+	The birch for example, has a little PALM_TRUNK-value too which reduces the smooth 
+	appearance. If you want a "real" bark in vertical direction you find the 
+	possibility in the next point. In this case PALM_TRUNK must be set to 0, 
+	otherwise the following BARK_PROFILE is disabled for the trunk.
+
+BARK_PROFILE
+	PALM_TRUNK must be 0 to enable this feature for the trunk.
+	In addition to the TRUNK_COLORs and SCAR_DEPTH the BARK_PROFILE is a "real" bark.
+	Use also the TRUNK_STRENGTH to influence the appearance. If you have a full 
+	BARK_PROFILE-value of 1	it may be necessary to increase the TRUNK_STRENGTH
+	(perhaps up to 5 or more).
+
+BRANCH_BARK_PROFILE_CHANGE
+	It depends on BARK_PROFILE for the trunk and allows to adjust the influence 
+	on the branches. It's a factor and if the value is 1 the branches have the same 
+	BARK_PROFILE as the trunk (in this case I fear you have to increase the 
+	BRANCH_STRENGTH, may be up to 5 or more). 
+	In any case the amount of BARK_PROFILE decreases automatically towards the end 
+	of the branches.
+
+BRANCH_BARK_PROFILE_TAPER_OFF
+	AS I said above, the BARK_PROFILE for the branch decreases automatically towards 
+	its end. To change where this transition should happen you may increase or 
+	decrease this value. Default is 1.
+
+ROOT_BARK_PROFILE_CHANGE
+	It depends on BARK_PROFILE for the trunk and allows to adjust the influence 
+	on the roots. It's a factor and if the value is 1 the roots have the same 
+	BARK_PROFILE as the trunk. (I think you have to increase the ROOT_STRENGTH too). 
+
+__________________________________________________________________________________
+// F O L I A G E C O L O R
+___________________________________________________________________________________
+
+BOTTOM_COLOR_1
+BOTTOM_COLOR_2
+	Choose two RGB-values for the play of colors in the lower region of the 
+	foliage.
+
+TOP_COLOR_1
+TOP_COLOR_2
+	Choose two RGB-values for the play of colors in the upper region of the 
+	foliage.
+
+COLOR_TURB
+	Set the turbulence for the play of foliage-colors in lower and upper regions. 
+
+TRANSITION_BOTTOM_TOP
+	This value determines in which height the lower colors and thus the transition 
+	to the upper colors take place. The TOP_COLORs take place at the top of the 
+	tree anyway. If the center of the BOTTOM_COLORs should be at the bottom/origin 
+	(the ground) of the tree the TRANSITION_BOTTOM_TOP-value should be 0. If the 
+	center of the BOTTOM_COLORs should be in the middle of the tree than set 0.5, 
+	and so on...
+
+TRANSITION_TURB
+	To avoid a straight transition of BOTTOM_- and TOP_COLORs you may increase 
+	the TRANSITION_TURB. It's a turbulence as you know it. 
+
+FOLIAGE_GLOSS
+	It's a phong-value to get less or more glossy leaves. 
+
+
+
+_________________________________________________________________________________________ 
+
+I hope my English is not too bad and you will enjoy Tomtree!
+Good luck!

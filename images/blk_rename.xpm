@@ -1,0 +1,30 @@
+/* XPM */
+static char * blk_rename_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 8 1",
+/* colors */
+" 	c magenta",
+".	c #FFFF55552222",
+"X	c #ffff00",
+"o	c #555657",
+"O	c magenta4",
+"+	c red",
+"@	c white",
+"#	c black",
+/* pixels */
+"                ",
+"  ..            ",
+" ....           ",
+"....Xo OOOOOOO  ",
+"...XXXoOOOOOOO++",
+" .XXXXXoO@@@OO++",
+"  oXXXXXo@@@OO  ",
+"   oXXXXXo@@OO++",
+"    oXXXXo@@OO++",
+"     oXX##@@OO  ",
+"     +oo##@@OO++",
+"     ++OO@@@OO++",
+"       OO@@@OO  ",
+"     ++OO@@@OO++",
+"     ++OOOOOOO++",
+"       OOOOOOO  "};

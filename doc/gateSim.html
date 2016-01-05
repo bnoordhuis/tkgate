@@ -1,0 +1,1088 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (Simulation)</TITLE>
+   <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<h2>5. Using the Simulator</h2>  
+
+The TkGate simulator, Verga (VERilog simulator for GAte), is a
+discrete time simulator based on Verilog.  All modules, including
+those designed graphically, are converted to Verilog for simulation.
+Verga is a discrete event simulator.  Time advances in discrete time
+units called "epochs".  When simulating, time remains at the current
+time step (or epoch) until all work scheduled for the epoch as been
+completed.  The simulator will then advance the current simulation to
+the next epoch that has work scheduled for it.
+
+
+<a name="start"></a>
+<h3>5.1 Starting the Simulator</h3>
+
+<div class=rfig>
+<a name=hdleditor>
+<IMG SRC="fig/simulatetab.gif">
+<br>
+<b>Figure 5.1: Simulator Mode Tab</b>
+</div>
+To start the simulator, press the "Simulate" tab at the top of the
+main window.  If you have not enabled "auto-start" in the circuit
+properties, the simulator will compile your design and wait in paused
+mode.  If you have enabled "auto-start", the simulation will begin
+immediately.
+<p style="clear: right;">
+
+<div class=rfig>
+<a name=simmodhier>
+<IMG SRC="fig/simmodhier.gif">
+<br>
+<b>Figure 5.2: Simulator Mode Module Hierarchy</b>
+</div>
+
+The simulation will be performed with the designated root module at
+the top-level.  The simulator internally expands any module instances
+in your circuit.  While the simulator is active, the Module Hierarchy
+View <img src=fig/modtree.gif> changes to show the hierarchy of module
+instances as shown in <a href="#simmodhier">Figure 5.2</a>.  In this
+mode, the display shows each instance of each module, rather than
+simply one entry per module.  The module name for the instance are
+shown in angle brackets after the instance name.  For example, the
+instance "RF" under "eunit" is an instance of a "REG16" module.  That
+module contains an instance "RF0" of a "ZREG" module, and three
+instances "RF1", "RF2" and "RF3" of a "REG4" module.  Double clicking
+on an instance in this hierarchy view will move the simulator to that
+module, and ensure that any probes or signals viewed are for the
+instance you selected.
+<p>
+While the simulator is active you must navigate using either the
+Module Hierarchy <img src=fig/modtree.gif>, or by right clicking on a
+module and using "<img src="fig/blk_open.gif"> Open" and "<img
+src="fig/blk_close.gif"> Close".  You can not use the Module List <img
+src=fig/modlist.gif> view to navigate since TkGate can not tell which
+instance of a module to open.
+
+<br style="clear: right;">
+
+<h4>5.1.1 Simulator Console</h4>
+
+<div class=rfig>
+<a href="fig/simcon_msg.gif"><IMG SRC="fig/small-simcon_msg.gif"><br>
+(Click to Enlarge)</a>
+<br><br>
+<b>Figure <![figure:hdleditor]>5.2: Simulator Console</b>
+</div>
+
+At the bottom of the TkGate main window, is a pull up tab for the
+simulator console.  When you start the simulator, the console will
+open automatically, but you can view it in edit mode as well by
+manually pulling up the tab.
+<p>
+The simulator console has four tabs with different pages of information.
+These four pages are:
+<p style="clear: right;">
+<table class=display style="padding-right: 50;">
+<tr><th width=60 align=left>Page</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td><img src=fig/log.gif class=tool></td><td>
+<b>Message Page</b> - This page displays messages from the
+console.  Any output from <tt>$display</tt> or other system tasks
+generating output will be displayed here.</td></tr> 
+
+<tr><td><img src=fig/sim_break.gif class=tool></td><td>
+<b>Breakpoint Page</b> - Displays breakpoints that have been set for
+the simulation and the status of those breakpoints.</td></tr> 
+
+<tr><td><img src=fig/sim_script.gif class=tool></td><td>
+<b>Script Page</b> - Shows the loaded simulation scripts and their status.</td></tr> 
+
+<tr><td><img src=fig/simoptions.gif class=tool></td><td>
+<b>Simulation Control Page</b> - Allows you to set options controlling
+the simulation such as the number of epochs to advance at a time when
+stepping through a simulation.  </td></tr>
+</table>
+
+<br style="clear: right;">
+
+<h4>5.1.2 Simulator Control</h4>
+
+
+A set of five buttons controls the advance of time in the simulator.
+These buttons are:
+<p>
+
+
+<table class=display style="padding-right: 50;" >
+<tr><th align=left width=60>Button</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td><img src="fig/sim_go.gif" class=tool></td><td>
+
+<b>Run</b> - Enters continuous simulation mode.  The simulation will
+continue as long as there are events in the event queue.  If there are
+any clock gates in your circuit, this will mean the simulation will
+continue indefinitely.  If the circuit is combinational, the
+simulation will continue until the circuit reaches quiescence.</td></tr>
+
+
+<tr><td><img src="fig/sim_pause.gif" class=tool></td><td>
+<b>Pause</b> - Causes a continuously running simulation to stop.</td></tr>
+
+<tr><td><img src="fig/sim_step.gif" class=tool></td><td>
+<b>Step</b> - Causes the simulation to advance a fixed number of epochs.  The number of
+epochs to advance can be set on the simulation options menu.  You can also
+invoke this command with the space-bar.</td></tr>
+
+
+<tr><td><img src="fig/sim_clock.gif" class=tool></td><td>
+<b>Clock Step</b> - Causes the simulation to advance to the rising edge of a clock.
+You can set the number of clock cycles to simulate and the number of
+epochs past the designated cycle to step (to allow time for registers
+to change value).  The default is to trigger on any clock, but you can
+designate a specific clock in the simulator options menu.
+You can also invoke this command with the tab key.</td></tr>
+
+<tr><td><img src="fig/sim_stop.gif" class=tool></td><td>
+<b>Stop</b> - Causes the simulation to be terminated and all probes to be deleted.</td></tr>
+
+</table>
+
+<div class=rfig>
+<a name=simcont>
+<a href="fig/simcon_opts.gif"><IMG SRC="fig/small-simcon_opts.gif"><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 5.3: Simulator Console Control Page</b>
+</div>
+
+You can use the control page of the simulator console shown in <a
+href="#simcont">Figure 5.3</a> to control the effects of the step <img
+src="fig/sim_step.gif" class=tool> and clock step <img
+src="fig/sim_clock.gif" class=tool> buttons.  Enter the number of
+epochs to advance for each press of <img src="fig/sim_step.gif"
+class=tool> (or space-bar) into the "Epoch Step Size" box.  The clock
+step button <img src="fig/sim_clock.gif" class=tool> (or tab) will
+advance by the number of clock steps indicated in "Clock Cycle Step
+Size", plus an additional number of epochs entered in the "Clock
+Overstep" entry.
+
+
+
+<a name="output"></a>
+<a name="verilog"></a>
+<h3 style="clear: right; ">5.2 Observing the Output</h3>
+
+Except when otherwise noted, Verilog syntax is used to specify and
+display values.  A Verilog syntax number contains a prefix to specify
+the bit width, a quote character, a radix character and the digits of
+the number.  The radix characters using in TkGate are "b" for binary,
+"h" for hexadecimal, "o" for octal and "d" for decimal.  For example
+"8'h3e" is the 8-bit hexadecimal number "3e".
+
+<h4>5.2.1 Current Value Display</h4>
+
+<div class=rfig>
+<a name=valueDisplay>
+<IMG SRC="fig/showval.gif">
+<br>
+<b>Figure 5.3: Value Display</b>
+</div>
+
+To display the current value of a signal in a circuit, click and hold
+the mouse button on a wire.  This will display the current value
+driven on the wire in Verilog syntax as shown in <a
+href="#valueDisplay">Figure 5.3</a>.  The value will disappear when
+you release the mouse button.  This feature can be used both when the
+simulator is paused and when it is in continuous simulation mode.
+When the simulator is in continuous simulation mode, the value
+displayed will be the value at the time the mouse button was first
+pressed.
+<p>
+There is a slight delay between pressing the mouse button and
+displaying the value.  This is because double clicks on a wire are
+used to set probes, so the delay must be long enough to determine that
+the mouse press is not a double click.  By default, this delay is
+333ms (1/3 of a second), but the delay may be changed through the <a
+href="gateOptions.html#simulate">Simulate Options</a> dialog box.
+
+<br style="clear: right;">
+
+<h4>5.2.2 Scope View</h4>
+
+<div class=rfig>
+<a name=scopeWin>
+<a href="fig/scope.gif"><IMG SRC="fig/small-scope.gif"><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 5.4: Scope Window</b>
+</div>
+
+To set a permanent probe on a signal, double click on a wire.  This
+will add or remove a probe.  When a probe is set on a wire, its value
+will be continuously displayed in the scope window.  The values of
+multi-bit signals will be displayed as hex numbers.  The scope window
+(<a href="#scopeWin">Figure 5.4</a>) is viewable any time you have at
+least one signal with a probe on it.  When there are no current
+probes, the scope window is hidden.
+<p>
+You can slide the range of time displayed in the scope window by using
+the scroll bar for coarse changes, or by clicking and dragging in the
+trace part of the window for fine grain control.  To zoom in, you can
+press the left mouse button while holding the shift key, press the '>'
+key, or press the <img src=fig/zoom_in.gif class=tool> button on the
+toolbar.  To zoom out, you can press the right mouse button while
+holding the shift key, press the '<' key or press the <img
+src=fig/zoom_out.gif class=tool> button on the toolbar.
+<p style="clear: right;">
+
+<div class=rfig>
+<a name=traceValues>
+<table border width=400>
+<TH>Scope</TH><TH >Description</TH>
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logic0.gif"></TD>
+<TD>&nbsp;<b>0</b> - Logic 0 or false (1 bit signals only)</TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logic1.gif"></TD>
+<TD>&nbsp;<b>1</b> - Logic 1 or true (1 bit signals only)</TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logicx.gif"></TD>
+<TD>&nbsp;<b>x</b> - Unknown value</TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logicz.gif"></TD>
+<TD>&nbsp;<b>z</b> - Floating or high impedance</TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logicL.gif"></TD>
+<TD>&nbsp;<b>L</b> - Low (the signal is either floating or zero)</TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logicH.gif"></TD>
+<TD>&nbsp;<b>H</b> - High (the signal is either floating or one)</TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER VALIGN=CENTER BGCOLOR="#FFFFFF"><img src="fig/logicdata.gif"></TD>
+<TD>&nbsp;<b>Data</b> - Data value on a multi-bit wire.</TD>
+</TR>
+</table>
+<br>
+<b>Figure 5.5: Logic Trace Values</b>
+</div>
+
+<p>
+The time-line on the scope window is displayed as a base value shown in
+the lower left corner, and an offset value shown along the bottom.  In
+the example shown in <a href="#scopeWin">Figure 5.4</a>, the base
+value is 50016916ns (i.e., 0.05 simulated seconds).  Each tick mark on
+the x-axis represents an additional 5000ns past the base time value.
+
+<p>
+
+The scope includes a cross hair that follows the mouse whenever it is
+in the scope window to help you correlate events across different
+traces.  You can enable or disable the cross hairs with the <img
+src=fig/show_xhair.gif class=tool> button on the toolbar.  The scope
+window toolbar also includes some of the same simulation control and
+other simulation-related buttons that are on the main TkGate window.
+<p>
+
+<a href="#traceValues">Figure 5.5</a> shows how the various logic
+values are displayed in the scope windows.  On multi-bit wires, the
+value of the wire is displayed in hexadecimal, unless the scale is
+such that there is no room to display the value between when it starts
+and the next logic transition.  In this case, it will first compress
+the value to a "#", and if there is no room to display that either, no
+value or symbol will be displayed.  The colors used in the scope
+traces can be configured through the <a
+href="gateOptions.html#color">Color Options</a> dialog box.
+
+<p style="clear: right;">
+
+
+<h4>5.2.3 Printing Scope Traces</h4>
+
+<div class=rfig>
+<IMG SRC="fig/scopeSelection.gif"><br>
+<b>Figure 5.6: Print Region Selection</b>
+</div>
+
+
+To print a scope trace, first use the right mouse button to select a
+region to be printed.  Click and drag with the right mouse to select
+the region.  The region will be highlighted as shown in Figure 5.6.
+Once you have an active region, you can press the right mouse button
+again while holding the Shift key to expand or shrink the selected
+region.  If you print without making a selection, then the area of the
+trace visible in the scope window will be taken as the selection.
+<p>
+After you chosen a region, push the <img src=fig/file_print.gif
+class=tool> button on the toolbar of the scope window.  This will
+bring up the Scope Print dialog box having an "Output" and a "Content"
+page.  The "Output" page of this dialog box is the same as the
+"Output" page of the <a href="gateEdit.html#print">dialog box used to
+print circuits</a>.
+<p style="clear: right;">
+If you choose the "Save as Encapsulated Postscript" option, the
+"Content" page will be disabled, and the selected region of the trace
+will be written as a single Encapsulated Postscript figure suitable
+for inclusion in a document (e.g., by Latex).
+<p>
+
+<div class=rfig>
+<a href="fig/simprint.gif"><IMG SRC="fig/small-simprint.gif"><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 5.7: Scope Print Dialog Box</b>
+</div>
+
+The "Content" page (Figure 5.7) is divided into a "Range Selection"
+and a "Scale Selection" portion.  The Range Selection portion has a
+selector to modify the start time of the trace plot, and the range of
+the selected region in the trace.  A diagram showing the total amount
+of trace data available (in green), and the region selected for
+printing (in gray) is shown to the right of the selectors.
+<p>
+The "Scale Selection" allows you to set the amount of time to plot per
+line when generating output.  You must be cautious to set this
+carefully, as too low a setting can result in trace output with a huge
+number of pages.  To help you in setting this value, an estimate of
+the number of pages needed is displayed next to this selector.  The
+default value for the "Line Length" is one full scale of the scope
+window at the current zoom setting.
+
+<p style="clear: right;">
+
+
+<a name="input"></a>
+<h3>5.3 Controlling the Input</h3>
+
+There are two types of built-in circuit elements that can be used to
+control your circuit: the single-bit switch, the multi-bit dip switch.
+You can also provide input through VPDs (Virtual Peripheral Devices).
+An important VPD that is included with TkGate is the TTY which will
+also be described in this section.
+
+<h4>5.3.1 Switches and Dip Switches</h4>
+
+<div class=rfig>
+<center>
+<IMG SRC="fig/dipval.gif"><br><br>
+<b>Figure 5.8: Dip Value<br>Dialog Box</b>
+<br><br>
+
+<a name=tty>
+<img src=fig/tty.gif><br><br>
+<b>Figure 5.9<br>TTY Device</b><br><br>
+</center>
+</div>
+
+Switches can be manipulated by simply clicking on them to toggle their
+values.  To change a dip switch value, click on the dip switch to open
+the dip value dialog box for setting the value of that dip switch.
+Then, enter a value in the entry area, and press the "Apply" button to
+set the switch.  The value should be a hexadecimal number.  The dip
+value dialog box will remain open until you hit "Close", and you can
+open as many at once as you like.
+
+<a name="ttys"></a>
+<h4>5.3.2 TTYs </h4>
+
+
+In versions of TkGate before version 2.0, the TTY device was built
+into TkGate as a primitive device.  As of version 2.0, the TTY is now
+implemented as a VPD (Virtual Peripheral Device).  In order to use the
+TTY device, you must open the <a href="gateEdit.html#loadlib">Library
+Manager</a> and load the "tty" library.  You can then create a module
+of type "TTY" in your design in the same way that you would create a
+module instance for any other module.  <a href="#tty">Figure 5.9</a>
+shows an example of a TTY device.  Note that it is displayed in the
+magenta color of a module, rather than the blue color of built-in
+devices.  See the section on the <a href="gateLibrary.html#tty"> TTY Library
+Component</a> for information on how to use this device.
+
+<p style="clear: right;">
+<a name="breakpoint">
+<h3>5.4 Setting Breakpoints</h3>
+
+<div class=rfig>
+<a name=simconbreak>
+<a href="fig/simcon_break.gif"><IMG SRC="fig/small-simcon_break.gif"><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 5.10: Simulator Console Breakpoint Page</b>
+</div>
+
+Breakpoints can be used to set conditions which will cause a
+continuously running simulation to pause.  To display the breakpoints,
+press the <img src=fig/sim_break.gif class=tool> tab on the simulator
+console as shown in <a href="#simconbreak">Figure 5.10</a>.  To add a
+new breakpoint, press the "Add..." button or double click on the next
+empty slot under "Condition".  You can enter any valid Verilog
+expression as the breakpoint condition.  You can edit the expression
+of a breakpoint by double clicking on the expression.
+<p>
+Breakpoints will be activated for any non-zero value of their
+condition expression.  When one of the registered breakpoints is
+activated, the simulation will stop, and a <img src=fig/bp_stop.gif>
+symbol will appear in the "S" column of the breakpoint.  Breakpoints
+are only triggered on transitions.  If you press the <img
+src="fig/sim_go.gif" class=tool> button to resume the simulation, the
+simulation will continue until the breakpoint expression makes a new
+transition to a non-zero value.
+<p>
+The "ID" column of the breakpoint list indicates an identifying number
+for the breakpoint.  The column labeled "S" indicates the state of the
+breakpoint.  The state is indicated by one of the following symbols:
+<p>
+<table class=display>
+<tr><th align=left width=50>State</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><img src=fig/bp_bad.gif></td><td><b>Error</b> - There is an error such as a syntax error or undefined variable error in the breakpoint expression.</td></tr>
+<tr><td><img src=fig/bp_go.gif></td><td><b>Go</b> - The breakpoint is active, but has not been tripped.</td></tr>
+<tr><td><img src=fig/bp_stop.gif></td><td><b>Stop</b> - The breakpoint has tripped, and simulation is stopped at this breakpoint.</td></tr>
+<tr><td><img src=fig/bp_disabled.gif></td><td><b>Disabled</b> - The breakpoint has been temporarily disabled.</td></tr>
+<tr><td><img src=fig/bp_standby.gif></td><td><b>Stand By</b> - The breakpoint is ready and will be active when the simulator starts.</td></tr>
+</table>
+<p>
+The "Value" column shows the current value of the breakpoint
+expression.  If the expression is binary, the value will be a 1 or 0,
+but if it is a multi-bit expression, then it could be an arbitrary value.
+<p>
+There are two buttons to "Enable" and "Disable" a breakpoint.  While a
+breakpoint is disabled, the breakpoint will remain in the breakpoint
+list, but its value will be ignored until you re-enable it.
+
+<br clear=right>
+
+<a name="memory">
+<h3>5.5 Initializing Memories</h3>
+
+A circuit can contain one or more memories (ROM and RAM gates).  You
+can initialize memories from a file, or dump the contents of a memory
+to a file.  The following toolbar buttons can be used to load or dump
+memories.
+<p>
+
+<table class=display>
+<tr><th width=75>Button</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<TR>
+<TD align=center><img src="fig/sim_load.gif" class=tool></TD>
+<TD><b>Load Memory</b> - Load memories from the selected file.  If a memory gate is selected, that memory
+will be the default memory to load.  If the memory file contains one or more "memory" keywords,
+the specified memory(ies) will be loaded with the contents of the file.  When loading a file,
+the current directory, the directory of the current circuit file, and the user's home directory
+will be searched.</TD>
+</TR>
+
+<TR>
+<TD align=center><img src="fig/sim_dump.gif" class=tool></TD>
+<TD><b>Dump Memory</b> - Dumps the contents of the selected memory to a file.</TD>
+</TR>
+</table>
+
+<br>
+
+Memory files have the extension ".mem" be default.  The default format
+for memory files is slightly different between Version 2.0 memory
+files, and pre-2.0 memory files, but TkGate 2.0 can read files from
+either format.
+<p>
+A memory file is composed lines that can contain commands, or memory
+data.  Blank lines and lines beginning with '#' are ignored.  The
+supported commands are:
+<p>
+<table class=display>
+<tr><th align=left width=130>Command</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td><tt>@memory</tt> <i>name</i></td><td>Memory data after this
+line will be loaded into the memory given by <i>name</i>.  <i>Name</i>
+should be the fully qualified Verilog name of the memory comprised of
+a "." separated list of the modules down to the module in which the
+memory is located.  The "<tt>@</tt>" for this command only can be
+omitted, since that is the pre-2.0 style for this command.</td></tr>
+
+<tr><td><tt>@radix</tt> <i>radix</i></td><td>Specify the radix to use
+for memory data after this line.  The radix can be 2, 8, 10 or 16 with
+16 being the default.</td></tr>
+
+<tr><td><tt>@</tt><i>addr</i></td><td>Specifies the address at which
+to begin loading data.  The address should be a hexadecimal number.</td></tr>
+
+</table>
+<p>
+
+Lines that do not contain one of the above commands are assumed to be
+data in the current radix.  For files loaded through the interface,
+the radix is assumed to be hexadecimal, but can be changed with the
+<tt>@radix</tt> command.  For files loaded through the Verilog
+<tt>$readmemh</tt> system task, the assumed radix is hexadecimal, and
+for files loaded through the <tt>$readmemb</tt> system task the
+assumed radix is binary.
+<p>
+Here is an example of a memory file:
+<pre>
+@100
+e1 f0 0 0 e1 e0 0 0
+81 0 0 0 12 1 bd 0
+
+@200
+e 1 e1 d0 dc 7 85 0
+</pre>
+This file will load 16 bytes starting at address 100, then an
+additional 8 bytes at address 200 (assuming the memory is declared
+as an 8-bit wide memory).
+<p>
+Old style memory files use a slash after an address to indicate where
+to load data.  For example:
+<pre>
+130/ 2 0 ed 0 60 6 62 6
+138/ ed 0 5e 6 1 0 85 0
+140/ 81 0 0 0 26 4 69 f0
+</pre>
+Here the 130, 138 and 140 are the address in hexadecimal.  You can use
+either syntax in your memory files.
+<p>
+In the above examples, there was no explicit mention of the target
+memory.  For that reason, those file can only be loaded when you
+explicitly indicate the target memory either by clicking on before
+pressing <img src="fig/sim_load.gif" class=tool>, or by specifying the
+memory as an argument in the <tt>$readmemh</tt> or <tt>$readmemb</tt>
+system task.
+<p>
+Using the <tt>@memory</tt> command, you can specify the memory (or
+memories) to be loaded within the file itself.  The memory keyword
+requires a single argument specifying the name of a memory.  For
+example:
+
+<pre>
+@memory memory.m1
+@100
+e1 f0 0 0 e1 e0 0 0
+81 0 0 0 12 1 bd 0
+
+@memory memory.m2
+@100
+62 65 61 6b 20 69 73 0a
+</pre>
+This memory file will load 16 bytes of data into the memory "m1" in
+the instance named "memory" which is a sub-module of the root module.
+It will also load 8 bytes into the memory "m2" in the same module as
+"m1".
+<p>
+You can also use the "<tt>x</tt>" and "<tt>z</tt>" characters in any
+digit of data values specified in a memory file to indicate unknown or
+floating values.  For example:
+<pre>
+@100
+10 x 8x 3e z9 3a zx 9x
+</pre>
+will load a memory that includes unknown and floating values.
+<p>
+For RAM memories, the contents of the loaded memory are frozen until
+first time the write line transitions to a stable value (logic 0 or
+1).  This prevents the data loaded from being destroyed due to unknown
+values on the write and address lines until the circuit has time to
+initialize these signals.
+
+<h4>5.5.1 Using GMAC to Create Memory Files</h4>
+<p>
+In many cases, memory files are initialized to act as microstores or
+to contain machine instructions for a user designed processor.  In
+these cases, it is very tedious and error prone to explicitly specify
+the contents of the memory.  For this reason, TkGate includes a tool,
+gmac, for compiling microcode and macrocode to TkGate-compatible memory
+files.  Complete documentation on <a href="gateGmac.html">Gmac</a> is
+given in a later section of this document.
+
+<a name="script">
+<h3>5.6 Simulation Scripts</h3>
+
+<div class=rfig>
+<a href="fig/simcon_script.gif"><IMG SRC="fig/small-simcon_script.gif"><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 5.11: Simulator Console Script Manager Page</b>
+</div>
+
+Simulation scripts are useful for setting up a simulation before
+starting, or for running a simulation in batch mode.  You can perform
+most of the operations you can do manually through the interface
+including setting and remove probes, changing switch values, loading
+memories, setting breakpoints, and stepping the simulator.
+<p>
+Simulator script files use Verilog syntax.  This section will give
+some simple examples of how to write scripts.  More detailed
+information on Verilog format can be found in the chapter on <a
+href=gateHDL.html>Verilog Modules</a>.
+
+<h4>5.6.1 Loading Simulator Scripts</h4>
+
+To load a simulator script, first press the <IMG
+SRC="fig/sim_script.gif" class=tool> tab on the simulator console.
+You can then press the "Add..." button or double click on the next
+empty slot.  The default extension for simulation scripts is ".vs".
+When loading a file, the current directory, the directory of the
+current circuit file, and the user's home directory will be searched.
+<p>
+You can also arrange for simulation scripts to be automatically
+executed when you start the simulator by adding one or more simulation
+scripts in the <a href="gateEdit.html#circopt">circuit options</a>
+dialog box.
+<p>
+The "S" column next to each simulator script indicates the state of
+the script.  The state is one of the following:
+<p>
+<table class=display>
+<tr><th align=left width=50>State</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><img src=fig/bp_bad.gif></td><td><b>Error</b> - There is an error such as a syntax error or undefined variable error in the script.</td></tr>
+<tr><td><img src=fig/bp_go.gif></td><td><b>Go</b> - The script is active and running.</td></tr>
+<tr><td><img src=fig/ss_done.gif></td><td><b>Stop</b> - The script has completed executing.</td></tr>
+<tr><td><img src=fig/bp_disabled.gif></td><td><b>Disabled</b> - Execution of the script is disabled.</td></tr>
+<tr><td><img src=fig/bp_standby.gif></td><td><b>Stand By</b> - The script is ready and will execute when the simulator is started.</td></tr>
+</table>
+
+
+<h4 style="clear: right;">5.6.2 Simulator Script Format</h4>
+
+Simulator scripts are fragments of Verilog code assumed to be defined
+in the context of the body of the top-level module.  You can create
+one or more parallel threads as well as declare local variables for
+use within the script.
+
+<p>
+Most scripts are defined as a Verilog <tt>initial</tt> block.  For
+example:
+<pre>
+  initial
+    begin
+      $readmemh("test.mem");    // Load memory file "test.mem".
+      $tkg$probe(a, b, c);      // Place probes on the signals a, b and c.
+      repeat (5)                // Advance the simulator 5 steps of the
+        @ (posedge clock);      //    clock named 'clock'.
+      # 10;                     // Advance the simulator 10 epochs.
+      $stop;                    // Stop the simulator and put it in "pause" mode.
+    end
+</pre>
+
+If you define multiple <tt>initial</tt> blocks in your script file,
+each block will execute in parallel.  You can also use <tt>always</tt>
+blocks which execute their bodies in an infinite loop.
+<p>
+You can also define local variables in a simulator script.  For example:
+<pre>
+  integer i;
+
+  initial
+    begin
+      for (i = 0;i < 10;i = i + 1)        // Loop ten times
+        begin
+          @ (posedge clock);              // Advance to rising edge of "clock".
+          $display("%t: x=%h",$time,x);   // Print time and value of x signal.
+        end
+      $stop;                              // Pause the simulator.
+    end
+</pre>
+This example will step for 10 clock periods and print the value of the
+<tt>x</tt> signal in the simulator console at each of those clock periods.
+<p>
+
+<h4>5.6.3 Setting Signal Values</h4>
+
+
+<div class=rfig>
+<a name=adder>
+<IMG SRC="fig/adder_circuit2.gif">
+<br>
+<b>Figure 5.12: Full Adder Circuit</b>
+</div>
+
+You can set the value of any register variables in a module using an
+assignment statement with the "<tt>=</tt>" operator.  For netlist
+modules, any nets that are attached to a switch or a dip element are
+considered register variables.  However, unlike in TkGate 1.8 script
+files, you must use the name of the wire, and not the name of the
+switch itself.  For example, the following script will set probes on
+the inputs and output of the circuit shown in Figure 5.12, then step
+through each combination of inputs with a delay of 50 epochs after we
+set the input values:
+<p>
+<pre>
+  initial
+    begin
+      $tkg$probe(a,b,ci,s,co);
+      ci = 0; a = 0; b = 0;
+      #50 ci = 0; a = 0; b = 0;
+      #50 ci = 0; a = 0; b = 1;
+      #50 ci = 0; a = 1; b = 0;
+      #50 ci = 0; a = 1; b = 1;
+      #50 ci = 1; a = 0; b = 0;
+      #50 ci = 1; a = 0; b = 1;
+      #50 ci = 1; a = 1; b = 0;
+      #50 ci = 1; a = 1; b = 1;
+    end
+</pre>
+Note that the left hand side of each assignment statement is a wire
+name.  For example, <tt>a</tt> is used instead of the name of the
+switch (<tt>g25</tt>) to which it is attached.  The right-hand side of
+assignment statements can be arbitrary expressions referencing
+variables declared in the simulation script and any nets in the
+design.
+<p>
+You can use fully qualified path names to set the value of switches/nets
+at levels other than the top level.  For example:
+<pre>
+    top.memctl.ttyreg = 8'h
+</pre>
+will set the value of <tt>ttyreg</tt> in the module instance
+<tt>memctl</tt> which is instantiated in the top-level module.
+
+<h4 style="clear: right;">5.6.4 Commonly Used System Tasks</h4>
+
+Scripts can make calls to system tasks to perform various useful
+functions.  Systems tasks begin with a "<tt>$</tt>" and are used
+somewhat like function calls.  A complete description of system tasks
+are given in the <a href=systemTasks.html>System Tasks Appendix</a>.
+Some of the system tasks that are frequently used in scripts are:
+
+
+<table class=display>
+<tr><th width=400 align=left>Task</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td><tt>$display(</tt><i>arg1</i><tt>, </tt><i>arg2</i><tt>, </tt>...<tt>)</tt></td><td>
+Display messages to the simulator console.  Similar to the C <tt>printf</tt> in functionality.</td></tr>
+
+<tr><td><tt>$readmem(</tt><i>filename</i><i> [, memory [, start [, stop]]]</i><tt>)</tt></td><td>
+Loads the contents of a memory file to one or more memories.
+</td></tr>
+
+<tr><td><tt>$tkg$probe(</tt><i>sig1</i><tt>, </tt><i>sig2</i><tt>, </tt>...<tt>)</tt></td><td>
+Places probes on the specified signals.
+</td></tr>
+
+<tr><td><tt>$tkg$unprobe(</tt><i>sig1</i><tt>, </tt><i>sig2</i><tt>, </tt>...<tt>)</tt></td><td>
+Removes probes from the specified signals.
+</td></tr>
+
+<tr><td><tt>$stop</tt></td><td>
+Stop the simulation and put it into "paused" mode.
+</td></tr>
+
+<tr><td><tt>$finish</tt></td><td>
+Terminate the simulation and return to "edit" mode.
+</td></tr>
+
+<tr><td><tt>$random</tt><i>[(seed)]</i></td><td>
+Return a random number, or set the seed if an argument is given.
+</td></tr>
+
+<tr><td><tt>$time</tt></td><td>
+Return the simulation time in epochs as a 64-bit integer.
+</td></tr>
+
+<tr><td><tt>$tkg$systime</tt></td><td>
+Returns the actual system time in milliseconds since January 1, 1970 as a 64-bit integer.
+</td></tr>
+
+
+</table>
+<p>
+
+<h4>5.6.5 Using Scripts for Test Vector Generation</h4>
+
+Another method for using scripts is to generate random test vectors.
+For example, suppose we wish to test a 32-bit adder that we have
+designed.  The following script will apply 10,000 random vectors to
+the design and check them against the answer calculated in the script.
+When a mismatch between the circuit output and the expected output is
+found, an error message is displayed, and the simulation is paused so
+the user can view internal signal values.
+
+<pre>
+  reg tempCout;                                    // Declare 1-bit variable for carry out
+  reg [31:0] tempS;                                // Declare 32-bit variable for sum
+  integer i;                                       // Declare index variable
+
+  initial
+    begin
+      $random($tkg$systime);                       // Use system clock to set random seed
+      for (i = 0;i < 10000; i = i + 1)             // Loop 10,000 times
+        begin
+          a = $random;                             // Pick random value for A
+          b = $random;                             // Pick random value for B
+          cin = $random;                           // Pick random value for carry-in
+
+          # 50;                                    // Step 50 epochs
+
+          tempCout = (33'h0 + a + b + cin) >> 32;  // Get correct carry out value
+          tempS = a + b + cin;                     // Get correct sum value
+
+          //
+          // If output from the design is not as expected, print an error message
+          // and stop the simulator. 
+          //
+          if ({cout,s} != {tempCout,tempS})
+            begin
+              $display("error: got 31'h%h + 31'h%h + 31'h%h = {1'h%h, 31'h%h}",a,b,cin,cout,s);
+              $display(" -- should have gotten {1'h%h, 31'h%h}", tempCout, tempS);
+              $stop;
+            end
+        end
+
+      $display("test completed.");
+      $stop;
+    end
+</pre>
+
+<a name="error">
+<h3>5.7 Using the Error Reporter</h3>
+
+
+<div class=rfig>
+<a name=errbox>
+<a href="fig/simerr.gif"><IMG SRC="fig/small-simerr.gif"><br>
+(Click to Enlarge)</a>
+<br><br>
+<b>Figure <![figure:hdleditor]>5.13: Simulator Error List</b>
+</div>
+
+If there are any errors in the circuit when you start the simulator,
+an error list box will appear as shown in <a href="#errbox">Figure
+5.13</a>.  Click on an error message to gave TkGate show you the
+location of the error.  If the error is in a netlist module, TkGate
+will navigate to the module and place cross-hairs over the as shown in
+<a href="#xhair">Figure 5.14</a>.  If the error is in an HDL module,
+then the line with the error will be highlighted.
+
+<div class=lfig>
+<a name=xhair>
+<img src=fig/simerr_circ.gif><br><br>
+<b>Figure <![figure:hdleditor]>5.14: Error Location Cross-hairs</b>
+</div>
+
+<p>
+In the example shown here, the module "ADD32" had an internal port
+name of "a", but the name "A" was erroneously used on the interface.
+The first error message indicates that the external port name "A" does
+not have a corresponding port inside, and the second error message
+indicates that the internal port "a", does not have a corresponding
+port on the outside.
+
+<br style="clear: both;">
+
+<a name="delay">
+<h3>5.8 Gate Delay Files</h3>
+
+Gate delay, area and power (power specifications are not used)
+parameters can be specified through a collection of gdf (Gate Delay
+File) specification files.  The default file "gdf/default.gdf" in the
+TkGate home directory is always loaded, but the definitions may be
+replaced by loading additional delay files through the <a
+href="gateOptions.html#simulate">Simulate Options</a> dialog box.
+<p>
+Each gate delay file should contain one or more technology blocks
+having the form:
+<pre>
+technology cmos {
+  ...
+}
+</pre>
+Technology blocks implement a new set of delay parameters and the
+specified technology name becomes a name that can be specified as a
+technology through the <a href="gateEdit.html#delay">"Delay" page of
+the gate properties box</a>.  The body of the technology block should
+consist of a set of gate primitive declarations.  Each gate primitive
+should be described in a block defining all the delay and possible
+area and power parameters of the block in terms of number of inputs,
+bit-widths of inputs and existence of inverters on inputs.  For
+example, the block for the "mux" primitive might look like:
+
+<pre>
+primitive mux {
+  delay&lt;I-Z> = (2*(num(S)+1) + 2*num(I)) + 2*(inv(I) || inv(Z)); 
+  delay&lt;S-Z> = (2*(num(S)+1) + 2*num(I));
+  area = bits(Z)*((2*(num(S)+1) + 2*num(I)) + 2*inv(I)); 
+}
+</pre>
+
+The two "delay" lines define the delay from the input to the output
+(I-Z) and from the select to the output (S-Z), respectively.  The area
+line defines the estimated area of the gate.  Expressions may include
+the C-style operators <tt>"+", "-", "*", "/", "&&", "||", "==", "!=", ">", ">=", "&lt;",
+"&lt;="</tt>, and <tt>"!"</tt>, the "power of" operator <tt>"**"</tt> and
+the functions listed in the table below.
+
+
+<p>
+<table border>
+<tr><th>Function</th><th>Description</th></tr>
+
+<tr><td>num(p)</td><td> Normally, "p" specifies a group of related
+ports in which case this function returns the number of ports in the
+group.  For example, on an n-input AND gate with inputs I1 through In,
+the expression num(I) would return n.  </td></tr>
+
+<tr><td>bits(p)</td><td> Returns the number of bits on the specified
+port.  If "p" represents a group of ports, the highest bit-width of
+the group is returned.  </td></tr>
+
+<tr><td>inv(p)</td><td> When "p" is specific port, a 1 is returned if
+there is an inverter on the port, 0 otherwise.  When "p" specifies a
+group of ports, the number of ports with inverters is returned.
+</td></tr>
+
+<tr><td>log(expr)</td><td>Returns the ceiling of the base-2 log of an expression.</td></tr>
+</td></tr>
+
+</table>
+<p>
+
+<p>
+It is also possible to write procedural delay/area definitions.  For example, consider
+the parameter specification for the "and" primitive.
+<pre>
+primitive and {
+  delay&lt;I-Z> = {
+    if ((inv(I) == num(I)))     // Determine if an inverter is necessary.  An
+      d = inv(Z);               //   inverter is not required if the output is
+    else if ((inv(I) == 0))     //   inverting and all inputs are non-inverting
+      d = !inv(Z);              //   (i.e., it is an AND gate), or if all inputs
+    else                        //   are inverting and the output is non-inverting
+      d = 1;                    //   (i.e., it is a NOR gate). 
+
+    if (num(I) == 1) {          // If one input, treat this as a reduction gate    
+      return 2*bits(I0) + 2*d;  //   one Tr. delay per bit plus inverter delay.    
+    } else {                    // If multiple inputs, treat this as a normal gate 
+      return 2*num(I) + 2*d;    //   one Tr. delay per input plus inverter delay.  
+    }
+  }
+
+  area = {
+    if ((inv(I) == num(I)))     // Estimate number of inverters required.  If all
+      d = inv(Z);               //   inputs are inverted, an inverter is required
+    else if ((inv(I) == 0))     //   iff the output is inverted.  If all inputs
+      d = !inv(Z);              //   are non-inverted, an inverter is required iff
+    else                        //   the output is non-inverted.  Otherwise we need
+      d = inv(I);               //   an inverter for each inverted input.
+
+    if (num(I) == 1) {          // If one input, treat this as a reduction gate    
+      a = 2*bits(I0) + 2*d;	//   one Tr. per bit plus inverter Trs.    
+    } else {			// If multiple inputs, treat this as a normal gate 
+      a = 2*num(I) + 2*d;	//   one Tr. per input plus inverter Trs.  
+    }
+    return bits(Z)*a;           // Multiply by number of bit slices.
+  }
+}
+</pre>
+
+In a procedural specification, statements are executed sequentially
+until a "<tt>return</tt>" statement sets the value for the parameter.
+C-style <tt>if</tt> and <tt>switch</tt> statements may be used in
+procedural specifications, but there are no looping constructs.
+<p>
+
+A technology block need not specify every single primitive type.  For
+example, suppose we have a technology definition for CMOS which
+includes a definition for a buffer as shown here:
+
+<pre>
+technology CMOS {
+  primitive buf {
+    delay&lt;I-Z> = 2 + 2*(inv(I) == inv(Z));
+    area = bits(Z)*(2 + 2*(inv(I) == inv(Z)));
+  }
+  ...rest of CMOS definition...
+}
+</pre>
+
+We might create a special technology definition "HP_CMOS" which
+contains high-power versions of a subset of the standard CMOS gates.
+In the example here, we provide a special high-power buffer that has
+ the delay of a standard buffer, but twice the area (and power).
+
+<pre>
+/*
+ * A high-power buffer with half the delay and double the area/power.
+ */
+technology HP_CMOS {
+  primitive buf {
+    delay&lt;I-Z> =  1 + (inv(I) == inv(Z));
+    area = 2*bits(Z)*(2 + 2*(inv(I) == inv(Z)));
+  }
+}
+</pre>
+<p>
+If you assign the technology type HP_CMOS to any gates for which there
+is no primitive definition, delay values from the technology "default"
+will be used.
+<p>
+
+The table below lists all of the primitive gates for which delay may
+be specified and their delay parameters.  The default values given are
+the values for a "basic" gate created from the "Make" with no changes
+to the number of inputs, input/output inverters, or bit widths of any
+of the ports.
+
+<br><br>
+<center>
+<table border>
+<tr><th>Gate Type</th><th>Parameter</th><th>Default</th><th align=left>Description</th></tr>
+<tr><td>and </td><td> I-Z </td><td> 6</td><td>Delay from input to output.</td></tr>
+<tr><td>or </td><td> I-Z </td><td> 6</td><td>Delay from input to output.</td></tr>
+<tr><td>xor </td><td> I-Z </td><td> 8</td><td>Delay from input to output.</td></tr>
+<tr><td>buf </td><td> I-Z </td><td> 4</td><td>Delay from input to output.</td></tr>
+<tr><td rowspan=2>bufif1 </td><td> E-Z </td><td> 4</td><td>Delay from enable to output.</td></tr>
+<tr><td> I-Z </td><td> 6</td><td>Delay from data input to output.</td></tr>
+<tr><td rowspan=2>nmos </td><td> I-Z </td><td> 2</td><td>Delay from data input to output.</td></tr>
+<tr><td> G-Z </td><td> 1</td><td>Delay from gate to output.</td></tr>
+<tr><td rowspan=2>pmos </td><td> I-Z </td><td> 2</td><td>Delay from data input to output.</td></tr>
+<tr><td> G-Z </td><td> 1</td><td>Delay from gate to output.</td></tr>
+<tr><td rowspan=4>add </td><td> A/B-S </td><td> 68</td><td>Delay from operand input to sum.</td></tr>
+<tr><td> A/B-CO </td><td> 70</td><td>Delay from operand input to carry out.</td></tr>
+<tr><td> CI-S </td><td> 62</td><td>Delay from carry in to sum.</td></tr>
+<tr><td> CI-CO </td><td> 64</td><td>Delay from carry in to carry out.</td></tr>
+<tr><td rowspan=3>register </td><td> setup </td><td> 10</td><td>Time before clock edge data-in must be stable.</td></tr>
+<tr><td> hold </td><td> 10</td><td>Time after clock edge data-in must remain stable.</td></tr>
+<tr><td> CK-Q </td><td> 20</td><td>Time from clock edge until output changes.</td></tr>
+<tr><td rowspan=2>mux </td><td> S-Z </td><td> 8</td><td>Delay from select line to output.</td></tr>
+<tr><td> I-Z </td><td> 8</td><td>Delay from data input to output.</td></tr>
+<tr><td rowspan=2>demux </td><td> E-Z </td><td> 6</td><td>Delay from enable line to output.</td></tr>
+<tr><td> I-Z </td><td> 6</td><td>Delay from data input to output.</td></tr>
+<tr><td>mult </td><td> A/B-P </td><td> 252</td><td>Delay from operand input to output.</td></tr>
+<tr><td rowspan=2>div </td><td> A/B-Q </td><td> 236</td><td>Delay from operand input to quotient.</td></tr>
+<tr><td> A/B-R </td><td> 236</td><td>Delay from operand input to remainder.</td></tr>
+<tr><td rowspan=7>ram </td><td> OE-D </td><td> 10</td><td>Delay from output enable to data-out.</td></tr>
+<tr><td> CS-D </td><td> 10</td><td>Delay from chip select to data out.</td></tr>
+<tr><td> A-D </td><td> 70</td><td>Delay from the address line to the data out.</td></tr>
+<tr><td> addr_setup </td><td>10</td><td>Time before write is asserted that address must be stable.</td></tr>
+<tr><td> data_setup </td><td> 10</td><td>Time before write is asserted that data-in must be stable.</td></tbr>
+<tr><td> addr_hold </td><td> 10</td><td>Time after write is unasserted that address must remain stable.</td></tr>
+<tr><td> data_hold </td><td> 10</td><td>Time after write is unasserted that data-in must remain stable.</td></tr>
+<tr><td rowspan=2>rom </td><td> OE-D </td><td> 10</td><td>Delay from output enable to data-out.</td></tr>
+<tr><td> A-D </td><td> 50</td><td>Delay from address to data-out.</td></tr>
+
+<tr><td rowspan=2>lshift </td><td> S-Z </td><td> 16</td><td>Delay from shift select to output.</td></tr>
+<tr><td> I-Z </td><td> 18</td><td>Delay from data-in to output.</td></tr>
+<tr><td rowspan=2>rshift </td><td> S-Z </td><td> 16</td><td>Delay from shift select to output.</td></tr>
+<tr><td> I-Z </td><td> 18</td><td>Delay from data-in to output.</td></tr>
+<tr><td rowspan=2>arshift </td><td> S-Z </td><td> 16</td><td>Delay from shift select to output.</td></tr>
+<tr><td> I-Z </td><td> 18</td><td>Delay from data-in to output.</td></tr>
+<tr><td rowspan=2>roll </td><td> S-Z </td><td> 16</td><td>Delay from shift select to output.</td></tr>
+<tr><td> I-Z </td><td> 18</td><td>Delay from data-in to output.</td></tr>
+</table>
+</center>
+
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,2693 @@
+#
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Sun Feb 22 18:51:02 2009
+
+##############################################################################
+#
+# Explaination of file format.
+#
+# Messages files are used to "localize" tkgate so that it can run under
+# different languages.  Lines beginning with a '#' character are comments.
+# Most entries in the file are of the form:
+#
+# tag value
+#
+# A tag is any abitrary string of non-whitespace characters.  By convention
+# a dot notation is used to suggest groups of related tags.  The value of the
+# tag begins at the first non-whitespace character after the tag and can include
+# white space.  Normally the value is the localized text message.  By convension,
+# tags beginning with a '@' character are used to control interface layout
+# as opposed to being actual text.  Explainations for this tags will be given
+# in preceeding comments.
+#
+# Multi-line comments have the form:
+#
+# tag	-begin-
+# line1
+# line2
+# -end-
+#
+# or
+#
+# tag	-fillbegin-
+# line1
+# line2
+# -end-
+#
+# When -begin- is used, the newlines in the text are preserved as is.  When
+# -fillbegin- is used the newlines are replaced with spaces and it is assumed
+# that the text will be automatically justified.
+#
+# If the first character of a value is a back-quote, then it is interpreted
+# as a reference to another tag.  For example:
+#
+# foo	This is tag foo.
+# bar	`foo
+#
+# In this instance both 'foo' and 'bar' will translate to 'This is tag foo'.
+#
+#
+
+\font-encoding          iso8859-1
+\messages-encoding	euc-jp
+\verilog-encoding	euc-jp
+\display-encoding       euc-jp
+
+\language               Japanese
+
+
+##############################################################################
+#
+# basic strings
+#
+b.new			新規...
+b.dismiss		閉じる
+b.close			閉じる
+b.ok			ＯＫ
+b.clear			クリア
+b.cancel		キャンセル
+b.open			開く
+b.bitw			ビット幅
+b.in			入
+b.out			出
+b.inout			入出
+b.browse		選択...
+b.label			名前
+b.find			探索
+b.edit			編集...
+b.add			追加...
+b.delete		削除
+b.deleteb		削除...
+b.remove		消す
+b.apply			セット
+b.anchor		移動不可
+b.tech			テクノロジー
+b.enable		可能にする
+b.disable		無能にする
+b.flush			クリア
+
+##############################################################################
+#
+# Main tab strings
+#
+tab.edit		編集
+tab.editintr		インタフェース
+tab.simulate		シミュレート
+tab.cpath		遅延解析
+# Width of mode selection tabs
+@tab.width		150
+
+#############################################################################
+#
+# MsgMgr strings (including breakpoint and script handling) 
+#
+@mm.width		8
+mm.add			追加...
+mm.delete		削除
+mm.edit			編集...
+mm.enable		有効にする
+mm.disable		無効にする
+
+##############################################################################
+# Menu strings
+#
+# Menu strings (tags beginning with "menu.") can take an option prefix consisting
+# of a number and a colon.   If this prefix exists, it indicates the character
+# position in the string that will be underlined.  This enables keyboard shortcuts
+# using the Alt key. 
+#
+menu.file		ファイル
+menu.edit		編集
+menu.tool		ツール
+menu.simulate		シミュレート
+menu.module		モジュール
+menu.interface		インタフェース
+menu.format		フォーマット
+menu.make		コンポーネント
+menu.help		ヘルプ
+
+menu.file.new		新規作成
+menu.file.open		開く...
+menu.file.openlib	ライブラリ管理...
+menu.file.save		保存
+menu.file.saveas	名前を付けて保存...
+menu.file.print		印刷...
+menu.tool.options	設定...
+menu.file.quit		終了
+menu.file.cprop		回路の特徴...
+
+menu.edit.undo		Undo
+menu.edit.redo		Redo
+menu.edit.cut		カット
+menu.edit.copy		コピー
+menu.edit.paste		ペースト
+menu.edit.overlay	Overlay張り付け
+menu.edit.selall	全てを選択
+menu.edit.find		回路を探索...
+menu.edit.zoomin	ズーム・イン
+menu.edit.zoomout	ズーム・アウト
+
+menu.edit.rshift		右シフト
+menu.edit.lshift		左シフト
+menu.edit.ushift		上シフト
+menu.edit.dshift		下シフト
+menu.edit.cwrotate		時計周り回転
+menu.edit.ccwrotate		時計反対周り回転
+menu.edit.pcwrotate		ポートの時計周り回転
+menu.edit.pccwrotate		ポートの非時計周り回転
+#menu.edit.autobold		太字化
+menu.edit.resize		再サイズ化
+
+menu.tool.move			移動／接続
+menu.tool.delg			コンポーネントの削除
+menu.tool.cutw			ワイヤの切断
+menu.tool.inv			否定
+menu.tool.bitw			ビット幅
+menu.tool.debug			デバッグ
+menu.tool.point			ポイント
+menu.tool.line			ライン
+menu.tool.rect			長方形
+menu.tool.fillrect		色づけ長方形
+menu.tool.port			ポート
+menu.tool.select		免責選択
+menu.tool.tclshell		0:Tcl Shell
+menu.tool.rep			複製
+
+
+menu.format.algnv		縦の一列
+menu.format.algnh		横のー列
+menu.format.rot			回転
+menu.format.rot.0		デフォルト回転を0度にする
+menu.format.rot.90		デフォルト回転を90度にする
+menu.format.rot.180		デフォルト回転を180度にする
+menu.format.rot.270		デフォルト回転を270度にする
+menu.format.rot.rotate		コンポーネントの回転
+menu.format.rot.brotate		コンポーネントの逆回転
+menu.format.addport		ポート追加
+menu.format.ioset		タイプ指定
+menu.format.anchor		選択を移動不可にする
+menu.format.unanchor		選択を移動可にする
+menu.format.prop		コンポーネントの設定...
+menu.format.del			削除
+menu.format.settech		テクノロジーの設定
+
+menu.simulate.begin		シミュレーションを開始
+menu.simulate.end		シミュレーションを終了
+menu.simulate.addprobe		プローブの追加／削除
+menu.simulate.run		ラン
+menu.simulate.pause		一時ストップ
+menu.simulate.step		ステップ(エポック)
+menu.simulate.cycle		ステップ(サイクル)
+menu.simulate.break		ブレークポイントの設定...
+menu.simulate.script		スクリプトを実行...
+menu.simulate.load		メモリの読み込み...
+menu.simulate.dump		メモリの書き出し...
+menu.simulate.view		メモリの表示...
+
+menu.module.open		開く
+menu.module.close		閉じる
+menu.module.new			新規作成...
+menu.module.del			削除...
+menu.module.copy		コピー...
+menu.module.rename		名前の編集...
+menu.module.claim		取得...
+menu.module.setroot		ルートにする...
+menu.module.prop		モジュールの設定...
+menu.module.interface		インタフェース
+menu.module.interface.set	セット
+menu.module.interface.edit	編集
+menu.module.interface.update	デフォルトにする
+menu.module.interface.updateall	全てデフォルトにする
+menu.module.interface.auto	自動作成...
+
+menu.help.about			TkGateについて...
+menu.help.license		ライセンス...
+menu.help.doc			ドキュメンテーション...
+menu.help.tut			チュートリアル
+menu.help.home			ホーム・ページ
+menu.help.example		回路の例
+
+#############################################################################
+# Scope Menu
+#
+menu.scope_file			ファイル
+menu.scope_sim			シミュレート
+menu.scope_trace		トレース
+menu.scope_help			ヘルプ
+
+menu.scope_file.ptrace		トレース印刷...
+menu.scope_file.close		閉じる
+menu.scope_trace.zoomin		ズーム・イン
+menu.scope_trace.zoomout	ズーム・アウト
+menu.scope_sim.addprobe		プローブの追加／削除
+menu.scope_sim.run		時効
+menu.scope_sim.pause		一時停止
+menu.scope_sim.step		エポック・ステップ
+menu.scope_sim.cycle		サイクル・ステップ
+menu.scope_sim.break		ブレークポイント...
+menu.scope_sim.script		スクリプトの時効...
+menu.scope_sim.load		メモリの読み込み...
+menu.scope_sim.dump		メモリの書き込み...
+menu.scope_help.about		TkGateに付いて...
+menu.scope_help.license		ライセンス...
+menu.scope_help.doc		ドキュメンテーション...
+
+mod.intf			インタフェース
+
+port.parms			ポートのパラメタ
+port.in				入
+port.out			出
+port.inout			入出
+
+
+##############################################################################
+#
+# Tags for built-in gate types
+#
+
+gm.io			I/O
+gm.gate			ゲート
+gm.rgate		単項縮約ゲート
+gm.msi			MSI
+gm.alu			ALU
+gm.mem			メモリー
+gm.mod			モジュール
+gm.comment		コメント
+gm.frame		フレーム
+gm.script		Verilogスクリプト
+
+gm.io.switch		スイッチ
+gm.io.dip		DIPスイッチ
+gm.io.ground		アース
+gm.io.vdd		Vdd
+gm.io.merge		ワイヤのマージ
+gm.io.clock		クロック
+
+gm.io.led		LEDビット
+gm.io.ledbar		LED棒グラフ
+gm.io.ledhex		7-Seg. LED (HEX)
+gm.io.leddec		7-Seg. LED (DEC)
+gm.io.ledseg		7-Seg. LED (Direct)
+
+gm.io.tty		TTY
+
+gm.gate.and		AND
+gm.gate.nand		NAND
+gm.gate.or		OR
+gm.gate.nor		NOR
+gm.gate.xor		XOR
+gm.gate.xnor		XNOR
+gm.gate.buf		バッファ
+gm.gate.inv		否定バッファ
+gm.gate.tribuf		トライ・バッファ
+gm.gate.nmos		NMOS
+gm.gate.pmos		PMOS
+
+gm.rgate.and		単項縮約AND
+gm.rgate.nand		単項縮約NAND
+gm.rgate.or		単項縮約OR
+gm.rgate.nor		単項縮約NOR
+gm.rgate.xor		単項縮約XOR
+gm.rgate.xnor		単項縮約XNOR
+
+gm.alu.add		加算器
+gm.alu.mult		乗算器
+gm.alu.div		除算器
+gm.alu.lshift		左シフト
+gm.alu.rshift		右シフト
+gm.alu.arshift		算数的右シフト
+gm.alu.roll		ロール
+
+gm.mem.reg		レジスタ
+gm.mem.ff		フリップ・フロップ
+gm.mem.rff		反射フリップ・フロップ
+gm.mem.ram		RAM
+gm.mem.rom		ROM
+
+gm.mem.jkff		JKフリップ・フロップ
+gm.mem.rjkff		反射JKフリップ・フロップ
+
+
+gm.msi.21mux		2-1 マルチプレクサ
+gm.msi.41mux		4-1 マルチプレクサ
+gm.msi.81mux		8-1 マルチプレクサ
+gm.msi.12dec		1-2 デコーダ
+gm.msi.14dec		1-4 デコーダ
+gm.msi.18dec		1-8 デコーダ
+gm.msi.12demux		1-2 デマルチプレクサ
+gm.msi.14demux		1-4 デマルチプレクサ
+gm.msi.18demux		1-8 デマルチプレクサ
+    
+gm.mod.inst		モジュールのインスタンス
+gm.mod.in		モジュールの入力
+gm.mod.out		モジュールの出力
+gm.mod.inout		モジュールの入出力
+
+tutorial.prev		前へ
+tutorial.next		次へ
+tutorial.chapter	章の一覧表
+tutorial.reload		再読み込み
+
+##############################################################################
+#
+# Popup menus
+#
+pop.make		コンポーネント
+pop.tool		ツール
+
+pop.edit.paste		ペースト
+pop.edit.cut		カット
+pop.edit.copy		コピー
+
+pop.port.in		入
+pop.port.out		出
+pop.port.inout		入出
+
+pop.wire.addseg		ワイヤの追加
+pop.wire.prop		ネットの特徴...
+pop.wire.hidesize	ビット幅を隠す
+pop.wire.showsize	ビット幅を示す
+pop.wire.hidelabel	レーベルを隠す
+pop.wire.hidealllabel	全てのレーベルを隠す
+pop.wire.clearalllabel	全てのレーベルをクリア
+pop.wire.showlabel	レーベルを示す
+
+pop.gate.open		開く
+pop.gate.close		閉じる
+pop.gate.prop		インスタンスの特徴...
+pop.gate.addport	ポートの追加
+pop.gate.addin		入力の追加...
+pop.gate.addout		出力の追加...
+pop.gate.addinout	入出力の追加...
+pop.gate.anchor		移動不可にする
+pop.gate.settech	テクノロジ指定
+pop.gate.delete		削除
+pop.gate.ioset		タイプの指定
+
+pop.module.new		新規...
+pop.module.del		削除...
+pop.module.copy		コピー...
+pop.module.rename	名前の変更...
+pop.module.claim	モジュールの取得
+pop.module.setroot	ルート指定...
+pop.module.prop		モジュールの特徴...
+pop.module.int		インタフェースの編集...
+
+
+pop.simulate.end		シミュレーションを終了
+pop.simulate.begin		シミュレーションを開始
+pop.simulate.addprobe		プローブを追加／削除
+pop.simulate.run		時効
+pop.simulate.pause		一時停止
+pop.simulate.step		エポック・ステップ
+pop.simulate.cycle		サイクル・ステップ
+pop.simulate.break		ブレークポイント...
+pop.simulate.script		スクリプトの時効...
+pop.simulate.load		メモリの読み込み...
+pop.simulate.dump		メモリの書き込み...
+pop.simulate.view		メモリの表示...
+
+pop.interface			インタフェース
+pop.interface.set		指定
+pop.interface.edit		編集...
+pop.interface.replace		取り換え
+pop.interface.update		デフォルトにする
+pop.interface.updateall		全てデフォルトにする
+pop.interface.auto		自動作成...
+
+
+
+pop.igen.type			タイプ
+pop.igen.side			サイド
+pop.igen.size			サイズ
+pop.igen.delete			削除
+pop.igen.in			入
+pop.igen.out			出
+pop.igen.inout			入出
+pop.igen.left			左
+pop.igen.right			右
+pop.igen.top			上
+pop.igen.bottom			下
+pop.igen.other			他
+
+pop.library.mgr			ライブラリ管理...
+pop.library.close		ライブラリをアンロード
+
+
+##############################################################################
+#
+# Symbol editor strings
+#
+symed.cancel			キャンセル
+symed.tab.normal		非セレクト
+symed.tab.select		セレクト
+symed.link			セレクトと非セレクトを同時に編集する。
+# width of symbol editor tabs
+@symed.tab.width		115
+
+##############################################################################
+## memory viewer
+#
+memview.title	メモリの内容
+memview.exp	-fillbegin-
+メモリの内容を表示しあたり、変更したり出来る。
+メモリの内容を変更する為、値にクリックして、
+新しい値をキーボードで入力してくだだい。
+-end-
+
+##############################################################################
+
+scope.title		TkGate: スコープ
+scope.emptymsg		ワイヤにダブル・クリックして、プローブに付けってください。
+comment.empty		[ダブル・クリックして、テキストを編集してください。]
+
+##############################################################################
+# Interface strings
+#
+ifile			ファイル
+imodule			モジュール
+iblmodule		モジュール:
+iports			ポート:
+ibits			ビット幅:
+itype			タイプ:
+
+
+
+#############################################################################
+# Module Dialog Box
+#
+db.mod.name		モジュール名
+db.mod.file		ファイル名
+db.mod.type		タイプ
+db.mod.flags		フラグ
+db.mod.dataprot		モジュールの定義の編集を不可能にする。
+db.mod.intfprot		インタフェースの編集を不可能にする。
+db.mod.edprot		インタフェースの編集を専用エディタに限る。
+db.mod.props		特徴
+db.mod.netlist		ネットリスト
+db.mod.hdl		HDL
+
+#
+# These are probably not used anymore.  Lets leave them as is.
+#
+db.mod.inuse.0		Module is not in use.
+db.mod.inuse.1		Module is in use.
+db.mod.lmod.0		Module has not been modified since loading.
+db.mod.lmod.1		Module has been modified since loading.
+db.mod.smod.0		Module has not been modified since saving.
+db.mod.smod.1		Module has been modified since saving.
+db.mod.islib.1		Module is part of [%s] library.
+db.mod.islib.0		Module is not a library module.
+
+
+db.mod.netexpl		-begin-
+グラフィカルのエディタを
+利用して、モジュールの操作を
+定義する。
+-end-
+
+db.mod.hdlexpl		-begin-
+Verilogのテキストを利用して、
+モジュールの操作を定義する。
+-end-
+
+#############################################################################
+# Error List Dialog box
+#
+db.err.title			TkGate: エラーの一覧表
+db.err.caption			エラーの一覧表
+db.err.explain.warn	-fillbegin-
+回路中にワーニングがありますが、それにかからわず、
+シミュレーションが起動します。ワーニングの箇所を移動するため、編集モードに切替えなくてはなりません。
+-end-
+db.err.explain.err	-fillbegin-
+回路中にエラーが存在します。シミュレーションを起動出来ません。
+-end-
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.title		TkGate: ネットの微細
+db.net.name		ネット名
+db.net.hide		ネット名を隠す
+db.net.bits		ビット幅
+db.net.type		ネット・タイプ
+db.net.port		ポート・タイプ
+db.net.in		入
+db.net.out		出
+db.net.inout		入出
+db.net.inets		ネット
+
+##############################################################################
+#
+# New circuit dialog box
+#
+db.newcirc.directory	ディレクトリ
+db.newcirc.cap		新規回路
+db.newcirc.exp		-begin-
+現在の回路の編集を
+辞めて、新しい回路を
+編集し始める。
+-end-
+db.newcirc.file		ファイル名
+db.newcirc.topname	トップのモジュール名
+
+
+
+##############################################################################
+# Gate dialog box
+#
+db.gate.title		コンポーネントの設定
+db.gate.signam		ネット名
+db.gate.portnam		ポート名
+db.gate.iotype		タイプ
+db.gate.bitw		ビット幅
+db.gate.cyclew		サイクル幅
+db.gate.phase		フェーズ
+db.gate.duty		デューティー
+db.gate.port		ポート
+db.gate.bitws		ビット
+db.gate.side		サイド
+db.gate.gtype		コンポーネント・タイプ
+db.gate.gname		コンポーネント名
+db.gate.hidenam		名前を隠す
+db.gate.anchor		移動不可にする
+db.gate.cpbreak		クリティカル・パス分割点
+db.gate.butstate		スイッチ状態
+db.gate.dipval		DIP状態
+db.gate.range		ビット範囲
+db.gate.memfilenam		メモリ・ファイル名
+db.gate.modname		機能名
+db.gate.general		一般
+db.gate.details		詳細
+db.gate.text		テキスト
+db.gate.ports		ポート
+db.gate.delay		遅延
+db.gate.parameters	パラメタ
+db.gate.stddelay	標準の遅延
+db.gate.custdelay	カスタムの遅延
+db.gate.catdiruse	ポートの位置付け
+db.gate.edit		編集
+db.gate.delete		削除
+db.gate.add		追加
+
+db.gate.ff.type		フリップフロップの方位決定
+db.gate.ff.normal.hdr	普通
+db.gate.ff.normal.exp	-begin-
+データが左から右へ
+流すフリップフロップ。
+-end-
+db.gate.ff.reverse.hdr	反射
+db.gate.ff.reverse.exp		-fillbegin-
+データが右から左へ
+流すフリップフロップ。
+-end-
+
+db.gate.jkff.type		JKフリップフロップの方位決定
+db.gate.jkff.normal.hdr		普通
+db.gate.jkff.normal.exp	-fillbegin-
+データが左から右へ進む
+JKフリップフロップです。
+-end-
+db.gate.jkff.reverse.hdr	反射
+db.gate.jkff.reverse.exp	-fillbegin-
+データが右から左へ進む
+JKフリップフロップです。
+-end-
+
+db.gate.cat.asc.hdr		昇順
+db.gate.cat.dec.hdr		降順
+db.gate.cat.asc.exp		-fillbegin-
+ビットは上下に昇順で連結する。
+-end-
+db.gate.cat.dec.exp		-fillbegin-
+ビットは上下に降順で連結する。
+-end-
+
+db.gate.cat.sigdir		信号方向
+db.gate.cat.auto.hdr		自動
+db.gate.cat.multin.hdr		多入力
+db.gate.cat.singin.hdr		多出力
+db.gate.cat.tran.hdr		入出
+
+
+db.gate.cat.auto.exp		-fillbegin-
+信号の方向を自動的
+に判断する。
+-end-
+
+db.gate.cat.multin.exp		-fillbegin-
+いつも多ポート側が入力として扱う。
+-end-
+
+db.gate.cat.singin.exp		-fillbegin-
+いつも単位のポート側が入力として扱う。
+-end-
+
+db.gate.cat.tran.exp		-fillbegin-
+双方向の信号の伝播(tran)を許す。スイッチやレジスタにの接続は不可です。
+-end-
+
+db.gate.tab.General.cap		一般特徴
+db.gate.tab.Ports.cap		ポート特徴
+db.gate.tab.Delay.cap		遅延特徴
+db.gate.tab.Parameters.cap	モジュール特徴
+db.gate.tab.CLOCK.cap		クロック特徴
+db.gate.tab.SWITCH.cap		スイッチ特徴
+db.gate.tab.DIP.cap		DIP特徴
+db.gate.tab.TAP.cap		Tran特徴
+db.gate.tab.RAM.cap		RAM特徴
+db.gate.tab.ROM.cap		ROM特徴
+db.gate.tab.MODULE.cap		モジュール特徴
+db.gate.tab.FRAME.cap		フレーム特徴
+db.gate.tab.LED.cap		LED特徴
+db.gate.tab.AND.cap		AND特徴
+db.gate.tab.OR.cap		OR特徴
+db.gate.tab.XOR.cap		XOR特徴
+db.gate.tab.MUX.cap		Mux特徴
+db.gate.tab.DEMUX.cap		Demux特徴
+db.gate.tab.DECODER.cap		Decoder特徴
+db.gate.tab.CONCAT.cap		Concat特徴
+db.gate.tab.COMMENT.cap		テキスト特徴
+db.gate.tab.FF.cap		フリップフロップ特徴
+db.gate.tab.JKFF.cap		JKフリップフロップ特徴
+db.gate.tab.SCRIPT.cap		Verilogスクリプト
+
+
+db.gate.tab.General.exp		-fillbegin-
+インスタンスの基本特徴を表示、又は編集する。
+-end-
+
+db.gate.tab.Ports.exp		-fillbegin-
+インスタンスのポートを追加、編集、又は削除する。
+-end-
+
+db.gate.tab.Delay.exp		-fillbegin-
+インスタンスの遅延はテクノロジでも、個々でも設定可能である。
+-end-
+
+db.gate.tab.Parameters.exp		-fillbegin-
+
+モジュールのパラメターが定義している場合、ここでその値を設定出来る。モ
+ジュールのパラメターは遅延値、コンスタントなどに利用されている。
+-end-
+
+db.gate.tab.details.exp		-fillbegin-
+コンポーネント次第の設定を行う。
+-end-
+
+
+db.gate.tab.CLOCK.exp		`db.gate.tab.details.exp
+db.gate.tab.SWITCH.exp		`db.gate.tab.details.exp
+db.gate.tab.DIP.exp		`db.gate.tab.details.exp
+db.gate.tab.TAP.exp		`db.gate.tab.details.exp
+db.gate.tab.RAM.exp		`db.gate.tab.details.exp
+db.gate.tab.ROM.exp		`db.gate.tab.details.exp
+db.gate.tab.MODULE.exp		`db.gate.tab.details.exp
+db.gate.tab.FRAME.exp		`db.gate.tab.details.exp
+db.gate.tab.LED.exp		`db.gate.tab.details.exp
+db.gate.tab.AND.exp		`db.gate.tab.details.exp
+db.gate.tab.OR.exp		`db.gate.tab.details.exp
+db.gate.tab.XOR.exp		`db.gate.tab.details.exp
+db.gate.tab.MUX.exp		`db.gate.tab.details.exp
+db.gate.tab.DEMUX.exp		`db.gate.tab.details.exp
+db.gate.tab.DECODER.exp	`db.gate.tab.details.exp
+db.gate.tab.CONCAT.exp		`db.gate.tab.details.exp
+db.gate.tab.FF.exp		`db.gate.tab.details.exp
+db.gate.tab.JKFF.exp	`db.gate.tab.details.exp
+
+db.gate.tab.COMMENT.exp		-fillbegin-
+コメントのテキストを入力する。ある程度のhtmlやハイパーリンクなども利用出来る。
+-end-
+
+db.gate.tab.SCRIPT.exp	-fillbegin-
+このコンポーネントに入力するVerilogのコードは
+モジュールの一部になります。
+-end-
+
+db.gate.mparm.parameter		パラメタ
+db.gate.mparm.value		値
+db.gate.mparm.exampleA		-begin-
+このモジュールはパラメタを利用していない。
+パラメタはVerilogテキストのモジュールに
+利用出来る。このダイアログで、それぞれの
+パラメタの値が設定出来る。モジュールの
+パラメタを利用するため、テキストの定義に
+「#」から始まるパラメタのリストを書いて
+ください。以下の例題で、デフォルトの値が
+「1'b1」の「base_value」というパラメタを
+持つモジュールが示してある。
+-end-
+db.gate.mparm.exampleB		-begin-
+module foo #(.base_value(1'b1)) (Z,A,B);
+   assign Z = A ^ B ^ base_value;
+endmodule
+-end-
+
+db.gate.mux.dataorder		入力の順序
+db.gate.mux.ord1.hdr		左から右へ
+db.gate.mux.ord2.hdr		右から左へ
+db.gate.mux.ord1.exp		-fillbegin-
+MUXの入力の順序を左から右へにする。
+-end-
+db.gate.mux.ord2.exp		-fillbegin-
+MUXの入力の順序を右から左へにする。
+-end-
+
+db.gate.mux.select		セレクタの箇所
+db.gate.mux.sel1.hdr		左側のセレクタ
+db.gate.mux.sel2.hdr		右側のセレクタ
+db.gate.mux.sel1.exp		-fillbegin-
+セレクタの入力を左側におく。
+-end-
+db.gate.mux.sel2.exp		-fillbegin-
+セレクタの入力を右側におく。
+-end-
+
+db.gate.decoder.dataorder		入力の順序
+db.gate.decoder.ord1.hdr		左から右へ
+db.gate.decoder.ord2.hdr		右から左へ
+db.gate.decoder.ord1.exp		-fillbegin-
+DECODERの入力の順序を左から右へにする。
+-end-
+db.gate.decoder.ord2.exp		-fillbegin-
+DECODERの入力の順序を右から左へにする。
+-end-
+
+db.gate.decoder.select		セレクタの箇所
+db.gate.decoder.sel1.hdr	左側のセレクタ
+db.gate.decoder.sel2.hdr	右側のセレクタ
+db.gate.decoder.sel1.exp	-fillbegin-
+セレクタの入力を左側におく。
+-end-
+db.gate.decoder.sel2.exp	-fillbegin-
+セレクタの入力を右側におく。
+-end-
+
+db.gate.demux.dataorder		出力の順序
+db.gate.demux.ord1.hdr		左から右へ
+db.gate.demux.ord2.hdr		右から左へ
+db.gate.demux.ord1.exp		-begin-
+DEMUXの出力の順序を左から右へにする。
+-end-
+db.gate.demux.ord2.exp		-begin-
+DEMUXの出力の順序を右から左へにする。
+-end-
+
+db.gate.demux.select		`db.gate.mux.select
+db.gate.demux.sel1.hdr		`db.gate.mux.sel1.hdr
+db.gate.demux.sel2.hdr		`db.gate.mux.sel2.hdr
+db.gate.demux.sel1.exp		`db.gate.mux.sel1.exp
+db.gate.demux.sel2.exp		`db.gate.mux.sel2.exp
+
+
+
+db.gate.aox.extbaruse		拡張バーを利用
+db.gate.aox.use.hdr		拡張バー
+db.gate.aox.nouse.hdr		拡張バーを利用しない
+db.gate.aox.use.exp		-fillbegin-
+基本ゲート(AND, OR, など)に入力を追加する時、拡張バーが利用される。
+-end-
+db.gate.aox.nouse.exp		-fillbegin-
+基本ゲート(AND, OR, など)に入力を追加する時、拡張バーは利用されない。
+-end-
+
+
+db.gate.led.type		LEDのタイプ
+db.gate.led.bit.hdr		ビット
+db.gate.led.bar.hdr		バー・グラフ
+db.gate.led.hex.hdr		7-Segment (HEX)
+db.gate.led.dec.hdr		7-Segment (DEC)
+db.gate.led.seg.hdr		7-Segment (Direct)
+
+db.gate.led.bit.exp		-fillbegin-
+一ビットの信号の為の単位のLED
+-end-
+db.gate.led.bar.exp		-fillbegin-
+LEDのバー・グラフ。一ビットにつき、一つのバーが利用される。
+-end-
+db.gate.led.hex.exp		-fillbegin-
+信号を16進数で表示する。
+-end-
+db.gate.led.dec.exp		-fillbegin-
+信号を10進数で表示する。
+-end-
+db.gate.led.seg.exp		-fillbegin-
+各セグメントを別々に制御する。
+-end-
+db.gate.tap.lbl.bus		LSB:
+db.gate.tap.exp.bus		読み込むビット・レーンジの最も下のビットを選択してください。
+db.gate.tap.exp.bit		読み込むビットを選択してください。
+
+
+
+db.seq.back		<前へ
+db.seq.next		次へ>
+
+db.hdl.savecap		複数のモジュール
+
+db.hdl.saveexp		-fillbegin-
+テキストのバッファに複数のモジュールの定義がある。右側のアクションのいずれかを選択すてください。
+-end-
+
+db.hdl.autoedit		自動変数
+db.hdl.split		分離
+db.hdl.comment		コメント
+db.hdl.cancel		キャンセル
+db.hdl.ignore		無視する
+
+db.hdl.autoeditcap	名前が一等しない
+
+db.hdl.autoeditexp		-fillbegin-
+テキストでのモジュール名と期待した名前が一等しない。右側のアクションのいずれかを選択すてください。
+-end-
+
+
+cpath.cloops		-fillbegin-
+回路に組合せのループが発見された。クリティカル ・パスの解析を行ないたければ、ループ上のネット を切ったり、ループ上のコンポーネントを「クリティカル・ パス分割点」にしたりする必要がある。
+-end-
+
+##############################################################################
+# Print dialog box
+#
+print.outto		出力先
+print.printer		プリンター
+print.file		ファイル
+print.prcmd		印刷コマンド
+print.prname		プリンタ
+print.advanced		オプション...
+
+print.filename		ファイル名
+print.epssave		Encapsulated Postscriptとしてセーブする.
+print.doctit		ドキュメントの題名
+print.epcm		エポック/cm
+print.estpg		ページ数の見積もり
+print.all		全て
+print.cur		現在
+print.use		使用中
+print.sel		指定
+print.inclib		ライブラリ・ファイルも印刷
+print.papsz		ページ・サイズ
+print.orient		オリエンテーション
+print.portrait		縦
+print.landscape		横
+print.2side		両面印刷
+print.opts		オプション
+print.scale		大きいモジュールをスケールして一ページで印刷する
+print.partition		大きいモジュールを複数のページで印刷する
+print.incidx		インデックスを含む
+print.incgraph		階層グラフを含む
+print.4up		小さいモジュールを一頁に四つずつ印刷する
+print.range		レンジ
+print.scaleselect	選択範囲をスケールする
+print.fulltr		全部
+print.parttr		部分
+print.start		スタート
+print.end		ストップ
+print.filesel		ファイルに印刷
+print.printersel	プリンタに印刷
+print.defaultprinter	デフォルトのプリンタ
+print.pageset		ページ・セットアップ
+print.modulesel		モジュールの選択
+
+##############################################################################
+#
+# TkGate 2.0 print dialog strings
+#
+print.ok			印刷
+print.printtrace.cap		トレースの印刷
+print.printcirc.cap		回路図の印刷
+print.printcirc.out.exp		-begin-
+回路図の印刷先が
+プリンタかファイル
+か選択する。
+-end-
+
+#probably not used
+print.printcirc.page.exp		-fillbegin-
+Choose page and printer options here.
+-end-
+
+print.printcirc.mod.exp		-fillbegin-
+印刷するモジュール
+や印刷の様子を選択
+る。
+-end-
+
+print.printtrace.trace.exp		-fillbegin-
+時間の範囲を選択する。
+又、スケールによって、
+必要のページ数を表か
+評価する。
+-end-
+
+print.tab.output		印刷先
+print.tab.page			印刷
+print.tab.content		内容
+
+##############################################################################
+#
+# Options dialog
+#
+
+# Width of options dialog box (not including image sidebar)
+@opt.width			600
+# Height of options dialog box
+@opt.height			450
+# Width of tabs on options dialog box
+@opt.tabwidth			115
+# Number of columns in list of toolbars
+@opt.tool.columns		2
+# Width of columns in list of toolbars
+@opt.tool.colwidth		30
+@opt.sidebar.width		*200
+@opt.tree.width			*150
+
+opt.general		一般
+opt.interface		インタフェース
+opt.toolbars		ツール・バー
+opt.toolbars.edit	編集
+opt.toolbars.sim	シミュレーション
+opt.toolbars.symed	シンボル編集
+opt.editor		HDL
+opt.print		印刷
+opt.print.output	出力
+opt.print.content	内容
+opt.simulate		シミュレート
+opt.simulate.basic	基本
+opt.simulate.tech	テクノロジー
+opt.simulate.error	エラー扱い
+opt.library		ライブラリ
+opt.library.path	パス
+opt.library.load	自動読み込み
+opt.library.vpd		VPD
+opt.analysis		解析
+opt.color		色
+opt.color.title		TkGate: 色の選択
+opt.color.edit		編集
+opt.color.scope		スコープ
+opt.color.hdl		HDLの編集
+opt.html		HTML
+opt.debug		デバッグ
+opt.security		セキュリティ
+opt.tearawaymenus		メニューの切り取りを有効にする。
+opt.debug.opt			デバッグのオプション
+
+opt.lib.load.available	利用可のライブラリ
+opt.lib.load.selected	採用されたライブラリ
+
+
+opt.identity		アイデンティティー
+opt.site		サイト名
+opt.username		ユーザ名
+opt.libname		ライブラリ名
+opt.inst		インスタンス
+opt.mods		モジュール
+opt.modports		ポート
+opt.frames		フレーム
+opt.comment		コメント
+opt.hlink		リンク
+opt.wire		1ビットのワイヤ
+opt.bus			多ビットのワイヤ
+opt.tools		ツール
+opt.background		バックグラウンド
+opt.cpath		クリティカル・パス
+opt.grid		スコープのグリッド
+opt.logic1		論理１
+opt.logic0		論理０
+opt.float		フロート
+opt.unknown		不明
+opt.offled		オフのLED
+opt.onled		オンのLED
+opt.zled		フロートのLED
+opt.restdef		デフォールト
+opt.regudate		リージョン・アップデート
+opt.smoothscroll		スムーズ・スクロール
+opt.balloon		バルーン・ヘルプを利用
+opt.safeSave		安全書き込み
+opt.saveCells		セーブファイルにセルを含む。
+opt.showimage		ダイアログボックスの説明欄を表示する。
+opt.novice		初心者モード
+opt.blockDropConnect	ワイヤ・ドロップでのポートの作成。
+opt.ckpoint.1		チェックポイントは
+opt.ckpoint.2		コマンド毎に行う。
+opt.ckpoint		チェックポイント保存
+opt.freq		期間
+opt.beak		特別モードを可能にする
+opt.bat			バットマン
+opt.trek		スター・トレック
+opt.miles		マイルス
+opt.contver		内部構造の自動確認
+opt.showsimcmd		シミュレートのコマンドを表示する
+opt.estepsz		エポックのステップ数
+opt.cstepsz		クロックのサイクル数
+opt.overstep		クロックのオバーステップ
+opt.sorttraces		スコープで信号をABC順で表示する。
+opt.vpopupdelay		信号値ウィンドの表示遅延
+opt.initscript		初期化スクリプト
+opt.posedge		全てのクロックで停止する
+opt.setclock		指定のクロックで停止する
+opt.delayfilepath	遅延ファイル
+opt.devfilepath		VPD(Virtual Periperal Device)ファイルのパス
+opt.vlibpath		Verilogのライブラリのパス
+opt.vlibnames		ベースのライブラリ
+opt.display		画面
+opt.interaction		相互動作
+opt.input		入力
+opt.undolen		最大アンドォ
+opt.keybind		キー・バインディングのスタイル
+opt.useless		役に立たない機能を有効にする
+opt.features		基本の機能
+opt.simbase		基本のシミュレータのオプション
+opt.simclock		クロックのオプション
+
+opt.cpopts		クリティカル・パス設定:
+opt.maxpath		最大パス数:
+opt.cpflash		パスの点滅表示
+
+opt.general.fontset		フォント・サイズ
+
+opt.simulator.savetraces	プローブの箇所をシミュレータの起動の間に記憶する。
+opt.simulator.noglitch		シミュレータのグリッチの抑制  
+
+opt.simulator.err		エラー扱い
+opt.simulator.stopany		シミュレーションの忠告をエラーとして扱える。
+opt.simulator.showall		シミュレーションの忠告を表示する。
+opt.simulator.showiferr		エラーのある時のみ、忠告を表示する。
+opt.simulator.ignore		シミュレーションの忠告を無視する。
+
+opt.tool.file		ファイル
+opt.tool.edit		編集
+opt.tool.gateopt	回転／整列化
+opt.tool.gateprop	コンポーネント特徴
+opt.tool.undo		アンドォ/リドォ
+opt.tool.zoom		ズーム
+opt.tool.mode		編集ツール
+opt.tool.module		モジュール
+opt.tool.tech		テクノロジー
+opt.tool.simctl		シミュレータの制御
+opt.tool.simaux		シミュレータのコマンド
+opt.tool.simtools	シミュレータのツール
+opt.tool.symmode	モード
+opt.tool.symedit	カット／ペースト
+opt.tool.symport	ポート
+opt.tool.symshift	ビット・マップのシフト
+opt.tool.symopr		ビット・マップの演算
+
+opt.editor.features		基礎的なエディターの機能
+opt.editor.format		自動インデントを有効にする
+opt.editor.colorize		自動色付けを有効にする
+opt.editor.comments		コメント
+opt.editor.strings		文字列
+opt.editor.reserved		キーワード
+opt.editor.gateword		コンポーネント名
+opt.editor.instword		モジュール名
+opt.editor.taskword		システム・タスク
+opt.editor.color		色
+opt.editor.bold			太字
+opt.editor.italic		イタリック
+opt.editor.indentlevel		レブル毎のインデントのスペース数
+opt.editor.beginindent		「begin..end」のインデントを囲まれるれべると会わせる。
+opt.editor.movesel		選択のドラッグ・アンド・ドロップを有効にする。
+opt.editor.returntab		リターンを押す時、自動インデントを有効にする。
+
+
+
+opt.vercheck		-begin-
+定期的に TkGate の新しいバージョンをインターネットで チェックする。常時接続でなければ有効にしないこと。
+-end-
+
+opt.general.cap		一般オプション
+opt.editor.cap		HDLテキスト・エディタ
+opt.interface.cap	インタフェス・オプション
+opt.toolbars.cap	ツールバー・オプション
+opt.print.cap		印刷オプション
+opt.analysis.cap		-begin-
+クリティカル・パス・オプション
+-end-
+opt.simulator.cap	シミュレータ・オプション
+opt.security.cap	セキュリティ・オプション
+opt.color.cap		色づけ・オプション
+opt.html.cap		HTML/HTTPオプション
+opt.debug.cap		デバッグ・オプション
+opt.library.cap		ライブラリ・オプション
+
+opt.sec.execlevel	システム・タスク$tkg$exec()は
+opt.sec.exec		完全に有効にする。
+opt.sec.regexec		登録した関数にだけ有効にする。
+opt.sec.noexec		不可能にする。
+
+opt.sec.simfeatures	シミュレーションの設定
+opt.sec.send		システム・タスク$tkg$command()を有効にする。
+opt.sec.open		システム・タスク$fopen()を有効にする。
+opt.sec.writemem	システム・タスク$writememb()と$writememh()を有効にする。
+opt.sec.enqueue		システム・タスク$tkg$recv()と$tkg$send()を有効にする。
+
+opt.sec.handle		禁止の機能が使われると
+opt.sec.stop		シミュレータを停止する。
+opt.sec.warn		注意する。
+opt.sec.ignore		無視する。
+
+opt.html.linkopts	リンクの設定
+opt.html.browser	ブラウザーのコマンド
+opt.html.email		電子メールのコマンド
+
+opt.color.editwin	編集ウィンドウの色づけ
+opt.color.scopewin	スコープ・ウィンドウの色づけ
+
+
+opt.gen.basetoolbar		編集モードのツール・バー
+opt.gen.simtoolbar		シミュレート・モードのツール・バー
+opt.gen.symedtoolbar		シンボル編集モードのツール・バー
+
+opt.bbar.restore		ページの設定をデフォルトにする
+opt.bbar.restoreall		全ての設定をデフォルトにする
+
+##############################################################################
+#
+# Interface generator
+#
+igen.port		ポート
+igen.type		タイプ
+igen.side		サイド
+igen.size		ビット幅
+igen.bits		ビット
+
+igen.modname		モジュール名:
+
+igen.resort		再ソート
+igen.add		追加
+igen.delete		削除
+igen.edit		編集
+
+igen.in			入
+igen.out		出
+igen.inout		入出
+
+igen.left		左
+igen.right		右
+igen.top		上
+igen.bottom		下
+
+igen.other		他
+
+igen.mod		モジュールに使用されたポートのみを採用する。
+igen.int		もともとのインタフェースのポートのみを採用する。
+igen.modint		モジュールとインタフェース両方のポートを採用する。
+
+igen.portsel		ポートの選択
+igen.portpos		ポートの位置付け
+igen.portpos.keep	ポートの位置をなるべく変更しない。
+igen.portpos.renew	ポートの位置を付け直す。
+
+igen.caption		インタフェースの作成
+
+igen.description	-begin-
+モジュールに新しいインタフェースを自動的に作成する。
+-end-
+
+info.script.error	スクリプトのエラー
+
+module.props.title	TkGate: モジュールの微細
+module.props		モジュールの特徴
+
+
+#############################################################################
+#
+# Module tree/list box
+#
+module.tree		ツリー
+module.list		リスト
+module.box.libraries	ライブラリ
+
+
+sidetab.nets		ネット
+sidetab.ports		ポート
+
+ipanel.updateall		全てシンクロナイズ
+ipanel.plist		ポートの一覧表
+ipanel.props		インタフェースの特徴
+ipanel.itype.change	タイプの変更...
+ipanel.itype.edsymbol	シンプルの編集...
+ipanel.block		ブロック
+ipanel.symbol		シンボル
+
+ipanel.autogen		自動作成...
+
+ipanel.itype.select	インタフェス・タイプ
+ipanel.itype.selectexp	-begin-
+長方形型の「ブロッ
+ク」か、ビットマッ
+プの「シンボル」、
+いずれか選択して
+ください。
+-end-
+
+ipanel.block.description		ブロックのインタフェース
+ipanel.symbol.description		シンボルのインタフェース
+
+ipanel.ppos.label		ブロックのサイズを変更する時のポートの取り扱い
+ipanel.ppos.fix			指定
+ipanel.ppos.scale		スケール
+ipanel.ppos.grid		グリッド
+
+ipanel.warn.toblock		-begin-
+注意：インタフェースのタイプは「ブロック」に変換する。「OK」を押すと、現在のシンボル・インタフェースのデータが失う。本当によろしいですか。
+-end-
+
+ipanel.warn.tosymbol		-begin-
+注意：インタフェースのタイプは「シンボル」に変換する。「OK」を押すと、現在のブロック・インタフェースのデータが失う。本当によろしいですか。
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+blklst.claim			取得するモジュール名
+blklst.to			新規モジュール名
+blklst.from			現在モジュール名
+blklst.name			モジュール名
+blklst.new.cap			モジュールの新規作成
+blklst.del.cap			削除するモジュール名
+blklst.copy.cap			コピー・モジュール
+blklst.rename.cap		モジュールの改名
+blklst.claim.cap		モジュールの取得
+blklst.setroot.cap		トップ・モジュールの選択
+
+blklst.new.exp		-fillbegin-
+
+新しいモジュールを作成する。タイプは、「ネットリスト」か「HDL」かのい
+ずれか選択できるが、モジュールを削除せずに、この後、変更することが不可能です。
+-end-
+
+blklst.del.exp		-fillbegin-
+指定のモジュールの定義とインタフェースのデータを削除する。回路データ中のインスタンスは無定義になってしまう。
+-end-
+
+blklst.copy.exp		-fillbegin-
+指定のモジュースをコピーする。あるモジュールをベースにして新しいモジュールを作りたい時に使う。
+-end-
+
+blklst.rename.exp		-fillbegin-
+指定のモジュールの名前を付け直す。回路データ中のインスタンスは古い名前を示して、無定義になってしまう。
+-end-
+
+blklst.claim.exp		-fillbegin-
+指定のライブラリのモジュールをユーザのモジュールに変換する。それで、モジュールを編集して、回路データとともにセーブ出来る。
+-end-
+
+blklst.setroot.exp		-fillbegin-
+指定のモジュールをトップのモジュールにする。
+-end-
+
+
+find.label		探索
+find.exp		-fillbegin-
+コンポーネント名、ネット名、 コメントなどの中に 指定ストリングを 探索する。
+-end-
+
+find.ignorecase			ケースを無視する。
+
+find.result.module		モジュール名
+find.result.type		タイプ
+find.result.name		オブジェクト名
+
+#
+# These are special tags used by the search feature.  Do not change their value.
+#
+@find.type.gate		gate
+@find.type.net		net
+@find.type.comment	comment
+
+find.options		探索のオプション
+find.results		探索の結果
+
+#
+# This is a special tag used to indicate whether the position qualifier box
+# should be "before" or "after" the text entry box.  Use the keywords before
+# or after to indicate the position.
+#
+@find.qual.pos		after
+
+find.qual.contains	を含む
+find.qual.begins	から始まる
+find.qual.ends		で終る
+find.qual.matches	同等する
+
+find.dom.label		以下の場所を探索する。
+find.dom.gates		コンポーネント
+find.dom.nets		ネット
+find.dom.text		コメントのテキスト
+
+find.search		探索:
+find.target		探索の範囲
+
+#
+# These are special tags used to indicate the image file to be used for
+# displaying port types.
+#
+@portlist.in		port_in1.gif
+@portlist.out		port_out1.gif
+@portlist.inout		port_inout1.gif
+@portlist.in2		port_in2.gif
+@portlist.out2		port_out2.gif
+@portlist.inout2	port_inout2.gif
+
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.label		回路の微細
+circ.ident		ファイルの微細
+circ.file		ファイル名
+circ.filev		バージョン
+circ.encoding		エンコーディング
+circ.lang		言語
+circ.title		回路名
+circ.flags		オプション
+circ.defaults		コンポーネントのデフォールト
+circ.discchg		変更を無視する
+circ.extbar		AND, OR, XORのゲートで拡張バーを利用します。
+circ.shownet		スイッチやDIPにネット名を表示します。
+circ.autostart		シミュレーションの自動開始を有効にする。
+circ.iniscript		初期化スクリプト
+circ.noscript		スクリプト・ファイルは指定されていない。
+circ.really		本当に「%s」を初期化スクリプトのリストから削除したいか。
+
+circ.general		一般
+circ.library		ライブラリ
+circ.script		スクリプト
+circ.simulator		シミュレーション
+circ.timescale		タイム・スケール
+circ.timescale.unit	単位:
+circ.timescale.prec	精度:
+
+circ.sim.features	特徴
+
+
+#
+# Strings for timing violation reporting styles.  The "after" case
+# is broken into the string before the time period box and after the
+# time period box.  You can use the string "-empty-" to make a string
+# empty if it is not needed in a particular language.
+#
+circ.sim.tv.title	タイミング違反の扱い
+circ.sim.tv.all		全てのタイミング違反を報告します。
+circ.sim.tv.after.1	-empty-
+circ.sim.tv.after.2	からのタイミング違反を報告します。
+circ.sim.tv.never	タイミング違反を報告しません。
+
+@circ.library.height		*350
+@circ.library.width		*500
+
+
+circ.exp.general	-fillbegin-
+回路の微細を表示や設定する。回路の微細は回路データとともにセーブされる。
+-end-
+
+circ.exp.library	-fillbegin-
+回路に必要にライブラリに設定する。回路を読み込み時に
+選択されたライブラリは自動的に読み込む。
+-end-
+
+circ.exp.script	-fillbegin-
+シミュレーションが起動する時に読み込む
+シミュレーションのスクリプトをここに
+登録してください。
+-end-
+
+circ.exp.simulator	-fillbegin-
+シミュレーションに対する微細を設定する。
+-end-
+
+
+##############################################################################
+#
+# Library Manager
+#
+libmgr.cap		ライブラリ・マネジャー
+libmgr.library		ライブラリ名
+libmgr.description	説明
+libmgr.status		状態
+libmgr.status.load	利用
+libmgr.status.unload	非利用
+libmgr.status.loadp	[利用]
+libmgr.status.unloadp	[非利用]
+libmgr.exp		-begin-
+利用するライブラリを選択する。
+-end-
+libmgr.load		利用
+libmgr.unload		非利用
+libmgr.unloadall	全てを非利用
+
+libmgr.notedit		-fillbegin-
+回路図のエディタが開いている時のみ、
+ライブラリのマネジャーが利用出来る。
+-end-
+
+#############################################################################
+#
+# Dynamic Verilog Module Manager
+#
+break.tab		ブレークポイント
+break.id		番号
+break.state		状
+break.condition		条件
+break.value		値
+
+
+##############################################################################
+# Simulator
+#
+sim.breakpt		ブレークポイント
+sim.recursive		-fillbegin-
+モジュール「%s」で再帰的定義が発見された。シミュレーションが起動出来ない。
+-end-
+sim.hyperlinkstop		-fillbegin-
+シミュレーションが現在実行している。シミュレーションを辞めて、リンク先を開きますか。
+-end-
+
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		パス遅延:
+cp.pathl		パスの一覧:
+cp.numpath		パス数:
+cp.recompute		再計算
+
+##############################################################################
+# Error messages
+#
+err.notinsim		シミュレーション中に出来ません。
+err.nomemselect		メモリが選択していません。
+err.rootinterface	トップのモジュールのインタフェスが設定不可。
+err.nopin		選択されたピンのタイプを変更出来ない。
+err.badhex		不正の16進数の値は無視された。
+err.gatanchor		コンポーネントが移動不可にマークされている為、移動出来ない。
+err.protdata		ライブラリのモジュールのデータが変化不可。
+err.badfind		探索ストリング「%s」が見つからない。
+err.badopendel		使用中のモジュールを削除出来ない。
+err.nosrcmod		ソース・モジュール'%s'が見つからない。
+err.noerr		エラー・メッセージが見つからない。
+err.misserr		エラー情報が不完全である。(シミュレータが落ちた？)
+err.nofunc		モジュールインタフェースに名前が不正又は、欠落しています。
+err.wirerot		ワイヤが接続しているので、コンポーネントの回転が出来ません。
+err.primprefix		モジュール名「%s」が内蔵プレフィックス「%s」で始まるから、利用出来ません。
+err.iskeyword		Verilogのキーワード「%s」が識別子として利用出来ません。
+
+err.badinadd		選択のコンポーネントにもう入力追加が出来ない。
+err.badoutadd		選択のコンポーネントにもう出力追加が出来ない。
+err.badinoutadd		選択のコンポーネントにもう入出力追加が出来ない。
+err.badpinchg		選択のコンポーネントのピンのタイプが変更出来ない。
+err.badnetname		名前に不正の文字がある為削除された。
+err.netbcrename		指定の名前に不正の文字がある為、「%s」に変更された。
+err.netconfnet		指定の名前が別の名前と衝突する為、「%s」に変更された。
+err.netconfgat		指定の名前が基礎のコンポーネント名と衝突する為、「%s」に変更された。
+err.netconfkw		指定の名前がキーワードと衝突する為、「%s」に変更された。
+err.badconsame		ネットが同じなので、接続出来ない。
+err.badconptsp		ネットの両方がポート又は電力なので、接続出来ない。
+err.badconbitw		ネットのビット幅が異なるので、接続出来ない。
+err.badrange		指定された時間のレンジが不正である。
+err.badlprcmd		印刷コマンド「%s」が実行出来ない。
+err.badpsopen		ポスト・スクリプトを「%s」に書き込めない。
+err.badid		「%s」は不正の名前である。
+
+err.protintf		モジュール「%s」のインタフェースが変化不可に設定している。
+
+err.bkpt.badexp		不正なブレークポイントの条件である。「net」, 「!net」, 「net==value」, 「net!=value」のどれかでなければならない。
+err.bkpt.badnet		不正のネット名である。
+err.bkpt.badval		不正の値である。10進数あるいは、verilog形式の値しか認識されていない。
+err.bkpt.toomany		ブレークポイントが多過ぎる。制限は%dである。
+
+err.sim.badtmp		/tmpのファイルが書き込めなかった（ディスクがいっぱいか）。
+err.sim.syntx		不正の「%s」コマンド
+err.sim.noincl		インクルード・ファイル「%s」が見つからなかった。
+err.sim.badedge		clockコマンドのエッジ'%c'が不正である。
+err.sim.nobkpt		ブレーク・ポイント「%s」が見つからない。
+err.sim.nonet		ネット「%s」は定義していない。
+err.sim.nogate		コンポーネント「%s」は定義していない。
+err.sim.badbin		2進数の値に不正の文字がある。
+err.sim.notswitch		コンポーネント'%s'はスイッチ、DIP、レジスタのどれかでなければならない。
+err.sim.badcmd		シミュレーション・スクリプトに不正のコマンド「%s」がある。
+err.sim.isrun		シミュレータは既に実行している。 ('Ctrl-s e'で終了する).
+err.sim.run		実行エラー
+err.sim.cmd		内部コマンド・エラー
+
+err.noteditpchg		設定は編集モード以外、変更不可。
+err.badeditop		編集コマンドに不正がある。
+err.badopen		回路ファイル「%s」が見つからない。
+err.badlibopen		ライブラリ・ファイル「%s」が見つからない。
+
+err.nomark		コンポーネント種を選ぶ前に、マウスで位置を設定してください。
+err.badgate		コンポーネント種が未定義である。
+
+err.badportadd		選択されたコンポーネントにポートは追加不可。
+
+err.modmissing		HDLのモジュール「%s」のテキストが欠けている。
+err.modtoomany		HDLのモジュール「%s」のテキストに複数の定義がある。
+err.modmismatch		HDLのモジュール名「%s」とテキストの中の名前が一等しない。
+
+err.manypages		-fillbegin-
+ページ数が極めて大きい。 本当に印刷しますか?
+-end-
+
+err.nojump		-fillbegin-
+現在、'jump-to-module'機能はシミュレーション・モードで使用出来ない。 トップ・モジュールより、「>」や「<」のコマンドでモジュールを開けてください。
+-end-
+
+err.nomod		モジュール「%s」は定義していない。
+err.modlock		モジュールがロックしている。
+err.closeroot		トップ・モジュールが閉じれない。
+err.editonly		コマンドは、シミュレーション・モードで使えない。
+err.simonly		コマンドは、シミュレーション・モードでしか使えない。
+
+err.deltop		トップのモジュール「%s」が削除不可.
+err.delprot		モジュール「%s」は削除不可に設定している。
+err.nodel		コンポーネントを選択していない。
+err.modnotdef		モジュール「%s」は定義していない。
+err.moddef		モジュール「%s」が既に定義している。
+err.primredef		コンポーネント名「%s」は再定義出来ない。
+err.noprop		選択されたコンポーネントは編集出来る設定がない。
+err.openscript		シミュレーション・スクリプト「%s」が見つからない。
+err.oldversion		回路ファイルのバージョン(%s)が古い。(現在のバージョンは%s).
+err.futureversion		未来のバージョン（%s）のTkGateファイルである。（現在のバージョンは%s）
+err.badversion		回路ファイルのバージョンが認識出来ない。注意して利用下さい。
+err.nodrive		ネット%sはモジュール%sに信号のソースがない。
+err.noconn		ワイヤ%s{%d}は接続がない（削除した）。
+err.oldportact		ポートやモジュールの端に右クリックして下さい。
+err.nomodule		選択のモジュールはないです。
+err.nomodop		適用出来るモジュールはないです。
+err.protexec		禁断コマンド「%s」は$tkg$exec()で実行されなかった。
+
+err.notwritable		ファイル「%s」に書き込み不可です。
+err.backupfail		バックアップ・ファイル'%s'が作成出来なかった。
+
+err.yy.badprop		未知の回路プロパティ「%s」が無視された。
+err.yy.badpropval	回路プロパティー「%2$s」に値「%1$s」が不正です。
+err.yy.baddata		回路プロパティ「%s」の設定でデータ・タイプが一等しない。
+err.yy.nosym		モジュールのシンボルが欠けている。
+err.yy.badicon		反則のアイコンのタイプ「%s」
+err.yy.toomuchdata	アイコン・データ量が多すぎる。
+err.yy.nosyminst	シンボル「%s」が インスタンス「%s」(タイプ「%s」)で欠けている。
+err.yy.badmodprop	未知のモジュール・プロパティー「%s」
+err.yy.badmoddata	モジュール・プロパティ「%s」の設定でデータ・タイプが一等しない。
+err.yy.badprim		未知のプリミティブ「%s」
+err.yy.nonet		ネット「%s」が未定義です。
+err.yy.bogussave	セーブで異変が起こってしまた。回路データに矛盾がある可能性がある。
+err.yy.pinformat	「%s」でピン名の形式が認定不可です。
+err.yy.pinname		ピン名「%s」は「%s」のコンポーネントで未定義です。
+err.yy.nonetpos		ネット箇所「%d」はコンポーネント「%s」に見付からないです。
+err.yy.baddirective	ディレクティブ「%s」の形式が認定不可です。
+
+err.corruptnewsave		-fillbegin-
+TkGateは'%s'にセーブ出来たが、ファイルが混乱されているみたい。もしチェッ ク・ポイントを利用していれば、チェック・ポイントのファイルを使ってみてく ださい。'tkgate -V'でファイルをチェック出来る。
+-end-
+
+err.corruptsave		-fillbegin-
+'%s'をセーブしようとしている時、TkGateに内部問題が発見した。元々のファイ ルはそのまま残してある。混乱されている可能性のあるファイルは'%s'にセーブ した。もしチェック・ポイントを利用していれば、チェック・ポイントのファイ ルを使ってみてください。'tkgate -V'でファイルをチェック出来る。
+-end-
+
+err.badsave		-fillbegin-
+'%s'をセーブ出来なかった。ファイルのプロテクションや空きディスク量を確認 してください。
+-end-
+
+err.nosafesave		-fillbegin-
+'%s'の安全セーブを行うための一時のファイルが作成出来なかったから、直接セー ブしなくてはならない。「NO」にクリックすれば、元々のファイルはそのまま残 す。「YES」にクリックすれば、セーブするが、セーブ途中に問題が起こったら、 回路データが破壊される可能性がある。直接セーブしてみましょうか。
+-end-
+
+err.noback		-fillbegin-
+TkGateバージョン%sで作られたファイルである。保存すると、 TkGateの古いバージョンに読み込めないことがある（現在の バージョンは%sである）。
+-end-
+
+err.viewfile		ファイル「%s」が開けません。
+
+err.noinvgate		コンポーネント・タイプに否定バブルが付けない。
+
+
+
+##############################################################################
+#
+# Internal error messages (indicating a problem with TkGate)
+#
+err.internal.nomod		内部エラー：モジュール「%s」が見付かりません。
+
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		ワイヤ「%s」が選択されました。
+msg.selgate		%2$sという%1$sコンポーネントが選択された。
+msg.selblock		%2$sという%1$sモジュールが選択された。
+msg.iselwire		ブロック「%2$s」にポート「%1$s」が選択された。
+msg.iselgate		「%2$s」という「%1$s」が選択されました。(えっ、このメッセージを出すのは不可能のはずですが。)
+msg.iselblock		モジュール・インタフェース「%s」が選択されました。
+
+msg.modoverwt		モジュール「%s」が既に定義されている。定義しなおしますか?
+msg.foundgate		%sというコンポーネントが見つかった。
+msg.foundwire		%sというワイヤが見つかった。
+msg.searchagn		探索ストリング「%s」が見つからなかった。もう一度「探索」を押すと、探索しなおす。
+msg.sim.chgtoroot	シミュレーション・モードでは、トップ・モジュールがモジュール・スタックのトップでなければならない。
+msg.sim.nogatemod	シミュレーション・モードで、具体的なモジュール・スタックが必要である。
+msg.setinterface	モジュール「%s」のインタフェースをセットした。
+msg.needsel		モジュールのインスタンスを選んでください。
+msg.wroteckpt		「%s」にチェックポイントを書き込んだ...
+msg.save		「%s」に保存した。
+msg.reallynew		回路に変更がある。本当に保存しないで、新しい回路を開きますか?
+msg.reallyquit		回路に変更がある。本当に保存しないで、終了しますか?
+msg.notlib		モジュール「%s」はライブラリ・モジュールではない。
+
+##############################################################################
+# Miles messages (Activated when Miles Bader uses TkGate)
+#
+miles.msg1		その位置にコンポーネントを置くのは、お前みたいな大馬鹿しかいないよ。
+miles.msg2		馬鹿！
+miles.msg3		愚かもの！
+miles.msg4		マイルス、その位置にコンポーネントを置くのは、馬鹿だよ。
+miles.msg5		馬鹿なコンポーネントの位置付けをやめてよ、マイルス。
+miles.msg6		コンポーネントをその位置においたのは、お前の愚かさの証明だよ。
+miles.msg7		このロクでなし回路の設計を諦めよ、マイスル。
+miles.msg8a		続けても、無駄だよ、マイルス。
+miles.msg8b		お前が回路を設計出来ないというのは、誰でも分かるよ。
+
+
+#############################################################################
+#
+# Error messages generated by verga
+#
+verga.err.OK			心配しないで、笑ってください。
+verga.err.INPORT		TODO: Port size mismatch on input port '%s'.
+verga.err.OUTPORT		TODO: Port size mismatch on output port '%s'.
+verga.err.FLOATNET		TODO: Net '%s' has no drivers (floating net).
+verga.err.DIRECTCONN		TODO: Direct connect operator '=>' unsupported.  Treated as '*>'.
+verga.err.MEMADDR		TODO: Attempt to write to memory %s with unknown address.
+verga.err.MEMBITS		TODO: Attempt to write to memory %s with unknown bitrange.
+verga.err.BADARRAYUSG		TODO: Array '%s' used in expression without index.
+verga.err.BADARRAYLHS		TODO: Array '%s' used without index on left-hand-side.
+verga.err.BADCLOSE		TODO: Attempt to close non-open descriptor in task '%s'.
+verga.err.BADAUTORNG		TODO: Auto range [*] is only valid with 'wire' declaration.
+verga.err.BADGATERNG		TODO: Bad gate instance range expression.
+verga.err.BADARGVALUE		TODO: Bad value for argument %s in task %s.
+verga.err.DIVZERO		TODO: Divide by zero.
+verga.err.NODIV		TODO: Divide/module unsupported on this machine - sizeof(short) must be 2.
+verga.err.BADEDGEEVENT		TODO: Event on multi-bit net '%s' can not have posedge/negedge.
+verga.err.NEEDEDGE		TODO: Must specify posedge or negedge on event for %s.
+verga.err.ASGNEVENT		TODO: Event wait on assign is illegal.
+verga.err.PROTTASK		TODO: Execution of protected system task '%s' blocked.
+verga.err.NEEDIDENT		TODO: Expecting identifier for argument %s of task '%s'.
+verga.err.BADOP		TODO: Expression operator error in '%s'.
+verga.err.NOREAD		TODO: Failed to load source file '%s'.
+verga.err.MEMFILE		TODO: Failed to open memory file '%s'.
+verga.err.WRONGMOD		TODO: Found module '%s' when expecting '%s'.
+verga.err.NOTPARM		TODO: Identifier '%s' in constant expression is not a parameter.
+verga.err.BADADDR		TODO: Illegal address range on port '%s'.
+verga.err.BADADDRSPEC		TODO: Illegal address range specification '%s'.
+verga.err.BADCHAR		TODO: Illegal character (%s) '%s'.
+verga.err.BADEVENT		TODO: Illegal event control expression.
+verga.err.BADCONSTOP		TODO: Illegal operator in constant expression.
+verga.err.BADXOP		TODO: Illegal operator in expression.
+verga.err.NETREDEF		TODO: Illegal redefinition of net '%s'.
+verga.err.BADINOUT		TODO: Inout connections must be net-to-net on port '%s'.
+verga.err.MODUNDEF		TODO: Instance of undefined module '%s'.
+verga.err.BADASGNLHS		TODO: Invalid left-hand-side in 'assign'.
+verga.err.LHSNOTREG		TODO: Illegal use of '%s' in left-hand-side of assignment.
+verga.err.BADLHS		TODO: Invalid left-hand-side in assignment.
+verga.err.BADOUT		TODO: Invalid output assignment.
+verga.err.NOTREG		TODO: Memories must be declared as register.
+verga.err.PORTMIX		TODO: Mixed named and unnamed ports on interface '%s' of '%s'.
+verga.err.REPCASE		TODO: More than one default: in case statement.
+verga.err.NOMEM		TODO: No current memory in memory file read.
+verga.err.BADCMD		TODO: No such command '%s'.
+verga.err.CMDNOTNET		TODO: No such net '%s' in '%s' command.
+verga.err.MEMNONBLK		TODO: Non-blocking assignments to memories not implemented.
+verga.err.NOTPPORT		TODO: Parameter '%s' is not declared as a port.
+verga.err.REDEFP		TODO: Parameter redefines identifier '%s'.
+verga.err.PORTNOTDEF		TODO: Port '%s' on interface '%s' is not defined in module '%s'.
+verga.err.NOCONN		TODO: Port '%s' has no connections on interface '%s' of '%s'.
+verga.err.MULTCONN		TODO: Port '%s' has multiple connections on interface '%s' of '%s'.
+verga.err.PORTCOUNT		TODO: Port count does not match definition on interface '%s' of '%s'.
+verga.err.BADPRTRANGE		TODO: Range on port '%s' is not numeric.
+verga.err.BADARRAYRNG		TODO: Range specification not allowed for memory reference of '%s'.
+verga.err.CMDMODREDEF		TODO: Redefinition of dynamic module '%s'.
+verga.err.REDEF		TODO: Redefinition of identifier %s.
+verga.err.PROTTASKSTOP		TODO: Simulation stopped on attempted execution of protected system task '%s'.
+verga.err.NOTMEM		TODO: Specified net '%s' is not a memory.
+verga.err.CMDNOTMEM		TODO: Specified net '%s' is not a memory in '%s' command.
+verga.err.SYNTAX		TODO: Syntax error.
+verga.err.TOOFEWPP		TODO: Too few parameter ports on instance %s.
+verga.err.OPENTOOMANY		TODO: Too many files open in task '%s'.
+verga.err.TOOMANYPP		TODO: Too many parameter ports on instance %s.
+verga.err.NOTOP			TODO: Top-module '%s' not defined.
+verga.err.BADOPEN		TODO: Unable to open output file '%s' in task '%s'.
+verga.err.CMDNOMOD		TODO: Undefined dynamic module '%s' in '%s' command.
+verga.err.BADEVENTNET		TODO: Undefined net '%s' in event control expression.
+verga.err.NOTASK		TODO: Undefined task '%s'.
+verga.err.NOTDEF		TODO: Undefined variable '%s'.
+verga.err.BADRANGE		TODO: Unsupported bit range [%s] on net %s (must be of form [n:0]).
+verga.err.GATEUNIMP		TODO: Unimplemented primitive gate instance type.
+verga.err.USAGE			TODO: Usage: thyme [options][files...]
+verga.err.CLSDWRITE		TODO: Write to closed descriptor.
+verga.err.PRIMPTCOUNT		TODO: Wrong number of ports on primitive gate instance '%s'.
+verga.err.CMDARGS		TODO: Wrong number of arguments in '%s' command.
+verga.err.YYERROR		TODO: YYError - %s.
+verga.err.TASKARGS		TODO: Task '%s' called with wrong number of arguments.
+verga.err.BADSTART		TODO: Illegal start value in task '%s'.
+verga.err.BADSTOP		TODO: Illegal stop value in $readmemb.
+verga.err.SPECTASKUSG		TODO: Task %s must be used in a specify block.
+verga.err.BADSPECTASK		TODO: Task %s can not be used in a specify block.
+verga.err.TIMING		TODO: Timing violation at %s in %s[%s] %s.
+verga.err.RAMDCHG		書き込み信号が有効である時、データ入力の変更が起こりました。
+verga.err.RAMACHG		書き込み信号が有効である時、アドレス入力の変更が起こりました。
+verga.err.NOIFDEF		TODO: No matching `ifdef/`ifndef for %s declaration.
+verga.err.BADSPECLVAL		TODO: Bit-ranges on path delay specifiers unsupported.
+verga.err.PATHDITEM		TODO: Unsupported construct in module with path-delay specification.
+verga.err.PATHDINOUT		TODO: Use of 'inout' in module with path-delay specification is unsupported.
+verga.err.PATHDLOOP		TODO: Loops in modules with path-delay specification are unsupported.
+verga.err.TASKREDEF		TODO: Redefinition of task or function '%s' in module '%s'.
+verga.err.TASKASFUNC		TODO: Task '%s' used as function.
+verga.err.FUNCASTASK		TODO: Function '%s' used as task.
+verga.err.TASKBADTYPE		TODO: Non-register type used in task or function.
+verga.err.TASKBADPORT		TODO: Only input ports are allowed on functions.
+verga.err.TIMESCALEU		TODO: Invalid units '%s' in `timescale declaration.
+verga.err.TIMESCALEN		TODO: Invalid scale '%s' in `timescale declaration (must be 1, 10 or 100).
+verga.err.TIMESCALES		TODO: Invalid syntax in `timescale declartion.
+verga.err.TIMESCALEX		TODO: Units must be larger than precision in `timescale declartion.
+verga.err.TIMESCALEAN		TODO: Design contains some modules with `timescale and some without.
+verga.err.NONSTATCTL		TODO: Event control @(*) applied to non-statment.
+verga.err.BADVALUE		TODO: Bad numeric value '%s'.
+verga.err.BADPORTTYPE		TODO: Invalid type declaration used on port '%s'
+verga.err.PATHDCOND		TODO: DelaMust set through both # expression and specify block. 
+verga.err.IE_TASK		TODO: Task definition '%s' found outside module - internal error.
+verga.err.IE_NONET		TODO: Failed to find net '%s' - internal error.
+verga.err.IE_BADTYPE		TODO: Bogus port type for port '%s' - internal error.
+verga.err.IE_NOOP		TODO: Can not find operator description -- internal error.
+verga.err.IE_NONEXPCTL		TODO: Event control @(*) applied to non-expression - internal error.
+verga.err.IE_NONSTATCTL		TODO: Event control @(*) applied to non-statment - internal error.
+verga.err.IE_BADEXP		TODO: Unexpected expression type %s - internal error.
+verga.err.IE_BADVAR		TODO: Undefined variable or unknown net - internal error.
+verga.err.IE_BADSTATE		TODO: Unexpected internal state at %s  - internal error.
+verga.err.IE_RETURN		TODO: Executed BCReturn bytecode with empty return stack - internal error.
+verga.err.NONEXPCTL		TODO: Event control @(*) applied to non-expression.
+verga.err.MODREDEF		モジュール「%s」が再定義されました。
+
+
+
+blklst.delete.title		TkGate: モジュール削除
+print.tab.advanced		アドバンス
+primitive.err.nomodule		内部エラー: プリミティブ・モジュール「%s」で、キーワード「module」が欠けています。
+
+db.net.caption			ネットの特徴
+blklst.rename.title		TkGate: モジュールの再名付け
+
+db.gate.switch.state		初期スイッチの状態
+db.gate.switch.state.on.hdr	スイッチ・オン
+db.gate.switch.state.on.exp	スイッチは「オン」の状態でシミュレーションを起動します。
+db.gate.switch.state.off.hdr	スイッチ・オフ
+db.gate.switch.state.off.exp	スイッチは「オフ」の状態でシミュレーションを起動します。
+
+db.gate.switch.shownet		ネット名の表示
+db.gate.switch.shownet.on.hdr	表示
+db.gate.switch.shownet.on.exp	スイッチの隣にネット名を表示します。
+db.gate.switch.shownet.off.hdr	隠す
+db.gate.switch.shownet.off.exp	スイッチの隣にネット名を表示しません。
+
+
+db.gate.dip.value		初期のDIPの値
+db.gate.dip.value.hex		16進数の値:
+db.gate.dip.value.exp		シミュレーションの起動の時のDIPの値。
+@db.gate.dip.value.exp.width	150
+
+db.gate.dip.shownet		ネット名の表示
+db.gate.dip.shownet.on.hdr	表示
+db.gate.dip.shownet.on.exp	DIPの隣にネット名を表示します。
+db.gate.dip.shownet.off.hdr	隠す
+db.gate.dip.shownet.off.exp	DIPの隣にネット名を表示しません。
+
+primitive.err.wrongname		内部エラー: 「%s」モジュールの定義が内部モジュール名と一等しません。
+
+db.gate.tap.lbl.bit		ビット:
+db.hdl.textdisp.title		HDLのテキストの処理
+db.gate.tap.select		ビット・タップの選択
+db.err.neededit			-fillbegin-
+ウァーンイングに移動する前に、編集モードに切替える必要があります。
+-end-
+menu.edit.autobold		自動太字
+@db.gate.tap.exp.width		*180
+
+circ.reallyupdate		-fillbegin-
+本当に全ての「%s」のインスタンスを更新したいのですか。 
+-end-
+
+circ.reallyoverwrite	-fillbegin-
+本当に既に存在しているファイル「%s」の上に書き込みたいですか。
+-end-
+
+blklst.copy.title		TkGate: モジュールのコピー
+primitive.err.missing		内部エラー: 「%s」モジュールの定義が発見出来ません。
+
+menu.file.import		画像データをインポート
+db.newcirc.title		TkGate: 新規回路
+opt.tool.simmode		シミュレータのツール
+blklst.new.title		TkGate: 新規モジュール
+
+print.title			TkGate: 印刷
+print.config.title		TkGate: 印刷の設定
+db.gate.waveform		クロックの波形
+print.incunused			使用しないモジュールも含みます。
+opt.treelabel			オプション
+menu.symbol			シンボル
+print.tab.modules		モジュール
+opt.title			TkGate: オプション
+port.title			TkGate: ポートの微細
+primitive.err.nomodname		内部エラー:モジュール「%s」の定義にモジュール名が欠けています。
+blklst.claim.title		TkGate: モジュールのクレーム
+igen.title			TkGate: モジュールのインタフェースの自動作成
+err.yy.badlocale		セーブ・ファイルに未知の文化圏「%s」がありました。変わりに英語の文化圏が利用されます。
+
+db.dip.title			TkGate: DIPの値
+print.scope.title		TkGate: スコープの印刷
+circ.wintitle			TkGate: 回路の微細
+find.title			TkGate: 探索
+
+
+menu.file.export		画像データのエクスポーと
+print.rangeselection		レーンジの選択
+pop.simulate.delprobe		ポローブの削除
+print.linelen			一行列の時間
+db.hdl.namechange.title		HDLモジュールの名前の付け変え
+opt.vlibadd.title		TkGate: ライブラリーの追加
+blklst.setroot.title		TkGate: トップ・モジュールの設定
+
+##############################################################################
+# Balloon Help
+#
+
+ho.net.in		一ビットの入力
+ho.net.out		一ビットの出力
+ho.net.inout		一ビットの入出力
+ho.net.in2		多ビットの入力
+ho.net.out2		多ビットの出力
+ho.net.inout2		多ビットの入出力
+ho.net.wire		一ビットのワイヤ(名前が表示している)
+ho.net.wire2		多ビットのワイヤ(名前が表示している)
+ho.net.hwire		一ビットのワイヤ(名前が隠している)
+ho.net.hwire2		多ビットのワイヤ(名前が隠している)
+ho.net.reg		一ビットのレジスタ
+ho.net.reg2		多ビットのレジスタ
+
+
+ho.opt.tool.file		回路ファイルのセーブ、ロードなど
+ho.opt.tool.edit		カット、ペースト、探索など
+ho.opt.tool.gateopt		コンポーネントの展開と整列
+ho.opt.tool.gateprop		基本のコンポーネントの編集
+ho.opt.tool.undo		アンドゥとリドゥ
+ho.opt.tool.zoom		ズーム・インとズーム・アウト
+ho.opt.tool.mode		編集ツールの選択
+ho.opt.tool.module		モジュール定義の新規作成、削除、再名前付けなど
+ho.opt.tool.tech		コンポーネントのテクノロジの選択
+ho.opt.tool.simctl		シミュレータの起動、終了、一時停止など
+ho.opt.tool.simaux		付属のシミュレータのコマンド(メモリの読み込み、書き込みなど)
+ho.opt.tool.symmode		シンボル編集のツールの選択
+ho.opt.tool.symedit		シンボル編集のカット、ペーストなど
+ho.opt.tool.symport		シンボル編集のポートの回転
+ho.opt.tool.symshift		ビット・マップを上下左右のシフト
+ho.opt.tool.symopr		付属のシンボル編集のコマンド
+
+ho.opt.editor.movesel		-begin-
+TODO: If this option is enabled, a selected block of text can be grabbed with the mouse pointer and moved to a new location.
+-end-
+
+ho.opt.editor.format		-begin-
+TODO: If enabled, verilog source code will be automatically indented when pressing the tab key.
+-end-
+
+ho.opt.editor.indent		-begin-
+TODO: Number of spaces to indent per level.
+-end-
+
+ho.opt.editor.rtab		-begin-
+TODO: Automatically indent the current line and tab to the appropriate level when pressing the return key.
+-end-
+
+ho.opt.editor.beginindent		-begin-
+TODO: Causes a begin..end block to be indented to the same level as its parent block.
+-end-
+
+ho.opt.editor.colorize		-begin-
+TODO: Enable context-dependent colorization of code according to the options listed below.
+-end-
+
+ho.hdl.splitexp		-begin-
+TODO: Multiple modules in the HDL text will be split into different modules defining new modules as necessary.  Any name conflicts will be resolved by slightly modifying module names as necessary.
+-end-
+
+ho.hdl.commentexp		-begin-
+TODO: Modules other than the first module or module matching the expected name will be converted to HDL comments.
+-end-
+
+ho.hdl.autoeditexp		-begin-
+TODO: Automatically edit the HDL description to fix the module name.
+-end-
+
+ho.hdl.cancelexp		-begin-
+TODO: Take no action and continue editing the current module.
+-end-
+
+ho.hdl.ignoreexp		-begin-
+TODO: Ignore the inconsistency and continue with the selected action.
+-end-
+
+ho.new		-begin-
+現在の回路を消して、新しい 回路を作成する。
+-end-
+
+ho.open			回路ファイルを開きます。
+ho.save			回路ファイルを保存します。
+ho.saveas		回路ファイルを指定のファイルに保存します。
+ho.print		回路ファイルを印刷する
+ho.library		ライブラリ・マネジャーを開きます。
+
+ho.symed.tab.normal		-begin-
+TODO: Edit the unselected symbol bitmap.
+-end-
+
+ho.symed.tab.select		-begin-
+TODO: Edit the selected symbol bitmap.
+-end-
+
+ho.move		-begin-
+移動／接続 - このツールで以下の機能を行います。
+新しいコンポーネントの位置を設定する。
+コンポーネントを移動する。
+ワイヤを移動する。
+ワイヤを接続する。
+ダブル・クリックで以下の機能が使える。
+コンポーネントの属性を編集する。
+ワイヤの属性を編集する。
+ポートの属性を編集する。
+コメントのテキストの属性を編集する
+-end-
+
+ho.delgat		-begin-
+このツールでコンポーネントを削除する
+-end-
+
+ho.cutw		-begin-
+このツールでワイヤを切断する
+-end-
+
+ho.inv		-begin-
+このツールで、コンポーネントの入出力に 否定を付けたり、消したりする。
+-end-
+
+ho.bitw		-begin-
+このツールでワイヤのビット幅を 変更する。ビット幅を右下の入力 ボックスに入力してください。
+-end-
+
+ho.ipanel.prot		-begin-
+TODO: Do not allow the definition of a module to be modified.
+-end-
+
+ho.ipanel.protint		-begin-
+TODO: Do not allow the interface of a module to be modified.
+-end-
+
+ho.ipanel.proted		-begin-
+TODO: Do not allow the interface of a module to be modified except through the interface editor.  Use this to prevent accidental modification of the interface in the main edit window.
+-end-
+
+ho.ipanel.scale		-begin-
+TODO: Scale the distance between ports as a module is resized.
+-end-
+
+ho.ipanel.fix		-begin-
+TODO: Keep the distance between ports fixed even if the module is resized.
+-end-
+
+ho.mod.open		選択されたモジュールを開く
+ho.mod.close		現在のモジュールを閉じる
+
+ho.mod.new		モジュールの新規作成
+ho.mod.del		モジュールの削除
+ho.mod.copy		モジュールをコピーします。
+ho.mod.rename		モジュールの名前の付け変え
+ho.mod.claim		-begin-
+ライブラリのモジュールをユーザのモジュールに変更します。
+-end-
+ho.mod.setroot		-begin-
+指定のモジュールをトップのモジュールにします。
+-end-
+
+ho.mod.type.allparts		TODO: Set of Libraries
+ho.mod.type.partlib		TODO: Library
+ho.mod.type.part		TODO: Library module
+ho.mod.type.unknown		TODO: Unknown module type
+ho.mod.type.unused		TODO: Set of unused modules
+ho.mod.type.conflict		TODO: Module recursion
+ho.mod.type.root		TODO: Top-level module
+ho.mod.type.netlist		TODO: Netlist module
+ho.mod.type.Lnetlist		TODO: Netlist module (locked)
+ho.mod.type.hdl		TODO: HDL module
+ho.mod.type.Lhdl		TODO: HDL module (locked)
+
+ho.undo		最近行った変化を元通りにする。
+ho.redo		アンデォした変化をやり直す。
+
+ho.tab.edit		-begin-
+回路データを編集します。
+-end-
+
+
+ho.tab.interface		-begin-
+モジュールのインタフェースを編集します。
+-end-
+
+
+ho.tab.simulate		-begin-
+シミュレータを起動し、スコープのウィンドを
+開き、そして初期化スクリプトが存在する場合、
+そのスクリプトを実行する。
+-end-
+
+
+ho.tab.cpath		-begin-
+回路のクリティカル・パスを探索する。
+-end-
+
+ho.log		-begin-
+TODO: Log of TkGate messages including error messages, information messages and simulator console output.
+-end-
+
+ho.simgo		-begin-
+シミュレータを動かす。組合せ回路の場合、
+信号が変わらなくなる時、シミュレーション
+の時間が一時停止する。
+-end-
+
+ho.simpause		-begin-
+シミュレータの一時停止
+-end-
+
+ho.simstep		-begin-
+シミュレータを一定数のエポックだけ動かす。
+ステップ数はシミュレートの設定による。
+-end-
+
+ho.simclock		-begin-
+シミュレータを一定数のクロック・サイクル だけ動かす。
+ステップ数はシミュレートの設定による。
+-end-
+
+ho.simstop		-begin-
+シミュレータを停止して、 編集モードに戻る。
+-end-
+
+ho.simbreak		-begin-
+シミュレータのブレークポイント を編集する。
+-end-
+
+ho.simexec		-begin-
+スクリプトを実行する。
+-end-
+
+ho.simoptions		-begin-
+TODO: Set various options that control the simulation.
+-end-
+
+ho.simload		-begin-
+メモリ・ファイルを読み込む
+-end-
+
+ho.simdump		-begin-
+メモリ・ファイルに書き出す
+-end-
+
+ho.simview	-begin-
+メモリ(RAMやROM)の内容を表示したいり、
+変更したいりします。
+-end-
+
+ho.f.modlist		-begin-
+読み込んであるモジュールの一覧表。
+トップのモジュールの名前に「+」が
+付いている。ライブラリのモジュール
+は括弧に囲まれている。
+-end-
+
+ho.f.modlisttab		-begin-
+TODO: List of all modules currently loaded. You can display the list in either alphabetical or hierarchical form by selecting the appropriate tab. Drag modules to the edit window to create new instances.
+-end-
+
+ho.netlist		-begin-
+現在のモジュールのネット名の一覧表
+-end-
+
+ho.ports		-begin-
+現在のモジュールのポート名の一覧表
+-end-
+
+ho.status.logo		-begin-
+現在のモードが表示されている。鉄のゲート
+の場合、編集モードを表す。ANDゲートの場合、
+シミュレーション・モードを表す。ANDゲートが
+走って いる場合、シミュレーションの時間が
+動いている。
+-end-
+
+ho.status.msg		TkGateよりのメッセージがここに表示される。
+
+ho.status.block		現在のモジュールのパス
+
+ho.status.file		-begin-
+現在編集中のファイル名が表示されている。
+「*」という記号がついている時、保存して
+いない変更 がある。
+-end-
+
+ho.print.selall		全ての読み込んでいるモジュールを印刷する。
+ho.print.selcur		現在のモジュールのみを印刷する。
+ho.print.seluse		-begin-
+使用中のモジュールのみ印刷する。
+-end-
+
+ho.print.fulltrace		TODO: Print the entire trace.
+
+ho.print.parttrace		-begin-
+TODO: Print a portion of the trace.  Enter the starting and stopping times in the entry windows below, or use the right mouse button to select a range on the scope window (use shift-right to select long ranges).
+-end-
+
+ho.print.parttracestart		TODO: Starting time of trace output.
+ho.print.parttraceend		TODO: Ending time of trace output.
+
+
+ho.print.selsel		-begin-
+以下にマークしているモジュールのみを印刷する。
+コントロール・キーで複数のモジュールを選択 出来る。
+-end-
+
+ho.print.modlist		印刷するモジュールを選択する。
+
+ho.circuit.discchg		-begin-
+有効にすると、変更ありの回路を
+保存しないで閉じるとき警告しない。
+-end-
+
+ho.circuit.extbar		-begin-
+新しく作った基本ゲート(AND, OR,
+XOR)の入力数が3本以上の時、
+拡張バーは利用する。
+-end-
+
+ho.circuit.shownet	-begin-
+新しく作ったスイッチやDIPにネット名が
+表示します。
+-end-
+
+
+ho.circuit.autostart		-begin-
+有効にすると、シミュレーション・モードに入ると、
+シミュレーションがすぐ実行する。
+-end-
+
+ho.circuit.language		-begin-
+回路データを表示する為のフォントを
+選択してくだだい。日本語nの場合、
+「euc-jp」にしてください。
+-end-
+
+
+ho.cmd.bitw		-begin-
+カーソルで選択されたワイヤは表示 されているビット幅に設定される。
+-end-
+
+ho.edgat.signam		-begin-
+選択されたコンポーネントの選択された
+ネットである。名前が変更出来る。
+-end-
+
+ho.edgat.port		-begin-
+選択されたコンポーネントの選択された
+ネットのポート名である。モジュール
+のコンポーネントの場合のみ変更出来る。
+-end-
+
+ho.edgat.iolab		-begin-
+選択されたコンポーネントの選択された
+ネットのポート方向である。モジュール
+のコンポーネントの場合のみ変更出来る。
+-end-
+
+ho.edgat.bitlab		-begin-
+選択されたコンポーネントの選択された
+ネットのビット幅である。変更出来る。
+-end-
+
+ho.edgat.cycle		一サイクルのエポック数
+ho.edgat.phase		クロックのフェーズ（パーセントで設定する）
+ho.edgat.duty		クロック・サイクルの何パーセントが論理0であるか
+
+
+ho.edgat.hide		-begin-
+有効にするとコンポーネント名が表示されない。
+-end-
+
+ho.edgat.gtype		コンポーネントの種類
+ho.edgat.gname		コンポーネントの名前
+ho.edgat.ganchor	有効にすると、コンポーネントが移動不可になる。
+ho.edgat.gx		コンポーネントのX位置
+ho.edgat.gy		コンポーネントのY位置
+
+ho.edgat.swstate		-begin-
+シミュレーションを始める時の初期の値である。
+-end-
+
+ho.edgat.dipstate		-begin-
+シミュレーションを始める時の初期の値である。
+-end-
+
+ho.edgat.range		マルチビットの信号のサブ・レンジである。
+
+ho.edgat.memfile		-begin-
+メモリの初期の値のファイルを指定する。
+シミュレーションを始める時、このファイル
+が読み込まれる。
+-end-
+
+ho.edgat.func		モジュールの機能
+ho.edgat.frame		フレームのラベル
+
+ho.traceprint		TODO: Print trace logic trace. 
+
+ho.showxhair		-begin-
+TODO: If this button is depressed, a vertical crosshair line will be displayed in the scope window.
+-end-
+
+ho.opt.general.fontset		-begin-
+TODO: Specifies the basic font size to use in the TkGate interface.  This option will not take effect until restarting TkGate.
+-end-
+
+ho.opt.sec.send		-begin-
+TODO: Enabling the $tkg$command() system task will allow user circuits to send arbitrary simulator control commands to the TkGate GUI.  This includes the ability to execute arbitrary shell commands.  If the simulator will be used to execute untrusted circuits, it is recommended that this task be disabled.  Enabling this option has a very high security risk.
+-end-
+
+ho.opt.sec.open		-begin-
+TODO: Enabling the $fopen() system task will allow user circuits to write to any file that the user invoking TkGate has access to.  Enabling this option has a high security risk.
+-end-
+
+ho.opt.sec.writemem		-begin-
+TODO: Enabling the $writememb() and $writememh() system tasks will allow user circuits to write to any file that the user invoking TkGate has access to.  Enabling this option has a high security risk.
+-end-
+
+ho.opt.sec.enqueue		-begin-
+TODO: Enabling the $tkg$recv() and $tkg$send() system tasks will enable virtual peripheral devices to send messages to TkGate circuits.  Enabling this option has a low security risk.
+-end-
+
+ho.opt.ssave		-begin-
+TODO: Perform consistency checks on circuit files before overwriting existing save file to verify that there are no problems with the save file.
+-end-
+
+ho.opt.sec.exec		-begin-
+TODO: Fully enabling the $tkg$exec() system task allows user circuit to execute arbitrary tcl/tk commands including the ability to execute arbitrary shell commands.  Enabling this option has a very high security risk.
+-end-
+
+ho.opt.sec.regexec		-begin-
+TODO: Enabling the $tkg$exec() system task for registered functions allows user circuits to execute only tcl/tk commands that have been registered as safe.  As long has all Virtual Peripheral Device files are trusted, enabling $tkg$exec() at this level should prevent dangerous commands from being executed.  Enabling this option has a medium security risk.
+-end-
+
+ho.opt.sec.noexec		-begin-
+TODO: Fully disabling the $tkg$exec() command will prevent user circuits from executing tcl/tk commands.  This will make it impossible to use Virtual Peripheral Devices.  Selecting this option has a minimal security risk.
+-end-
+
+ho.opt.sec.stop		-begin-
+TODO: If this setting is enabled, the simulation will be terminated as soon as any attempt is made by the user circuit to execute a disabled feature.
+-end-
+
+ho.opt.sec.warn		-begin-
+TODO: If this setting is enabled, the simulation will continue, but an error message will be displayed when any attempt is made by the user circuit to execute a disabled feature.
+-end-
+
+ho.opt.sec.ignore		-begin-
+TODO: If this setting is enabled, use of any disabled features will be ignored and no error messages will be displayed.
+-end-
+
+ho.opt.html.browser		-begin-
+TODO: Command to be execute when the user clicks on a link to an html file.  A "%s" in the command will be replaced with the link URL. 
+-end-
+
+ho.opt.html.email		-begin-
+TODO: Command to be execute when the user clicks on a link to send an e-mail message.  A "%s" in the command will be replaced with the link URL.
+-end-
+
+ho.opt.fsave		-begin-
+TODO: Save TkGate internal cells with circuit data.  This will increase save file size by about 20% for a typical circuit, but will result in save files that can be exported to third party tools.
+-end-
+
+ho.opt.sorttraces		-begin-
+TODO: If this option is enabled, traces on the scope window will be displayed in sorted order.  If this option is disabled, traces on the scope window will be displayed in the order in which the probes were set.
+-end-
+
+ho.opt.sim.noglitch		-begin-
+TODO: If this option is enabled, rapidly changing inputs to a gate will cause the gate to output unknown rather simply the time shifted input signal.  This can eliminate spurious events and prevent oscilations in gate-level sequential circuits.
+-end-
+
+ho.opt.sim.tech		-begin-
+TODO: List of files to load as potential "technology" files.  Technology files specify delay and area estimates for built-in gates.
+-end-
+
+ho.opt.sim.err		-begin-
+TODO: Select how warnings from the simulator should be handled.
+-end-
+
+ho.opt.sim.err.stopany		-begin-
+TODO: Do not simulate the circuit if there are any warnings in the circuit, even if there are no actual erros.
+-end-
+
+ho.opt.sim.err.showall		-begin-
+TODO: Always show warnings in the circuit, even if there are no errors.  If there are only warnings, the simualtor will be started and the list of warnings will be displayed in a separate window.
+-end-
+
+ho.opt.sim.err.showiferr		-begin-
+TODO: Show warnings only if there are also errors in the circuit.  If a circuit contains only warnings, they will be ignored and the simulator will be started.
+-end-
+
+ho.opt.sim.err.ignore		-begin-
+TODO: Never display warning messages, even if there are errors in the circuit.
+-end-
+
+ho.opt.lib.vpath		-begin-
+TODO: List of directories to search for TkGate library files.  Library files should have a .v extention and contain modules useful for use in user circuits.
+-end-
+
+ho.opt.lib.vlib		-begin-
+TODO: List of libaries that should automatically be loaded when TkGate starts.
+-end-
+
+ho.opt.lib.vpd		-begin-
+TODO: List of directories to search for virtual peripheral devices.  Virtual peripheral devices have a .tcl extension and typically implement a GUI representing a peripheral device that can be controlled by a user circuit.
+-end-
+
+ho.opt.undolen		-begin-
+undoのリストの長さ
+-end-
+
+ho.opt.name		-begin-
+TODO: User name to be used on TkGate generated reports such as circuit printouts.
+-end-
+
+ho.opt.site		-begin-
+回路などを印刷する時、このサイト名が表示される。
+-end-
+
+ho.opt.smooth		-begin-
+この設定を有効にすると、回路をスクロールする時、
+ビットマップのコピーを利用して、効率よく
+スクロールできる。Xサーバの問題があれば、この
+設定を無効にすれば良い。
+-end-
+
+ho.opt.clip		-begin-
+有効にすると、ウインドウの部分領域の
+再描画を行なう。そうでなければ常に
+全領域を再描画する。
+-end-
+
+ho.opt.showimage		-begin-
+TODO: Unset this option to suppress display of the image and explanitory text at the edge of dialog boxes.
+-end-
+
+
+ho.opt.outmove		-begin-
+有効にすると、モジュールを移動する時、
+ワイヤなどはマウスのボタンを離すまで
+移動しない。画面の表示が遅い時に便利である。
+-end-
+
+ho.opt.bhelp		-begin-
+有効にすると、このメッセージの様な「ヘルプ・
+バルーン」が表示される。
+-end-
+
+ho.opt.novice		-begin-
+有効にすると、初心者モードになる。
+初心者モードでは、TkGateが立ち上がる時、
+チュートリアルが自動的に読み込まれる。
+-end-
+
+ho.opt.blockDropConnect		-begin-
+TODO: Allow ports on module interfaces to be created by dropping free wires near an edge.
+-end-
+
+ho.opt.debug		-begin-
+有効にすると、デバグ機能が使える。
+開発者以外に、あまり役に立たない。
+-end-
+
+ho.opt.ckpt		有効にすると、TkGateはチェックポイント保存のファイルを作る。
+ho.opt.ckptfreq		チェックポイント保存を何クリック毎に行なうか
+
+ho.opt.beak		-begin-
+全然役に立たない機能を有効にする。この機能を
+無効にすると、このスイッチはダイアログ
+ボックスから消え、.tkgate-propertiesを
+編集しない限り戻らない。
+-end-
+
+ho.opt.miles		-begin-
+有効にすると、TkGateは時々ユーザを
+馬鹿にしたり、悪口を言ったりする。
+-end-
+
+ho.opt.bat		-begin-
+有効にすると、バットマンのコンピュータを
+設計する為に「役にたつ」機能が使える。
+-end-
+
+ho.opt.trek		転送しろ、スコッティ！
+
+ho.opt.simstep		-begin-
+シミュレータのステップ・コマンドで
+何エポック進むかを指定する。
+-end-
+
+ho.opt.ckstep		-begin-
+シミュレータのクロックステップ・
+コマンドで 何サイクル進むかを指定する。
+-end-
+
+ho.opt.ckover		-begin-
+シミュレータのクロック・コマンドは
+クロックのエッジより更に何エポック
+進むかを指定する。
+-end-
+
+ho.opt.vpopupdelay		-begin-
+マウスボタンを押してから、何ミリ秒経って
+から信号の値が表示される遅延である。 この
+遅延が短過ぎる時、ダブルクリックが 認知
+できなくなる問題があるシステムは ある。
+この問題が起こらなければ、遅延 をより
+短くしても良い。
+-end-
+
+ho.opt.init		-begin-
+シミュレータを立ち上げる時に
+自動的に実行するスクリプト・
+ファイルを指定する。
+-end-
+
+ho.opt.ckall		-begin-
+有効にすると、クロック・コマンドは
+どのクロックのエッジでも停止する。
+-end-
+
+ho.opt.ckspec		-begin-
+有効にすると、クロック・コマンドは
+指定したクロックのエッジのみに停止する。
+-end-
+
+ho.opt.keybind		-begin-
+TODO: Specifies the basic style for key bindings.  If you change this option, bindings will be updated immediately, but you will need to restart TkGate to see any user defined keybindings.
+-end-
+
+ho.deftech		-begin-
+新しいコンポーネントのデフォルトのテクノロジー。
+ コンポーネントの遅延に影響する。任意のコンポーネント の
+テクノロジーを変更するには、コンポーネントの設定
+ボックスを開いて、「遅延」のタブ を選択
+して下さい。
+-end-
+
+ho.techbut		-begin-
+指定したテクノロジー・ファイルからの
+遅延値を 利用する。新しいテクノロジーを
+追加する為、「ファイル」→「設定...」→
+「シミュレート」 のメニューを開いて、
+ファイルのリストに追加 して下さい。
+-end-
+
+ho.custbut		-begin-
+このコンポーネント専用の遅延値を指定する。
+-end-
+
+ho.contver		-begin-
+マウス操作を行なう時、内部構造を自動的に
+確認して、不正の所を知らす。
+-end-
+
+ho.simwatch		-begin-
+シミュレータとGUIの間のコマンドを表示する。
+-end-
+
+ho.modtree		-begin-
+階層ツリーで回路の中のモジュール名
+を表示します。モジュール名を
+編集ウィンドにドラッグして、
+モジュールを作成出来ます。
+-end-
+
+ho.modlist		-begin-
+一覧表で回路の中のモジュール名
+を表示します。モジュール名を
+編集ウィンドにドラッグして、
+モジュールを作成出来ます。
+-end-
+
+ho.symed.point		-begin-
+TODO: Pixel edit mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.line		-begin-
+TODO: Line mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.rect		-begin-
+TODO: Rectangle mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.fillrect		-begin-
+TODO: Filled rectangle mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.select		-begin-
+TODO: Bitmap select mode.  Use the left mouse buttons to select regions of the bitmap and do cut and paste operations on the selection.
+-end-
+
+ho.symed.port		-begin-
+TODO: Port select mode.  Select ports and move them or rotate them.
+-end-
+
+ho.symed.rshift		TODO: Shift selected pixels right.
+ho.symed.lshift		TODO: Shift selected pixels left.
+ho.symed.ushift		TODO: Shift selected pixels up.
+ho.symed.dshift		TODO: Shift selected pixels down.
+ho.symed.cwrotate		TODO: Rotate selected pixels clockwise.
+ho.symed.ccwrotate		TODO: Rotate selected pixels counter-clockwise.
+ho.symed.autobold		TODO: Make selected image bold.
+ho.symed.resize		TODO: Resize the image editor.
+
+ho.tool.currot		-begin-
+現在のデフォルトのコンポーネント回転を表示しています。
+尚、クリックすると、デフォルト回転を変更します。
+-end-
+
+
+ho.tool.zoomin			ズーム・イン
+ho.tool.zoomout			ズーム・アウト
+ho.tool.rotate			選択のコンポーネントを非時計周りに回転する。
+ho.tool.brotate			選択のコンポーネントを時計周りに回転する。
+ho.tool.valgn			選択のコンポーネントを縦に一列に並ぶ。
+ho.tool.halgn			選択のコンポーネントを翌に一列に並ぶ。
+
+
+ho.tool.cut			選択のコンポーネントをバッファにカットする。
+ho.tool.copy			選択のコンポーネントをバッファにコピーする。
+ho.tool.paste			カットバッファのコンポーネントを張り付ける。
+ho.tool.find			コンポーネント、ワイヤ、テキストなどを探索する。
+
+ho.tool.addport			選択のコンポーネントにポートを追加する。
+ho.tool.anchor			選択のコンポーネントを移動不可にする。
+ho.tool.unanchor		選択のコンポーネントを移動可能にする。
+ho.tool.replicate		コンポーネントを複製する。
+ho.tool.delete			選択のコンポーネントを削除する。
+
+ho.opt.tearawaymenus		-begin-
+TODO: If enabled, the main menues will be detachable from the interface.  This option will take effect next time you restart TkGate.
+-end-
+
+ho.ipanel.deleteport		-begin-
+TODO: Delete the selected port.
+-end-
+
+ho.ipanel.updateall		-begin-
+TODO: Replace the interface on all instances of this module with the canonical interface shown here.
+-end-
+ho.circuit.title		-begin-
+TODO: Description of your circuit.  This title is used on printed output.
+-end-
+ho.ipanel.generate		-begin-
+TODO: Generate a new interface for a module based on ports in the port list and port elements used in the module definition.
+-end-
+ho.simmove		-begin-
+TODO: Select wires and modules, flip switches and enter dip values. Clicking and holding on a wire will show its current  value.
+-end-
+
+ho.opt.sim.savetraces		-begin-
+TODO: Probes placed during a simulation run will be remembered and replaced when restarting the simulation of the same circuit.
+-end-
+
+ho.ipanel.editport		-begin-
+TODO: Edit the selected port.  You can also double-click to edit a field in a port.
+-end-
+
+ho.symed.export		TODO: Export image to file.
+
+
+ho.setsel.ltor		TODO: Move highlighted items to selected list. 
+
+ho.print.timegraph		-begin-
+TODO: The display of the region selected to be printed is shown here.  The green area is the entire range of trace data available, and the grey area shows the area to be printed. Use the selectors to the left to select a region, or select the region in the scope window before bringing  up this diaglog box. 
+-end-
+
+ho.setsel.allr		TODO: Move all items to selected list.
+
+ho.circuit.encoding		-begin-
+TODO: Use this encoding for save files.
+-end-
+
+ho.opt.tool.simmode		TODO: Choose between the select and scroll tool in simulator.
+ho.setsel.alll		TODO: Move all items to unselected list.
+ho.circuit.ver		-begin-
+TODO: This is the version of TkGate that created the file that is currently loaded.
+-end-
+ho.circuit.file		-begin-
+TODO: This is the file name from which the current circuit was loaded.
+-end-
+ho.scroll		-begin-
+TODO: Scroll - Grab and drag the  editing canvas.
+-end-
+ho.symed.import		TODO: Import image from file.
+ho.ipanel.select		-begin-
+TODO: Use "standard" modules for regular rectangular interfaces.  Use "symbol" modules for custom bitmaped symbols.
+-end-
+ho.ipanel.addport		-begin-
+TODO: Add a port to the module.  You can also double-click after the last item to add port.
+-end-
+ho.setsel.rtol			TODO: Move highlighted items to unselected list. 
+
+

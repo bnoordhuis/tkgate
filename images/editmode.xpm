@@ -1,0 +1,26 @@
+/* XPM */
+static char *editmode[] = {
+/* width height num_colors chars_per_pixel */
+"    16    16        3            1",
+/* colors */
+". c #0000ff",
+"# c #ff0000",
+"a c #ffffff",
+/* pixels */
+"aaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaa",
+"aa........aaaaaa",
+"aa..........aaaa",
+"##..aaaaaa...aaa",
+"##..aaaaaaaa..aa",
+"aa..aaaaaaaa..##",
+"aa..aaaaaaaa..##",
+"##..aaaaaaaa..aa",
+"##..aaaaaa...aaa",
+"aa..........aaaa",
+"aa........aaaaaa",
+"aaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaa"
+};

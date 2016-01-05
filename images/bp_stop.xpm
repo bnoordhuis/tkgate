@@ -1,0 +1,23 @@
+/* XPM */
+static char * stop_xpm[] = {
+"16 16 4 1",
+" 	c blue",
+".	c black",
+"X	c red",
+"o	c white",
+"    ........    ",
+"   .XXXXXXXX.   ",
+"  .XXXXXXXXXX.  ",
+" .XXXXXXXXXXXX. ",
+".XXXXXXXXXXXXXX.",
+".ooXoooXoooXooo.",
+".oXXXoXXoXoXoXo.",
+".ooXXoXXoXoXooo.",
+".XoXXoXXoXoXoXX.",
+".ooXXoXXoooXoXX.",
+".XXXXXXXXXXXXXX.",
+".XXXXXXXXXXXXXX.",
+" .XXXXXXXXXXXX. ",
+"  .XXXXXXXXXX.  ",
+"   .XXXXXXXX.   ",
+"    ........    "};

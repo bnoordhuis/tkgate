@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (Index)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<table>
+<tr>
+<td><IMG SRC="fig/biggatelogo.gif"  WIDTH=262 HEIGHT=220></td><td></td>
+<td><H1>TKGate 2.0</H1>
+<p>
+    Copyright (C) 1987-2007 by Jeffery P. Hansen
+<p>
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+<p>
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+<p>
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</td>
+</tr>
+</table>
+
+<HR WIDTH="100%">
+<P>TkGate is a graphical editor and&nbsp; event-driven simulator for digital
+circuits with a tcl/tk-based interface.&nbsp; Supported circuit elements
+include basic gates (AND, OR, etc.), tri-state gates, adders, multipliers,
+registers, memories and mos transistors.&nbsp; Hierarchical design is also
+supported with support for user defined modules.&nbsp; Save files are based
+on the Verilog netlist format.
+
+<BR>&nbsp;
+
+<H2>Contents:</H2>
+
+<OL>
+<LI><A HREF="gateIntro.html">Introduction to TkGate</A>
+<ul style="list-style-type: none;">
+<li> <a href="gateIntro.html#cloptions">1.1 Command Line Options</a>
+<li> <a href="gateIntro.html#history">1.2 History of TkGate</a>
+</ul>
+
+<LI><A HREF="gateEdit.html">Using the Editor</A>
+<UL style="list-style-type: none;">
+<LI><A HREF="gateEdit.html#understand">2.1 Understanding the TKGate Interface</A>
+<LI><A HREF="gateEdit.html#loadsave">2.2 Loading and Saving Circuits</A>
+<LI><A HREF="gateEdit.html#loadlib">2.3 Loading Libraries</A>
+<LI><A HREF="gateEdit.html#tools">2.4 Basic Editing Tools</A>
+<LI><A HREF="gateEdit.html#gateprops">2.5 Gate Properties</A>
+<LI><A HREF="gateEdit.html#wireprops">2.6 Wire Properties</A>
+<LI><A HREF="gateEdit.html#labels">2.7 Wire Name and Bit-Size Labels</A>
+<LI><A HREF="gateEdit.html#search">2.8 Searching for Gates and Wires</A>
+<LI><A HREF="gateEdit.html#links">2.9 HTML in Comments</A>
+<LI><A HREF="gateEdit.html#print">2.10 Printing a Schematic</A>
+<LI><A HREF="gateEdit.html#circopt">2.11 Circuit Properties</A>
+</UL>
+
+<LI>
+<A HREF="gateModules.html">Working with Modules</A>
+<ul style="list-style-type: none;">
+<li><A HREF="gateModules.html#intro">3.1 Modules Implementations versus Module Instances</A>
+<li><A HREF="gateModules.html#instances">3.2 Creating Module Instances</A>
+<li><A HREF="gateModules.html#hierarchy">3.3 Module Hierarchy</A>
+<li><A HREF="gateModules.html#create">3.4 Creating and Manipulating Modules</A>
+<li><A HREF="gateModules.html#definitions">3.5 Editing Module Definitions</A>
+<li><A HREF="gateModules.html#interfaces">3.6 Editing Module Interfaces</A>
+</ul>
+
+<LI>
+<A HREF="gateHDL.html">HDL Modules</A>
+<UL style="list-style-type: none;">
+<LI><A HREF="gateHDL.html#hdlmain">4.1 HDL Editor Window</a>
+<LI><A HREF="gateHDL.html#basics">4.2 Verilog Basics</a>
+<LI><A HREF="gateHDL.html#wiretypes">4.3 Data Types</a>
+<LI><A HREF="gateHDL.html#expressions">4.4 Expressions</a>
+<LI><A HREF="gateHDL.html#directives">4.5 Compiler Directives</a>
+<LI><A HREF="gateHDL.html#modules">4.6 Module Declarations</a>
+<LI><A HREF="gateHDL.html#netlist">4.7 Netlist Modules</a>
+<LI><A HREF="gateHDL.html#behavioral">4.8 Behavioral Modules</a>
+<LI><A HREF="gateHDL.html#parameters">4.9 Module Parameters</a>
+<LI><A HREF="gateHDL.html#specify">4.10 Specify Blocks</a>
+</ul>
+
+<LI>
+<A HREF="gateSim.html">Using the Simulator with TkGate</A>
+
+<UL style="list-style-type: none;">
+<LI><A HREF="gateSim.html#start">5.1 Starting the Simulator</a>
+<LI><A HREF="gateSim.html#output">5.2 Observing the Output</a>
+<LI><A HREF="gateSim.html#input">5.3 Controlling the Input</a>
+<LI><A HREF="gateSim.html#breakpoint">5.4 Setting Breakpoints</a>
+<LI><A HREF="gateSim.html#memory">5.5 Initializing Memories</a>
+<LI><A HREF="gateSim.html#script">5.6 Simulation Scripts</a>
+<LI><A HREF="gateSim.html#error">5.7 Using the Error Reporter</a>
+<LI><A HREF="gateSim.html#delay">5.8 Gate Delay Files</a>
+</UL>
+
+<LI>
+<A HREF="gateGmac.html">Gate Microcode and Assembly Compiler (gmac)</a>
+
+<ul style="list-style-type: none;">
+<li><A HREF="gateGmac.html#banks">6.1 Defining Memory Banks</a></li>
+<li><A HREF="gateGmac.html#microinst">6.2 Defining the Micro-Instruction Set</a></li>
+<li><A HREF="gateGmac.html#microprog">6.3 Writing the Micro-Program</a></li>
+<li><A HREF="gateGmac.html#macroinst">6.4 Defining the Macro-Instruction Set</a></li>
+<li><A HREF="gateGmac.html#macroprog">6.5 Writing the Macro-Program</a></li>
+</ul>
+
+<LI>
+<A HREF="vpdCreation.html">Making Virtual Peripheral Devices (VPDs) </a>
+<ul style="list-style-type: none;">
+<li><A HREF="vpdCreation.html#overview">7.1 Overview of Virtual Peripheral Device Design</a>
+<li><A HREF="vpdCreation.html#installing">7.2 Installing VPDs</a>
+<li><A HREF="vpdCreation.html#tclside">7.3 The Tcl-Side Interface</a>
+<li><A HREF="vpdCreation.html#verilogside">7.4 The Verilog-Side Interface</a>
+</ul>
+
+<LI>
+<A HREF="gateOptions.html">Setting TkGate Options </a>
+<ul style="list-style-type: none;">
+<li><A HREF="gateOptions.html#general">8.1 General Options</a>
+<li><A HREF="gateOptions.html#interface">8.2 Interface Options</a>
+<li><A HREF="gateOptions.html#toolbar">8.3 Toolbar Options</a>
+<li><A HREF="gateOptions.html#hdl">8.4 HDL Options</a>
+<li><A HREF="gateOptions.html#print">8.5 Print Options</a>
+<li><A HREF="gateOptions.html#simulate">8.6 Simulate Options</a>
+<li><A HREF="gateOptions.html#library">8.7 Library Options</a>
+<li><A HREF="gateOptions.html#security">8.8 Security Options</a>
+<li><A HREF="gateOptions.html#color">8.9 Color Options</a>
+<li><A HREF="gateOptions.html#html">8.10 HTML Options</a>
+</ul>
+
+<li>
+<A HREF="gateLibrary.html">TkGate Library Components </a>
+<ul style="list-style-type: none;">
+<li><A HREF="gateLibrary.html#tty">9.1 TTYs</a>
+<li><A HREF="gateLibrary.html#drink">9.2 Drink Machine</a>
+<li><A HREF="gateLibrary.html#timer">9.3 Timers and One-Shots</a>
+<li><A HREF="gateLibrary.html#ttl">9.4 TTL Devices</a>
+</li>
+
+</ol>
+
+<h5>Appendices</h5>
+
+<ol style="list-style-type: upper-alpha;">
+<li> <a href="gateTypeList.html">List of Built-In Gate Types</a>
+<li> <a href="systemTasks.html">List of System Tasks</a>
+<li> <a href="simErrors.html">List of Simulator Error Messages</a>
+<li> <a href="verga.html">Using the Verga Simulator in Stand-Alone Mode</a>
+<li> <a href="menagerie.html">Sample Gmac Input File</a>
+</ol>
+
+<ol style="list-style-type: upper-alpha;">
+
+</BODY>
+</HTML>

@@ -1,0 +1,7 @@
+x=x vcc=1 gnd=0
+x=x vcc=1 gnd=0
+posedge x=1
+negedge x=0
+posedge x=1
+negedge x=0
+done

@@ -1,0 +1,26 @@
+/* XPM */
+static char * symed_point_S_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+" 	c blue",
+".	c #BBBBBBBBFFFF",
+"X	c #8b008b",
+"o	c black",
+/* pixels */
+"                ",
+" ..X....X....X. ",
+" XXXXXXXXXXXXXX ",
+" ..XooooX....X. ",
+" ..XooooX....X. ",
+" ..XooooX....X. ",
+" ..XooooX....X. ",
+" XXXXXXXXXXXXXX ",
+" ..X....XooooX. ",
+" ..X....XooooX. ",
+" ..X....XooooX. ",
+" ..X....XooooX. ",
+" XXXXXXXXXXXXXX ",
+" ..X....X....X. ",
+" ..X....X....X. ",
+"                "};

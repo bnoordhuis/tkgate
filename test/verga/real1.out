@@ -1,0 +1,11 @@
+The number is 15 (should be 15)
+The number is 5.1 (should be 5.1)
+The number is 3.5 (should be 3.5)
+The number is 12.65 (should be 12.65)
+The number is 0.333333 (should be 0.333333)
+The number is -1 (should be -1)
+The number is 2 (should be 2)
+Expecting 1, got 1
+Expecting 1.2, got 1.2
+Expecting 32'h1, got 32'h1
+Expecting 1, got 1

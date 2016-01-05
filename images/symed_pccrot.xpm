@@ -1,0 +1,26 @@
+/* XPM */
+static char * symed_pcrot_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+" 	c white",
+".	c red",
+"X	c #88888888FFFF",
+"o	c blue",
+/* pixels */
+"        ...     ",
+"       .....    ",
+" ...........    ",
+"       .....    ",
+"  XXX   ...     ",
+"  ooX           ",
+"  ooX           ",
+"  XooX          ",
+"  XooX    X     ",
+"   XooXX  oX    ",
+"    XoooXXooX   ",
+"     XoooooooX  ",
+"      XXoooooX  ",
+"        XXooX   ",
+"          oX    ",
+"          X     "};

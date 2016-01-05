@@ -1,0 +1,21 @@
+   0: ck=1
+No violation expected at 50
+  50: ck=0
+No violation expected at 100
+ 100: ck=1
+No violation expected at 150
+ 150: ck=0
+No violation expected at 200
+ 200: ck=1
+$width violation expected at 220 on posedge
+Runtime Error at 220: Timing violation in top[top] $width(posedge ck, 30).
+ 220: ck=0
+No violation expected at 300
+ 300: ck=1
+No violation expected at 390
+ 390: ck=0
+$width violation expected at 400 on negedge
+Runtime Error at 400: Timing violation in top[top] $width(negedge ck, 25).
+ 400: ck=1
+No violation expected at 450
+ 450: ck=0

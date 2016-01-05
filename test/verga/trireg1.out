@@ -1,0 +1,20 @@
+  TRIREG     
+  0 1 x z L H
+ +-----------
+0|0 1 x 0 0 x
+1|0 1 x 1 x 1
+x|0 1 x x x x
+
+Expect:
+  TRIREG     
+  0 1 x z L H
+ +-----------
+0|0 1 x 0 0 x
+1|0 1 x 1 x 1
+x|0 1 x x x x
+
+w2=x (expect x)
+w2=0 (expect 0)
+w2=0 (expect 0)
+w2=1 (expect 1)
+w2=1 (expect 1)

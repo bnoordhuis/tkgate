@@ -1,0 +1,16 @@
+in foo(8, 9)
+stating top.  w1=9
+in top (i=0, w1='h9, a='h12, r='h1).
+in mytask (i=0, w1='h9, a='h3).
+in top (i=10, w1='h9, a='h12, r='h1).
+in mytask (i=1, w1='h9, a='h3).
+in top (i=20, w1='h9, a='h12, r='h1).
+in mytask (i=2, w1='h9, a='h3).
+in top (i=30, w1='h9, a='h12, r='h1).
+in mytask (i=3, w1='h9, a='h3).
+in top (i=40, w1='h9, a='h12, r='h1).
+in mytask (i=4, w1='h9, a='h3).
+after call.
+start of fooby
+end of fooby
+r2=21.

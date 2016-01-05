@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>List of Menu Command</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+   <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<A NAME="menus"></A>
+<H2>B. Menu Summary</H2>
+
+<table border>
+
+<tr><th colspan=3>Menu Option</th><th>Shortcut</th><th>Description</th></tr>
+
+<tr><td rowspan=8>File</td><td colspan=2>New</td><td>Ctl-x k</td>
+<td>Flushes the current circuit and begins a new one.&nbsp;  A dialog box will prompt for a new circuit file and top-level block name.</td></tr>
+
+<tr><td colspan=2>Open...</td><td>Ctl-x Ctl-f</td>
+<td>Flushes the current circuit and reads a new circuit from a file.</td></tr>
+
+<tr><td colspan=2>Open Library...</td><td>Ctl-x Ctl-l</td>
+<td>Reads library modules from a file.&nbsp;  The modules will be marked as library modules.&nbsp;  Only
+modules that to not supersede a current non-library module will be loaded.</td></tr>
+
+<tr><td colspan=2>Save</td><td>Ctl-x Ctl-s</td>
+<td>Saves the current circuit to the current file.&nbsp;  If there is no current file, TkGate
+will prompt for a file name.</td></tr>
+
+<tr><td colspan=2>Save...</td><td>Ctl-x Ctl-w</td>
+<td>Prompts for a file name and saves the circuit.&nbsp;  The specified file name will become
+the new current file.</td></tr>
+
+<tr><td colspan=2>Print...</td><td>Ctl-x Ctl-p</td>
+<td>Prints a schematic diagram.&nbsp;  Schematics can be printed directly to the printer
+or to a file.</td></tr>
+
+<tr><td colspan=2>Options...</td><td>Ctl-x o</td>
+<td>Brings up a dialog box allowing TkGate options to be set.</td></tr>
+
+<tr><td colspan=2>Quit</td><td>Ctl-x Ctl-c</td>
+<td>Exits TkGate.</td></tr>
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=7>Edit</td><td colspan=2>Cut</td><td>Ctl-w</td>
+<td>Cuts the selected gates and inserts them into the cut buffer.</td></tr>
+
+<tr><td colspan=2>Copy</td><td>Ctl-x x</td>
+<td>Copies the selected gates into the cut buffer.</td></tr>
+
+<tr><td colspan=2>Paste</td><td>Ctl-y</td>
+<td>Pastes the contents of the cut buffer.&nbsp;  If a mark is set, the gates will be
+pasted at the mark postion.&nbsp;  If no mark is set, the original position of the
+gates in the cut buffer will be used.</td></tr>
+
+<tr><td colspan=2>Select All</td><td>Ctl-x a</td>
+<td>Selects all gates.</td></tr>
+
+<tr><td colspan=2>Find...</td><td>Ctl-f</td>
+<td>Searches for a gate or wire containing a substring.</td></tr>
+
+<tr><td colspan=2>Align Vert.</td><td>|</td>
+<td>Positions the selected gates such that they are vertically aligned.</td></tr>
+
+<tr><td colspan=2>Align Horz.</td><td>-</td>
+<td>Positions the selected gates such that they are horizontally aligned.</td></tr>
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=9>Tool</td><td colspan=2>Move/Connect</td><td>F1</td>
+<td>Enables move/connect mode.</td></tr>
+
+<tr><td colspan=2>Delete Gate</td><td>F2</td>
+<td>Enables delete gate mode.</td></tr>
+
+<tr><td colspan=2>Cut Wire</td><td>F3</td>
+<td>Enables cut wire mode.</td></tr>
+
+<tr><td colspan=2>Invert</td><td>F4</td>
+<td>Enables invert port mode.</td></tr>
+
+<tr><td colspan=2>Bit Width</td><td>F5</td>
+<td>Enables set bit width mode.</td></tr>
+
+<tr><td colspan=2>Rot 0</td><td>Ctl-F1</td>
+<td>Sets rotation for new gates to 0.</td></tr>
+
+<tr><td colspan=2>Rot 90</td><td>Ctl-F2</td>
+<td>Sets rotation for new gates to 90.</td></tr>
+
+<tr><td colspan=2>Rot 180</td><td>Ctl-F3</td>
+<td>Sets rotation for new gates to 180.</td></tr>
+
+<tr><td colspan=2>Rot 270</td><td>Ctl-F4</td>
+<td>Sets rotation for new gates to 270.</td></tr>
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=2>Circuit</td><td colspan=2>Circuit Properties...</td><td>Ctl-x E</td>
+<td>Sets global properties of a circuit.</td></tr>
+
+<tr><td colspan=2>Criticl Path...</td><td>Ctl-x r</td>
+<td>List the critical paths of a circuit.</td></tr>
+
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=9>Simulate</td><td colspan=2>Begin Simulation</td><td>Ctl-s b</td>
+<td>Starts a simulation.</td></tr>
+
+<tr><td colspan=2>Run</td><td>Ctl-s g</td>
+<td>Puts the simulator into continuous simulation mode.</td></tr>
+
+<tr><td colspan=2>Pause</td><td>Ctl-s s</td>
+<td>Puts the simulator into single-step mode.</td></tr>
+
+<tr><td colspan=2>Step Epoch(s)</td><td>space</td>
+<td>Steps the simulator a fixed number of epochs.&nbsp;  The step size can
+be set in the TkGate options box.</td></tr>
+
+<tr><td colspan=2>Step Cycle</td><td>tab</td>
+<td>Steps the simulator a fixed number of clock cycles plus a fixed number of epochs.&nbsp;  The number of cycles and the overstep can be set in the TkGate
+options box.</td></tr>
+
+<tr><td colspan=2>Breakpoint...</td><td>Ctl-s k</td>
+<td>Creates a condition which will cause the simulator to transition from continuous simulation
+mode to single step mode.</td></tr>
+
+<tr><td colspan=2>Exec. Script...</td><td>Ctl-s x</td>
+<td>Reads simulation commands from a script file.</td></tr>
+
+<tr><td colspan=2>Load Memory...</td><td>Ctl-s l</td>
+<td>Loads a memory(ies) from a file.</td></tr>
+
+<tr><td colspan=2>Dump Memory...</td><td>Ctl-s d</td>
+<td>Dumps a memory to a file.</td></tr>
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=9>Module</td><td colspan=2>Open</td><td>></td>
+<td>Opens the currently selected module instance.</td></tr>
+
+<tr><td colspan=2>Close</td><td>&lt;</td>
+<td>Closes the current module and makes the next module up on the module stack the current
+module.&nbsp;  Also exits from "module interface" mode.</td></tr>
+
+<tr><td colspan=2>Set Interface</td><td>Ctl-b s</td>
+<td>Makes the interface of the currently selected module instance the default module interface.</td></tr>
+
+<tr><td colspan=2>Edit Interfaces...</td><td>Ctl-b e</td>
+<td>Enters a mode allowing module interfaces for all module types to be edited.</td></tr>
+
+<tr><td colspan=2>New...</td><td>Ctl-b n</td>
+<td>Creates a new module definition.</td></tr>
+
+<tr><td colspan=2>Delete...</td><td>Ctl-b d</td>
+<td>Deletes a module definition.</td></tr>
+
+<tr><td colspan=2>Copy...</td><td>Ctl-b c</td>
+<td>Copies a module definition to another module.</td></tr>
+
+<tr><td colspan=2>Rename...</td><td>Ctl-b r</td>
+<td>Renames a module defintion.</td></tr>
+
+<tr><td colspan=2>Claim...</td><td>Ctl-b l</td>
+<td>Convert a library module to a user module.</td></tr>
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=9>Gate</td><td colspan=2>Add Input</td><td>[</td>
+<td>Adds an input to the currently selected gate.&nbsp;  If the gate is a module instance,
+a special cursor will appear and you can select the position for the port.</td></tr>
+
+<tr><td colspan=2>Add Output</td><td>]</td>
+<td>Adds an output to the currently selected gate.&nbsp;  If the gate is a module instance,
+a special cursor will appear and you can select the position for the port.</td></tr>
+
+<tr><td colspan=2>Add Bidir</td><td>-</td>
+<td>Adds an inout to the currently selected gate.&nbsp;  If the gate is a module instance,
+a special cursor will appear and you can select the position for the port.</td></tr>
+
+<tr><td colspan=2>Change Type</td><td>@</td>
+<td>Changes the type (input, output or inout) of a port on a module instance.</td></tr>
+
+<tr><td colspan=2>Anchor Selected</td><td>Ctl-x f</td>
+<td>Sets the anchor bit of all selected gates.&nbsp;  Anchored gates can not be moved with the mouse.</td></tr>
+
+<tr><td colspan=2>Unanchor Selected</td><td>Ctl-x u</td>
+<td>Unsets the anchor bit of all selected gates.</td></tr>
+
+<tr><td colspan=2>Properties...</td><td>E</td>
+<td>Edit properties of the selected gate.</td></tr>
+
+<tr><td colspan=2>Replicate</td><td>Ctl-v</td>
+<td>Make multiple replicas of a gate.</td></tr>
+
+<tr><td colspan=2>Delete</td><td>del</td>
+<td>Delete the selected gate(s).</td></tr>
+
+<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
+
+<tr><td rowspan=53>Make</td><td rowspan=12>I/O</td><td>Switch</td><td>s</td><td>Make a switch.</td></tr>
+<tr><td>Dip Switch</td><td>d</td><td>Make a dip switch.</td></tr>
+<tr><td>Ground</td><td>g</td><td>Make a constant logic 0 element.</td></tr>
+<tr><td>Vdd</td><td>v</td><td>Make a constant logic 1 element.</td></tr>
+<tr><td>Wire Merge</td><td>w</td><td>Make a wire merge element.</td></tr>
+
+<tr><td>LED</td><td>l</td><td>Single bit LED</td></tr>
+<tr><td>LED Bar</td><td>l[n]</td><td>LED Bar Graph</td></tr>
+<tr><td>7-Seg. LED (HEX)</td><td>Lh</td><td>7-Segment LED with hexidecimal encoding</td></tr>
+<tr><td>7-Seg. LED (DEC)</td><td>Ld</td><td>7-Segment LED with decimal encoding.</td></tr>
+<tr><td>7-Seg. LED (Direct)</td><td>Ls</td><td>7-Segment LED with direct encoding.</td></tr>
+
+<tr><td>Clock</td><td>c</td><td>Make a clock.</td></tr>
+<tr><td>Tty</td><td>T</td><td>Make a tty.</td></tr>
+
+<tr><td rowspan=11>Gate</td><td>AND</td><td>a</td><td>Make a AND gate.</td></tr>
+<tr><td>NAND</td><td>A</td><td>Make a NAND gate.</td></tr>
+<tr><td>OR</td><td>o</td><td>Make an OR gate.</td></tr>
+<tr><td>NOR</td><td>O</td><td>Make a NOR gate.</td></tr>
+<tr><td>XOR</td><td>x</td><td>Make an XOR gate.</td></tr>
+<tr><td>XNOR</td><td>X</td><td>Make an XNOR gate.</td></tr>
+<tr><td>Buffer</td><td>b</td><td>Make a buffer.</td></tr>
+<tr><td>Inverter</td><td>i</td><td>Make an inverter.</td></tr>
+<tr><td>Tri-Buffer</td><td>t</td><td>Make a tri-state buffer.</td></tr>
+<tr><td>NMOS</td><td>Ctl-t n</td><td>Make a NMOS transistor.</td></tr>
+<tr><td>PMOS</td><td>Ctl-t p</td><td>Make a PMOS transistor.</td></tr>
+
+<tr><td rowspan=6>Reduction</td><td>AND</td><td>Ctl-r a</td><td>Make a reduction AND gate.</td></tr>
+<tr><td>NAND</td><td>Ctl-r A</td><td>Make a reduction NAND gate.</td></tr>
+<tr><td>OR</td><td>Ctl-r o</td><td>Make a reduction OR gate.</td></tr>
+<tr><td>NOR</td><td>Ctl-r O</td><td>Make a reduction NOR gate.</td></tr>
+<tr><td>XOR</td><td>Ctl-r x</td><td>Make a reduction XOR gate.</td></tr>
+<tr><td>XNOR</td><td>Ctl-r X</td><td>Make a reduction XNOR gate.</td></tr>
+
+<tr><td rowspan=6>MSI</td><td>2-1 Multiplexor</td><td>m</td><td>Make a 2-1 multiplexor.</td></tr>
+<tr><td>4-1 Multiplexor</td><td>M 4</td><td>Make a 4-1 multiplexor.</td></tr>
+<tr><td>8-1 Multiplexor</td><td>M 8</td><td>Make an 8-1 multiplexor.</td></tr>
+<tr><td>1-2 Decoder</td><td>D 2</td><td>Make a 1-2 decoder.</td></tr>
+<tr><td>1-4 Decoder</td><td>D 4</td><td>Make a 1-4 decoder.</td></tr>
+<tr><td>1-8 Decoder</td><td>D 8</td><td>Make a 1-8 decoder.</td></tr>
+
+<tr><td rowspan=7>ALU</td><td>Adder</td><td>+</td><td>Make an adder.</td></tr>
+<tr><td>Multiplier</td><td>*</td><td>Make a multiplier.</td></tr>
+<tr><td>Divider</td><td>/</td><td>Make a divider.</td></tr>
+<tr><td>Left Shift</td><td>S L</td><td>Make a left shifter.</td></tr>
+<tr><td>Right Shift</td><td>S R</td><td>Make a right shifter.</td></tr>
+<tr><td>Arith. Right Shift</td><td>S A</td><td>Make an arithmetic right shifter.</td></tr>
+<tr><td>Roll</td><td>S O</td><td>Make a roll shifter.</td></tr>
+
+<tr><td rowspan=3>Memory</td><td>Register</td><td>r</td><td>Make a register.</td></tr>
+<tr><td>RAM</td><td>R</td><td>Make a random access memory.</td></tr>
+<tr><td>ROM</td><td>u</td><td>Make a read-only memory.</td></tr>
+
+<tr><td rowspan=4>Module</td><td>Module Instance</td><td>B</td><td>Make a module instance.</td></tr>
+<tr><td>Module Input</td><td>}</td><td>Make a module input port.</td></tr>
+<tr><td>Module Output</td><td>{</td><td>Make a module output port.</td></tr>
+<tr><td>Module InOut</td><td>=</td><td>Make a module inout port.</td></tr>
+
+<tr><td colspan=2>Comment</td><td>C</td><td>Make a comment.</td></tr>
+
+<tr><td colspan=2>Frame</td><td>F</td><td>Make a frame box.</td></tr>
+
+</table>
+
+</body>
+</html>

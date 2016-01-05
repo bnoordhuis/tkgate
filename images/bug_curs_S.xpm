@@ -1,0 +1,25 @@
+/* XPM */
+static char * bug_curs_S_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+" 	c blue",
+".	c #BBBBBBBBFFFF",
+"X	c black",
+/* pixels */
+"                ",
+" ...XXX........ ",
+" ....XX........ ",
+" ....XX........ ",
+" X..XXX........ ",
+" XXXXXXX....... ",
+" XXXXXXXX...... ",
+" .XX.XXXXX..... ",
+" .....XXXXX.... ",
+" ......XXXXX... ",
+" .......XXXXX.. ",
+" ........XXXXX. ",
+" .........XXXXX ",
+" ..........XX.. ",
+" ...........X.. ",
+"                "};

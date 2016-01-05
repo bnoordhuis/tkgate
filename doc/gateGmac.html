@@ -1,0 +1,392 @@
+<html>
+<head>
+   <TITLE>TKGate User Documentation (Microcode and Macrocode Compiler)</TITLE>
+   <link rel="stylesheet" href="tkgate.css" type="text/css">
+</head>
+
+<body>
+<h2>6. Gate Microcode and Macrocode Compiler</h2>
+
+Gmac is a simple microcode and macrocode compiler which can be used to
+create memory files for TkGate.  You can write declarations to define
+your own microcode and macrocode.  The current version of gmac is
+fairly simple; no attempt is made to handle arbitrary instruction
+sets with complex addressing modes, but it should be sufficient to
+create simple micro- and macro-programs.
+
+To compile a micro/macro program description, use the command:
+
+<pre>
+gmac infile.gm -o outfile.mem -l outfile.map
+</pre>
+
+This will read the description in "infile.gm", and generate the memory
+file "outfile.mem" and and the optional map file "outfile.map".  The
+memory file will contain the appropriate "memory" keywords to load
+multiple memories.  The map file contains the list of symbols defined
+in the input file in a human-readable form.
+<p>
+Gmac input files consist of a sequence of declarations.  Whitespace
+and newlines are ignored, and comments are indicated by a '//'.  A
+complete example of a Gmac input file is given in <a href="menagerie.html">Appendix E</a>.
+
+<a name="banks"></a>
+<h3>6.1 Defining Memory Banks</h3>
+
+The memories which will be generated are declared with "bank"
+statements.  A bank statement has the form:
+
+<br><br>
+<i>type</i> bank [<i>msb</i>:<i>lsb</i>] <i>name</i> ?[<i>first</i>:<i>last</i>]?;
+<br><br>
+
+The <i>type</i> parameter is one of "microcode", "macrocode" or "map"
+and specifies what type of memory this is a bank for.  Microcode and
+macrocode banks specify the memories to be used for the micro- and
+macro-programs respectively.  Map banks are typically used to look up
+the microaddress for implementing a macro-instruction.  Each of the
+memory types is optional and can be omitted.
+<p>
+The bit range [<i>msb</i>:<i>lsb</i>] specifies the portion of the
+word which will be stored at an address in the memory <i>name</i>.
+The specified memory should be the full path name of a memory in the
+circuit file.  A word can be broken across multiple memories by using
+multiple bank statements.  A single bank is limited to 32 bits, so
+memories with very long words, such as a micro-program will probably
+have to be broken into multiple memories.  An optional address
+specifier after the memory name specifies the range of address which
+this memory will hold.  If no address range is specified, this memory
+will be used for all words.
+
+As an example, consider the set of bank declarations:
+<pre>
+microcode bank[31:0] iunit.m1;
+microcode bank[63:32] iunit.m2;
+map bank[7:0] iunit.map;
+macrocode bank[7:0] memory.m1;
+</pre>
+
+This indicates that the mirco-program will be consist of 64-bit
+instructions with the low half of the instructions being stored in
+"iunit.m1" and the high half of the instructions being stored in
+"iunit.m2".  The map memory contains 8-bit data and is stored in
+"iunit.map".  The main macrocode memory has 8-bit words and is stored
+in "memory.m1".
+
+<a name="microinst"></a>
+<h3>6.2 Defining the Micro-Instruction Set</h3>
+
+Microcode instructions are defined using the 'field' declaration.  A
+field declaration consists of the 'field' keyword followed by one or
+more comma-separated declarators.  A simple declarator is simply a
+name followed by a bit range in square brackets.  For example:
+
+<pre>
+field cin[18], idata[9:2];
+</pre>
+
+declares that bit 18 of the microinstruction has the name "cin", and
+the bits 2 through 9 have the name "idata".  Single bit fields can
+optionally be prepended with the "~" to indicate they are active low
+signals.
+
+A set of symbolic values can also be supplied for a field.  For
+example:
+
+<pre>
+field mpcop[1:0]={
+	 next=0,	// Increment mpc
+	 reinit=1,	// Restart CPU
+	 jmap=2,	// Jump from map value
+	 jump=3		// Jump from condition
+};
+</pre>
+
+declares a 2-bit field "mpcop" with a set of symbolic names for field
+values.  Hexadecimal symbolic values can be specified by prepending them
+with a "0x".
+
+<a name="microprog"></a>
+<h3>6.3 Writing the Micro-Program</h3>
+
+A block of microcode is defined using the "begin microcode @"
+specifier.  A start address must be specified after the declaration.
+The end of the block is indicated with the "end" keyword.  The
+micro-program defined in the block will be stored starting at the
+specified address.  Microinstructions consists of a list of fields
+(defined by the 'field' keyword described above), with an optional
+value specification.  The microinstruction is ended by a ";".  Micro
+instructions can be labeled by specifying an identifier followed by a
+colon.
+<p>
+For each single-bit field, the presence of a field name in a
+microinstruction indicates that that bit should be asserted.  For
+normal fields, this means setting the bit to 1 in the
+microinstruction.  For active low fields (indicated with a "~" symbol
+in the field declaration) this means setting the bit to 0.  The bit
+corresponding to any active low fields not specified in an instruction
+will be set to 1.
+
+For multi-bit fields, a value should be specified after an '=' symbol.
+The value can be either a fixed constant, a symbolic value defined for
+the field, or a label which will be resolved to the appropriate
+microinstruction address when the specification is compiled.
+
+<p>
+For example, consider the microcode fragment:
+<pre>
+begin microcode @ 0
+start:	clq;								// Q <- 0
+	idata=0x1 ALU_AZERO ALU_OP=add bop=idata ldqh;			// Q.H <- 1
+	ALU_AZERO ALU_OP=add bop=qreg dout ldpc;			// PC <- Q
+	mpcop=jump mpccond=jmp mpcaddr=fetch;				// jump to 'fetch'
+	mpcop=next;
+end
+</pre>
+This specifies that this fragment will begin at address 0.  The first
+mirco instruction is labeled 'start' and simply asserts the signal 'clq'.
+In this case, this clears the contents of the Q register.  The next
+micro-instruction puts the value '1' on the field name "idata",
+asserts the signal "ALU_AZERO", puts the symbolic value "add" on the
+field "ALU_IP", the symbolic value "idata" on the field "bop" and
+asserts the signal "ldqh".  This set of operations causes a 1 to be
+stored in the high half of the Q register.  The subsequent instructions
+load the program counter PC from the value stored in the Q register
+(0x100), and jumps to the label 'fetch'.
+
+<a name="macroinst"></a>
+<h3>6.4 Defining the Macro-Instruction Set</h3>
+
+The macro-instruction set is defined using "register", "operands" and
+"op" declarations.  The "register" keyword is used to define the
+register names used in the macrocode and assign them a numeric value.
+<p>
+For example:
+<pre>
+registers R0=0, R1=1, R2=2, R3=3, R4=4, R5=5, FP=6, SP=7;
+</pre>
+declares 8 registers name R0 through R5, FP and SP.  With numeric
+values as specified in the declaration.  The numeric value here will
+be used in building the macroinstruction using a register.
+
+<h4> 6.4.1 Operand Declarations</h4>
+
+The "operands" declaration specifies a set of operand types that an
+instruction can have.  An operands declaration consists of the
+"operand" keyword, a symbolic name, and a list of addressing modes.
+Currently only four addressing modes are recognized: immediate,
+register direct, register indirect, and indexed.  Since the syntax of
+the operand declarations is rather complicated, it will be explained
+with an example.  For instance, suppose we wish to define an 'add'
+instruction which can use the following addressing mode combinations:
+
+<pre>
+   add	R1,#1234	// register direct, immediate
+   add  R1,R2		// register direct, register direct
+   add  R1,(R2)		// register direct, register indirect
+   add  R1,#Array(R3)	// register direct, indexed
+</pre>
+
+We can define the addressing mode combinations with the declaration:
+<a name="myopts"></a>
+<pre>
+operands myopts {
+    %1,#2     = { +0[1:0]=0; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+    %1,%2     = { +0[1:0]=1; +1[7:4]=%1; +1[3:0]=%2; };
+    %1,(%2)   = { +0[1:0]=2; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+    %1,#2(%3) = { +0[1:0]=3; +1[7:4]=%1; +1[3:0]=%3; +2=#2[7:0]; +3=#2[15:8]; };
+};
+</pre>
+This block defines a set of 4 operand combinations for a two-operand
+instruction.  Each operand combination is specified by a comma
+separated list of addressing modes.  A '-' can be used in place of the
+operand list to indicate instructions with no operands.  Registers are
+indicated by a '%' followed by an id number, and numbers are indicated
+by a '#' followed by an id number.  The statements in braces following
+an address mode combination specify a sequence of assignments used to
+build the macroinstruction.  Each assignment contains a word number
+within the macroinstruction, an optional bit range, and a value to
+store at the specified location.  If the value is a simple number, the
+specified number will be stored.  If the value is prepended with a '%'
+or '#', then the value is taken to be the id number for a register or
+number specified in the instruction.  For example, on a machine with a
+byte-addressable main memory, the previous operand declarations will
+generate the bytes:
+
+<pre>
+   +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  +-+-+-+-+-+-+-+-+  +-+-+-+-+-+-+-+-+
+   | undefined |1 1|   |0 0 0 1|0 1 0 1|  |0 0 1 1|1 0 0 0|  |0 0 0 1|0 0 1 0|
+   +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  +-+-+-+-+-+-+-+-+  +-+-+-+-+-+-+-+-+
+</pre>
+
+for the instruction:
+
+<pre>
+   add  R1, #0x1234(R5)
+</pre>
+
+Since the addressing modes are "register" and "indexed", the last
+entry in the list of operand combinations applies.  The "+0[1:0]=3"
+statement sets the low two bits of the first byte to binary '11'.  The
+"+1[7:4]=%1" statement sets the high half of the second bytes to the
+code for the R1 register, and the "+1[3:0]=%3" statement sets the low
+half of the second word to the code for the R5 register.  The
+"+2=#2[7:0]" and "+3=#2[15:8]" statements store the index value '0x1234'
+in the third and fourth bytes of the instruction low byte first.
+
+<p>
+One last type of memory assignment is the relative address assignment.
+Relative addresses are indicated with the '@' operator.  The pair of
+statements "+2=#2@[7:0]" and "+3=#2@[15:8]" will store the difference
+of the operand with id 2 and the address of the first byte of the
+instruction.  This feature can be used to define relative branching
+instructions.  An optional value can be specified after the '@' as a
+further fixed offset.
+
+<h4> 6.4.2 Macro-Instruction Declarations</h4>
+
+After defining a set of operand declarations, you must define the
+macro-instruction set.  A macro-instruction declaration consists of
+the 'op' keyword, an identifier, and a definition in braces.  The
+definition can include memory assignment statements as described in
+the section on operands above, 'map' statements and an operand
+declaration.  For example:
+
+<pre>
+op add {
+  map add_ri : 0x68;	// register direct, immediate
+  map add_rr : 0x69;	// register direct, register direct
+  map add_rd : 0x6a;	// register direct, register indirect
+  map add_rx : 0x6b;	// register direct, indexed
+ +0[7:0]=0x68;
+  operands myopts;
+};
+</pre>
+defines the 'add' instruction with the operand set defined by <a
+href="#myopts">myopts</a>. The statement '+0[7:0]=0x68' defines the
+base opcode for the instruction and the position to store it in the
+instruction word.  The 'map' statements define map memory values that
+can be used to map an opcode to a microinstruction address.  The left
+side of the 'map' statement specifies a label in the microprogram.
+The right side specifies an opcode value which maps to that address.
+Since the low two bits of the first byte are used to indicate the
+addressing mode, we need four map statements for each of the four
+operand combinations.  The map declarations shown here will cause the
+map memory to contain the addresses for the microinstructions add_ri,
+add_rr, add_rd and add_ri at the addresses 0x68, 0x69, 0x6a and 0x6b
+in the map memory.
+
+<a name="macroprog"></a>
+<h3>6.5 Writing the Macro-Program</h3>
+
+Similar to the micro-program block, the macro-program block is started
+by the "begin macrocode" specifier and ended by the 'end' specifier.
+For example:
+
+<pre>
+  begin macrocode @ 0x100
+</pre>
+
+will start a block of macrocode at address 0x100.  Unlike other
+portions of the gmac specification, newlines are significant in the
+macrocode block and indicate the end of a macroinstruction.  A macro
+program consists of a list of instructions and directives.  Any of the
+macroinstructions defined can be used, and labels can be defined by
+starting a line with an identifier followed by a ":".
+
+<br><br>
+
+<center><table border>
+<tr>
+<th>Directive</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><i>label</i>: .symbol <i>value</i></td>
+<td>Defines a label to be a specified value.</td>
+</tr>
+
+<tr>
+<td>.short <i>value, ...<i></td>
+<td>Inserts a set of two-byte values at successive memory locations.</td>
+</tr>
+
+<tr>
+<td>.long <i>value, ...<i></td>
+<td>Inserts a set of four-byte values at successive memory locations.</td>
+</tr>
+
+<tr>
+<td>.byte <i>value, ...<i></td> <td>Inserts a set of byte values at
+successive memory locations.  This directive can also take strings
+denoted by double quotes with each byte of the string being stored at
+successive locations.</td>
+</tr>
+
+<tr>
+<td>.bss <i>value<i></td>
+
+<td>Reserves <i>value</i> bytes of unallocated memory at the current
+position.  This directive can be used to define uninitialized global
+variables.</td>
+</tr>
+
+
+<tr>
+<td>.proc <i>label</i></td>
+<td>This directive can be used in conjunction with ".end" to define a
+procedure.  The label specified will be assigned the current address,
+but any labels defined between the ".proc" and the ".end" directives
+will be treated as local labels.</td>
+</tr>
+
+<tr>
+<td>.end</td>
+<td>Ends a procedure definition.</td>
+</tr>
+
+
+</table></center>
+
+<br><br>
+Here is a short example of a macro program:
+
+<pre>
+begin macrocode @ 0x100
+ttydata:	.symbol	0x11	// tty data in/out register
+ttystatus:	.symbol	0x10	// tty status register
+start:
+	movw	SP, 0		// Initialize the stack pointer to 0
+	movw	FP, 0		// Initialize the frame pointer to 0
+
+	push	msg		// Push msg on the stack.
+	call	print		// Call the procedure 'print'
+	add	SP,2		// Reset the stack pointer.
+
+sdone:	jmp	sdone		// Hang in an infinate loop.
+
+////////////////////
+//	print(s)	Print the string s
+//
+.proc print
+	movw	R1, 4(FP)	// Store the argument value in R1
+loop:	movb	R2, (R1)	// Store the byte addressed by R1 in R2
+	jeq	done		// If the byte was a zero, jump to 'done'
+	movb	(ttydata),R2	// Store the byte in the tty data register
+	movb	(ttystatus),#1	// Write a 1 to the tty status register to output the byte
+	add	R1, #1		// Add 1 to the R1 register
+	jmp	loop		// Jump back to 'loop' to get the next byte.
+done:	ret
+.end
+
+msg:	.byte	"Hello World.\n", 0
+</pre>
+
+Given the appropriate circuit, mircrocode and macrocode definitions,
+this program will print the message "Hello World." on a tty and halt
+by entering an infinite loop.
+
+
+</body>
+</html>

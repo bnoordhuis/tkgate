@@ -1,0 +1,197 @@
+#
+# Use this file to set site-wide defaults for option values.  Options in this
+# file override the built-in option values defined in tkgate, but can be overridden
+# by values in user preferences files. 
+#
+
+Option::version 2.0
+
+######################################################################
+#
+# General settings
+#
+Option::setDefault siteName		Earth
+Option::setDefault userName	    	""
+Option::setDefault noviceMode		1
+Option::setDefault contVerify		0
+Option::setDefault simDebugInterface	0
+Option::setDefault doSafeSave		1
+Option::setDefault saveWithCells	0
+Option::setDefault checkpointEnabled	0
+Option::setDefault checkpointFreq	300
+Option::setDefault checkVersion		0
+
+
+######################################################################
+#
+# Special settings
+#
+Option::setDefault enableBeakModes	0
+Option::setDefault baderMode		0
+Option::setDefault trekMode		0
+Option::setDefault batMode		0
+Option::setDefault batRate		200
+Option::setDefault allowDebug		0
+
+######################################################################
+#
+# Interface settings
+#
+Option::setDefault keyBindings		emacs
+Option::setDefault smoothScroll		1
+Option::setDefault regionUpdate		1
+Option::setDefault showDialogImage	1
+Option::setDefault fontSet		normal
+Option::setDefault blockDropConnect	0
+Option::setDefault undoLength		50
+Option::setDefault helpBalloons		1
+Option::setDefault tearawayMenus	0
+
+######################################################################
+#
+# Circuit default settings
+#
+Option::setDefault extendBars		1
+Option::setDefault showSwitchNets	1
+
+
+######################################################################
+#
+# Toolbar options
+#
+Option::setDefault filetb		1
+Option::setDefault edittb		1
+Option::setDefault gateoptb		1
+Option::setDefault gateprop		1
+Option::setDefault undotb		1
+Option::setDefault zoomtb		1
+Option::setDefault modetb		1
+Option::setDefault moduletb		1
+Option::setDefault techtb		1
+Option::setDefault simctltb		1
+Option::setDefault simauxtb		1
+Option::setDefault symmodestb		1
+Option::setDefault symedittb		1
+Option::setDefault zoomtb		1
+Option::setDefault symporttb		1
+Option::setDefault symshifttb		1
+Option::setDefault symoprtb		1
+
+######################################################################
+#
+# HDL text colors/fontification
+#
+Option::setDefault hdlColorize		1
+Option::setDefault hdlIndenting		1
+Option::setDefault hdlIndentLevel	2
+Option::setDefault hdlIndentNoBegin	0
+Option::setDefault hdlIndentReturn	1
+Option::setDefault hdlDragSel		1
+Option::setDefault hdlCommentColor	"firebrick"
+Option::setDefault hdlCommentBold	0
+Option::setDefault hdlCommentItalic	1
+Option::setDefault hdlStringColor	"RosyBrown"
+Option::setDefault hdlStringBold	0
+Option::setDefault hdlStringItalic	0
+Option::setDefault hdlReservedColor	"magenta4"
+Option::setDefault hdlReservedBold	1
+Option::setDefault hdlReservedItalic	0
+Option::setDefault hdlGateWordColor	"red"
+Option::setDefault hdlGateWordBold	1
+Option::setDefault hdlGateWordItalic	0
+Option::setDefault hdlInstWordColor	"black"
+Option::setDefault hdlInstWordBold	1
+Option::setDefault hdlInstWordItalic	0
+Option::setDefault hdlTaskWordColor	"green4"
+Option::setDefault hdlTaskWordBold	1
+Option::setDefault hdlTaskWordItalic	0
+
+######################################################################
+#
+# Simulator settings
+#
+Option::setDefault simSortTraces	1
+Option::setDefault simStepSize		1
+Option::setDefault simClockStepSize	1
+Option::setDefault simClockOverStep	21
+Option::setDefault simInitScript	""
+Option::setDefault simCustomDelay	0
+Option::setDefault simDelayFile		""
+Option::setDefault valuePopUpDelay	333
+Option::setDefault simLogFile		""      
+Option::setDefault warningMode		3
+Option::setDefault glitchSuppress	1
+
+######################################################################
+#
+# Library Options
+#
+Option::setDefault simTIMPath		"\${TKGATE_HOME}/tims"
+Option::setDefault simVLibPath		"\${TKGATE_HOME}/vlib"
+Option::setDefault simVLibNames		""
+
+######################################################################
+#
+# Security Options
+#
+Option::setDefault securityHandling	1
+Option::setDefault securityExec		1
+Option::setDefault securityWriteMem	0
+Option::setDefault securityOpen		0
+Option::setDefault securitySend		0
+Option::setDefault securityEnqueue	1
+
+######################################################################
+#
+# HTML Options
+#
+Option::setDefault browserCommand	"firefox %s"
+Option::setDefault emailCommand		"thunderbird %s"
+
+######################################################################
+#
+# Critical Path Options
+#
+Option::setDefault flashCPath		1
+Option::setDefault numCPath		10
+
+######################################################################
+#
+# Default colors
+#
+Option::setDefault backgroundColor    "white"
+Option::setDefault instColor          "blue"
+Option::setDefault moduleColor        "magenta4"
+Option::setDefault modulePortColor    "cyan4"
+Option::setDefault frameColor         "black"
+Option::setDefault commentColor       "black"
+Option::setDefault hyperlinkColor     "blue3"
+Option::setDefault wireColor          "green4"
+Option::setDefault busColor           "red"
+Option::setDefault toolColor          "black"
+Option::setDefault cpathColor         "red"
+Option::setDefault gridColor          "black"
+Option::setDefault oneColor           "green4"
+Option::setDefault zeroColor          "magenta"
+Option::setDefault floatColor         "blue"
+Option::setDefault unknownColor       "red"
+Option::setDefault offLedColor	      "lavender"
+Option::setDefault onLedColor         "red"
+Option::setDefault zLedColor          "yellow"
+
+######################################################################
+#
+# Print options
+#
+Option::setDefault printer		default
+Option::setDefault printDefCmdTmp	"lpr"
+Option::setDefault printCmdTmp		"lpr -P\${PRINTER}"
+Option::setDefault printCommands	{}
+Option::setDefault printPgSize(US)	Letter
+Option::setDefault printPgSize(*)	A4
+Option::setDefault printPgOrient	landscape
+Option::setDefault printDuplex		0
+Option::setDefault printStyle		fit
+Option::setDefault printIndex		0
+Option::setDefault printGraph		0
+Option::setDefault printMergeSmall	1

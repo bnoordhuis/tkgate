@@ -1,0 +1,181 @@
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (Preface)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H2>1. Introduction to TkGate</h2>
+
+TkGate is a digital circuit editor and simulator with a Tcl/Tk-based
+interface.  TkGate includes a large number of built-in devices
+including basic gates, memories, ttys and modules for hierarchical
+design.  The simulator can be controlled either interactively or
+through a simulation script.  Memory contents can be loaded from
+files, and a microcode/macrocode compiler (gmac) is included to create
+TkGate memory files from a high-level description.  The simulator
+supports continuous simulation, single step simulation (by clock or
+epoch) and breakpoints.  Save files are in a Verilog-like format.
+<p>
+A TkGate circuit is divided into one or more modules, with one of the
+modules being designated the "top-level" or "root" module.  A module
+is composed of zero or more "gates" and wires to connect the gates.
+We use the term "gate" loosely to refer to any circuit element.
+Special "comment" gates can be used to place text in the circuit.
+<p>
+Creating a gate in TkGate is simply a matter of clicking the cursor to
+set a position, and selecting a gate type from the menu.  Since most
+gate types have a one or two character shortcut, once you learn the
+shortcuts you can perform most of your editing with one hand on the
+keyboard and the other hand on the mouse.  Moving gates is almost as
+easy as creating them, simply select a gate (or gates) and drag them
+to a new position, any wires connected to the gates will be moved
+along with them and adjusted to ensure that they contain only
+horizontal and vertical segments.
+
+<a name="cloptions"></a>
+<H3>1.1 Command Line Options</H3>
+
+Start TkGate with a command of the form:
+<pre>
+% tkgate [options] [files ...]
+</pre>
+
+The following command-line options are supported:
+<table class=display>
+<th align=left width=100>Option</th><th align=left>Description</th></tr>
+</tr>
+<tr><td colspan=2><hr></td></tr>
+<tr>
+  <td valign=top><b>-v</b></td><td valign=top>Be verbose about start-up error messages and warnings.</td>
+</tr>
+<tr>
+  <td valign=top><b>-V</b></td><td valign=top>Read the TkGate files specified on the command-line and
+  check them for internal errors, but do not start TkGate.</td>
+</tr>
+<tr>
+  <td valign=top><b>-h</b></td><td valign=top>Print the list of options.</td>
+</tr>
+<tr>
+  <td valign=top><b>-d</b></td><td valign=top>Turn on debugging.</td>
+</tr>
+<tr>
+  <td valign=top><b>-x</b></td><td valign=top>Automatically starts the simulator on start-up.</td>
+</tr>
+<tr>
+  <td valign=top><b>-q</b></td><td valign=top>Suppresses start-up messages.</td>
+</tr>
+<tr>
+  <td valign=top><b>-s</b></td><td valign=top>Executes with a synchronous X server connection.  This option is primarily for debugging.</td>
+</tr>
+<tr>
+  <td valign=top><b>-n</b></td><td valign=top>Do not display the splash screen on start-up.</td>
+</tr>
+
+<tr>
+  <td valign=top><b>-l</b> <i>lib</i></td><td valign=top>Loads the specified library on start-up.  Can be specified multiple times.</td>
+</tr>
+
+<tr>
+  <td valign=top><b>-L</b> <i>lang</i></td><td valign=top>Specifies the language to use.  TkGate must have been built with multi-lingual support in order to use this option.</td>
+</tr>
+
+<tr>
+  <td valign=top><b>-O</b> <i>opts</i></td><td valign=top>Specifies a list of printer options.</td>
+</tr>
+
+<tr>
+  <td valign=top><b>-P</b> <i>printer</i></td><td valign=top>Print the specified circuit to a printer without starting up the GUI.</td>
+</tr>
+
+<tr>
+  <td valign=top><b>-p</b> <i>file</i></td><td valign=top>Print the specified circuit to a file without starting up the GUI.</td>
+</tr>
+
+<tr>
+  <td valign=top><b>-X</b> <i>script</i></td><td valign=top>Starts the simulator and executes the specified simulation script.</td>
+</tr>
+<tr><td colspan=2><hr></td></tr>
+</table>
+
+The <b>-O</b> switch is used in conjunction with the <b>-p</b> or
+<b>-P</b> switches to specify any printer options.  The printer
+options are given as a colon separated list of options.  The following
+printer options are supported through this interface:
+<table class=display>
+<th align=left width=100>Option</th><th align=left>Description</th></tr>
+</tr>
+<tr><td colspan=2><hr></td></tr>
+<tr>
+  <td valign=top><b>epsf=</b><i>bool</i></td><td valign=top>Use encapsulated Postscript format</td>
+</tr>
+<tr>
+  <td valign=top><b>duplex=</b><i>bool</i></td><td valign=top>Use duplex printing</td>
+</tr>
+<tr>
+  <td valign=top><b>index=</b><i>bool</i></td><td valign=top>Include index</td>
+</tr>
+<tr>
+  <td valign=top><b>hier=</b><i>bool</i></td><td valign=top>Include module hierarchy graph</td>
+</tr>
+<tr>
+  <td valign=top><b>paper=</b><i>type</i></td><td valign=top>Use the specified paper size</td>
+</tr>
+<tr>
+  <td valign=top><b>4up=</b><i>bool</i></td><td valign=top>Do 4-up printing of small modules</td>
+</tr>
+<tr>
+  <td valign=top><b>modules=</b><i>list</i></td><td valign=top>Comma separated list of modules to print</td>
+</tr>
+<tr><td colspan=2><hr></td></tr>
+</table>
+
+
+<a name="history"></a>
+<H3>1.2 History of TkGate</H3>
+
+<div class=rfig>
+<a name=xgate>
+<a href="fig/xgate.gif" type="image/gif" target=_blank><IMG SRC="fig/small-xgate.gif"><br>
+(click to enlarge)</a><br><br>
+<b>Figure 1.1: xgate - An Early XLib Based<br>Predecessor to TkGate</b>
+</div>
+
+
+TkGate begin life as an undergraduate project at Carnegie Mellon
+University (CMU) in 1987.  At that time it was called simply 'gate'
+and ran under the 'wm' window manager, a windowing system developed at
+CMU before X11 was widely used.  This incarnation was used by students
+in the computer architecture course at CMU to develop a simple
+microprocessor (dubbed "The Bat Computer").  Many of the bitmap images
+for the circuit elements and mode cursors (such as the wire-cutter
+cursor) used today were originally designed in this version.  This
+version also contained the hidden pancake recipe which is still in
+TkGate today.
+<p>
+After laying dormant for several years, it was resurrected in 1991 and
+ported to run under X11 with the Xlib API.  A screenshot of this
+version, which was called "xgate", is shown in <a href="#xgate">Figure
+1.1</a>.  In this incarnation it was used several times by students in
+the introductory digital logic course, but after the author graduated
+and left CMU, it went into hibernation again.
+<p>
+Work on the first Tcl/Tk incarnation begun in 1998 as an exercise in
+learning Tcl/Tk.  It was also the first version to use a Verilog-like
+save file format.  Previous versions of gate/xgate used a Lisp-like
+save file format.
+<p>
+The current version, TkGate 2.0, represents a substantial effort over
+the previous 1.8 version.  Whereas TkGate 1.8 was comprised of
+approximately 73,000 lines of C and Tcl, TkGate 2.0 nearly doubles
+that line count with over 130,000 lines of C and Tcl.  Major
+improvements added to TkGate 2.0 include an improved user interface,
+true Verilog format save files, Verilog-based simulation, a module
+interface editor, symbolic module interfaces and virtual peripheral
+devices.
+
+
+
+<BODY>
+</HTML>

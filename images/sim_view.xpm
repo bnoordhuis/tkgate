@@ -1,0 +1,27 @@
+/* XPM */
+static char * sim_view_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 5 1",
+/* colors */
+" 	c #b2c0dc",
+".	c gray27",
+"X	c white",
+"o	c black",
+"O	c #6b6b6b",
+/* pixels */
+"                ",
+"  ............  ",
+"  .XXXXXXXXXX.  ",
+"  .XXXooooXXX.  ",
+"  .XOOooooOOX.  ",
+"  .XXXooooXXX.  ",
+"  .XOOooooOOX.  ",
+"  .XXXooooXXX.  ",
+"  .XOOooooOOX.  ",
+"  .XXXooooXXX.  ",
+"  .XXXXXXXXXX.  ",
+"  ............  ",
+"      ....      ",
+"    ........    ",
+"   ..........   ",
+"                "};

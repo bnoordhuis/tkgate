@@ -1,0 +1,20 @@
+  WIRE            WOR             WAND            TRI0            TRI1
+  0 1 x z L H     0 1 x z L H     0 1 x z L H     0 1 x z L H     0 1 x z L H
+ +-----------    +-----------    +-----------    +-----------    +-----------
+0|0 x x 0 0 x   0|0 1 x 0 0 x   0|0 0 0 0 0 0   0|0 x x 0 0 x   0|0 x x 0 0 x
+1|x 1 x 1 x 1   1|1 1 1 1 1 1   1|0 1 x 1 x 1   1|x 1 x 1 x 1   1|x 1 x 1 x 1
+x|x x x x x x   x|x 1 x x x x   x|0 x x x x x   x|x x x x x x   x|x x x x x x
+z|0 1 x z L H   z|0 1 x z L H   z|0 1 x z L H   z|0 1 x 0 0 x   z|0 1 x 1 x 1
+L|0 x x L L x   L|0 1 x L L x   L|0 x x L L x   L|0 x x 0 0 x   L|0 x x x x x
+H|x 1 x H x H   H|x 1 x H x H   H|0 1 x H x H   H|x 1 x x x x   H|x 1 x 1 x 1
+
+Expect:
+  WIRE            WOR        	WAND     	TRI0             TRI1       
+  0 1 x z L H     0 1 x z L H     0 1 x z L H     0 1 x z L H    0 1 x z L H
+ +-----------    +-----------    +-----------    +-----------   +-----------
+0|0 x x 0 0 x   0|0 1 x 0 0 x   0|0 0 0 0 0 0   0|0 x x 0 0 x  0|0 x x 0 0 x
+1|x 1 x 1 x 1   1|1 1 1 1 1 1   1|0 1 x 1 x 1   1|x 1 x 1 x 1  1|x 1 x 1 x 1
+x|x x x x x x   x|x 1 x x x x   x|0 x x x x x   x|x x x x x x  x|x x x x x x
+z|0 1 x z L H   z|0 1 x z L H   z|0 1 x z L H   z|0 1 x 0 0 x  z|0 1 x 1 x 1
+L|0 x x L L x   L|0 1 x L L x   L|0 x x L L x   L|0 x x 0 0 x  L|0 x x x x x
+H|x 1 x H x H   H|x 1 x H x H   H|0 1 x H x H   H|x 1 x x x x  H|x 1 x 1 x 1

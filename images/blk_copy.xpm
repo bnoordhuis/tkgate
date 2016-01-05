@@ -1,0 +1,26 @@
+/* XPM */
+static char * blk_copy_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+" 	c #ff00ff",
+".	c magenta4",
+"X	c red",
+"o	c white",
+/* pixels */
+"       .......  ",
+"     XX.......XX",
+"     XX..ooo..XX",
+"  .......ooo..  ",
+"XX...XX..ooo..XX",
+"XX..oXX..ooo..XX",
+"  ..ooo..ooo..  ",
+"XX..oXX..ooo..XX",
+"XX..oXX..ooo..XX",
+"  ..ooo..ooo..  ",
+"XX..oXX..ooo..XX",
+"XX..oXX.......XX",
+"  ..ooo.......  ",
+"XX..ooo..XX     ",
+"XX.......XX     ",
+"  .......       "};

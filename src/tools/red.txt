@@ -1,0 +1,210 @@
+red1
+red
+red2
+red3
+OrangeRed1
+orange red
+OrangeRed
+OrangeRed2
+firebrick1
+OrangeRed3
+firebrick2
+dark red
+red4
+DarkRed
+firebrick3
+DarkOrange1
+brown1
+brown2
+DarkOrange2
+dark orange
+DarkOrange
+firebrick
+brown3
+DarkOrange3
+OrangeRed4
+chocolate1
+orange
+orange1
+DeepPink
+deep pink
+DeepPink1
+firebrick4
+chocolate2
+tomato
+tomato1
+orange2
+DeepPink2
+brown
+tomato2
+chocolate
+chocolate3
+orange3
+DeepPink3
+DarkOrange4
+brown4
+tomato3
+coral1
+DarkGoldenrod1
+sienna1
+coral2
+chocolate4
+saddle brown
+SaddleBrown
+DarkGoldenrod2
+sienna2
+orange4
+DeepPink4
+coral
+tomato4
+coral3
+medium violet red
+MediumVioletRed
+sienna3
+DarkGoldenrod3
+VioletRed1
+IndianRed1
+gold
+VioletRed2
+IndianRed2
+gold1
+DarkGoldenrod
+dark goldenrod
+gold2
+IndianRed3
+VioletRed3
+sienna
+violet red
+maroon
+gold3
+VioletRed
+sienna4
+DarkGoldenrod4
+coral4
+goldenrod1
+maroon1
+goldenrod2
+maroon2
+IndianRed4
+VioletRed4
+gold4
+indian red
+goldenrod
+goldenrod3
+IndianRed
+maroon3
+goldenrod4
+maroon4
+tan2
+tan1
+salmon2
+salmon1
+salmon3
+peru
+tan3
+salmon
+tan4
+salmon4
+LightSalmon4
+light coral
+SandyBrown
+sandy brown
+LightCoral
+HotPink4
+LightSalmon3
+LightSalmon2
+PaleVioletRed4
+light salmon
+LightSalmon1
+LightSalmon
+HotPink
+hot pink
+HotPink1
+HotPink3
+HotPink2
+PaleVioletRed3
+dark salmon
+DarkSalmon
+PaleVioletRed
+pale violet red
+PaleVioletRed2
+PaleVioletRed1
+LightPink4
+burlywood4
+LightGoldenrod4
+pink4
+RosyBrown4
+NavajoWhite4
+PeachPuff4
+LightPink3
+wheat4
+burlywood3
+bisque4
+LightPink2
+LightGoldenrod3
+burlywood
+rosy brown
+pink3
+RosyBrown
+burlywood2
+LightPink1
+RosyBrown3
+MistyRose4
+tan
+burlywood1
+LightGoldenrod2
+LightGoldenrod
+light goldenrod
+NavajoWhite3
+pink2
+PeachPuff3
+light pink
+LightGoldenrod1
+LightPink
+RosyBrown2
+pink1
+NavajoWhite2
+khaki
+wheat3
+RosyBrown1
+snow4
+bisque3
+PeachPuff2
+NavajoWhite
+NavajoWhite1
+navajo white
+pink
+peach puff
+PeachPuff
+PeachPuff1
+wheat2
+moccasin
+wheat
+bisque2
+MistyRose3
+wheat1
+AntiqueWhite3
+bisque1
+bisque
+MistyRose2
+blanched almond
+BlanchedAlmond
+AntiqueWhite2
+PapayaWhip
+papaya whip
+snow3
+MistyRose
+misty rose
+MistyRose1
+AntiqueWhite
+antique white
+AntiqueWhite1
+linen
+seashell1
+seashell
+snow2
+LavenderBlush1
+LavenderBlush
+lavender blush
+snow1
+snow

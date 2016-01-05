@@ -1,0 +1,12 @@
+
+This directory contains tools used for tkgate development.  It is not
+necessary to compile or install these if you only wish to use tkgate.
+
+colors		Used for generating the color palatte in the tkgate
+		colors option dialog box.
+
+msgdiff		Compare versions of messages files to determine required
+		updates.
+
+genmsg		Create a 'messages' file for a different language
+		using automatic machine translation.

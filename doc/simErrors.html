@@ -1,0 +1,462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (Error Messages)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H2><![section=4]>C. List of Simulator Error Messages</H2>
+
+<h3>C.1 Run-Time Warnings/Errors</h3>
+
+
+<ul>
+<li class=pad><b>Attempt to write to memory <i>mem</i> with unknown address.</b> -
+
+Assigning a value to a memory (e.g, "<tt>reg [7:0] mem[0:1023]</tt>")
+with unknown bits in the address potentially invalidates the entire
+memory since there is no way of knowing which word was written to.
+This message informs you that such an attempt was made.  The memory is
+not modified.  This error message is not issued if the memory is
+completely uninitialized.
+
+<li class=pad><b>Attempt to write to memory <i>mem</i> with unknown bit-range.</b> -
+
+The bit-range given for a write to a memory contained unknown bits.
+For example, given the memory "<tt>reg [7:0] mem[0:1023]</tt>", the
+statement "<tt>mem[10'h0][8'hx +: 3] = 3'b0;</tt>" will generate this
+error message.
+
+<li class=pad><b>Attempt to close non-open descriptor in task '<i>task</i>'.</b>
+- This error is generated when you call the <tt>$fclose</tt> system
+task with a descriptor that references files that are not open.
+
+<li class=pad><b>Divide by zero.</b> - A floating-point divide by zero was attempted.
+
+<li class=pad><b>Execution of protected system task '<i>task</i>' blocked.</b> -
+
+The current security settings forbid the use of the task <i>task</i>.
+Attempts to execute that task result in issuing this error message and
+ignoring the system task call.
+
+<li class=pad><b>Failed to load source file '<i>file</i>'.</b> - One of the files on the Verga command line could not be read.
+
+<li class=pad><b>Failed to open memory file '<i>file</i>'.</b> - A
+file specified either through the interface or through a
+<tt>$memreadb</tt> or <tt>$memreadh</tt> system task could not be
+read.
+
+<li class=pad><b>Illegal start value in task '<i>task</i>'.</b> - 
+
+The start value in a <tt>$readmem(b/h)</tt> or <tt>$writemem(b/h)</tt>
+task was illegal.
+
+<li class=pad><b>Illegal stop value in $readmemb.</b> - 
+
+The stop value in a <tt>$readmem(b/h)</tt> task was illegal.
+
+
+<li class=pad><b>Simulation stopped on attempted execution of protected system task '<i>task</i>'.</b> - 
+
+The design attempted to execute system task "<i>task</i>" while the
+current security settings are set to stop the simulation on any
+attempts to execute that task.
+
+<li class=pad><b>Timing violation at <i>line</i> in <i>inst</i>[<i>module</i>] <i>constrain</i>.</b> - 
+
+This error is generated when a timing constrain specified in a
+<tt>specify</tt> block was violated.  The line number in the code
+(<i>line</i>) is given with the instance name (<i>inst</i>), module
+name (<i>module</i>), and the constraint that was violated
+(<i>constraint</i>).
+
+</ul>
+
+<h3>C.2 Compile-Time Warnings</h3>
+<ul>
+<li class=pad><b>Port size mismatch on input port 'A'.</b> - The
+declared bit-size of input port "A" in the internal and external
+definitions of the target module do not match.
+
+<li class=pad><b>Port size mismatch on output port 'A'.</b> - The
+declared bit-size of output port "A" in the internal and external
+definitions of the target module do not match.
+
+<li class=pad><b>Net 'A' has no drivers (floating net).</b> - The net
+"A" has no gates that drive it to a value.
+
+
+<li class=pad><b>Direct connect operator '=>' unsupported.  Treated as
+'*>'.</b> - A <tt>specify</tt> block is using the "=>" operator, but
+this operator not currently supported in the TkGate simulator.
+</ul>
+
+<h3>C.3 Compile-Time Errors</h3>
+
+<ul> 
+<li class=pad><b>Array '<i>mem</i>' used in expression without index.</b> - 
+
+A variable that was defined as a memory/array such as "<tt>reg [7:0]
+mem[0:1023]</tt>" was used in an expression without an index.  For
+example, "r = mem + 4;" would generate this error message. 
+
+<li class=pad><b>Array '<i>mem</i>' used without index on left-hand-side.</b> - 
+
+A variable that was defined as a memory/array such as "<tt>reg [7:0]
+mem[0:1023]</tt>" was used in the left-hand side of an assignment
+without an index.  For example, "mem = r;" would generate this
+error message.
+
+<li class=pad><b>Auto range [*] is only valid with 'wire' declaration.</b> - 
+
+You can implicitly set the range in a wire declaration such as
+"<tt>wire [*] w = 8'h0;</tt>".  This style of declaration is only
+valid for <tt>wire</tt> variables.  If you attempt this type of
+declaration with any other variable type you will get this error.
+
+<li class=pad><b>Bad gate instance range expression.</b> - 
+
+Primitive Verilog gates can take an bit-range to make them operate
+over multiple bits using the syntax "<tt>and g1[3:0] (z,b,c);</tt>".
+If the range expression <tt>[3:0]</tt> contains errors, this message
+will be produced.
+
+<li class=pad><b>Bit-ranges on path delay specifiers unsupported.</b> - 
+
+A path delay in a <tt>specify</tt> block referenced individual bits in
+a signal.  This feature is not supported by Verga.
+
+<li class=pad><b>Delay and trigger expressions not allowed in path-delay modules.</b> - 
+
+Modules using path-delay declarations in a <tt>specify</tt> block can
+only be used to define combination logic.  You can not use "<tt>#</tt><i>num</i>"
+or "<tt>@(</tt><i>expr</i><tt>)</tt>" event control expressions.
+
+<li class=pad><b>Design contains some modules with `timescale and some without.</b> - 
+
+You must use the <tt>`timescale</tt> directive with all modules or
+none of the modules.
+
+<li class=pad><b>Event on multi-bit net '<i>a</i>' can not have posedge/negedge.</b> - 
+
+You can not use the <tt>posedge</tt> and <tt>negedge</tt> keywords in
+a event trigger on a multi-bit signal.  For example, if <tt>a</tt> is
+a multi-bit wire, then <tt>@(posedge a)</tt> would cause this error.
+
+<li class=pad><b>Event wait on assign is illegal.</b> - You attempted
+to use the <tt>@(signal)</tt> event trigger in an <tt>assign</tt> statement.
+
+<li class=pad><b>Expecting identifier for argument <i>arg</i> of task '<i>task</i>'.</b> - 
+
+You attempted to pass an expression or constant argument to a
+parameter of a task that requires a net be specified.
+
+<li class=pad><b>Expression operator error in '<i>op</i>'.</b> - The
+operands used by <i>op</i> where illegal.
+
+<li class=pad><b>Found module '<i>mod1</i>' when expecting '<i>mod2</i>'.</b> - 
+
+The module name specified after <tt>module</tt> keyword does not match
+the name of the module that was opened in the TkGate HDL module editor.
+
+<li class=pad><b>Function '<i>func</i>' used as task.</b> - 
+
+The identifier <i>func</i> was defined with the <tt>function</tt> keyword,
+but is used like a <tt>task</tt>.
+
+<li class=pad><b>Hierarchical variable '<i>var</i>' referenced in illegal context.</b> - 
+
+A hierarchical variable (one containing the "." character) was used in
+a context were they are forbidden such as in a <tt>specify</tt> block.
+
+<li class=pad><b>Identifier '<i>a</i>' in constant expression is not a parameter.</b> - 
+
+The non-parameter variable "<i>a</i>" was used in an expression that
+must be evaluated at compile time.
+
+<li class=pad><b>Illegal address range on port '<i>p</i>'.</b> - 
+
+The address range specified on a module port was illegal.
+
+<li class=pad><b>Illegal address range specification '<i>range</i>'.</b> -
+The indicated address range was illegal.
+
+<li class=pad><b>Illegal character (<i>num</i>) '<i>char</i>'.</b> - 
+
+The input file contained a character that is not legal in the Verilog language.
+
+<li class=pad><b>Illegal declaration of memory '<i>mem</i>' in path-delay module - unsupported.</b> - 
+
+Modules using path-delay declarations in a <tt>specify</tt> block can
+only be used to define combination logic.  Memories and register
+variables can not be used in such modules.
+
+<li class=pad><b>Illegal event control expression.</b> - The expression
+in an event control statement was illegal.  For example
+"<tt>@(4);</tt>" will generate this error.
+
+
+<li class=pad><b>Illegal redefinition of net '<i>net</i>'.</b> - The
+specified net was declared more than once in the same module.
+
+<li class=pad><b>Inout connections must be net-to-net on port 'A'.</b> - 
+
+You specified an expression as the value of an <tt>inout</tt> port.
+
+<li class=pad><b>Instance of undefined module '<i>mod</i>'.</b> - You
+attempted to include an instance of the module <i>mod</i>, but that
+module is not defined in your design.
+
+<li class=pad><b>Invalid left-hand-side in 'assign'.</b> - The
+left-hand side of an <tt>assign</tt> statement was illegal.
+
+<li class=pad><b>Illegal use of '<tt>v</tt>' in left-hand-side of assignment.</b> - 
+<tt>v</tt> was used in a procedural assignment, but <tt>v</tt> is not a register type.
+
+<li class=pad><b>Invalid left-hand-side in assignment.</b> - 
+
+The left-hand-side in a procedural assignment is invalid.
+
+<li class=pad><b>Invalid output assignment.</b> - 
+
+An error occurred while generating an implicit <tt>assign</tt>
+statement for a module port.
+
+<li class=pad><b>Invalid scale '<i>num</i>' in `timescale declaration (must be 1, 10 or 100).</b> -
+The numeric portion of the units or precision value must be a 1, 10 or
+100, but a different value was used.
+
+<li class=pad><b>Invalid syntax in `timescale declaration.</b> - 
+A <tt>`timescale</tt> directive was use with invalid syntax.  A valid
+<tt>`timescale</tt> directive has the form "<tt>`timescale 1ns / 1 ns</tt>".
+
+<li class=pad><b>Invalid type declaration used on port '<i>port</i>'.</b> - 
+The port <i>port</i> was declared with a type other than <i>input</i>,
+<i>output</i> or <i>inout</i>.
+
+<li class=pad><b>Invalid units '<i>units</i>' in `timescale declaration.</b> - 
+The units specified in a <tt>`timescale</tt> directive were illegal.
+The supported units are <tt>s, ms, us, ns, ps</tt> and <tt>fs</tt>.
+
+
+<li class=pad><b>Loops in path-delay modules are unsupported.</b> - 
+
+Modules using path-delay declarations in a <tt>specify</tt> block can
+only be used to define combination logic.  A feedback loop was
+detected in the module definition.
+
+<li class=pad><b>Memories must be declared as register.</b> - 
+
+You attempted a declaration such as "<tt>wire [7:0] mem[0:1023];</tt>"
+which is illegal.
+
+<li class=pad><b>Mixed named and unnamed ports on interface '<i>intf</i>' of '<i>mod</i>'.</b> - 
+
+When declaring module instance you must either use the
+<tt>.</tt><i>port</i><tt>()</tt> notation for all ports, or for none
+of the ports.
+
+<li class=pad><n>Mixed named and unnamed parameters on interface '<i>intf</i>' of '<i>mod</i>'.</n>
+
+When declaring module instance you must either use the
+<tt>.</tt><i>port</i><tt>()</tt> notation for all parameters, or for none
+of the parameters. 
+
+<li class=pad><b>More than one default: in case statement.</b> - A
+case statement has more than one <tt>default:</tt> branch in it.
+
+<li class=pad><b>Multiple assignment of net '<i>net</i>' in path-delay module is unsupported.</b> - 
+
+Modules using path-delay declarations in a <tt>specify</tt> block can
+only be used to define combination logic.  Assigning the same net more
+than once is not supported.
+
+<li class=pad><b>Must specify posedge or negedge on event for A.</b> - 
+
+The <tt>$setup</tt>, <tt>$hold$</tt> and <tt>$width</tt> timing check
+tasks require that the reference event use either a <tt>posedge</tt> or
+a <tt>negedge</tt>.  This error indicates that that keyword was missing. 
+
+<li class=pad><b>Net '<i>net</i>' has no driver and is not an input in path-delay module.</b> - 
+
+Modules using path-delay declarations in a <tt>specify</tt> block can
+only be used to define combination logic.  The net <i>net</i> is used
+in a path-delay module, but has no gates driving it.
+
+<li class=pad><b>No current memory in memory file read.</b> - A memory
+was loaded through the interface or through a <tt>$memreadb</tt> or <tt>$memreadh</tt> system task, but no memory was specified with the operation and there was no <tt>@memory</tt> declaration in the memory file. 
+
+<li class=pad><b>No matching `ifdef/`ifndef for <i>decl</i> declaration.</b> - 
+
+An <tt>`endif</tt>, <tt>`else</tt> or <tt>`elseif</tt> was found
+without a matching <tt>`ifdef</tt> or <tt>`ifndef</tt>.
+
+<li class=pad><b>Non-blocking assignments to memories not implemented.</b> -
+
+Verga only supports blocking assignments to arrays/memories using the
+"<tt>=</tt>" operator.  The offending line used the "<tt>&lt;=</tt>"
+operator to make an assignment to an array/memory.
+
+<li class=pad><b>Non-register type used in task or function.</b> - 
+
+Tasks and functions can only declare and assign to register-type
+variables.
+
+<li class=pad><b>Only input ports are allowed on functions.</b> - 
+
+A <tt>function</tt> was declared with ports other than <tt>input</tt>
+ports.
+
+<li class=pad><b>Parameter '<i>port</i>' is not declared as a port.</b> - 
+
+An instance of a module is passed a parameter that is not declared in
+the parameter list for that module.  For example, "<tt>foo #(.X(2))
+f1(a,b);</tt>" was used, but "<tt>X</tt>" is not declared as a
+parameter of <tt>foo</tt>.
+
+<li class=pad><b>Parameter redefines identifier '<i>name</i>'.</b> - 
+
+The variable <i>name</i> was defined as a <tt>parameter</tt>, but it
+has already been previously defined as something else.
+
+<li class=pad><b>Port '<i>port</i>' on interface '<i>intf</i>' is not defined in module '<i>mod</i>'.</b> - 
+
+A "<tt>.</tt><i>port</i><tt>()</tt>" was used in an instantiation of
+module <i>mod</i>, but <i>port</i> is not defined as a port on module
+<i>mod</i>.
+
+<li class=pad><b>Port '<i>port</i>' has no connections on interface '<i>intf</i>' of '<i>mod</i>'.</b> - 
+
+The port <i>port</i> defined as a port on module <i>mod</i> was not
+connected to anything when instantiating it in another module. 
+
+<li class=pad><b>Port '<i>port</i>' has multiple connections on interface '<i>intf</i>' of '<i>mod</i>'.</b> - 
+
+Two "<tt>.</tt><i>port</i><tt>()</tt>" expressions with the same
+<i>port</i> name were used in the same module instance.
+
+<li class=pad><b>Port count does not match definition on interface '<i>intf</i>' of '<i>mod</i>'.</b> - 
+
+The number of ports used in an instance of <i>mod</i> does not match
+the number of ports in the definition of <i>mod</i>.
+
+<li class=pad><b>Range specification not allowed for memory reference of 'A'.</b> - 
+
+An attempt was made to reference multiple words of a memory at once.
+For example, a memory declared as "<tt>reg [7:0] mem[0:1023]</tt>" was
+referenced as "<tt>mem[0:1]</tt>".
+
+<li class=pad><b>Redefinition of task or function '<i>task</i>' in module '<i>mod</i>'.</b> - 
+
+There is more than one definition of <i>task</i> in the module <i>mod</i>.
+
+<li class=pad><b>Specified net '<i>net</i>' is not a memory.</b> - 
+
+An attempt was made to read or write to <i>net</i> as a memory.
+Usually caused by the <tt>$readmem(b/h)</tt> or
+<tt>$writemem(b/h)</tt> system tasks.
+
+<li class=pad><b>Syntax error.</b> - 
+
+The parser could not understand the syntax of a statement or expression.
+
+
+<li class=pad><b>Task '<i>task</i>' called with wrong number of arguments.</b> - 
+
+The number of arguments in a call to <i>task</i> does not match the
+number of arguments in the definition of <i>task</i>.
+
+<li class=pad><b>Task '<i>task</i>' can not be used in a specify block.</b> - 
+
+A task other than a constraint task such as <tt>$setup</tt>, <tt>$hold</tt> or
+<tt>$width</tt> was used in the context of a <tt>specify</tt> block.
+
+<li class=pad><b>Task '<i>task</i>' must be used in a specify block.</b> - 
+
+A constraint task such as <tt>$setup</tt>, <tt>$hold</tt> or
+<tt>$width</tt> was used outside the context of a <tt>specify</tt> block.
+
+<li class=pad><b>Task '<i>task</i>' used as function.</b> - 
+
+The identifier <i>task</i> was defined with the <tt>task</tt> keyword,
+but is used like a <tt>function</tt>.
+
+<li class=pad><b>Too few parameter ports on instance <i>inst</i>.</b> - 
+
+An instance uses a parameter port list such as "<tt>#(2, 3)</tt>"
+without explicit parameter names, but the number of parameters
+specified is fewer than the number of parameters on the module definition.
+
+<li class=pad><b>Too many files open in task '<i>task</i>'.</b> - 
+
+Task <i>task</i> attempted to open a file when the maximum of 31 files
+are already open.
+
+<li class=pad><b>Too many parameter ports on instance A.</b> - 
+
+An instance uses a parameter port list such as "<tt>#(2, 3)</tt>"
+without explicit parameter names, but the number of parameters
+specified is more than the number of parameters on the module definition.
+
+<li class=pad><b>Top-module '<i>mod</i>' not defined.</b> - 
+
+"<i>mod</i>" was designated as the top-module, but that module is not defined.
+
+<li class=pad><b>Unable to open output file '<i>file</i>' in task '<i>task</i>'.</b> - 
+
+Task <i>task</i> attempted to open the file "<i>file</i>", but the
+open failed (e.g., because the user did not have write access).
+
+<li class=pad><b>Undefined net '<i>net</i>' in event control expression.</b> - 
+
+A control expression such as "<tt>@(</tt><i>net</i><tt>)</tt>" was
+used, but <i>net</i> is not defined.
+
+<li class=pad><b>Undefined task '<i>task</i>'.</b> - 
+
+An attempt was made to invoke a task that was not defined either as a
+system task or as a user task.
+
+<li class=pad><b>Undefined variable '<i>var</i>'.</b> - 
+
+An attempt was made to use a variable that was not defined.
+
+<li class=pad><b>Units must be larger than precision in `timescale declaration.</b> - 
+
+The value specified as the units (the first number) in a
+<tt>`timescale</tt> must be larger than the precision (second number).
+
+<li class=pad><b>Unsupported bit range [<i>range</i>] on net <i>net</i> (must be of form [n:0]).</b> - 
+
+Verga only supports bit ranges were 0 is the least significant bit.
+An attempt was made to declare a net with a unsupported bit range such
+as <tt>[0:7]</tt> or <tt>[8:1]</tt>.
+
+<li class=pad><b>Unimplemented primitive gate instance type.</b> - 
+
+An attempt was made to use a Verilog primitive gate that Verga does
+not support such as "<tt>tran</tt>".
+
+<li class=pad><b>Use of 'inout' in module with path-delay specification is unsupported.</b> - 
+
+Modules using path-delay declarations in a <tt>specify</tt> block can
+only be used to define combination logic.  <tt>inout</tt> ports can
+not be used in such modules.
+
+<li class=pad><b>Write to closed descriptor.</b> - 
+
+A system task was called that attempted to write to a descriptor that
+does not reference an open file.
+
+<li class=pad><b>Wrong number of ports on primitive gate instance '<i>prim</i>'.</b> - 
+
+A Verilog primitive gate was used with an incorrect number of ports.
+For example, an <tt>and</tt> was used with a single port, or a
+<tt>bufif1</tt> was used with other than three ports.
+
+
+
+</ul>
+</body>

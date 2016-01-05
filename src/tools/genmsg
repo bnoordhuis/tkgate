@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+
+# Jeremy Weatherford
+# I don't recommend using this script or its output...
+# Don't blame me if you get IP-banned from babelfish or horribly insult
+#  a user in a non-EN locale using this script...
+
+$from = "en";
+
+if ($ARGV[0] eq "-todo") {
+	$todo = 1;
+	shift;
+}
+
+die "Usage: genmsg [-todo] <messages> -L<lang>\n" unless (@ARGV == 2);
+
+($file, $to) = @ARGV;
+
+open F, $file or die "$file: $!";
+
+$to =~ s/-L//;
+
+while (<F>) {
+	if (($tag, $msg) = /^([^\#\\]\S+)\s+(.+)$/) {
+		if ($msg eq "-begin-") {
+			print $_;
+			$long = 1;
+			$msg = "";
+			while (<F>) { last if /^-end-/; $msg .= $_; }
+			chomp $msg;
+		} elsif ($msg eq "-fillbegin-") {
+			print $_;
+			$long = 1;
+			$msg = "";
+			while (<F>) { last if /^-end-/; chomp; $msg .= ($msg ? " " : "") . $_; }
+		} else {
+			$long = 0;
+			print "$tag\t\t";
+		}
+
+		$todomsg = ($msg =~ s/^TODO: //);
+
+		if (!$todo || $todomsg) {
+			$url="http://babelfish.altavista.com/translate.dyn?bblType=urltext&urltext=$msg&lp=${from}_${to}";
+
+			$page=`lynx -source '$url' | tee out`;
+		
+			# Just happens to work, likely to break at some point
+			($msg) = $page =~ /padding:10px;>(.+?)<\/div>/;
+		}
+
+		print "TODO: " if $todomsg;
+		print "$msg\n";
+		print "-end-\n" if $long;
+	} else {
+		# print everything else straight through
+		print;
+	}
+}

@@ -1,0 +1,454 @@
+/****************************************************************************
+    Copyright (C) 1987-2000 by Jeffery P. Hansen
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+    Last edit by hansen on Sat Jan 31 07:25:26 2009
+****************************************************************************/
+
+/*
+ * WARNING: The delay specifications in this file are preliminary and have
+ * not been well tested.  Feel free to send me more realistic delay data
+ * if you have any.
+ */
+
+version 1.5
+
+technology default {
+  primitive AND {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))     // Determine if an inverter is necessary.  An
+        d = inv(Z);               //   inverter is not required if the output is
+      else if ((inv(I) == 0))     //   inverting and all inputs are non-inverting
+        d = !inv(Z);              //   (i.e., it is a NAND gate), or if all inputs
+      else                        //   are inverting and the output is non-inverting
+        d = 1;                    //   (i.e., it is a NOR gate). 
+
+      if (num(I) == 1) {          // If one input, treat this as a reduction gate    
+        return 2*bits(I0) + 2*d;  //   one Tr. delay per bit plus inverter delay.    
+      } else {                    // If multiple inputs, treat this as a normal gate 
+        return 2*num(I) + 2*d;    //   one Tr. delay per input plus inverter delay.  
+      }
+    }
+
+    area = {
+      if ((inv(I) == num(I)))     // Estimate number of inverters required.  If all
+        d = inv(Z);               //   inputs are inverted, an inverter is required
+      else if ((inv(I) == 0))     //   iff the output is inverted.  If all inputs
+        d = !inv(Z);              //   are non-inverted, an inverter is required iff
+      else                        //   the output is non-inverted.  Otherwise we need
+        d = inv(I);               //   an inverter for each inverted input.
+
+      if (num(I) == 1) {          // If one input, treat this as a reduction gate    
+        a = 2*bits(I0) + 2*d;	//   one Tr. per bit plus inverter Trs.    
+      } else {			// If multiple inputs, treat this as a normal gate 
+        a = 2*num(I) + 2*d;	//   one Tr. per input plus inverter Trs.  
+      }
+      return bits(Z)*a;           // Multiply by number of bit slices.
+    }
+  }
+
+  primitive OR {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))     // Determine if an inverter is necessary.  An
+        d = inv(Z);               //   inverter is not required if the output is
+      else if ((inv(I) == 0))     //   inverting and all inputs are non-inverting
+        d = !inv(Z);              //   (i.e., it is an NOR gate), or if all inputs
+      else                        //   are inverting and the output is non-inverting
+        d = 1;                    //   (i.e., it is a NAND gate). 
+
+      if (num(I) == 1) {          // If one input, treat this as a reduction gate    
+        return 2*bits(I0) + 2*d;  //   one Tr. delay per bit plus inverter delay.    
+      } else {                    // If multiple inputs, treat this as a normal gate 
+        return 2*num(I) + 2*d;    //   one Tr. delay per input plus inverter delay.  
+      }
+    }
+
+    area = {
+      if ((inv(I) == num(I)))     // Estimate number of inverters required.  If all
+        d = inv(Z);               //   inputs are inverted, an inverter is required
+      else if ((inv(I) == 0))     //   iff the output is inverted.  If all inputs
+        d = !inv(Z);              //   are non-inverted, an inverter is required iff
+      else                        //   the output is non-inverted.  Otherwise we need
+        d = inv(I);               //   an inverter for each inverted input.
+  
+      if (num(I) == 1) {          // If one input, treat this as a reduction gate    
+        a = 2*bits(I0) + 2*d;	//   one Tr. per bit plus inverter Trs.    
+      } else {			// If multiple inputs, treat this as a normal gate 
+        a = 2*num(I) + 2*d;	//   one Tr. per input plus inverter Trs.  
+      }
+      return bits(Z)*a;           // Multiply by number of bit slices.
+    }
+  }
+
+  primitive XOR {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))
+        d = inv(Z);
+      else if ((inv(I) == 0))
+        d = !inv(Z);
+      else
+        d = 1;
+ 
+      if (num(I) == 1) {
+        return 3*bits(I0) + 2*d;
+      } else {
+        return 3*num(I) + 2*d;
+      }
+    }
+
+    area = {
+      if ((inv(I) == num(I)))
+        d = inv(Z);
+      else if ((inv(I) == 0))
+        d = !inv(Z);
+      else
+        d = inv(I);
+
+      if (num(I) == 1) {
+        return bits(Z)*(3*bits(I0) + 2*d);
+      } else {
+        return bits(Z)*(3*num(I) + 2*d);
+      }
+    }
+  }
+
+  primitive BUF {
+    delay<Diz> = 2 + 2*(inv(I) == inv(Z));
+    area = bits(Z)*(2 + 2*(inv(I) == inv(Z)));
+  }
+
+  primitive BUFIF {
+    delay<Dez> = 4;
+    delay<Diz> = 4 + 2*(inv(I) == inv(Z));
+    area = bits(Z)*(4 + 2*(inv(I) == inv(Z)));
+  }
+
+  primitive NMOS {
+    delay<Diz> = 2;
+    delay<Dgz> = 1;
+    area = bits(Z);
+  }
+
+  primitive PMOS {
+    delay<Diz> = 2;
+    delay<Dgz> = 1;
+    area = bits(Z);
+  }
+
+  primitive ADD {
+    delay<Dab_s> = 12 + (bits(S)-1)*8 + 2*(inv(A) || inv(B)) + 2*inv(S);
+    delay<Dab_co> = 6 + bits(S)*8 + 2*(inv(A) || inv(B)) + 2*inv(CO);
+    delay<Dci_s> = 6 + (bits(S)-1)*8 + 2*inv(CI) + 2*inv(S);
+    delay<Dci_co> = bits(S)*8 + 2*inv(CI) + 2*inv(CO);
+    area=24*bits(S);
+  }
+
+  primitive REG {
+    delay<Dsetup> = 10;
+    delay<Dhold> = 10;
+    delay<Dck_q> = 20;
+    area=16*bits(Q);
+  }
+
+  primitive FF {
+    delay<Dsetup> = 10;
+    delay<Dhold> = 10;
+    delay<Dck_q> = 20;
+    area=16*bits(Q);
+  }
+
+  primitive JKFF {
+    delay<Dsetup> = 10;
+    delay<Dhold> = 10;
+    delay<Dck_q> = 20;
+    area=16*bits(Q);
+  }
+
+  primitive MUX {
+    delay<Diz> = (2*(num(S)+1) + 2*num(I)) + 2*(inv(I) || inv(Z)); 
+    delay<Dsz> = (2*(num(S)+1) + 2*num(I));
+    area = bits(Z)*((2*(num(S)+1) + 2*num(I)) + 2*inv(I)); 
+  }
+
+  primitive DEMUX {
+    delay<Dez> = 2*(num(I)+1) + 2*(!inv(Z));
+    delay<Diz> = 2*(num(I)+1) + 2*(!inv(Z));
+    area = 2*(num(I)+1)*(2**num(I)) + 2*num(I);
+  }
+
+  primitive DECODER {
+    delay<Dez> = 2*(num(I)+1) + 2*(!inv(Z));
+    delay<Diz> = 2*(num(I)+1) + 2*(!inv(Z));
+    area = 2*(num(I)+1)*(2**num(I)) + 2*num(I);
+  }
+
+  primitive MUL {
+    delay<Dab_p> = 12 + 2*(bits(P)-1)*8 + 2*(inv(A) || inv(B)) + 2*inv(P);
+    area=bits(A)*bits(B)*30;
+  }
+
+  primitive DIV {
+    delay<Dab_q> = 12 + 4*(bits(Q)-1)*8 + 2*(inv(A) || inv(B)) + 2*inv(Q);
+    delay<Dab_r> = 12 + 4*(bits(R)-1)*8 + 2*(inv(A) || inv(B)) + 2*inv(R);
+    area=bits(A)*bits(B)*30;
+  }
+
+  primitive RAM {
+    delay<Dout> = 10;
+    delay<Dread> = 60;
+    delay<Dwrite> = 70;
+    delay<Daddr_setup> = 10;
+    delay<Daddr_hold> = 10;
+    delay<Ddata_hold> = 10;
+    area=0;			// Do not include RAMs in area estimate
+  }
+
+  primitive ROM {
+    delay<Dout> = 10;
+    delay<Dread> = 30;
+    area=0;			// Do not include ROMs in area estimate
+  }
+
+  primitive TTY {
+    delay<Dtr> = 150;
+    delay<Drts_up> = 2;
+    delay<Drts_dn> = 8;
+    delay<Drd> = 150;
+    delay<Ddtr_up> = 2;
+    delay<Ddtr_dn> = 2;
+    area=0;			// Do not include TTYs in area estimate
+  };
+
+  primitive LSHIFT {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return 4 + 4*log(bits(S)) + d;
+    }
+    delay<Dsz> = {
+      if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 0;
+      return 4 + 4*log(bits(S)) + 4*inv(S);
+    }
+    area = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return bits(Z)*(4 + 4*bits(S) + d);
+    }
+  }
+
+  primitive RSHIFT {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return 4 + 4*log(bits(S)) + d;
+    }
+    delay<Dsz> = {
+      if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 0;
+      return 4 + 4*log(bits(S)) + 4*inv(S);
+    }
+    area = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return bits(Z)*(4 + 4*bits(S) + d);
+    }
+  }
+
+  primitive ARSHIFT {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return 4 + 4*log(bits(S)) + d;
+    }
+    delay<Dsz> = {
+      if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 0;
+      return 4 + 4*log(bits(S)) + 4*inv(S);
+    }
+    area = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return bits(Z)*(4 + 4*bits(S) + d);
+    }
+  }
+
+  primitive ROLL {
+    delay<Diz> = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return 4 + 4*log(bits(S)) + d;
+    }
+    delay<Dsz> = {
+      if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 0;
+      return 4 + 4*log(bits(S)) + 4*inv(S);
+    }
+    area = {
+      if ((inv(I) == num(I)))
+        d = 2*inv(Z);
+      else if ((inv(I) == 0))
+        d = 2 - 2*inv(Z);
+      else
+        d = 2;
+      return bits(Z)*(4 + 4*bits(S) + d);
+    }
+  }
+}
+
+/*
+ * Just use delay of 1 for everything
+ */
+technology unit {
+  primitive AND {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive OR {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive XOR {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive BUF {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive BUFIF {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive NMOS {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive PMOS {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive ADD {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive REG {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive FF {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive MUX {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive DEMUX {
+    delay<*> = 1;
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive MUL {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive DIV {
+    delay<*> = 1;
+    area = 1;
+  }
+
+  primitive RAM {
+    delay<*> = 1;
+    area=1;
+  }
+
+  primitive ROM {
+    delay<*> = 1;
+    area=1;
+  }
+
+  primitive TTY {
+    delay<*> = 1;
+    area=1;
+  };
+
+  primitive LSHIFT {
+    delay<*> = 1;
+    area = 1;
+  }
+  primitive RSHIFT {
+    delay<*> = 1;
+    area = 1;
+  }
+  primitive ARSHIFT {
+    delay<*> = 1;
+    area = 1;
+  }
+  primitive ROLL {
+    delay<*> = 1;
+    area = 1;
+  }
+}

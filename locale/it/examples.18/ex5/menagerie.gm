@@ -1,0 +1,1422 @@
+//
+//    Copyright (C) 1987-2000 by Jeffery P. Hansen
+//
+//    This program is free software; you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation; either version 2 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program; if not, write to the Free Software
+//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//    Last edit by hansen on Fri Dec  1 14:34:44 2000
+//
+
+// Microcode memory bank declarations
+
+microcode bank[31:0] iunit.m1;
+microcode bank[63:32] iunit.m2;
+map bank[7:0] iunit.map;
+
+macrocode bank[7:0] memory.m1;
+
+// Microcode field declarations
+
+//
+// Microcode branching.  mpcop specifies the basic operation.
+//
+field mpcop[1:0]={
+	 next=0,	// Increment mpc
+	 reinit=1,	// Restart CPU
+	 jmap=2,	// Jump from map value
+	 jump=3		// Jump from condition
+};
+
+//
+// Specifies the condition on which to jump if mpcop is "jump".
+//
+field mpccond[12:10]={
+	jne=0,		// Jump if not equal
+	jcarry=1,	// Jump on carry
+	jeq=2,		// Jump if equal
+	jlt=3,		// Jump if less than
+	jgt=4,		// Jump if greater than
+	jle=5,		// Jump if less than or equal
+	jge=6,		// Jump if greater than or equal
+	jmp=7		// Jump always
+};
+
+//
+// Address to jump to if mpcop is "jump" and condition specified
+// by mpccond is true.  This field can not be used at the same
+// time as the idata field.  
+//
+field mpcaddr[9:2];
+
+//
+// Specifies 8 bits of data to be used by the EUNIT.  This field
+// can not be used on jump microinstructions.
+//
+field idata[9:2];
+
+//
+// Specifies the A and B operands of the ALU.
+//
+//	qreg		Use Q register
+//	din		Use data in
+//	idata		Use idata field from microinstruction
+//	reg		Use register file
+//
+field aop[15:14]={qreg=0, din=1, idata=2, reg=3};
+field bop[17:16]={qreg=0, din=1, idata=2, reg=3};
+
+field ~ldir[13];	// Load instruction register
+field cin[18];		// Carry in
+field ~clq[19];		// Clear Q register
+field ~ldq[20];		// 16-bit load of Q register
+field ~lddata[21];	// Load EUNIT data from external bus
+field ~ldopr[22];	// Load operand register
+field ~wa[23];		// Write register file on SA
+field sa[27:24];	// Register address A
+field sb[31:28];	// Register address B
+
+//
+// These fields specify the ALU function.
+//
+field ALU_FUNC[36:32];
+field ALU_SHOP[33:32]={arshift=0, lshift=1, rshift=2, roll=3};
+field ALU_BCOMP[32];
+field ALU_AZERO[33];
+field ALU_OP[36:34]={shift=0,xor=1,and=2,or=3,mul=4,add=5,mod=6,div=7};
+
+field ~incpc[37];	// Increment PC
+field ~ldmar[38];	// Load MAR
+field ~ldmdr[39];	// Load MDR
+field ~ldpc[40];	// Load PC
+field ~rd[41];		// Read main memory
+field ~rdmdr[42];	// Read MDR onto external data bus 
+field ~wrt[43];		// Write main memory
+field spc[44];		// Address main memory from PC
+field ~isa[45];		// Use sa address from macro instruction
+field ~isb[46];		// Use sb address from macro instruction
+field ~ifunc[47];	// Use function code from macro instruction
+field ~icond[48];	// Use branch condition from macro instruction
+field ~ldql[49];	// 8-bit load of lower half of Q register
+field ~ldqh[50];	// 8-bit load of upper half of Q register
+field ~dout[51];	// Output EUNIT data to external bus
+field ~ldcc[52];	// Load condition code register
+field ~ldhmdr[53];	// Load mdr from high byte of data bus
+field ~rdpc[54];	// Read PC onto external bus
+field ~incmar[55];	// Increment mar (can't use with incpc)
+
+field extra[63:56];	// Extra bits
+
+//////////////////////////////////////////////////////////////////////
+//
+// +-+-+-+-+-+-+-+-+
+// |7|6|5|4|3|2|1|0|
+// +-+-+-+-+-+-+-+-+
+//
+// Basic instruction types are encoded by the high two bits of the 
+// first byte of the instruction.  For certain types (e.g., ALU
+// types) some bits are masked when forming the map address.  Bits
+// contributing to the map vector are marked with a *.
+//
+// Move Instruction
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |1 1 1 s|a a|b b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//  * * * * * * * *
+//
+//  s  = size (1 = byte, 0 = word)
+//  aa = operand mode 1
+//  bb = operand mode 2
+//
+// Single operand instruction (push, pop, call, etc.)
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |1 0|0| op  |b b|   | reg1  |0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//  * * * * * * * *
+//
+//
+// Branch instruction (jmp, jne, etc.)
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |1 0|1|cond |b b|   | reg1  |0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//  * * *       * *
+//
+//
+// ALU Instruction
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|  func   |b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//  * *           *
+//
+//  func = ALU function
+//  a = operand mode
+//
+// Other instructions
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 0|   op    |b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//  * * * * * * * *
+//
+//
+
+registers R0=0, R1=1, R2=2, R3=3, R4=4, R5=5, R6=6, R7=7, R8=8, R9=9, R10=10, R11=11, R12=12, R13=13, FP=14, SP=15;
+
+operands basic {
+    %1,%2 = { +0[0] = 0; +1[7:4]=%1; +1[3:0]=%2; };
+    %1,#2 = { +0[0] = 1; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+};
+
+operands runiop {
+    %1     = { +0[1:0] = 0; +1[7:4]=%1; +1[3:0]=0; };
+    #1     = { +0[1:0] = 1; +1=0; +2=#1[7:0]; +3=#1[15:8]; };
+    (%1)   = { +0[1:0] = 2; +1[7:4]=%1; +1[3:0]=0; };
+    #2(%1) = { +0[1:0] = 3; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+};
+
+operands wuniop {
+    %1     = { +0[1:0] = 0; +1[7:4]=%1; +1[3:0]=0; };
+    (%1)   = { +0[1:0] = 2; +1[7:4]=%1; +1[3:0]=0; };
+    #2(%1) = { +0[1:0] = 3; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+};
+
+//
+// Operands for move instructions
+//
+operands movoprs {
+    %1,%2         = { +0[3:2] = 0; +0[1:0] = 0; +1[7:4]=%1; +1[3:0]=%2; };
+    %1,#2         = { +0[3:2] = 0; +0[1:0] = 1; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+    %1,(%2)       = { +0[3:2] = 0; +0[1:0] = 2; +1[7:4]=%1; +1[3:0]=%2; };
+    %1,#3(%2)     = { +0[3:2] = 0; +0[1:0] = 3; +1[7:4]=%1; +1[3:0]=%2; +2=#3[7:0]; +3=#3[15:8]; };
+    %1,(#2)       = { +0[3:2] = 0; +0[1:0] = 3; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+
+
+    (%1),%2       = { +0[3:2] = 2; +0[1:0] = 0; +1[7:4]=%1; +1[3:0]=%2; };
+    (%1),#2       = { +0[3:2] = 2; +0[1:0] = 1; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+    (%1),(%2)     = { +0[3:2] = 2; +0[1:0] = 2; +1[7:4]=%1; +1[3:0]=%2; };
+    (%1),#3(%2)   = { +0[3:2] = 2; +0[1:0] = 3; +1[7:4]=%1; +1[3:0]=%2; +2=#3[7:0]; +3=#3[15:8]; };
+    (%1),(#2)     = { +0[3:2] = 2; +0[1:0] = 3; +1[7:4]=%1; +1[3:0]=0; +2=#2[7:0]; +3=#2[15:8]; };
+
+    #1(%2),%3     = { +0[3:2] = 3; +0[1:0] = 0; +1[7:4]=%2; +1[3:0]=%3; +2=#1[7:0]; +3=#1[15:8]; };
+    #1(%2),#3     = { +0[3:2] = 3; +0[1:0] = 1; +1[7:4]=%2; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; +4=#3[7:0]; +5=#3[15:8]; };
+    #1(%2),(%3)   = { +0[3:2] = 3; +0[1:0] = 2; +1[7:4]=%2; +1[3:0]=%3; +2=#1[7:0]; +3=#1[15:8]; };
+    #1(%2),#4(%3) = { +0[3:2] = 3; +0[1:0] = 3; +1[7:4]=%2; +1[3:0]=%3; +2=#1[7:0]; +3=#1[15:8]; +4=#4[7:0]; +5=#4[15:8]; };
+    #1(%2),(#3) = { +0[3:2] = 3; +0[1:0] = 3; +1[7:4]=%2; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; +4=#3[7:0]; +5=#3[15:8]; };
+
+    (#1),%2     = { +0[3:2] = 3; +0[1:0] = 0; +1[7:4]=0; +1[3:0]=%2; +2=#1[7:0]; +3=#1[15:8]; };
+    (#1),#2     = { +0[3:2] = 3; +0[1:0] = 1; +1[7:4]=0; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; +4=#2[7:0]; +5=#2[15:8]; };
+    (#1),(%2)   = { +0[3:2] = 3; +0[1:0] = 2; +1[7:4]=0; +1[3:0]=%2; +2=#1[7:0]; +3=#1[15:8]; };
+    (#1),#3(%2) = { +0[3:2] = 3; +0[1:0] = 3; +1[7:4]=0; +1[3:0]=%2; +2=#1[7:0]; +3=#1[15:8]; +4=#3[7:0]; +5=#3[15:8]; };
+    (#1),(#2)   = { +0[3:2] = 3; +0[1:0] = 3; +1[7:4]=0; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; +4=#2[7:0]; +5=#2[15:8]; };
+};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 0|1 1 1 1 1|0|   |0 0 0 0|0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+
+//
+op nop {
+  map nop : 0x3e;
+  +0=0x3e;
+  operands {
+    - = { +1=0; };
+  };
+};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 0|0 0 0 0 0|0|   |0 0 0 0|0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+
+//
+op halt {
+  map halt : 0x0;
+  +0=0;
+  operands {
+    - = { +1=0; };
+  };
+};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 0|0 0 0 0 1|0|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+
+//
+op cmp {
+  map cmp_rr : 0x2;
+  map cmp_ri : 0x3;
+  +0[7:1]=0x1;
+  operands basic;
+};
+
+// Generic branch operation
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |1 0|1|x x x|b b|   |0 0 0 0| reg1  |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+// Example:
+//    br  #7, loop
+//
+// Jump always to loop.  7 is a code indicating the condition always.
+//
+op jp {
+  map br_r : 0xa0;
+  map br_i : 0xa1;
+  map br_d : 0xa2;
+  map br_x : 0xa3;
+  +0[7:5] = 0x5;
+  operands {
+    #1,%2     = { +0[1:0] = 0; +0[4:2] = #1; +1[7:4]=%2; +1[3:0]=0; };
+    #1,#2     = { +0[1:0] = 1; +0[4:2] = #1; +1=0; +2=#2[7:0]; +3=#2[15:8]; };
+    #1,(%2)   = { +0[1:0] = 2; +0[4:2] = #1; +1[7:4]=%2; +1[3:0]=0; };
+    #1,#3(%2) = { +0[1:0] = 3; +0[4:2] = #1; +1[7:4]=%2; +1[3:0]=0; +2=#3[7:0]; +3=#3[15:8]; };
+  };
+};
+
+op jne {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x0;
+  operands runiop;
+};
+
+op jcarry {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x1;
+  operands runiop;
+};
+
+op jeq {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x2;
+  operands runiop;
+};
+
+op jlt {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x3;
+  operands runiop;
+};
+
+op jgt {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x4;
+  operands runiop;
+};
+
+op jle {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x5;
+  operands runiop;
+};
+
+op jge {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x6;
+  operands runiop;
+};
+
+op jmp {
+  +0[7:5] = 0x5;
+  +0[4:2] = 0x7;
+  operands runiop;
+};
+
+
+// Generic ALU operation
+//
+// Note this is not a real instruction but is here for illustrative
+// purposes only.  Map entries must be made for each function code
+// to use this instruction for real.
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|x x x x x|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+// Example:
+//    alu #0x14, R1, R2
+//
+// Does ALU operation 0x14 (addition) on R1 and R2, storing result in R1.
+//
+//op alu {
+//  map alu_rr : 0x40;
+//  map alu_ri : 0x41;
+// +0[7:6] = 0x1;
+//  operands {
+//    #1,%2,%3 = { +0[0] = 0; +0[5:1]=#1; +1[7:4]=%2; +1[3:0]=%3; };
+//    #1,%2,#3 = { +0[0] = 1; +0[5:1]=#1; +1[7:4]=0; +1[3:0]=%2; +2=#3[7:0]; +3=#3[15:8]; };
+//  };
+//};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|1 0 1 0 0|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+op add {
+  map alu_rr : 0x68;
+  map alu_ri : 0x69;
+ +0[7:0]=0x68;
+  operands basic;
+};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|1 0 1 0 1|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+op sub {
+  map alu_rr : 0x6a;
+  map alu_ri : 0x6b;
+ +0[7:0]=0x6a;
+  operands basic;
+};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|1 0 0 0 0|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+op mul {
+  map xalu_rr : 0x60;
+  map xalu_ri : 0x61;
+ +0[7:0]=0x60;
+  operands basic;
+};
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|1 1 1 0 0|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+op div {
+  map xalu_rr : 0x78;
+  map xalu_ri : 0x79;
+ +0[7:0]=0x78;
+  operands basic;
+};
+
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|1 1 0 0 0|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+op mod {
+  map xalu_rr : 0x70;
+  map xalu_ri : 0x71;
+ +0[7:0]=0x70;
+  operands basic;
+};
+
+
+//
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 1|0 1 0 0 0|b|   | reg1  |  reg2 |
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+op and {
+  map alu_rr : 0x50;
+  map alu_ri : 0x51;
+ +0[7:0]=0x50;
+  operands basic;
+};
+
+
+// Call subroutine
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |1 0|0|0 0 0|b b|   | reg1  |0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+// Example:
+//
+//   call	foo, #8
+//
+// This will perform the following actions:
+//   sp = sp - 2
+//   [sp] = pc
+//   sp = sp - 2
+//   [sp] = fp
+//   fp = sp
+//   sp = sp+8
+//   pc = foo
+//
+op call {
+  map call_ri : 0x80;
+  map call_ii : 0x81;
+  map call_di : 0x82;
+  map call_xi : 0x83;
+  +0[7:4] = 0x8;
+  operands {
+    #1,%2     = { +0[1:0] = 0; +1[7:4]=%2; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; };
+    #1,#2     = { +0[1:0] = 1; +1=0; +2=#1[7:0]; +3=#1[15:8]; +4=#2[7:0]; +5=#2[15:8]; };
+    #1,(%2)   = { +0[1:0] = 2; +1[7:4]=%2; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; };
+    #1,#2(%3) = { +0[1:0] = 3; +1[7:4]=%3; +1[3:0]=0; +2=#1[7:0]; +3=#1[15:8]; +4=#2[7:0]; +5=#2[15:8]; };
+
+    #1        = { +0[1:0] = 1; +1=0; +2=0; +3=0; +4=#1[7:0]; +5=#1[15:8]; };
+  };
+};
+
+// Return from subroutine
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |0 0|0 0 0 1 0|0|   |0 0 0 0|0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+// Example:
+//
+//    ret
+//
+// This will perform the following actions:
+//    sp = fp
+//    fp = [sp]
+//    sp = sp + 2
+//    pc = [sp]
+//    sp = sp + 2
+//    
+//
+op ret {
+  map ret : 0x4;
+  +0=4;
+  operands {
+    - = { +1=0; };
+  };
+};
+
+// Push a word on the stack
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  
+// |1 0|0|0 0 1|b b|   | reg1  |0 0 0 0|
+// +-+-+-+-+-+-+-+-+   +-+-+-+-+-+-+-+-+  ...
+//
+// Example:
+//
+//    pushw	R1
+//
+op pushw {
+  map pushw_r : 0x84;
+  map pushw_i : 0x85;
+  map pushw_d : 0x86;
+  map pushw_x : 0x87;
+  +0[7:2]=0x21;
+  operands runiop;
+};
+
+
+op movb {
+  map movb_rr : 0xf0;
+  map movb_ri : 0xf1;
+  map movb_rd : 0xf2;
+  map movb_rx : 0xf3;
+
+  map movb_dr : 0xf8;
+  map movb_di : 0xf9;
+  map movb_dd : 0xfa;
+  map movb_dx : 0xfb;
+
+  map movb_xr : 0xfc;
+  map movb_xi : 0xfd;
+  map movb_xd : 0xfe;
+  map movb_xx : 0xff;
+
+  +0[7:4]=0xf;
+  operands movoprs;
+};
+
+op movw {
+  map movw_rr : 0xe0;
+  map movw_ri : 0xe1;
+  map movw_rd : 0xe2;
+  map movw_rx : 0xe3;
+
+  map movw_dr : 0xe8;
+  map movw_di : 0xe9;
+  map movw_dd : 0xea;
+  map movw_dx : 0xeb;
+
+  map movw_xr : 0xec;
+  map movw_xi : 0xed;
+  map movw_xd : 0xee;
+  map movw_xx : 0xef;
+
+  +0[7:4]=0xe;
+  operands movoprs;
+};
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// The microcode for the Menagerie CPU begins here.
+//
+// The CPU begins executing microinstuctions at address 0.  The instructions
+// in the start block are executed only once.  The next block consists of
+// the instuction fetch sequnce.  The multiple labels account for partial
+// fetches that are done by some of the macrocode routines.
+//
+// For macro instructions which have no operands or have only only one operand,
+// there is usually a plain label for that instruction.  For example the
+// microinstruction labeled 'ret' implements the 'ret' macroinstruction.  This
+// mapping is defined by the 'map ret : 0x4;' line in the operand declaration
+// for the ret macroinstruction.
+//
+// For macro instructions with multiple addressing modes, labels are generally
+// of the form 'op_??' where each character after the '_' denotes an addressing
+// mode for an operand.  By convension, the characters:
+//
+//     r	register direct
+//     i	immediate
+//     d	register indirect
+//     x	indexed
+//
+// are used.
+//
+begin microcode @ 0
+start:	clq;								// Q <- 0
+	idata=0x1 ALU_AZERO ALU_OP=add bop=idata ldqh;			// Q.H <- 1
+	ALU_AZERO ALU_OP=add bop=qreg dout ldpc;			// PC <- Q
+	mpcop=jump mpccond=jmp mpcaddr=fetch;				// jump to 'fetch'
+	mpcop=next;
+
+fetch: 	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+fetch1: incpc spc rd ldmdr rdmdr ldir;					// mdr <- [PC]; PC++; ir <- mdr;
+fetch2:	mpcop=jmap rdmdr ldopr;						// opr <- mdr; jump to opcode
+	mpcop=next;
+
+halt:	mpcop=jump mpccond=jmp mpcaddr=halt extra=0x1;
+	mpcop=jump mpccond=jmp mpcaddr=halt extra=0x1;
+
+//
+// Standard ALU operations (add, sub, and, or, etc.)
+//
+alu_rr:	mpcop=jump mpccond=jmp mpcaddr=fetch2 ifunc
+		isa isb wa aop=reg bop=reg ldcc incpc spc rd ldmdr;	// Ra = Ra (op) Rb; CC; jump to fetch
+	incpc spc rd ldmdr rdmdr ldir;
+
+alu_ri:	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ifunc
+		aop=reg bop=qreg wa isa ldcc;				// Ra = Ra (op) Q;  CC; jump to fetch
+	mpcop=next;
+
+//
+// 2-cycle ALU operations (mul, div, mod).  These are the same as the alu_??
+// ops except the ALU inputs and function code are held for 2 clock cycles
+// due to the longer delay in computing these functions.
+//
+xalu_rr: mpcop=next ifunc isa isb aop=reg bop=reg;			// Ra (op) Rb;
+	mpcop=jump mpccond=jmp mpcaddr=fetch2 ifunc
+		isa isb wa aop=reg bop=reg ldcc incpc spc rd ldmdr;	// Ra = Ra (op) Rb; CC; jump to fetch
+	incpc spc rd ldmdr rdmdr ldir;
+
+xalu_ri: incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	mpcop=next ifunc isa isb aop=reg bop=qreg;			// Ra (op) Q;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ifunc
+		aop=reg bop=qreg wa isa ldcc;				// Ra = Ra (op) Q;  CC; jump to fetch
+	mpcop=next;
+
+cmp_rr:	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_OP=add ALU_BCOMP extra=0x22	
+		isa isb aop=reg bop=reg ldcc;				// Ra - Rb; CC; jump to fetch
+	mpcop=next;
+
+cmp_ri:	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_OP=add ALU_BCOMP
+		aop=reg bop=qreg isa ldcc;				// Ra - Q; CC; jump to fetch
+	mpcop=next;
+
+br_i:	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+
+btest:	mpcop=jump mpcaddr=bdojmp icond;				// jump to bdojmp if cond
+	mpcop=next;
+	mpcop=jump mpccond=jmp mpcaddr=fetch;				// jump to fetch
+	mpcop=next;
+bdojmp:	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_AZERO ALU_OP=add
+		bop=qreg dout ldpc;					// PC <- Q, jump to fetch
+	mpcop=next;
+
+
+br_r:	mpcop=jump mpccond=jmp mpcaddr=btest extra=0x10
+		isa aop=reg sb=0 bop=reg ALU_OP=add ldq;		// Q <- Ra; jump to btest
+	mpcop=next;
+
+br_d:	mpcop=jump mpccond=jmp mpcaddr=btest;
+	mpcop=next;
+
+br_x:	mpcop=jump mpccond=jmp mpcaddr=btest;
+	mpcop=next;
+
+call_ii:
+	// Push the PC
+	aop=reg sa=0xf bop=idata idata=2 ALU_OP=add ALU_BCOMP
+		dout ldmar wa extra=0x11;				// SP-2 -> mar; SP = SP - 2;
+	rdpc lddata aop=din bop=idata idata=4 ALU_OP=add ldq;		// Q = PC+4
+	ALU_AZERO ALU_OP=add bop=qreg dout ldmdr;			// Q.L -> mdr
+	wrt;								// [mar] <- mdr;
+	incmar ALU_AZERO ALU_OP=add bop=qreg dout ldhmdr;		// Q.H -> mdr; mar++; 
+	mpcop=next;
+	wrt;								// [mar] <- mdr;
+	mpcop=next;
+
+	// Push the FP
+	aop=reg sa=0xf bop=idata idata=2 ALU_OP=add ALU_BCOMP
+			dout ldmar wa;					// SP-2 -> mar; SP = SP - 2;
+	ALU_AZERO bop=reg sb=0xe ALU_OP=add dout ldmdr;			// FP.L -> mdr
+	wrt;								// [mar] <- mdr;
+	incmar ALU_AZERO  bop=reg sb=0xe ALU_OP=add dout ldhmdr; 	// SP.H -> mdr; mar++; 
+	mpcop=next;
+	wrt;								// [mar] <- mdr;
+
+	aop=reg sa=0xe bop=reg sb=0xf
+		ALU_AZERO ALU_OP=add wa;				// FP <- SP
+
+	// Dec SP
+	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	aop=reg sa=0xf bop=qreg ALU_OP=add wa;				// SP = SP + Q
+
+	// PC = branch address
+	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_AZERO bop=qreg
+		ALU_OP=add dout ldpc;					// PC <- Q
+	mpcop=next;
+
+call_ri: mpcop=jump mpccond=jmp mpcaddr=fetch;
+	mpcop=next;
+
+call_di: mpcop=jump mpccond=jmp mpcaddr=fetch;
+	mpcop=next;
+
+call_xi: mpcop=jump mpccond=jmp mpcaddr=fetch;
+	mpcop=next;
+
+ret:	ALU_AZERO bop=reg sb=0xe ALU_OP=add sa=0xf wa dout ldmar extra=0x12;	// SP <- FP; mar <- FP;
+	aop=reg sa=0xf bop=idata idata=4 ALU_OP=add wa rd incmar ldmdr;	// SP <- SP+4; mdr <- [mar++]
+	ALU_AZERO bop=din lddata ALU_OP=add ldql rd rdmdr incmar ldmdr;	// Q.L <- mdr; mdr <- [mar++]
+	ALU_AZERO bop=din lddata ALU_OP=add ldqh rdmdr;			// Q.H <- mdr;
+	ALU_AZERO bop=qreg ALU_OP=add sa=0xe wa rd incmar ldmdr;	// FP <- Q; mdr <- [mar++]
+	ALU_AZERO bop=din lddata ALU_OP=add ldql rd incmar rdmdr ldmdr;	// Q.L <- mdr; mdr <- [mar++]
+	ALU_AZERO bop=din lddata ALU_OP=add ldqh rdmdr;			// Q.H <- mdr;
+	mpcop=jump mpccond=jmp mpcaddr=fetch1 
+		ALU_AZERO bop=qreg ALU_OP=add dout ldpc;		// PC <- Q; jump fetch1
+ 	incpc spc rd ldmdr;						// mdr <- [PC]; PC++;
+
+
+pushw_d: mpcop=next;
+pushw_x: mpcop=next;
+
+pushw_r: aop=reg sa=0xf bop=idata idata=2 ALU_OP=add ALU_BCOMP
+		extra=0x13 dout ldmar wa;				// mar <- SP-2; SP = SP - 2;
+	aop=reg isa bop=idata idata=0 ALU_OP=add dout ldmdr;		// mdr <- Rb.L;
+	wrt;								// [mar] <- mdr;
+	aop=reg isa bop=idata idata=0 ALU_OP=add dout ldhmdr incmar;	// mdr <- Rb.H; mar++;
+	mpcop=next;
+	mpcop=jump mpccond=jmp mpcaddr=fetch wrt;			// [mar] <- mdr; jump to fetch
+	mpcop=next;
+
+pushw_i: incpc spc rd ldmdr extra=2;					// mdr <- [PC]; PC++; 
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	aop=reg sa=0xf bop=idata idata=2 ALU_OP=add ALU_BCOMP
+		extra=0x13 dout ldmar wa;				// mar <- SP-2; SP = SP - 2;
+	aop=qreg bop=idata idata=0 ALU_OP=add dout ldmdr;		// mdr <- Q.L;
+	wrt;								// [mar] <- mdr;
+	aop=qreg bop=idata idata=0 ALU_OP=add dout ldhmdr incmar;	// mdr <- Q.H; mar++;
+	mpcop=next;
+	mpcop=jump mpccond=jmp mpcaddr=fetch wrt;			// [mar] <- mdr; jump to fetch
+	mpcop=next;
+
+movw_rr: mpcop=jump mpccond=jmp mpcaddr=fetch2 ALU_AZERO ALU_OP=add
+		isa isb wa aop=reg bop=reg ldcc extra=1 
+		incpc spc rd ldmdr;					// Ra <- Rb; jump to fetch2; mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldir;					// mdr <- [PC]; PC++; ir <- mdr;
+
+movb_rr: ALU_AZERO ALU_OP=add isb aop=reg bop=reg ldcc extra=1 ldql;	// Q.L <- Rb;
+	mpcop=jump mpccond=jmp mpcaddr=fetch2 aop=idata bop=idata
+		ALU_OP=add ldqh incpc spc rd ldmdr;			// Q.H <- 0; jump to fetch2;mdr <- [PC]; PC++;
+	ALU_AZERO ALU_OP=add bop=qreg isa wa 
+		incpc spc rd ldmdr rdmdr ldir;				// Ra <- Q; mdr <- [PC]; PC++; ir <- mdr;
+
+
+movw_ri: incpc spc rd ldmdr extra=2;					// mdr <- [PC]; PC++; 
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_OP=add ALU_AZERO
+		aop=reg bop=qreg wa isa ldcc;				// Ra = Q;  CC; jump to fetch
+	mpcop=next;
+
+movb_ri:incpc spc rd ldmdr extra=2;					// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO bop=reg sb=0;			// Q.H = 0;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_OP=add ALU_AZERO
+		aop=reg bop=qreg wa isa ldcc;				// Ra = Q;  CC; jump to fetch
+	mpcop=next;
+
+movb_rd:isb aop=idata bop=reg idata=0 ALU_OP=add ldmar dout  extra=3;	// mar <- Rb
+_mbrd:	rd ldmdr;							// mdr <- [mar]
+	mpcop=jump mpccond=jmp mpcaddr=fetch lddata rdmdr isa wa;	// Ra <- mdr
+	ALU_OP=add idata=0 bop=idata aop=reg isa ldcc;			// CC
+
+movw_rd: isb aop=idata bop=reg idata=0 ALU_OP=add ldmar dout  extra=3;	// mar <- Rb
+_mwrd:	rd ldmdr incmar;						// mdr <- [mar++]
+	rd ldmdr lddata rdmdr bop=din ALU_AZERO ALU_OP=add ldql;	// Q.L <- mdr; mdr <- [mar++]
+	lddata rdmdr bop=din ALU_AZERO ALU_OP=add ldqh;			// Q.H <- mdr;
+	mpcop=jump mpccond=jmp mpcaddr=fetch ALU_AZERO bop=qreg
+		ALU_OP=add isa wa ldcc;					// Ra <- Q; CC
+	mpcop=next;
+
+movb_rx: incpc spc rd ldmdr extra=9;					// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	mpcop=jump mpccond=jmp mpcaddr=_mbrd rdmdr ldqh
+		ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr; goto _mbrd
+	isb aop=qreg bop=reg
+		ALU_OP=add ldmar dout;					// mar <- Rb+Q;
+
+movw_rx: incpc spc rd ldmdr extra=9;					// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql
+		ALU_OP=add ALU_AZERO lddata bop=din;			// mdr <- [PC]; PC++; Q.L <- mdr
+	mpcop=jump mpccond=jmp mpcaddr=_mwrd rdmdr ldqh ALU_OP=add
+		 ALU_AZERO lddata bop=din;				// Q.H = mdr;
+	isb aop=qreg bop=reg ALU_OP=add
+		ldmar dout;						// mar <- Rb+Q
+
+movb_dr: isa aop=reg bop=idata idata=0 ALU_OP=add ldmar dout ldcc;	// mar <- Ra
+_mbdr:	isb aop=idata bop=reg idata=0 ALU_OP=add ldmdr dout;		// mdr <- Rb
+	mpcop=jump mpccond=jmp mpcaddr=fetch wrt;			// [mar] <- mdr; jump to fetch
+	mpcop=next;
+
+movw_dr: isa aop=reg bop=idata idata=0 ALU_OP=add ldmar dout ldcc;	// mar <- Ra
+_mwdr:	isb aop=idata bop=reg idata=0 ALU_OP=add ldmdr dout;		// mdr <- Rb.L
+	wrt;								// [mar] <- mdr;
+	isb aop=idata bop=reg idata=0 ALU_OP=add ldhmdr dout incmar;	// mdr <- Rb.H; mar++;
+	mpcop=next;
+	mpcop=jump mpccond=jmp mpcaddr=fetch wrt;			// [mar] <- mdr; jump to fetch
+	mpcop=next;
+
+movb_xr: incpc spc rd ldmdr extra=9;					// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	mpcop=jump mpccond=jmp mpcaddr=_mbdr rdmdr ldqh ALU_OP=add
+		 ALU_AZERO lddata bop=din;				// Q.H = mdr; jump to _mbdr
+	isa aop=reg bop=qreg ALU_OP=add	ldmar dout ldcc;		// mar <- Ra+Q
+
+
+movw_xr: incpc spc rd ldmdr extra=9;					// mdr <- [PC]; PC++;
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	mpcop=jump mpccond=jmp mpcaddr=_mwdr rdmdr ldqh ALU_OP=add
+		 ALU_AZERO lddata bop=din;				// Q.H = mdr; jump to _mwdr
+	isa aop=reg bop=qreg ALU_OP=add	ldmar dout ldcc;		// mar <- Ra+Q
+
+movw_xx: mpcop=next  extra=7;
+movb_xx: mpcop=next  extra=7;
+movw_xd: mpcop=next  extra=7;
+movb_xd: mpcop=next  extra=7;
+movw_dd: mpcop=next  extra=7;
+movb_dd: mpcop=next  extra=7;
+movw_dx: mpcop=next  extra=7;
+movb_dx: mpcop=next  extra=7;
+	mpcop=next  extra=7;
+
+movw_di: isa bop=idata idata=0 ALU_OP=add dout ldmar;			// mar <- Ra
+_mwdi:	incpc spc rd ldmdr extra=2;					// mdr <- [PC]; PC++; 
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	rdmdr ldqh ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr;
+	aop=idata bop=qreg idata=0 ALU_OP=add ldmdr dout;		// mdr <- Q.L
+	wrt;								// [mar] <- mdr;
+	aop=idata bop=qreg idata=0 ALU_OP=add ldhmdr dout incmar;	// mdr <- Q.H; mar++;
+	mpcop=next;
+	mpcop=jump mpccond=jmp mpcaddr=fetch wrt;			// [mar] <- mdr; jump to fetch
+	mpcop=next;
+
+movb_di: aop=reg isa bop=idata idata=0 ALU_OP=add dout ldmar extra=0x21;// mar <- Ra
+_mbdi:	incpc spc rd ldmdr;						// mdr <- [PC]; PC++; 
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	aop=idata bop=qreg idata=0 ALU_OP=add ldmdr dout;		// mdr <- Q.L
+	mpcop=jump mpccond=jmp mpcaddr=fetch wrt;			// [mar] <- mdr; jump to fetch
+	mpcop=next;
+
+movw_xi: incpc spc rd ldmdr extra=2;					// mdr <- [PC]; PC++; 
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	mpcop=jump mpccond=jmp mpcaddr=_mwdi rdmdr ldqh
+		ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr; goto _mwdi
+	isa aop=reg bop=qreg ALU_OP=add dout ldmar;			// mar <- Ra+Q
+
+movb_xi: incpc spc rd ldmdr extra=2;					// mdr <- [PC]; PC++; 
+	incpc spc rd ldmdr rdmdr ldql ALU_OP=add ALU_AZERO lddata bop=din; // mdr <- [PC]; PC++; Q.L <- mdr
+	mpcop=jump mpccond=jmp mpcaddr=_mbdi rdmdr ldqh
+		ALU_OP=add ALU_AZERO lddata bop=din;			// Q.H = mdr; goto _mwdi
+	isa aop=reg bop=qreg ALU_OP=add dout ldmar;			// mar <- Ra+Q
+
+
+
+nop:	mpcop=jump mpccond=jmp mpcaddr=fetch extra=0x15;
+	mpcop=next;
+end
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// General notes on assembler
+// Registers are not saved accross function calls unless explicitly saved.
+// Functions return values in R1.
+// The register R0 is a special "always 0" register.  Writing to R0 will have no
+//  effect other than to set condition codes.
+//
+//
+begin macrocode @ 0x100
+ttydata:	.symbol	0x11	// tty data in/out register
+ttystatus:	.symbol	0x10	// tty status register
+
+//
+// Nodes have the format (note that pointers are two bytes):
+//
+// struct node {
+//   struct node *yes_b;
+//   struct node *no_b; 
+//   char text[100];
+// };
+//
+nsize:	.symbol 104		// Size of a tree node.  That is "sizeof(struct node)".
+yes_b:	.symbol	0		// Pointer to yes side
+no_b:	.symbol	2		// Pointer to no side
+text:	.symbol 4		// Text of node (animal name or question)
+
+//
+// Execution starts here.
+//
+start:
+	movw	SP, 0		// Initialize stack pointer
+	movw	FP, 0		// Initialize frame pointer
+
+	call	main		// Call main program
+
+sdone:	jmp	sdone		// Infinite loop when main ends
+
+
+////////////////////
+//	main()
+//
+.proc main
+	movw	R13, mend	// Use R13 as a sort of heap pointer
+
+	pushw	welcome		// Push the "Welcome to" message
+	call	printf		// Print the message
+	add	SP,2		// Restore stack pointer
+
+	movw	(root),top_node	// Initialize root node
+	movw	(known),1	// Know one animal
+
+loop:
+	pushw	think		// Push the "Think of an animal..." message
+	call	printf		// Print the message
+	add	SP,2		// Restore stack pointer
+
+	movw	R1, (known)	// Put number of known animals in R1
+	pushw	R1		// Push that number on the stack
+	pushw	numk		// Push the "I know %d animals" message
+	call	printf		// Call printf to print message
+	add	SP,4		// Restore stack
+
+	movw	R1,(root)	// Put the root pointer in R1
+	pushw	R1		// Push the pointer on the stack
+	call	find_animal	// Ask questions to find animal
+	add	SP,2		// Restore the stack
+	movw	(root),R1	// Save new root
+
+	jmp	loop		// Go back and guess another animal
+
+	ret			// Return to call (actually we should never get here)
+.end
+
+////////////////////
+//	find_animal(p)		Find the animal. p is the root node in question tree 
+//
+.proc find_animal
+tree:	.symbol	-2		// Local variable for tree pointer
+	sub	SP,2		// Allocate space for local variables
+
+	movw	R1, 4(FP)	// Get the pointer to top node
+	movw	tree(FP),R1	// Store it in "tree"
+
+	movw	R2,yes_b(R1)	// Get pointer in "yes" branch of tree
+	cmp	R2,0		// Compare against 0
+	jne	get_response	// If not 0, then treat as question node
+
+	pushw	R1		// Push pointer to top node
+	call	get_final	// As the final question, and insert new node if necessary 
+	add	SP,2		// Restore stack
+	movw	tree(FP),R1	// Save new root node in "tree"
+
+	jmp	done		// All done, go to final cleanup 
+
+get_response:
+	movw	R1,tree(FP)	// Put current node pointer in R1
+	movw	R4,R1		// R4 = R1
+	add	R4,text		// Add offset to make R4 pointer to question
+	pushw	R4		// Push text of question
+	call	print		// Print question in tree node
+	add	SP,2		// Restore stack
+
+	pushw	qprompt		// Push "?" prompt
+	call	print		// Print the "? "
+	add	SP,2		// Restore stack
+
+	pushw	buf		// Push address of buffer in which to get response
+	call	gets		// Read response from user
+	add	SP,2		// Restore stack
+
+	pushw	buf		// Push users response on stack
+	pushw	yes		// Push "yes" on stack
+	call	strcmp		// Compare the strings
+	add	SP,4		// Restore stack
+	cmp	R1,0		// Check if R1 was 0
+	jeq	say_yes		// If so, user answered "yes", goto say_yes
+
+	pushw	buf		// Push users response on stack
+	pushw	no		// Push "no" on stack
+	call	strcmp		// Compare the strings
+	add	SP,4		// Restore stack
+	cmp	R1,0		// Check if R1 was 0
+	jeq	say_no		// If so, user answered "no", goto say_no
+
+	pushw	yesno		// Push the "yes or no" error message
+	call	print		// Print error message
+	add	SP,2		// Restore stack
+	jmp	get_response	// Go back and ask again
+
+say_yes:
+	movw	R1,tree(FP)	// Put current tree pointer in R1           
+	movw	R2,yes_b(R1)	// Put "yes" branch pointer in R2           
+	pushw	R2		// Push the yes branch on the stack         
+	call	find_animal	// Recursively ask the next question        
+	add	SP,2		// Restore the stack                        
+	movw	R2,tree(FP)	// Get tree pointer again                   
+	movw	yes_b(R2),R1	// Update the "yes" branch                  
+	jmp	done		// Finish up and prepare to return to caller 
+say_no:
+	movw	R1,tree(FP)	// Put current tree pointer in R1           
+	movw	R2,no_b(R1)	// Put "no" branch pointer in R2           
+	pushw	R2		// Push the no branch on the stack         
+	call	find_animal	// Recursively ask the next question        
+	add	SP,2		// Restore the stack                        
+	movw	R2,tree(FP)	// Get tree pointer again                   
+	movw	no_b(R2),R1	// Update the "no" branch                  
+	jmp	done		// Finish up and prepare to return to caller
+
+done:
+	movw	R1,tree(FP)	// Put new root node in R1
+	ret			// Return to caller
+.end
+
+////////////////////
+//	get_final(p)		Ask final question (at node p), and update tree if necessary.
+//
+.proc get_final
+tree:	.symbol	-2		// Local variable for tree pointer
+animal_node:	.symbol	-4	// Local variable for new animal node pointer
+discrim_node:	.symbol	-6	// Local variable for new question node pointer
+	sub	SP,6		// Allocate space for local variables
+
+get_response:
+	movw	R1, 4(FP)	// Get pointer to current node
+	movw	tree(FP),R1	// Save it in the 'tree' variable
+
+	movw	R1, 4(FP)	// Put pointer to tree in R1
+	add	R1,text		// Advance R1 to animal name text 
+	pushw	R1		// Push pointer to animal name on stack
+	pushw	isita		// Push the "is it a..." string pointer
+	call	printf		// Print the final question
+	add	SP,4		// Restore stack
+
+	pushw	buf		// Push buffer for response
+	call	gets		// Get the response
+	add	SP,2		// Restore the stack
+
+	pushw	buf		// Push response on stack      
+	pushw	yes		// Push "yes" on stack         
+	call	strcmp		// Compare strings            
+	add	SP,4		// Restore stack               
+	cmp	R1,0		// See if a 0 was returned     
+	jeq	win		// If so, we guessed the animal
+
+	pushw	buf		// Push response on stack      
+	pushw	no		// Push "no" on stack         
+	call	strcmp		// Compare strings            
+	add	SP,4		// Restore stack               
+	cmp	R1,0		// See if a 0 was returned     
+	jeq	loose		// If so, we did not guess the animal
+
+	pushw	yesno		// Push the "yes or no" error message 
+	call	print		// Print it                           
+	add	SP,2		// Restore stack                      
+	jmp	get_response	// Go back and ask again              
+
+win:
+	pushw	winmsg		// Push the (computer) win message
+	call	printf		// Print it
+	add	SP,2		// Restore stack
+	jmp	done		// All done, go finish up and return
+
+loose:
+	pushw	loosemsg	// Push the (computer) loose message
+	call	printf		// Print it
+	add	SP,2		// Restore stack
+
+	pushw	nsize			// Push number of bytes in a node
+	call	malloc			// Allocate memory for new animal node
+	add	SP,2			// Restore stack
+	movw	animal_node(FP),R1	// Put address of new node in animal_node
+
+	movw	yes_b(R1),0		// Intialize yes branches
+	movw	no_b(R1),0		// Intialize no branches
+	add	R1,text			// Move R1 to point to text area
+	pushw	R1			// Push text buffer
+	call	gets			// Get animal name
+	add	SP,2			// Restore stack
+
+	movw	R1,tree(FP)		// Put pointer to exiting node in R1
+	add	R1,text			// Advance to the text field
+	pushw	R1			// Push pointer to old animal name
+	movw	R1,animal_node(FP)	// Put pointer to new node in R1
+	add	R1,text			// Advance to the text field
+	pushw	R1			// Push new animal name on stack
+	pushw	dscrim			// Push "what is difference" question 
+	call	printf			// Print the question 
+	add	SP,6			// Restore pointer
+
+	pushw	nsize			// Allocate memory for discrimination node
+	call	malloc			// Allocate memory for new discrimination node
+	add	SP,2			// Restore stack
+	movw	discrim_node(FP),R1	// Put address of new node in discrim_node
+
+	add	R1,text			// Advance pointer to text field of discrimination node
+	pushw	R1			// Push pointer to text buffer to input question 
+	call	gets			// Input the question
+	add	SP,2			// Restore pointer
+
+	movw	R1, (known)		// Put number of known animals in R1
+	add	R1,1			// Increment R1
+	movw	(known),R1		// Store number of known animals back in "known"
+
+L1:	movw	R1,animal_node(FP)	// Put pointer to new animal node in R1
+	add	R1,text			// Advance R1 to the text field
+	pushw	R1			// Push new animal name on stack
+	pushw	which			// Push the "..correct answer for..." message.
+	call	printf			// Print the message
+	add	SP,4			// Restore stack
+
+	pushw	buf			// Push text buffer on stack
+	call	gets			// Input a "yes" or "no"
+	add	SP,2			// Restore stack
+
+	pushw	buf			// Push user response                            
+	pushw	yes			// Push string "yes"                             
+	call	strcmp			// Compare strings                               
+	add	SP,4			// Restore stack                                 
+	cmp	R1,0			// Is the result 0?                              
+	jeq	L2			// If so, goto L2.  New animal is on "yes" branch
+
+	pushw	buf			// Push user response                            
+	pushw	no			// Push string "no"                             
+	call	strcmp			// Compare strings                               
+	add	SP,4			// Restore stack                                 
+	cmp	R1,0			// Is the result 0?                              
+	jeq	L3			// If so, goto L3.  New animal is on "no" branch
+
+	pushw	yesno			// Push the "yes or no" error message 
+	call	printf			// Print it                           
+	add	SP,2			// Restore stack                      
+	jmp	L1			// Go back and ask again              
+
+//
+// Insert new animal on yes branch of new question
+//
+L2:	movw	R1,discrim_node(FP)	// Put new question node in R1 
+	movw	R2,tree(FP)		// Put old animal node in R2   
+	movw	R3,animal_node(FP)	// Put new animal node in R3   
+	movw	yes_b(R1),R3		// Set yes branch to new node  
+	movw	no_b(R1),R2		// Set no branch to old node   
+	movw	tree(FP),R1		// Save R1 to tree pointer     
+	jmp	done			// Finish up and return        
+
+//
+// Insert new animal on no branch of new question
+//
+L3:	movw	R1,discrim_node(FP)	// Put new question node in R1 
+	movw	R2,tree(FP)		// Put old animal node in R2   
+	movw	R3,animal_node(FP)	// Put new animal node in R3   
+	movw	yes_b(R1),R2		// Set yes branch to old node  
+	movw	no_b(R1),R3		// Set no branch to new node   
+	movw	tree(FP),R1		// Save R1 to tree pointer     
+	jmp	done			// Finish up and return        
+
+done:
+	movw	R1,tree(FP)		// Put tree pointer into return register R1
+	ret				// Return to caller
+.end
+
+////////////////////
+//	malloc(n) -> p	Allocate n bytes and return address in R1.  Allocated memory
+//			can not be freed.
+//
+.proc malloc
+	movw	R2, 4(FP)	// Get number of bytes
+	movw	R1,R13		// Pointer to block of memory
+	add	R13,R2		// Update heap pointer
+	ret
+.end
+
+////////////////////
+//	print(s)	Print the string s
+//
+.proc print
+	movw	R1, 4(FP)	// Get parameter (string address)
+loop:	movb	R2, (R1)	// Put character R1 is pointing to in R2
+	jeq	done		// If it was a 0, this is the end of the string
+	movb	(ttydata),R2	// Move char to the tty data register
+	movb	(ttystatus),#1	// Signal tty controller to print character
+	add	R1, #1		// Move pointer to next char
+	jmp	loop		// Go back and print more
+done:	ret
+.end
+
+////////////////////
+//	printf(s,...)	Print the format string 
+//
+.proc printf
+ptr:	.symbol	-2		// Local var for string pointer
+arg:	.symbol -4		// Local var for argument pointer
+	sub	SP,4		// Allocate 4 bytes for local variables
+
+	movw	R3,FP		// Assign R3 and add an offset so that it points 
+	add	R3,6		//   to the argument after the control string
+
+	movw	R1, 4(FP)	// Put the control string pointer in R1
+loop:	movb	R2, (R1)	// Get the next char from control string
+	jeq	done		// If it was a 0, this is the end of the string
+
+	cmp	R2, '%'		// See if it is the '%' character
+	jne	cout		// If not goto cout, and simply print it
+
+	add	R1,1		// Advance the string pointer
+	movb	R2,(R1)		// Get the next char
+	add	R1,1		// Advance the string pointer again
+
+//switch (R2)
+L1:	cmp	R2,'s'		// See if this is a "%s" conversion
+	jne	L2		// If not, goto L2
+
+// case 's' :
+	movw	ptr(FP),R1	// Save the string pointer value
+	movw	arg(FP),R3	// Save the argument pointer value
+	movw	R2,(R3)		// Get address of string (from arguments) to print
+	pushw	R2		// Push it on the stack
+	call	print		// Print the string
+	add	SP,2		// Restore stack pointer
+	movw	R1,ptr(FP)	// Restore string pointer value
+	movw	R3,arg(FP)	// Restore argument pointer value
+	add	R3,2		// Advance argument pointer to next argument
+	jmp	loop		// Go back and print more
+
+L2:	cmp	R2,'d'		// See if this is a "%d" conversion
+	jne	loop		// If not, ignore unknown conversion
+
+// case 'd' :
+	movw	ptr(FP),R1	// Save the string pointer value
+	movw	arg(FP),R3	// Save the argument pointer value
+	movw	R2,(R3)		// Get number (from arguments) to print
+	pushw	R2		// Push it on the stack
+	call	nprint		// Go print the decimal number 
+	add	SP,2		// Restore stack pointer
+	movw	R1,ptr(FP)	// Restore string pointer value
+	movw	R3,arg(FP)	// Restore argument pointer value
+	add	R3,2		// Advance argument pointer to next argument
+	jmp	loop		// Go back and print more
+
+cout:
+	movb	(ttydata),R2	// Put character in tty data register
+	movb	(ttystatus),#1	// Signal tty controller to print character
+	add	R1, #1		// Advance to next char in control string
+	jmp	loop		// Go back and print more
+
+done:	ret			// All done, return to caller 
+.end
+
+////////////////////
+//	nprint(d)	Print the number d in decimal
+//
+.proc nprint
+	movw	R1, 4(FP)	// Move argument value to R1
+	jeq	zprint		// If it was zero, goto zprint
+
+	pushw	R1		// Push value to print on stack
+	call	nprint_aux 	// Call aux function to print number
+	add	SP,2		// Restore stack pointer
+	ret			// All done, return to caller 
+
+zprint:	movb	(ttydata), '0'	// Put the ascii value of '0' in tty data register
+	movb	(ttystatus), #1	// Signal tty controller to print character
+	ret			// All done, return to caller 
+.end
+
+////////////////////
+//	nprint_aux(d)	Print the number d in decimal (but prints nothing if d is zero)
+//
+.proc nprint_aux
+digit:	.symbol	-2		// Digit to print
+	sub	SP, 2		// Allocate space for local variables
+
+	movw	R1, 4(FP)	// Get argument
+	jeq	done		// If zero, return
+
+	// To print the number n we compute
+	//     R2 = n / 10, and 
+	//     R3 = n % 10
+	// We can then recursively call nprint_aux to print all
+	// but the lowest digit, then print the lowest digit ourselves
+	//
+	movw	R2, R1		// R2 = R1
+	div	R2, 10		// R2 = R2 / 10
+	movw	R3, R1		// R3 = R1
+	mod	R3, 10		// R3 = R3 % 10
+	movw	digit(FP),R3	// save lowest digit value
+
+	pushw	R2		// Push the higher digits
+	call	nprint_aux	// Recursively call ourselves to print them
+	add	SP,2		// Restore stack pointer
+
+	movw	R3,digit(FP)	// Restore digit value
+	add	R3, '0'		// Add ascii for '0' to get ascii for digit
+	movb	(ttydata),R3	// Put char in tty data register
+	movb	(ttystatus),#1	// Signal tty controller to print character
+done:
+	ret			// All done, resturn to caller
+.end
+
+////////////////////
+//	strcmp(a,b)		Compare strings a and b
+//
+.proc	strcmp
+	movw	R2,4(FP)	// Get pointer to first string
+	movw	R3,6(FP)	// Get pointer to second string
+
+loop:	movb	R1,(R2)		// Get next char from R2
+	jeq	eos		// If end of string, goto eos
+	movb	R4,(R3)		// Get next char from R3
+	jeq	eos		// If end of string, goto eos
+
+	sub	R1,R4		// Compute difference in R1
+	jne	done		// If difference was not 0, we are done
+
+	add	R2,1		// Advance to next char in R2
+	add	R3,1		// Advance to next char in R3
+	jmp	loop		// Go compare more
+
+eos:
+	movb	R4,(R3)		// Get next char from R3 again (in case R1 was eos)
+	sub	R1,R4		// Compute difference in R1
+
+done:
+	ret			// Return to caller, result is in R1
+.end
+
+
+////////////////////
+//	gets(b)		Reads chars from tty into b.
+//
+.proc gets
+	movw	R1, 4(FP)	// Get pointer to buffer
+	movw	R4,R1		// Save starting pointer in R4
+
+	//
+	// Poll for a characcter
+	//
+cwait:	movb	R2,(ttystatus)	// Get ready status
+	and	R2, #2		// Test if a char is ready
+	jeq	cwait		// If not, go back and wait some more
+
+	movb	R3,(ttydata)	// Get char from tty data register
+	movb	(ttystatus),#2	// Signal char received
+	cmp	R3,'\r'		// Compare against return char
+	jeq	done		// Exit if return received
+
+	cmp	R3,'\b'		// Compare against backspace char
+	jeq	del_char	// Delete char if backspace
+
+	cmp	R3,0x7f		// Compare against delete char
+	jeq	del_char	// Delete char if delete character
+
+	movb	(ttydata),R3	// Put char to echo in tty data register
+	movb	(ttystatus),#1	// Signal tty controller to print character
+
+	movb	(R1),R3		// Save in buffer
+	add	R1,1		// increment pointer
+
+	jmp	cwait		// Go back and get another char
+
+del_char:
+	cmp	R1,R4		// Compare current pointer against start of line
+	jle	bell		// If already at start of line, ring bell
+
+	movb	R3, 0x7f	// Make sure delete char is in R3
+	sub	R1,1		// Decrement pointer
+	movb	(ttydata),R3	// Echo backspace
+	movb	(ttystatus),#1	// Signal tty controller to print character
+
+	jmp	cwait		// Go back and get another char
+
+bell:	
+	movb	R3, 7		// Put bell char in R3
+	movb	(ttydata),R3	// Echo bell
+	movb	(ttystatus),#1	// Signal tty controller to print character
+	jmp	cwait		// Go back and get another char
+
+done:
+	movb	(ttydata),'\n'	// Output newline
+	movb	(ttystatus),#1	// Signal tty controller to print character
+	movb	(R1),0		// Put eos in the string we just read
+	ret			// Return to caller
+.end
+
+buf:	.bss	128		// Buffer for input
+known:	.bss	2		// Number of animals known
+root:	.bss	2		// root of animals tree
+
+top_node:
+	.short	0		// Pointer to "yes" node
+	.short	0		// Pointer to "no" node
+	.byte	"aardvark",0	// Animal name or question text
+
+welcome: .byte	"\nWelcome to Animals.\n", 0
+think:	.byte	"\nThink of an animal and I will try to guess what it is.\n", 0
+numk:	.byte	"I currently know %d animals.\n\n", 0
+isita: 	.byte	"Is the animal you are thinking of a %s? ",0
+yes:	.byte	"yes",0
+no:	.byte	"no",0
+yesno:	.byte	"Please type 'yes' or 'no'.\n",0
+winmsg:	.byte	"I guessed your animal!!!\n\n",0
+loosemsg: .byte	"I could not guess your animal.  What was your animal? ",0
+dscrim:	.byte	"Enter a question that would distinguish a %s from a %s.\n> ",0
+which:	.byte	"The correct answer for a %s is? ",0
+nl:	.byte	"\n",0
+qprompt: .byte	"? ",0
+mend:
+
+end

@@ -1,0 +1,23 @@
+/* XPM */
+static char * go_xpm[] = {
+"16 16 4 1",
+" 	c blue",
+".	c black",
+"X	c green4",
+"o	c white",
+"     ......     ",
+"   ..XXXXXX..   ",
+"  .XXXXXXXXXX.  ",
+" .XXXXXXXXXXXX. ",
+" .XXXXXXXXXXXX. ",
+".XXooooXXooooXX.",
+".XXoXXXXXoXXoXX.",
+".XXoXXXXXoXXoXX.",
+".XXoXoooXoXXoXX.",
+".XXoXXoXXoXXoXX.",
+".XXooooXXooooXX.",
+" .XXXXXXXXXXXX. ",
+" .XXXXXXXXXXXX. ",
+"  .XXXXXXXXXX.  ",
+"   ..XXXXXX..   ",
+"     ......     "};

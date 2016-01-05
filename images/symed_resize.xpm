@@ -1,0 +1,27 @@
+/* XPM */
+static char * symed_resize_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 5 1",
+/* colors */
+" 	c magenta",
+".	c black",
+"X	c white",
+"o	c gray",
+"O	c magenta4",
+/* pixels */
+"                ",
+" ...............",
+" .XXoXXoOOo     ",
+" .XXoXXoOOo     ",
+" .oooooooooo    ",
+" .OOoXXoOOo   . ",
+" .OOoXXoOOo ....",
+" .oooooooooo  . ",
+" .XXoOOoXXo     ",
+" .XXoOOoXXo     ",
+" .oooooooooo    ",
+" .  o  o  o     ",
+" .   .          ",
+" .   .       . .",
+" .  ...       ..",
+" .   .       ..."};

@@ -1,0 +1,25 @@
+/* XPM */
+static char * updirectory_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"15 13 6 1",
+/* colors */
+" 	c #ff00ff",
+".	c #787878",
+"X	c #b8b8b8",
+"o	c #f8f800",
+"O	c #f8f8f8",
+"+	c black",
+/* pixels */
+"  .....        ",
+" .XoXoX.       ",
+".XoXoXoX...... ",
+".OOO++OOOOOOO.+",
+".Oo++++XoXoXo.+",
+".O++++++XoXoX.+",
+".OoX++oXoXoXo.+",
+".OXo++XoXoXoX.+",
+".OoX++++++oXo.+",
+".OXo++++++XoX.+",
+".OoXoXoXoXoXo.+",
+"..............+",
+" ++++++++++++++"};

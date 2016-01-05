@@ -1,0 +1,29 @@
+/* XPM */
+static char * symed_import_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 7 1",
+/* colors */
+" 	c magenta",
+".	c black",
+"X	c #7e7e7e",
+"o	c #d2b48c",
+"O	c white",
+"+	c blue",
+"@	c red",
+/* pixels */
+"                ",
+" ..             ",
+".XX......       ",
+".XXXXXXXX.      ",
+".XXXXXXXXX.     ",
+".XX..........   ",
+".X.ooooooooo.   ",
+".X.ooo..........",
+"..oooo.OOOOOOOO.",
+".......O++++OOO.",
+"      .O+OOO+OO.",
+" @    .O+OOOO+O.",
+" @ @  .O+OOO+OO.",
+" @@@@ .O++++OOO.",
+"   @  .OOOOOOOO.",
+"      .........."};

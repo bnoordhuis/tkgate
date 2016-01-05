@@ -1,0 +1,29 @@
+/* XPM */
+static char * unused_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 7 1",
+/* colors */
+" 	c white",
+".	c #888866665555",
+"X	c #CCCC88885555",
+"o	c #B8B80000B8B8",
+"O	c red",
+"+	c #666644443333",
+"@	c black",
+/* pixels */
+"                ",
+"                ",
+"................",
+".      XX.XXXXX.",
+".   oooXX.XXXXX.",
+". OOoooXX.XXXXX.",
+". OOooo+@.XX+@+.",
+".   ooo@@.XX@@@.",
+".   ooo+@.XX+@+.",
+". OOoooXX.XXXXX.",
+". OOoooXX.XXXXX.",
+".   oooXX.XXXXX.",
+".      XX.XXXXX.",
+"................",
+"                ",
+"                "};

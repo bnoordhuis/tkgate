@@ -1,0 +1,27 @@
+/* XPM */
+static char * pinout_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 5 1",
+/* colors */
+" 	c white",
+".	c #cccccc",
+"X	c #9999ff",
+"o	c #7f7f7f",
+"O	c black",
+/* pixels */
+"  ............  ",
+" .............. ",
+"..XXXXXXXXXXXXoo",
+"..XOOOXXXXXXXXoo",
+"..XXOXXXXXXXXXoo",
+"..XXOXXXXXOXXXoo",
+"..XXOXXXXOXXXXoo",
+"..XOOOXXOXXXXXoo",
+"..XXXXXOXXOOXXoo",
+"..XXXXOXXOXXOXoo",
+"..XXXOXXXOXXOXoo",
+"..XXXXXXXOXXOXoo",
+"..XXXXXXXXOOXXoo",
+"..XXXXXXXXXXXXoo",
+" .ooooooooooooo ",
+"  oooooooooooo  "};

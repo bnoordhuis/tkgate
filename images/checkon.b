@@ -1,0 +1,4 @@
+#define checkon_width 8
+#define checkon_height 8
+static unsigned char checkon_bits[] = {
+   0xc0, 0xe0, 0x70, 0x3b, 0x1f, 0x0f, 0x0e, 0x04};

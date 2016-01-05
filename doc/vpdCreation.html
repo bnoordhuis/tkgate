@@ -1,0 +1,492 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (VPD Creation)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+   <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<h2>7. Making Virtual Peripheral Devices (VPDs) </h2>
+
+Virtual Peripheral Devices (VPDs) are a mechanism whereby new and
+interesting user-define input/output devices can be created and used
+by TkGate.  They can be used to create devices such as TTY Devices,
+Vending Machine, Robots and any other device that can be imagined.
+<p>
+TkGate handling of VPDs is designed to be user extensible.  Users
+create a VPD by writing a Tcl/Tk script to define the physical
+behavior of the device, and a Verilog library file containing a stub
+module that interacts with the Tcl script.  The Tcl/Tk script can
+create its own GUI through which the user can interact.
+
+<a name=overview>
+<h3>7.1 Overview of Virtual Peripheral Device Design</h3>
+
+Virtual Peripheral Devices are comprised of a Tcl/Tk script file, and
+a Verilog stub module.  The script file implements the graphical
+interface for the device and handles user interaction.  The Verilog
+stub module encapsulates the behavior of the device into a module that
+can be included in user circuits.  The VPD Tcl/Tk script files are
+read both from a read-only directory that is part of the TkGate
+installation, and from a user-defined list of directories that can be
+specified through the <a href="gateOptions.html#library">Library
+Options</a> dialog box.  These script files are read at start-up time,
+so you must restart TkGate if you change the Tcl/Tk portion of a VPD.
+<p>
+Since a Verilog description can contain multiple instances of a VPD,
+the Tcl script must be written in such a way so as to allow multiple
+instances of that interface.  This is done by giving each instance a
+unique instance name.  The VPD instance name is typically the same as
+the Verilog instance name of the stub module for the VPD.  The fully
+instantiated Verilog instance name is dot separated path such as
+"<tt>top.bus1.dm1</tt>".
+
+<h4>7.1.1 Named Channels</h4>
+
+Communication between the Tcl-side and Verilog-side of the VPD
+implementation is performed through a Verga extension to Verilog
+called a "named channel".  A named channel is basically a queue that
+has a string identifier.  TkGate provides Tcl-side and Verilog-side
+access the named channels allowing data to be passed through the
+channel.  Named channels can be used both to send data from the Tcl
+side to the Verilog side, and to send data from the Verilog side to
+the Tcl side.
+
+<h4>7.1.2 Direct Execution of Tcl Commands</h4>
+
+It is also possible for the Verilog stub module to execute Tcl
+commands directly using the <tt>$tkg$exec()</tt> system task provided
+by Verga.  However, use of the <tt>$tkg$exec()</tt> is restricted due
+to the fact that allowing arbitrary Tcl commands implies allowing
+arbitrary shell commands.  This means that untrusted circuit files
+could result in damage to the user's system when simulated.  For this
+reason, TkGate provides the capability of choosing a security policy
+to control the use this system task through the <a
+href="gateOptions.html#security">Security Options</a> dialog box. 
+<p>
+Because of the potential security issues and the fact the a user could
+choose to use a "high" security policy, it is generally recommended
+that VPD implementers should avoid use of <tt>$tkg$exec()</tt> and use
+only named channels when possible.
+
+<a name=installing>
+<h3>7.2 Installing VPDs</h3>
+
+To install a VPD named <i>name</i>, you must install both the
+"<i>name</i><tt>.tcl</tt>" file containing the Tcl implementation, and
+the "<i>name</i><tt>.v</tt>" file containing the Verilog stub module.
+You can place these files either in the TkGate home directory, or in a
+user defined directory.  To place them in the TkGate home directory,
+put the "<i>name</i><tt>.tcl</tt>" file in the "<tt>vpd</tt>"
+sub-directory, and the "<i>name</i><tt>.v</tt>" file in the
+"<tt>vlib</tt>" sub-directory.
+<p>
+To place your VPD files a user defined location, you must set the
+paths for library and VPD files.  Open the <a
+href="gateOptions.html#library">Library Options</a> dialog box and add
+the directory containing your "<i>name</i><tt>.v</tt>" file to the
+"Verilog Library Path", and the directory containing your
+"<i>name</i><tt>.tcl</tt>" file to the "VPD () File Path".
+<p>
+The VPD files will be automatically loaded and registered when TkGate
+starts.  To use a VPD, you should open the library manager and load
+your VPD.
+
+<a name=tclside>
+<h3>7.3 The Tcl-Side Interface</h3>
+
+The Tcl script for a VPD is responsible for creating a window for the
+device, responding to user input, and communicating with the Verilog
+stub module.
+
+<h4>7.3.1 Basic Concepts</h4>
+
+A VPD script is a normal Tcl/Tk script and can execute any of the
+commands that are available through Tcl/Tk.  However, since it is
+loaded with the rest of the TkGate interface, certain design
+guidelines should be followed to prevent conflicts between the VPD and
+TkGate.  A Tcl-Side API is provided to enable communication between
+the Verilog portion and the script portion.  The VPD API is defined in
+a Tcl/TK name-space called "VPD".  As such, all of the API commands
+have the prefix "VPD::".
+<p>
+VPD scripts should begin by executing the <tt>VPD::register</tt>
+command to register the name of the VPD.  It may then optionally use
+the <tt>VPD::allow</tt> (and <tt>VPD::disallow</tt>) command(s) to
+register specific commands that are allowed to be executed from the
+Verilog side using the <tt>$tkg$exec()</tt> system task if that
+interface method is used.  The body of the VPD should be defined
+within a name-space having the same name as the registered VPD name.
+All VPD functions should be defined in that name-space.  At a minimum,
+each VPD is required to provide a "<tt>post</tt>" method.  The "<tt>
+post</tt>" method should take an instance name as its first argument,
+and may optionally define one or more additional arguments.  This
+results in the following recommended structure for a VPD Tcl script:
+<p>
+<pre>
+VPD::register TTY
+VPD::allow TTY::data
+
+namespace eval TTY {
+   proc post {name} {
+     ...body of post method...
+   }
+
+   ...other functions used by TTY VPD... 
+}
+</pre>
+<p>
+
+<h4>7.3.2 Writing the <tt>post</tt> Method</h4>
+
+
+The "<tt> post</tt>" method is generally responsible for taking the
+following actions:
+
+<ul>
+<li> Create the top-level window for the VPD
+using the <tt> VPD::createWindow</tt> command.  This window will be
+automatically <tt> destroy</tt>ed when TkGate exists simulation mode.
+The <tt> -shutdowncommand</tt> switch can be used with this command to specify a script
+to execute when the window is destroyed.
+
+<li> Build the widgets for
+the VPD in the top-level window and set up handlers for user actions.
+
+<li> Register input and output signals using the <tt>
+VPD::insignal</tt> and <tt> VPD::outsignal</tt> commands.
+</ul>
+
+Note that for some VPDs there may be exceptions to these rules.  It is
+also possible to use Tcl as glue to interface the simulation to a
+real-world device without using a GUI.  For example, one could write a
+VPD to give a Verilog description the ability to access to the
+Internet.  With such a VPD, the <tt> VPD::shutdownnotify</tt> command can
+be used to register a script to execute when the simulation is
+terminated so as to close any open connections. 
+<p>
+An example of a simple <tt>post</tt> method is given below:
+<pre>
+  proc post {name} {
+    variable tty_w
+
+    //
+    // Create a VPD window.  The title of the window will be "TTY" followed by the name
+    // of the instance.  When the simulation is terminated, the TTY::unpost method
+    // will be called.
+    //
+    set tty_w($name) [VPD::createWindow "TTY $name" -shutdowncommand "TTY::unpost $name"]
+
+    ...build GUI...
+
+    VPD::outsignal $name.TD TTY::TD($name) 
+    VPD::insignal $name.RD -command "TTY::data" -format %d
+  }
+</pre>
+
+Since there can be multiple instances of a VPD, it is important to
+keep state information for each instance separate.  This can be done
+by keeping all such state information in Tcl arrays.  For example, the
+<tt>VPD::createWindow</tt> method automatically chooses a name for the
+top-level window in which the GUI will be constructed.  Instead of
+keeping the window id in a flat variable such as "<tt>$tty_w</tt>",
+the information should be kept in a variable such as "<tt>
+$tty_w($name)</tt>" indexed by the name of the VPD instance,
+"<tt>$name</tt>".
+<p>
+The <tt>VPD::outsignal</tt> and <tt>VPD::insignal</tt> methods are
+used to link Tcl variables or commands to named channels.  In the
+above example, the named channel <tt>$name.TD</tt> (where
+<tt>$name</tt> is the instance name) is associated with the Tcl
+variable <tt>TTY::TD($name)</tt>.  Any time a value is assigned to
+that variable, the value is transmitted to the Verilog side of the VPD
+over the named channel.  The named channel <tt>$name.RD</tt> is
+associated with the Tcl command "<tt>TTY::data</tt>".  Any time data
+from the Verilog side is available on the named channel
+<tt>$name.RD</tt>, that command is executed with the data received on
+the channel.  The <tt>-format</tt> switch can be used to specify the
+formatting of the data. 
+
+
+<h4>7.3.3 Tcl/TK Side API for VPDs </h4>
+
+TkGate provides the following Tcl-side API for creating VPDs:
+<p>
+<table class=display>
+<tr><th width=350>Command</th><th>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td> <tt>VPD::register</tt> <i>name</i></td><td class=wide>
+Register a new VPD named <i> name</i>.  Registering a VPD allows it to
+be posted using the Verilog <tt>$tkg$post()</tt> task.</td></tr>
+
+<tr class=wide><td><tt>VPD::allow</tt> <i> names...</i></td><td class=wide>
+Register Tcl commands that can be executed from the Verilog
+simulation when running TkGate with medium or lower security.  The '*'
+character can be used as a wildcard.</td></tr>
+
+<tr><td><tt>VPD::disallow</tt> <i> names...</i></td><td class=wide>
+Register Tcl commands for which execution from the Verilog simulation
+is explicitly disallowed when running TkGate with medium or higher
+security.  The '*' character can be used as a wildcard.</td></tr>
+
+<tr><td><tt>VPD::isallowed</tt> <i> name</i></td><td class=wide>
+Test a procedure name to see if it can be executed from the
+Verilog simulation.</td></tr>
+
+<tr><td><tt>VPD::shutdownnotify</tt> <i> script</i></td><td class=wide>
+Register a script to be executed when TkGate exits simulation mode.
+The registration is deleted after executing the script.</td></tr>
+
+<tr><td><tt>VPD::createWindow</tt> <i>title</i> <i>[options]</i></td><td class=wide>
+Create a top-level window that can be used for a VPD and return the
+name of the window.  The window name is automatically generated.
+Top-level windows created with this command are automatically <tt>
+destroy</tt>ed when TkGate exits simulation mode.  A command to be
+executed when the simulator shuts down can be specified with the <tt>
+-shutdowncommand</tt> option.  The shut-down command does any additional
+cleanup needed by the VPD besides destroying the window.</td></tr>
+
+<tr><td> <tt>VPD::outsignal</tt> <i>chan var</i></td><td class=wide>
+Cause any value assigned to <i>var</i> to be sent to the simulator over
+the named channel <i>chan</i>.  The channel name is typically formed by
+using the VPD instance name as a prefix and appending a local name
+with a dot separator.  By default, values assigned to <i>var</i> are
+interpreted as a decimal integer, but Verilog format constants can
+also be assigned as well.  For example, assigning a value of "8'h3f"
+would cause the value to be interpreted as the 8-bit hexadecimal value '3F'.
+The association between the channel and the variable is automatically
+deleted when TkGate exits simulation mode.</td></tr>
+
+<tr><td> <tt>VPD::insignal</tt> <i>chan [options]</i></td><td class=wide>
+Register an action to be taken when data is available on the named
+channel <i>chan</i>.  Channel names are chosen in the same manner as
+<tt> VPD::outsignal</tt>.  One or more options are usually given with
+this command.  The <tt> -command</tt> option takes a Tcl command to be
+executed when data is received on <i>chan</i>.  The value received on
+the channel is appended to the command before execution.  The <tt>
+-variable</tt> option indicates a variable to be assigned.
+Additionally, the <tt> -format</tt> switch indicates the format in
+which data should be reported.  The format is given as a Verilog style
+format string such as "%d" for decimal or "%h" for hexadecimal.
+The association between the channel and the variable is automatically
+deleted when TkGate exits simulation mode.</td></tr> </table>
+
+
+<a name=verilogside>
+<h3>7.4 The Verilog-Side Interface</h3>
+
+The purpose of the Verilog stub module for a VPD is to encapsulate the
+channel I/O operations between the Tcl side and the Verilog side into
+a module that can be included and used like as a regular Verilog
+module within a user circuit.  The stub module is usually defined in a
+library that is included by user's circuit.  
+
+<h4>7.4.1 Writing the Stub Module</h4>
+
+The easiest way to understand how to write a stub module is to look at
+the following simple example:
+<p>
+<pre>
+(1)   module TTY(..., TD, RD, ...);
+(2)   output [7:0] TD;
+(3)   reg [7:0] RD;
+(4)   input RD;
+(5)   
+(6)     //
+(7)     // Execute the TTY::post command to start up the Tcl/Tk interface.
+(8)     //
+(9)     initial $tkg$post("TTY","%m");
+(10)   
+(11)    ...
+(12)  
+(13)    //
+(14)    // Respond to changes in the Tcl/Tk TD variable.
+(15)    //
+(16)    always #10 TD = $tkg$recv("%m.TD");
+(17)  
+(18)    //
+(19)    // Send updated value of RD signal to Tcl/Tk side of VPD.
+(20)    //
+(21)    always @ (RD) $tkg$send("%m.RD",RD);   
+(22)  
+(23)  endmodule
+</pre>
+
+Verilog modules implementing a VPD should invoke the
+<tt>$tkg$post()</tt> task in a Verilog "<tt>initial</tt>" block as
+shown at Line (9).  This will cause each instance of the VPD include
+in the user design to execute the "<tt>TTY::post</tt>" method of the
+Tcl/Tk side as soon as the simulation is started.  The
+<tt>$tkg$post()</tt> task takes two or more arguments.  The first
+argument is the name of the VPD to be created.  The name must be the
+name of a registered VPD.  The second argument is the instance name of
+the VPD.  It must be unique for each instance that VPD.  You can use
+the string "<tt>%m</tt>", which will be replaced with the name of the
+module instance in which <tt>$tkg$post</tt> is invoked.  This will
+guarantee a unique name for the VPD instance.  Additional optional
+arguments of <tt>$tkg$post</tt> are passed as additional parameters to
+the <tt>VPD::post</tt> command.
+<p>
+Signals received from the Tcl side of the VPD can be handled using a
+Verilog "<tt>always</tt>" block as shown on Line (16).  An
+"<tt>always</tt>" block is essentially an infinite loop executed in
+its own thread.  The "<tt>\#10</tt>" in this example indicates a delay
+of 10 time units after which the <tt>$tkg$recv</tt> task will be
+executed to read data on the named channel "<tt>%m.TD</tt>".  Again,
+the "<tt>%m</tt>" is replaced with the name of the current module
+instance.  The naming convention of prefixing each channel name with
+"<tt>%m.</tt>" ensures that each instance of the TTY device has its
+own set of named channels.  When a value is received on the named
+channel, it is placed in the Verilog variable <tt>TD</tt>, which is
+declared as a register output.
+<p>
+Line 21 is an example of how to transmit a Verilog variable to the Tcl
+side of the VPD implementation.  The "<tt>always @(RD)</tt>" causes
+the "<tt>$tkg$send</tt>" task to be called every time the "<tt>RD</tt>"
+variable changes value.  This will cause the action associated with
+that channel by the "<tt>VPD::insignal</tt>" command to be executed in
+the Tcl side of the VPD implementation.
+<p>
+The input/output examples at Lines (16) and (21) represent the most
+simple and direct methods of communication between the Verilog-side
+and Tcl-side of a VPD implementation.  You can also define more
+complex interactions by encoding some of the communication protocol in
+Verilog.  For example:
+
+<pre>
+ (1)   input CTS;
+ (2)   reg output RTS;
+ (3)   reg output [7:0] TD;
+ (4)   
+ (5)     always
+ (6)       begin
+ (7)         @ (negedge CTS);               // Wait for CTS falling edge
+ (8)         # 10 TD = $tkg$recv("%m.TD");  // Get the next character data
+ (9)         # 10 RTS = 1'b1;               // Indicate that data is ready
+ (10)        @ (posedge CTS);               // Wait for peer to acknowledge
+ (11)        # 10 RTS = 1'b0;               // Reset the protocol
+ (12)      end
+</pre>
+
+This fragment encodes the protocol for receiving data from a TTY as
+described in the discussion on <a href="gateSim.html#ttys">Simulation
+of TTYs</a>.  The lines in the "<tt>always</tt>" block perform the
+following functions in the protocol:
+<table class=display>
+<tr><th align=left width=60>Line</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td>(7)</td><td>Wait for a falling edge of the "<tt>CTS</tt>"
+signal.  This signal indicates that the peer device is ready to
+receive data.</td></tr>
+
+<tr><td>(8)</td><td>Wait 10 epochs, read the next available character
+from the "<tt>%m.TD</tt>" channel, and place it in the "<tt>TD</tt>"
+variable.</td></tr>
+
+<tr><td>(9)</td><td>Wait 10 epochs, then assert the "<tt>RTS</tt>"
+signal to indicate to the peer that new data is available on the
+"<tt>TD</tt>" line.</td></tr>
+
+<tr><td>(10)</td><td>Wait for the "<tt>CTS</tt>" line go high,
+indicating that the peer has read the data from "<tt>TD</td>".</td></tr>
+
+<tr><td>(11)</td><td>Wait 10 epochs, then unassert the "<tt>RTS</tt>"
+line to reset the protocol for the next character.</td></tr>
+
+</table>
+
+
+<h4>7.4.2 Instantiating VPDs</h4>
+
+Once the stub module for a VPD has been written, it can then be
+included in a client Verilog module.  For example, the top-level
+module
+
+<pre>
+module top;
+  wire [7:0] TD1, TD2;
+  wire [7:0] RD1, RD2;
+  ...
+  TTY tty1(..., TD1, RD1, ...);
+  TTY tty2(..., TD2, RD2, ...);
+  ...
+endmodule
+</pre>
+
+includes two instances of the TTY VPD.  When this Verilog description
+is simulated, two windows will pop-up with the the titles "TTY top.dm1"
+and "TTY top.dm2".  The names "<tt>top.dm1</tt>" and
+"<tt>top.dm2</tt>" are the instance names of the VPDs (and of their
+module instances).  Each instance can be connected to a separate set
+of input and output signals.
+
+<h4>7.4.3 Verilog Side API for VPDs</h4
+
+The Verga Verilog simulator supports the following system tasks in
+support of VPDs:
+<table class=display>
+<tr><th width=350>Task</th><th>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td><tt>$tkg$exec(</tt><i>arg1</i><tt>,
+</tt><i>arg2</i><tt>,</tt>...<tt>)</tt></td><td class=wide> Constructs
+a string for a Tcl command and sends an execution request from the
+simulation to the main TkGate executable.  The string is constructed
+similar to the Verilog <tt>$display()</tt> task (which is in turn
+similar to the C <tt> printf()</tt> function).  The Tcl command is
+executed asynchronously with <tt>$tkg$exec()</tt> not waiting for the
+command to complete.  A "<tt>%m</tt>" in any string argument will be
+substituted with the name of the current instance.  Use of this task
+in VPDs is discouraged since it may be disabled through the security
+settings.</td></tr>
+
+<tr><td><tt>$tkg$post(</tt><i>vpdname<tt>,</tt> <i>instname</i><tt>,</tt> <i>[arg1, ...]</i><tt>)</tt></td><td class=wide>
+
+Post an instance of the VPD named "<tt>vpdname</tt>" by invoking the
+command<br><br>
+
+&nbsp;&nbsp;&nbsp;  <i>vpdname</i><tt>::post</tt> <i>instname</i><br><br>
+
+in the Tcl portion of the VPD.  If any <i>arg</i> parameters are
+specified, they will be passed as additional parameters to the
+"<i>vpdname</i><tt>::post</tt>" function after the <i>instname</i>
+parameter.  Any "<tt>[</tt>" and "<tt>]</tt>" characters are treated
+as ordinary characters.  The "<i>vpdname</i><tt>::post</tt>" command
+is executed asynchronously, with <tt>$tkg$post</tt> returning
+immediately.  A "<tt>%m</tt>" in any parameter will be substituted
+with the name of the current instance.  In most cases, "<tt>%m</tt>"
+should be passed as the <i>instname</i>.</td></tr>
+
+
+<tr><td> <tt>$tkg$send(</tt><i>name</i><tt>,</tt> <i>data</i><tt>)</tt></td><td class=wide>
+
+Send <i>data</i> on the named channel <i>name</i>.  If being used to
+send data to the Tcl side of a VPD, the channel name should correspond
+to a channel name specified in a <tt>VPD::insignal</tt> command. The
+transmitted data will cause either a Tcl variable to be set or a Tcl
+command to be invoked.  A "<tt>%m</tt>" used in the channel name will
+be substituted with the name of the current instance.  This can be
+used to create a compound name such as "<tt>%m.RD</tt>" which will be
+unique to the instance.</td></tr>
+
+
+<tr><td> <i>data</i><tt> = $tkg$recv(</tt><i>name</i><tt>)</tt></td><td class=wide>
+
+Returns data received on the named channel <i>name</i>.  If being used
+to receive data from the Tcl side of a VPD, the channel name should
+correspond to a channel name specified in a <tt>VPD::outsignal</tt>
+command.  When the variable declared in the <tt>VPD::outsignal</tt>
+command is set, the value of that data, interpreted as a decimal
+value, will be available to be read by this task.  The task will block
+if there is no data in the channel.  A "<tt>%m</tt>" can be used in
+the channel name will be substituted with the name of the current
+instance.  This can be used to create a compound name such as
+"<tt>%m.TD</tt>" which will be unique to the instance.</td></tr>
+</table>
+
+</body>
+</html>
+

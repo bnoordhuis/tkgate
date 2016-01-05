@@ -1,0 +1,992 @@
+#
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Thu Feb 14 10:39:00 2002
+# First pass translation by KD at www.kyfieithu.co.uk, 12-13 April 2003
+
+\language Welsh
+
+##############################################################################
+#
+# basic strings
+#
+b.dismiss	Gwaredu
+b.close		Cau
+b.ok		Iawn
+b.clear		Clirio
+b.cancel	Diddymu
+b.open		Agor...
+b.bitw		Lled Did
+b.in		i mewn
+b.out		allan
+b.inout		mewnallan
+b.browse	Pori...
+b.label		Label
+b.find		Canfod
+b.edit		Golygu...
+b.add		Ychanegu...
+b.delete	Dileu
+b.deleteb	Dileu...
+b.apply		Gweithredu
+b.anchor	Angor
+b.tech		Technoleg
+
+##############################################################################
+# Menu strings
+#
+file		Ffeil
+edit		Golygu
+tool		Erfyn
+simulate	Efelychu
+module		Modiwl
+gate		Giat
+make		Gwneud
+circ		Cylched
+
+new		Newydd
+open		Agor...
+openlib		Agor Rhaglengell...
+save		Cadw
+saveas		Cadw...
+print		Argraffu...
+options		Dewisiadau...
+quit		Gadael
+
+undo		Dadwneud
+redo		Ailwneud
+cut		Torri
+copy		Copio
+paste		Gludo
+selall		Dewis Popeth
+find		Canfod...
+algnv		Cyfunio Fert.
+algnh		Cyfunio Llor.
+zoomin		Chwyddo
+zoomout		Pellhau
+
+move		Symud/Cysylltu
+delg		Dileu Giat
+cutw		Torri Gwifren
+inv		Gwrth-droi
+bitw		Lled Did
+debug		Datnamu
+rot0		Cylchdroi 0
+rot90		Cylchdroi 90
+rot180		Cylchdroi 180
+rot270		Cylchdroi 270
+
+simbegin	Dechrau Efelychiad
+simend		Gorffen Efelychiad
+simadprobe	Ychanegu/Dileu Holiad
+simrun		Rhedeg
+simpause	Seibio
+simstep		Cam Cyfnod(au)
+simcycle	Cam Cylchred
+simbreak	Torbwynt...
+simscript	Gweith. Sgript...
+simload		Llwytho Cof...
+simdump		Dadlwytho...
+
+modopen		Agor
+modclose	Cau
+modseti		Gosod Rhyngwyneb
+modediti	Golygu Rhyngwynebau...
+modnew		Newydd...
+moddel		Dileu...
+modcopy		Copio...
+modrename	Ailenwi...
+modclaim	Honni...
+circprop	Priodweddau Cylched...
+cpath		Llwybr Allweddol...
+
+gataddin	Ychwanegu Mewnbwn
+gataddout	Ychwanegu Allbwn
+gataddinout	Ychwanegu Deugyfeiriad
+gatiochg	Newid Math
+gatanchor	Anghori'r Dewis
+gatunanchor	Dadanghori'r Dewis
+gatprop		Priodweddau...
+gatrep		Dyblygu
+gatdel		Dileu
+gatsettech	Gosod Technoleg
+
+gmswitch	I/O
+gmgate		Giat
+gmredgate	Lleihad
+gmmsi		MSI
+gmalu		ALU
+gmmem		Cof
+gmmod		Modiwl
+gmcomment	Sylwad
+gmframe		Ffram
+
+gmxswitch	Swits
+gmdip		Swits DIP
+gmground	Llawr
+gmvdd		Vdd
+gmmerge		Cyfunio Gwifren
+gmclock		Cloc
+
+gm.led		LED
+gm.ledbar	Bar LED
+gm.ledhex	LED 7-Rhan (HEX)
+gm.leddec	LED 7-Rhan (DEC)
+gm.ledseg	LED 7-Rhan (Syth)
+
+gmtty		TTY
+
+gmand		AND
+gmnand		NAND
+gmor		OR
+gmnor		NOR
+gmxor		XOR
+gmxnor		XNOR
+gmbuf		Byffer
+gminv		Gwrth-droydd
+gmtribuf	Tri-Byffer
+gmnmos		NMOS
+gmpmos		PMOS
+
+gmrand		AND
+gmrnand		NAND
+gmror		OR
+gmrnor		NOR
+gmrxor		XOR
+gmrxnor		XNOR
+
+gmadd		Ychwanegydd
+gmmult		Lluosydd
+gmdiv		Rhannydd
+gmlshift	Syfliad i'r Chwith
+gmrshift	Syfliad i'r De
+gmarshift	Syfliad Rhifyddol i'r De
+gmroll		Rholio
+
+gmreg		Cofrestru
+gmff		Fflip-Fflop
+gmram		RAM
+gmrom		ROM
+
+gm21mux		2-1 Amlblygydd
+gm41mux		4-1 Amlblygydd
+gm81mux		8-1 Amlblygydd
+gm12dec		1-2 Datgodiwr
+gm14dec		1-4 Datgodiwr
+gm18dec		1-8 Datgodiwr
+    
+gmmodinst	Enghraifft y Modiwl
+gmmodin		Mewnbwn y Modiwl
+gmmodout	Allbwn y Modiwl
+gmmodinout	Mewnallan y Modiwl
+
+addwireseg	Ychwanegu Segment Gwifren
+
+help		Cymorth
+hlpabout	Ynghylch...
+hlplicense	Trwydded...
+hlpdoc		Dogfennaeth...
+hlptut		Tiwtorialau
+hlpexample	Enghraifftiau
+exampcomb	Rhesymeg Gyfuniadol
+examp3bit	Rhifydd 3-Did
+examp8bit	Rhifydd 8-Did
+examptrff	FF Safon-Transistor
+exampcpu	Menagerie CPU
+tutwelcome	Rhagymadrodd TkGate
+tutcreate	Creu Cylched
+tutedit1	Golygu Cylched (1)
+tutedit2	Golygu Cylched (2)
+tutmods		Defnyddio Modiwlau
+tutsim		Efelychu Cylched
+
+# Scope Menu
+menu.sc.prtrace	Argraffu Olin...
+menu.sc.close	Cau
+menu.sc.trace	Olinio
+menu.sc.zoomin	Chwyddo
+menu.sc.zoomout	Pellhau
+
+##############################################################################
+# Interface strings
+#
+ifile		Ffeil
+imodule		Modiwl
+iblmodule	Modiwlau:
+iports		Pyrth:
+ibits		Didau:
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.name	Enw Rhwyd
+db.net.hide	Cuddio'r Enw
+db.net.bits	Lled Did
+db.net.port	Math Porth
+db.net.in	i mewn
+db.net.out	allan
+db.net.inout	mewnallan
+db.net.inets	Rhwydau
+
+##############################################################################
+# Gate dialog box
+#
+db.gate.signam		Enw Signal
+db.gate.portnam		Enw Porth
+db.gate.iotype		Math
+db.gate.bitw		Lled Did
+db.gate.cyclew		Lled Cylch
+db.gate.phase		Cydwedd
+db.gate.duty		Dyletswydd
+db.gate.port		Porth
+db.gate.bitws		Didau
+db.gate.gtype		Math Giat
+db.gate.gname		Enw Giat
+db.gate.hidenam		Cuddio Enw
+db.gate.anchor		Angor
+db.gate.cpbreak		Rhaniad Llwybr Allweddol
+db.gate.butstate	Cyflwr Botwm
+db.gate.dipval		Gwerth Swits
+db.gate.memfilenam	Ffeil Cof
+db.gate.modname		Ffwythiant
+db.gate.islink		Gorgyswllt yw'r Testun
+db.gate.link		Cyswllt i Ffeil
+db.gate.findw		Chwilio am wifrau yn unig
+db.gate.findg		Chwilio am giatiau yn unig
+db.gate.findwg		Chwilio am wifrau a giatiau
+db.gate.general		Cyffredinol
+db.gate.details		Manylion
+db.gate.ports		Porth
+db.gate.delay		Oediad
+db.gate.stddelay	Oediad Safonol
+db.gate.custdelay	Oediad Dewisiadol
+db.gate.extbar		Defnyddion bariau estynadol
+
+db.led.type		Math LED
+db.led.bit		Did
+db.led.bar		Graff Bar
+db.led.hex		LED 7-Rhan (HEX)
+db.led.dec		LED 7-Rhan (DEC)
+db.led.seg		LED 7-Rhan (Syth)
+
+cpath.cloops -begin-
+Darganfuwyd dolennau cyfuniadol yn eich cylched.
+Er mwyn gwneud dadansoddiad oedi ar y cyclched yma, 
+bydd rhaid i chi ai torri'r ddolen, neu marcio
+rhai o'r giatiau yn y ddolen fel pwynt "Rhaniad 
+Llwybr Allweddol".  Mae'r rhwydau lle darganfuwyd 
+dolen yn cael eu rhestru isod.
+-end-
+
+##############################################################################
+# Print dialog box
+#
+print.outto		Allbwn i
+print.printer		Argraffydd
+print.file		Ffeil
+print.prcmd		Gorchymyn Argraffu
+print.filename		Enw Ffeil
+print.epssave		Cadw fel Encapsulated Postscript.
+print.doctit		Teitl Dogfen
+print.prmod		Modiwlau Argraffu
+print.epcm		Cyfnodau/cm
+print.estpg		Tudalennau (amcangyfrif)
+print.all		Popeth
+print.cur		Cyfredol
+print.use		Defnyddiwyd
+print.sel		Dewisiedig
+print.inclib		Cynnwys Modiwlau Rhaglengell.
+print.papsz		Maint Papur
+print.orient		Cyfeiriadaeth
+print.portrait		Darlun
+print.landscape		Tirlun
+print.2side		Argraffu ar y Ddwy Ochr
+print.opts		Dewisiadau
+print.scale		Graddio modiwlau mawr i ffitio ar y dudalen.
+print.partition		Rhannu modiwlau mawr i wneud tudalennau lluosol.
+print.incidx		Cynnwys mynegai.
+print.incgraph		Cynnwys graff hierarchaeth.
+print.4up		Argraffu modiwlau bach pedwar i'r dudalen.
+print.range		Dewis Amrediad
+print.fulltr		Oliniad Cyflawn
+print.parttr		oliniad Rhannol
+print.start		Dechrau
+print.end		Diwedd
+
+##############################################################################
+#
+# Options dialog
+#
+opt.site		Enw Safle
+opt.inst		Enghreifftiau
+opt.mods		Modiwlau
+opt.modports		Pyrth Modiwlau
+opt.frames		Fframau
+opt.comment		Sylwadau
+opt.hlink		Gorgysylltau
+opt.wire		Gwifrau Did-Sengl
+opt.bus			Gwifrau Aml-Ddid
+opt.tools		Offer Giat
+opt.cpath		Llwybr Allweddol
+opt.grid		Grid Sgop
+opt.logic1		Rhesymeg Un
+opt.logic0		Rhesymeg Sero
+opt.float		Arnofio
+opt.unknown		Anhysbys/Gwrthdaro
+opt.offled		LED i Ffwrdd
+opt.onled		LED Arnodd
+opt.zled		LED Arnofio
+opt.restdef		Adfer Rhagosodiadau
+opt.regudate		Diweddaru Ardal
+opt.smoothscroll	Sgrolio Llyfn
+opt.outmove		Amlinellu Modiwlau Symud
+opt.balloon		Alluogi Balwnau Cymorth
+opt.debug		Alluogi Datnamu
+opt.novice		Modd Dechreuwr
+opt.ckpoint		Rheolfeydd
+opt.freq		Saib
+opt.beak		Alluogi Moddau Arbennig
+opt.mode		Modd
+opt.normal		Arferol
+opt.bat			Bat
+opt.trek		Star Trek
+opt.miles		Milltiroedd
+opt.contver		Cywiro Cyfanrwydd yn Awtomatig
+opt.showsimcmd		Dangos Llif Efelychydd
+opt.logfile		Ffeil Cofnod Efelychydd
+opt.estepsz		Maint Cam Cyfnod
+opt.cstepsz		Maint Cam Cylchred Cloc
+opt.overstep		Drosgam Cloc
+opt.vpopupdelay		Oediad Newidlen Gwerthoedd
+opt.initscript		Sgript Ymgychwyn
+opt.posedge		Mae'r cam cloc yn aros ar bob ymyl positif y cloc.
+opt.setclock		Mae'r cam cloc yn aros ar gloc
+opt.delayfilepath	Ffeiliau Oediad
+opt.general		Cyffredinol
+opt.print		Argraffu
+opt.simulate		Efelychu
+opt.analysis		Dadansoddiad
+opt.color		Lliw
+opt.undolen		Datwneud Uchafrif
+
+opt.cpopts		Dewisiadau Llwybr Allweddol:
+opt.maxpath		Uchafrif o Lwybrau:
+opt.cpflash		Dangos efo Llwybr sy'n Fflachio
+
+opt.vercheck		-begin-
+Chwilio dros y Rhyngrwyd bob hyn a hyn am fersiynau newydd o tkgate.
+Peidiwch a galluogi os nid oes ganddoch cyrchiad parhaol
+i'r Rhyngrwyd.
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+blklst.newmod		Modiwl Newydd
+blklst.delmod		Dileu Modiwl
+blklst.frommod		Copio Modiwl Oddiwrth
+blklst.tomod		I
+blklst.oldname		Hen Enw
+blklst.newname		Enw Newydd
+blklst.claim		Hawlio Modiwl
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.topmod		Modiwl Safon Pennaf
+circ.discchg		Diddymu Newidiadau
+circ.iniscript		Sgriptiau Ymgychwyn
+circ.noscript		Ni ddewiswyd unrhyw ffeil sgript.
+circ.really1		Ydych wir eisiau gwaredu
+circ.really2		o'r rhestr sgriptiau ymgychwyn
+circ.extbar		Defnyddio Bariau Estynnol
+
+##############################################################################
+# Simulator
+#
+sim.breakpt		Torbwynt
+
+##############################################################################
+#
+# Command box
+#
+cmd.file		Enw Ffeil
+cmd.topname		Enw'r Modiwl Pennaf
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		Oediad Llwybr:
+cp.pathl		Rhestr Llwybrau:
+cp.numpath		Nifer Llwybrau:
+cp.recompute		Ail-gyfrifiannu
+
+##############################################################################
+# Error messages
+#
+err.verilog		Gwallau yn y ffeil:
+err.nopin		Methu newid pin penodol.
+err.badhex		Gwerth hex annilys '%s' wedi ei anwybyddu.
+err.gatanchor		Mae'r giat(iau) wedi'i anghori - ni ellir ei symud.
+err.libmode		Gweithrediad annilys ar fodiwl rhaglengell (trosi i fodiwl areferol i'w olygu).
+err.badfind		Methu canfod cyrchfan '%s'.
+err.badopendel		Methu dileu modiwl ar agor.
+err.nosrcmod		Methu canfod modiwl tarddiad '%s'.
+err.noerr		Methu lleoli'r gwall.
+err.misserr		Gwybodaeth gwall anghyflawn (chwalodd yr efelychydd?)
+err.pounimpl		Gwall heb ei weithredu yn ParseOption
+
+err.badinadd		Methu ychwanegu rhagor o fewnbynnau i'r giat penodol.
+err.badoutadd		Methu ychwanegu rhagor o allbynnau i'r giat penodol.
+err.badinoutadd		Methu ychwanegu rhagor o pinnau mewnallan i'r giat penodol.
+err.badpinchg		Methu newid math y pin ar y giat penodol.
+err.badnetname		Wedi dileu nodau annilys yn y dynodydd.
+err.netbcrename		Dynodydd wedi eu ail-enwi i '%s' o achos nodau annilys.
+err.netconfnet		Dynodydd wedi eu ail-enwi i '%s' o achos gwrthdaro.
+err.netconfgat		Dynodydd wedi eu ail-enwi i osgoi gwrthdaro efo enw giat cyntefig.
+err.netconfkw		Dynodydd wedi eu ail-enwi i osgoi gwrthdaro efo gair cadw.
+err.badconsame		Gwrthodwyd y cysylltiad o achos mae gwifrau yn rhan o'r un un rhwyd.
+err.badconptsp		Gwrthodwyd y cysylltiad o achos mae'r ddwy wifren yn byrth modiwl neu yn darparu.
+err.badconbitw		Gwrthodwyd y cysylltiad o achos nid yw'r lledau did yn cydweddu.
+err.badrange		Ni chaniateir amrediad di-bositif i oliniad sgop.
+err.badlprcmd		Methu gweithredu gorchymyn argraffydd '%s'.
+err.badpsopen		Methu agor ffeil '%s' am allbwn postscript.
+err.badid		Dynodydd annilys '%s'.
+
+err.bkpt.badexp		Gwall cystrawen yn y mynegiad torbwynt.  Rhaid iddo fod yn un o: 'net', '!net', 'net==value', 'net!=value'
+err.bkpt.badnet		Enw rhwyd annilys '%s'. Rhaid i enwau ddechrau efo llythyren a cynnwys dim ond llythrennau, digidau a '.'.
+err.bkpt.badval		Gwall cystrawen yn y gwerth '%s'.  Rhaid iddo fod yn gysonyn degol neu ardull verilog.
+err.bkpt.toomany	Gormod o dorbwyntiau.  Yr uchafswm yw %d.
+
+err.sim.badtmp		Methu cadw ffeil dros dro '%s' am yr efelychydd (disg lawn?)
+err.sim.syntx		Gwall cystrawen yn y gorchymyn '%s'.
+err.sim.noincl		Methu canfod ffeil cynwysadwy '%s'.
+err.sim.clockbadedge	Dynodydd ymyl annilys '%c' yn y gorchymyn cloc.
+err.sim.nobkpt		Dim torbwynt '%s'.
+err.sim.nonet		Methu canfod rhwyd '%s'.
+err.sim.nogate		Methu canfod giat '%s'.
+err.sim.badbin		Nod annilys mewn cysonyn deuaidd '%s'.
+err.sim.notswitch	Nid yw giat '%s' yn swits, DIP neu cofrestr.
+err.sim.badcmd		Gorchymyn di-adnabyddiedig '%s' yn y sgript efelychydd.
+
+err.noteditpchg		Ni ellir newid priodweddau ond mewn modd golygu.
+err.badeditop		Gweithrediad annilys mewn modd golygu rhyngwyneb.
+err.badopen		Methu agor ffeil mewnbwn '%s'.
+err.badlibopen		Methu agor ffeil rhaglengell '%s'.
+
+err.nomark		Gosodwch nod efo botwm chwith y llygoden cyn dewis math o giat.
+err.badgate		Math giat anhysbys.
+err.badmake		Methu creu giat.
+
+err.badportadd		Methu ychwanegu pyrth i giatiau o'r math yma.
+err.badportdel		Methu dileu'r borth benodol.
+err.badportedit		Methu golygu'r borth benodol.
+err.noport		Dim porth wedi ei dewis.
+
+err.manypages		-begin-
+Mae 'na gryn dipyn o dudalennau 
+yn y ddogfen yma.  Ydych yn sicr
+yr ydych eisiau ei argraffu?
+-end-
+
+err.nojump		-begin-
+Ni ellir y nodwedd 'neidio-i-fodiwl' gael ei
+ddefnyddio mewn modd efelychu neu dadansoddiad
+llwybr allweddol.  Symudwch a llaw i'r bloc 
+cyrchfan gan ddewis modiwlau ac eu agor efo'r
+gorchymyn allweddell '>'.  Cewch adael y 
+modiwl lle rydych efo'r gorchymyn allwedell '<'.
+-end-
+
+err.nomod		Ni ddiffinir y modiwl '%s'.
+err.modlock		Mae'r y Bloc Rhesymeg ar glo!
+err.closeroot		Methu cau modiwl safon fennaf.  Defnyddiwch Gadael.
+err.sim.isrun		Mae'r efelychydd yn rhedeg yn barod.  (Defnyddiwch 'Ctrl-s e' i derfynu).
+err.sim.isnotrun	Nid yw'r efelychydd yn rhedeg.  (Defnyddiwch 'Ctrl-s b' i gychwyn).
+err.editonly		Nid yw'r gorchymyn yn ddilys mewn modd efelychu.
+err.simonly		Mae'r gorchymyn yn ddilys dim ond mewn modd efelychu.
+
+err.nodel		Dim dewisiad a all ei ddileu.
+err.modnotdef		Ni ddiffinir modiwl '%s'.
+err.moddef		Mae'r bloc '%s' yn bodoli yn barod.
+err.noprop		Nid oes gan y giat penodol priodweddau golygadwy.
+err.openscript		Methu agor ffeil sgript efelychiad '%s'
+err.oldversion		Wedi llwytho ffeil efo fersiwn anarferedig %s (%s yw'r fersiwn cyfredol).
+err.futureversion	Wedi llwytho ffeil a chedwyd gan fersiwn tkgate dyfodol %s (mae'r fersiwn yma yn %s).
+err.badversion		Rhif fersiwn anhysbys.  Defnyddiwch ar eich menter eich hun.
+err.nodrive		Nid oes gan rwyd %s yrrydd ym modiwl %s.
+err.noconn		Nid oes gan y wifren %s{%d} gysylltiadau - dileuwyd.
+err.oldportact		De-gliciwch ar ymyl y porth neu modiwl i ychwanegu/newid y porth.
+
+err.noback		-begin-
+Creuwyd y ffeil gan tkgate
+%s, ac efallai nid yw'n ddarllenadwy
+gan fersiynau cynharach na'r
+fersiwn cyfredol (%s) os byddwch
+yn cadw.
+-end-
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		Gwifren penodol o'r enw '%s'.
+msg.selgate		%s penodol o'r enw '%s'.
+msg.selblock		Bloc %s penodol o'r enw '%s'.
+msg.modoverwt		Modiwl cyrchfan '%s' yn bodoli yn barod.  Ysgrifennu drosto?
+msg.foundgate		Wedi canfod giat o'r enw '%s'.
+msg.foundwire		Wedi canfod gwifren o'r enw '%s'.
+msg.searchagn		Methu canfod llinyn cyrchfan '%s'.  Gwthio 'canfod' i ail-ddechrau'r chwiliad.
+msg.sim.chgtoroot	Mae'r modd efelychu yn gorfod cael y modiwl gwraidd wrth pen y pentwr golygu.
+msg.sim.nogatemod	Mae'r modd efelychu yn gorfod cael pentwr modiwl diriaethol.
+msg.setinterface	Gosod rhyngrwyd modiwl am '%s'.
+msg.needsel		Dewiswch enghraifft modiwl.
+msg.wroteckpt		Rheolfa wrth %s...
+msg.save		Wedi cadw cylched i '%s'.
+msg.badsave		Methu agor ffeil allbwn '%s'.
+msg.reallynew		Newidwyd y gylched.  Ydych wir eisiau ei dileu a creu cylched newydd?
+msg.reallyquit		Newidwyd y gylched.  Ydych wir eisiau terfynnu?
+msg.notlib		Nid yw modiwl '%s' yn fodiwl rhaglengell.
+
+##############################################################################
+# Miles messages (Activated when Miles Bader uses tkgate)
+#
+miles.msg1		'Mond twpsyn sy'n rhoi %s%s yna, Miles.
+miles.msg2		Dyna le wir dwp i roi %s%s, Miles.
+miles.msg3		Dyna le ofnadwy am %s%s, Miles.
+miles.msg4		Miles, roedd yn hollol dwp rhoi %s%s yna.
+miles.msg5		Neb ond ti fuasai'n rhoi %s%s yna, Miles.
+miles.msg6		Mae rhoi %s%s yna yn brawf o dy dwpdra, Miles.
+miles.msg7		Beth am roi'r ffidil yn y to, Miles, cylched gwirion yw hwn.
+miles.msg8a		'Sdim pwynt mynd ymlaen, Miles.
+miles.msg8b		Mae'n amlwg na alli di ddylunio cylched.
+
+
+##############################################################################
+# Balloon Help
+#
+
+ho.new		-begin-
+Clirio'r cylched cyfredol,
+a dechrau golygu un newydd.
+-end-
+
+ho.open		Agor cylched o ffeil.
+ho.save		Cadw cylched i'r ffeil cyfredol.
+ho.print	Argraffu cylched cyfredol.
+
+ho.move		-begin-
+Symud/Cysylltu - Gan glicio a tynnu cewch:
+  Gosod y safle i giat newydd
+  Symud giatiau a gwifrau
+  Cysylltu gwifrau
+Gan ddwbl-glicio cewch:
+  Golygu priodweddau giat, gwifren a porth
+  Golygu testun sylwad
+-end-
+
+ho.delgat	-begin-
+Dileu Giat - Defnyddio'r efyn yma 
+i ddileu giatiau.
+-end-
+
+ho.cutw		-begin-
+Torri Gwifren - Defnyddio'r erfyn yma
+i dorri gwifrau.
+-end-
+
+ho.inv		-begin-
+Gwrthdroi - Defnyddio'r erfyn i ychwanegu
+gwrthdroyddion i, neu eu gwaredu o,
+byrth giatiau.
+-end-
+
+ho.bitw		-begin-
+Lled Did - Defnyddio'r erfyn yma i newid 
+maint did gwifren.  Mewnosodwch nifer y 
+didau yn y blwch mewnosodi yng nghornel 
+dde isaf y ffenest.
+-end-
+
+ho.modopen	Agor y modiwl penodol.
+ho.modclose	Cau y modiwl cyfredol.
+
+ho.undo		Datwneud gweithrediad(au) cynt.
+ho.redo		Ailwneud gweithrediad(au) a chafodd ei datwneud.
+
+ho.simgo	-begin-
+Os nid oes efelychiad yn rhedeg, dechrau'r
+efelychiad a gweithredu unrhyw sgriptiau
+ymgychwyn.  Os mae efelychiad yn rhedeg, 
+rhedeg yr efelychiad yn barhaol.
+-end-
+
+ho.simpause	-begin-
+Seibio efelychiad sy'n rhedeg yn barhaol.
+-end-
+
+ho.simstep	-begin-
+Camu cyfnod penodol o amser.
+Agor y ffenest dewisiadau efelychiad
+er mwyn gosod maint y cam.
+-end-
+
+ho.simclock	-begin-
+Camu rhif penodol o gylchredau cloc.
+Agor y ffenest dewisiadau efelychiad
+er mwyn gosod maint y cam.
+-end-
+
+ho.simstop	-begin-
+Gorffen yr efelychiad cyfredol
+a dychwelyd i'r modd golygu.
+-end-
+
+ho.simbreak	-begin-
+Golygu'r torbwyntiau cyfredol.  Arhosir
+yr efelychiad pan bydd amod torbwynt yn
+dod yn wir.
+-end-
+
+ho.simexec	Gweithredu sgript efelychiad.
+
+ho.simload	-begin-
+Llwytho cof efo cynnwys 
+ffeil .mem.
+-end-
+
+ho.simdump	-begin-
+Dadlwytho cynnwys cof i
+ffeil .mem.
+-end-
+
+ho.sim.break	-begin-
+Mewnosodwch torbwynt efelychiad.  Mae torbwyntiau yn 
+fynegiadau sy'n achosi'r efelychydd i seibio gweithredu
+pan y maent yn dod yn wir.  Ar hyn o bryd, cynhelir dim 
+ond mynegiadau syml efo gweithredydd perthynol syml
+fel "w1 == 0" or "w7 != 8".  Cewch ddefnyddio hefyd
+mynegiadau fel "w8" neu "!w2" i arbrofi am werthoedd
+di-sero a sero yn eu tro.
+-end-
+
+ho.f.modlist	-begin-
+Rhestr o bob modiwl sydd wedi ei lwytho ar hyn o bryd.
+Dynodir y modiwl safon pennaf gan "+" sy'n dilyn,
+a dangosir modiwlau rhaglengell mewn cromfachau.
+-end-
+
+ho.netlist	-begin-
+Rhestr o rhwydau yn y modiwl cyfredol.
+Mae gan rwydau a ddynodir efo '@' enwau 
+cudd.  Dangosir rhwydau aml-did efo
+amrediad ar eu ol.
+-end-
+
+ho.ports	-begin-
+Rhestr o byrth ar y modiwl cyfredol.
+Mae '>' yn dynodi mewnbwn, '<' yn dynodi 
+allbwn, a '=' yn dynodi mewnallan.
+-end-
+
+ho.status.logo		-begin-
+Dynodydd cyflwr yr efelychiad.  Os dangosir y
+logo giat haearn, mae tkgate mewn modd golygu.
+Os dangosir y giat AND pedwartroed, mae tkgate
+mewn modd efelychu.  Os mae'r giat AND yn stond,
+mae'r efelychiad wedi'i seibio, ac os mae'n
+cerdded, mae'r efelychiad yn rhedeg.
+-end-
+
+ho.status.msg		Dangosir yma negeseuon oddiwrth TkGate.
+
+ho.status.block		Pentwr y modiwlau sy'n cael eu golygu.
+
+ho.status.file		-begin-
+Y ffeil cyfredol sy'n cael ei olygu.  Mae '*' yn
+dynodi bod a byffer wedi ei newid ers y cadw diwethaf.
+-end-
+
+ho.print.selall		Argraffu pob modiwl sydd wedi ei lwytho ar hyn o bryd gan TKGate.
+
+ho.print.selcur		Argraffu dim ond y modiwl cyfredol yn y ffenest golygu TKGate.
+
+ho.print.seluse		-begin-
+Argraffu pob modiwl sy'n "mewn defnydd".
+Modiwlau mewn defnydd yw'r rhain sy'n ddisgynnydd
+o'r modiwl gwraidd.
+-end-
+
+ho.print.selsel		-begin-
+Argraffu dim ond y modiwlau dewisiedig isod.
+Defnyddiwch y fysell Control i ddewis modiwlau
+lluosol.
+-end-
+
+ho.print.modlist	Dewis y modiwlau i gael eu argraffu.
+
+ho.circuit.discchg	-begin-
+Ni fydd TkGate yn dangos rhybudd os byddwch
+yn taflu newidiadau heb gadw.
+-end-
+
+ho.circuit.extbar	-begin-
+Bydd giatiau sylfaenol (AND, OR, XOR) yn 
+defnyddio bariau estynnol i drin llawer 
+o giatiau mewnbwn.
+-end-
+
+ho.cmd.bitw		-begin-
+Bydd gwifrau a ddewisir efo'r 
+cyrchwr yn cael eu gosod i'r
+lled did yma.
+-end-
+
+ho.edgat.extbar		-begin-
+Os dewisir, bydd giatiau sylfaenol 
+aml-fewnbwn yn defnyddio bariau 
+estynnol fel ychwanegir mewnbynnau 
+i'r giat.
+-end-
+
+ho.edgat.signam		-begin-
+Enw'r signal penodol ar y giat
+penodol.  Cewch newid y lled did
+gan ei olygu yma.
+-end-
+
+ho.edgat.port		-begin-
+Cyfeiriad y porth am y signal yma ar 
+y giat.  Gellir golygu'r maes yma dim
+ond am enghreifftiau modiwl.
+-end-
+
+ho.edgat.iolab		-begin-
+Cyfeiriad y signal penodol ar y giat
+penodol.  Gellir golygu'r maes yma dim
+ond am enghreifftiau modiwl.
+-end-
+
+ho.edgat.bitlab		-begin-
+Lled did y signal penodol ar y giat
+penodol.  Cewch newid y lled did
+gan ei olygu yma.
+-end-
+
+ho.edgat.cycle		Nifer cyflawn o gyfnodau mewn cylchred cloc.
+ho.edgat.phase		Pwynt cychwyn y cylchred (y cant).
+ho.edgat.duty		Canran y cylchred, mae'r cloc yn isel.
+
+ho.edgat.cname		Enw'r rhwyd cysylltiedig.
+ho.edgat.cport		Porth y mae'r rhwyd wedi'i cysylltu iddo.
+ho.edgat.ctype		Math cysylltiad.
+ho.edgat.cbitw		Lled did y rhwyd cysylltiedig.
+ho.edgat.cedit		Golygu'r porth penodol.
+ho.edgat.cadd		Ychanegu porth.
+ho.edgat.cdel		Dileu'r porth penodol.
+
+ho.edgat.hide		-begin-
+Set this flag to disable
+display of gate name.
+-end-
+
+ho.edgat.gtype		Math y giat.
+ho.edgat.gname		Enw'r enghraifft yma o'r giat.
+ho.edgat.ganchor	Set this flag to anchor the position of a gate.
+ho.edgat.gx		Cyfesuryn X y giat.
+ho.edgat.gy		Cyfesuryn Y y giat.
+
+ho.edgat.swstate	-begin-
+Cyflwr cychwynnol y swits i ddefnyddio
+wrth ddechrau efelychiad.
+-end-
+
+ho.edgat.dipstate	-begin-
+Cyflwr cychwynnol y swits DIP i ddefnyddio
+wrth ddechrau efelychiad.
+-end-
+
+ho.edgat.range		Amrediad didau i dynnu oddiar fws.
+
+ho.edgat.memfile	-begin-
+Y ffeil efo'r cyflwr cychwynnol i'r cof yma.
+Darllenir y ffeil yma pan ddechreuir yr efelychydd.
+-end-
+
+ho.edgat.func		Math ffwythiant y modiwl yma.
+ho.edgat.frame		Label y ffram.
+
+ho.opt.undolen		-begin-
+Uchafrif gweithrediadau datwneud i gadw.
+-end-
+
+ho.opt.site		-begin-
+Enw'r safle lle gosodir tkgate.  Defnyddir
+yr enw yma ar unrhyw allbwn argraffydd neu
+postscript.
+-end-
+
+ho.opt.smooth		-begin-
+Os alluogir y dewisiad yma, gwellheuir
+sgrolio gan ddefnyddio copiau didfap yn lle
+ail-ddangosiad cyflawn.  Cewch analluogi hyn 
+os oes problemau efo'ch gweinydd.
+-end-
+
+ho.opt.clip		-begin-
+Os alluogir y dewisiad yma, defnyddir tocio
+i ddiweddaru dim ond y rhan agored o'r ffenest
+wrth ail-ddangos.  Fel arall, ail-luniadir
+y dangosiad cyfan i bob rhan agored.
+-end-
+
+ho.opt.outmove		-begin-
+Os alluogir y dewisiad yma, dangosir dim ond 
+amlinelliad o enghreifftiau modiwl sy'n cael
+eu symud wrth dynnu.  Defnyddiwch y nodwedd 
+yma dim ond ar beiriannau efo dangosiadau araf.
+-end-
+
+ho.opt.bhelp		-begin-
+Os alluogir y dewisiad yma, gweithredir balwnau
+cymorth.  Mae balwnau cymorth, fel ur un yma,
+yn darparu cyngor ar elfennau rhyngwyneb pan
+mae'r llygoden drostynt.
+-end-
+
+ho.opt.novice		-begin-
+Os ni phenodir unrhyw cylched arall ar y llinell
+gorchymyn, dangosir tiwtorial TkGate fel y
+cylched cychwynnol wrth ddechrau.
+-end-
+
+ho.opt.debug		-begin-
+Alluogi rhai nodweddau datnamu.  Mae hyn o ddefnydd 
+i neb ond datblygwyr TkGate.
+-end-
+
+ho.opt.ckpt		Alluogi rheolfeydd i gylchredau sy ddim wedi'w cadw.
+ho.opt.ckptfreq		Amlder rheolfeydd mewn eiliadau.
+
+ho.opt.beak		-begin-
+Alluogi'r nodweddau hollol di-ddefnydd yma.
+Os analluogir y nodwedd yma, ni ddangosir
+y moddau yma (neu'r blwch cywiro) yn y 
+blwch dewisiadau.  Yr unig ffordd o 
+ail-alluogi nhw fydd golygu eich ffeil
+.tkgate-properties.
+-end-
+
+ho.opt.miles		-begin-
+Os alluogir y modd yma, bydd TkGate yn
+sarhau deallusrwydd y defnyddiwr bob 
+hyn a hyn.
+-end-
+
+ho.opt.bat		-begin-
+Os alluogir y modd yma, bydd TkGate yn 
+gosod amgylchedd i ddylunio cyfrifiadur bat.
+-end-
+
+ho.opt.trek		Pelydra fi i fyny Scotty!
+ho.opt.normal		Analluogi pethau hwyl.
+
+ho.opt.simstep		-begin-
+Y nifer o gyfnodau i flaenu
+pan rhoir y gorchymyn cam cloc.
+-end-
+
+ho.opt.ckstep		-begin-
+Y nifer o cylchredau cloc i flaenu
+pan rhoir y gorchymyn cam cloc.
+-end-
+
+ho.opt.ckover		-begin-
+Y nifer o gyfnodau heibio'r ymyl codi
+o'r cloc i flaenu pan rhoir y gorchymyn
+cam cloc.
+-end-
+
+ho.opt.vpopupdelay		-begin-
+Yr oediad mewn milfedau o eiliadau rhwng
+gwthio a gafael yn y botwm llygoden
+a dangos gwerth signal.  Ar rai cysodau,
+bydd gwerthoedd oediad byr yn ymyrru
+efo'r gallu i adnabod clic dwbl.  Os 
+oes ganddoch y problem yma, cynyddwch 
+y gwerth yma.  Caniateir gwerthoedd rhwng 1
+a 10000.
+-end-
+
+ho.opt.init		-begin-
+Ffeil sgript efelychiad i weithredu yn 
+awtomatig pan ddechreuir yr efelychiad.
+-end-
+
+ho.opt.ckall		-begin-
+Os alluogir y modd yma, bydd y gorchymyn
+cam cloc yn seibio'r efelychiad
+ar yr ymyl positif o unrhyw cloc yn y cylched.
+-end-
+
+ho.opt.ckspec		-begin-
+Os alluogir y modd yma, bydd y gorchymyn
+cam cloc yn seibio'r efelychiad dim ond
+ar yr ymyl positif o'r cloc penodol.
+-end-
+
+ho.deftech		-begin-
+Technoleg rhagosodiedig am giatiau 
+newydd.  Er mwyn newid technoleg 
+rhyw giat penodol, agorwch ei flwch 
+priodweddau (clic dwbl) a dewiswch
+y tab "Oediad".
+-end-
+
+ho.techbut		-begin-
+Defnyddio oediadau oddiwrth y ffeil diffiniad
+technoleg safonol.  Er mwyn ychwanegu 
+technolegau dewisiedig, ychwanegwch nhw
+at y rhestr yn y dewislen "Ffeil -> 
+Dewisiadau -> Efelychu".
+-end-
+
+ho.custbut		-begin-
+Gosod gwerthoedd oediad dewisiedig am y
+giat yma.
+-end-
+
+ho.contver		-begin-
+Parhau i wirio cyfanrwydd yr adeileddau data
+mewnol ar ol pob gweithrediad.
+-end-
+
+ho.simwatch		-begin-
+Dangos gorchymynau a anfonir 
+rhwng y GUI a'r efelychydd.
+-end-
+
+ho.simlog		-begin-
+Ysgrifennu'r gorchymynau a rhoir i'r 
+efelychydd i ffeil cofnod.  Gellir y
+ffeil cofnod ei ddefnyddio wedyn fel 
+mewnbwn i'r efelychydd mewn datnamydd.
+-end-
+
+ho.cpathanal		-begin-
+Canfod llwybrau allweddol mewn cylched.
+-end-

@@ -1,0 +1,4 @@
+#define checkoff_width 8
+#define checkoff_height 8
+static unsigned char checkoff_bits[] = {
+   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};

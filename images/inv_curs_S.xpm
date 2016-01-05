@@ -1,0 +1,25 @@
+/* XPM */
+static char * inv_curs_S_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+" 	c blue",
+".	c #BBBBBBBBFFFF",
+"X	c black",
+/* pixels */
+"                ",
+" .............. ",
+" ..XXXX........ ",
+" XX....X....... ",
+" X..XX..XX..... ",
+" .XX..X...XX... ",
+" .XX...XX..XXXX ",
+" X..X...X...... ",
+" X..X...X...... ",
+" .XX...X....... ",
+" .XXXXXX....... ",
+" .X........XXXX ",
+" ..XX..XXXXXX.. ",
+" ....XX........ ",
+" .............. ",
+"                "};

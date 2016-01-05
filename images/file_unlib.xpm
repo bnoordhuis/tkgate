@@ -1,0 +1,29 @@
+/* XPM */
+static char * file_unlib_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 7 1",
+/* colors */
+" 	s None	c None",
+".	c #dd6666",
+"X	c #cccccc",
+"o	c #999999",
+"O	c #882222",
+"+	c red",
+"@	c #aa2222",
+/* pixels */
+"       .XoX.    ",
+"      .XoX.O    ",
+"  +  .XoX.OO +  ",
+"  ++ ....OOO++  ",
+"   ++....OO++   ",
+"    ++@@@O++    ",
+"     ++@@++O    ",
+"     @++++OO    ",
+"     @@++OOO    ",
+"     .++++OO    ",
+"     ++..++O    ",
+"    ++...O++    ",
+"   ++....OO++   ",
+"  ++ @@@@OO ++  ",
+"     ....O      ",
+"     ....       "};

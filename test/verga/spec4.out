@@ -1,0 +1,35 @@
+Warning: <"spec4.v", 18> Port size mismatch on input port 'A'.
+Warning: <"spec4.v", 18> Port size mismatch on input port 'B'.
+Warning: <"spec4.v", 18> Port size mismatch on output port 'S'.
+   0: a=0 b=0 ci=0 - s=x co=x
+   1: a=0 b=0 ci=0 - s=0 co=0
+ 100: a=0 b=1 ci=0 - s=0 co=0
+ 101: a=0 b=1 ci=0 - s=1 co=0
+ 200: a=0 b=2 ci=0 - s=1 co=0
+ 201: a=0 b=2 ci=0 - s=2 co=0
+ 300: a=0 b=3 ci=0 - s=2 co=0
+ 301: a=0 b=3 ci=0 - s=3 co=0
+ 400: a=1 b=0 ci=0 - s=3 co=0
+ 401: a=1 b=0 ci=0 - s=1 co=0
+ 500: a=1 b=1 ci=0 - s=1 co=0
+ 501: a=1 b=1 ci=0 - s=2 co=0
+ 600: a=1 b=2 ci=0 - s=2 co=0
+ 601: a=1 b=2 ci=0 - s=3 co=0
+ 700: a=1 b=3 ci=0 - s=3 co=0
+ 701: a=1 b=3 ci=0 - s=0 co=0
+ 800: a=2 b=0 ci=0 - s=0 co=0
+ 801: a=2 b=0 ci=0 - s=2 co=0
+ 900: a=2 b=1 ci=0 - s=2 co=0
+ 901: a=2 b=1 ci=0 - s=3 co=0
+1000: a=2 b=2 ci=0 - s=3 co=0
+1001: a=2 b=2 ci=0 - s=0 co=0
+1100: a=2 b=3 ci=0 - s=0 co=0
+1101: a=2 b=3 ci=0 - s=1 co=0
+1200: a=3 b=0 ci=0 - s=1 co=0
+1201: a=3 b=0 ci=0 - s=3 co=0
+1300: a=3 b=1 ci=0 - s=3 co=0
+1301: a=3 b=1 ci=0 - s=0 co=0
+1400: a=3 b=2 ci=0 - s=0 co=0
+1401: a=3 b=2 ci=0 - s=1 co=0
+1500: a=3 b=3 ci=0 - s=1 co=0
+1501: a=3 b=3 ci=0 - s=2 co=0

@@ -1,0 +1,28 @@
+/* XPM */
+static char * net_reg_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+" 	c white",
+".	c #cccccc",
+"X	c #ddddff",
+"o	c #008b00",
+"O	c #7f7f7f",
+"+	c #0000ff",
+/* pixels */
+"  ............  ",
+" .............. ",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+"..X++++++++++XOO",
+"..X++++++++++XOO",
+"..X++++++++++XOO",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+"..XXXXXoXXXXXXOO",
+" .OOOOOOOOOOOOO ",
+"  OOOOOOOOOOOO  "};

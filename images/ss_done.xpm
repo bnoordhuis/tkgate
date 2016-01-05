@@ -1,0 +1,23 @@
+/* XPM */
+static char * ss_done_xpm[] = {
+"16 16 4 1",
+" 	c magenta",
+".	c black",
+"X	c red",
+"o	c white",
+"    ........    ",
+"   .XXXXXXXX.   ",
+"  .XXXXXXXXXX.  ",
+" .XXXXXXXXXXXX. ",
+".XXXXXXXXXXXXXX.",
+".XoooXoXXoXooXX.",
+".XoXXXoXXoXoXoX.",
+".XooXXooXoXoXoX.",
+".XoXXXoXooXoXoX.",
+".XoXXXoXXoXoXoX.",
+".XoooXoXXoXooXX.",
+".XXXXXXXXXXXXXX.",
+" .XXXXXXXXXXXX. ",
+"  .XXXXXXXXXX.  ",
+"   .XXXXXXXX.   ",
+"    ........    "};

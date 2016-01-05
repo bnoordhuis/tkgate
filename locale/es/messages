@@ -1,0 +1,2431 @@
+#
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Mon Jan  5 00:36:58 2009
+
+##############################################################################
+#
+# Explaination of file format.
+#
+# Messages files are used to "localize" tkgate so that it can run under
+# different languages.  Lines beginning with a '#' character are comments.
+# Most entries in the file are of the form:
+#
+# tag value
+#
+# A tag is any abitrary string of non-whitespace characters.  By convention
+# a dot notation is used to suggest groups of related tags.  The value of the
+# tag begins at the first non-whitespace character after the tag and can include
+# white space.  Normally the value is the localized text message.  By convension,
+# tags beginning with a '@' character are used to control interface layout
+# as opposed to being actual text.  Explainations for this tags will be given
+# in preceeding comments.
+#
+# Multi-line comments have the form:
+#
+# tag	-begin-
+# line1
+# line2
+# -end-
+#
+# or
+#
+# tag	-fillbegin-
+# line1
+# line2
+# -end-
+#
+# When -begin- is used, the newlines in the text are preserved as is.  When
+# -fillbegin- is used the newlines are replaced with spaces and it is assumed
+# that the text will be automatically justified.
+#
+# If the first character of a value is a back-quote, then it is interpreted
+# as a reference to another tag.  For example:
+#
+# foo	This is tag foo.
+# bar	`foo
+#
+# In this instance both 'foo' and 'bar' will translate to 'This is tag foo'.
+#
+# The last type of entry that can occur in the file, normally at the type is
+# a declaration.  Currently, the only allowed declaration is:
+#
+# \font-encoding	code
+#
+# where "code" is a font encoding such as "iso8859-2". This can be used to
+# select a font encoding specific to a locale.  The default encoding
+# is "iso8859-1".
+#
+##############################################################################
+
+\language Spanish
+
+##############################################################################
+#
+# basic strings
+#
+b.new		Nuevo...
+b.dismiss		Volver
+b.close		Cerrar
+b.ok		OK
+b.clear		Borrar
+b.cancel		Cancelar
+#b.open		Open...
+#b.bitw		Bit Width
+b.in		entrada
+b.out		salida
+b.inout		bidireccional
+b.browse		Visualizar...
+b.label		Etiqueta
+b.find		Buscar
+b.edit		Editar...
+b.add		Aadir...
+b.delete		Borrar
+#b.deleteb	Delete...
+b.remove		TODO: Remove
+b.apply		Aplicar
+b.anchor		Anclar
+b.tech		Tecnolog-Aía$)B
+#b.enable	Enable
+#b.disable	Disable
+#b.flush		Clear
+
+##############################################################################
+#
+# Main tab strings
+#
+tab.edit		Editar
+tab.editintr		TODO: Interface
+tab.simulate		Simular
+tab.cpath		TODO: Critical Path
+# Width of mode selection tabs
+@tab.width		150
+
+#############################################################################
+#
+# MsgMgr strings (including breakpoint and script handling) 
+#
+@mm.width		7
+mm.add		TODO: Add...
+mm.delete		TODO: Delete
+mm.edit		TODO: Edit...
+mm.enable		TODO: Enable
+mm.disable		TODO: Disable
+
+##############################################################################
+# Menu strings
+#
+# Menu strings (tags beginning with "menu.") can take an option prefix consisting
+# of a number and a colon.   If this prefix exists, it indicates the character
+# position in the string that will be underlined.  This enables keyboard shortcuts
+# using the Alt key. 
+#
+menu.file		Fichero
+menu.edit		TODO: Edit
+menu.tool		Herramientas
+menu.symbol		TODO: 0:Symbol
+menu.simulate		TODO: Simulate
+menu.module		Mdulo
+menu.interface		TODO: Interface
+menu.format		Puerta
+menu.make		Insertar
+menu.help		Ayuda
+
+menu.file.new		Nuevo
+menu.file.open		TODO: Open...
+menu.file.openlib		Abrir Libreria...
+menu.file.save		Salvar
+menu.file.saveas		TODO: Save As...
+menu.file.print		Imprimir...
+menu.tool.options		Opciones...
+menu.file.quit		Salir
+menu.file.cprop		TODO: 0:Circuit Properties...
+menu.file.import		TODO: 0:Import Image...
+menu.file.export		TODO: 0:Export Image...
+
+menu.edit.undo		TODO: Undo
+menu.edit.redo		TODO: Redo
+menu.edit.cut		Cortar
+menu.edit.copy		Copiar
+menu.edit.paste		Pegar
+menu.edit.overlay		TODO: 0:Overlay Paste
+menu.edit.selall		Seleccionar Todo
+menu.edit.find		Buscar...
+menu.format.algnv		Situar en Columna
+menu.format.algnh		Situar en Fila
+menu.format.rot.rotate		TODO: Rotate
+menu.edit.zoomin		Zoom Acercar
+menu.edit.zoomout		Zoom Alejar
+
+menu.edit.rshift		TODO: 10:Bit Shift Right 
+menu.edit.lshift		TODO: 10:Bit Shift Left 
+menu.edit.ushift		TODO: 10:Bit Shift Up 
+menu.edit.dshift		TODO: 10:Bit Shift Down 
+menu.edit.cwrotate		TODO: 11:Bit Rotate C-W
+menu.edit.ccwrotate		TODO: 15:Bit Rotate C-C-W
+menu.edit.pcwrotate		TODO: 12:Port Rotate C-C-W
+menu.edit.pccwrotate		TODO: 16:Port Rotate C-C-W
+menu.edit.autobold		TODO: Boldify Bits
+menu.edit.resize		TODO: Resize Bitmap
+
+menu.tool.move		Mover/Conectar
+menu.tool.delg		Borrar puerta
+menu.tool.cutw		Cortar cable
+menu.tool.inv		Invertir
+menu.tool.bitw		TODO: Bit Width
+menu.tool.debug		Depurar
+menu.tool.point		TODO: 0:Point
+menu.tool.line		TODO: 0:Line
+menu.tool.rect		TODO: 0:Rectangle
+menu.tool.fillrect		TODO: 0:Fill Rectangle
+menu.tool.port		TODO: 0:Port
+menu.tool.select		TODO: 0:Select Region
+
+
+menu.format.rot.0		Orientacin 0-Aº$)B
+menu.format.rot.90		Orientacin 90-Aº$)B
+menu.format.rot.180		Orientacin 180-Aº$)B
+menu.format.rot.270		Orientacin 270-Aº$)B
+menu.tool.tclshell		TODO: 0:Tcl Shell
+
+menu.simulate.begin		Empezar Simulacin
+menu.simulate.end		Terminar Simulacin
+menu.simulate.addprobe		TODO: Add/Delete Probe
+menu.simulate.run		Modo continuo
+menu.simulate.pause		Pausa
+menu.simulate.step		Paso a paso (tiempo)
+menu.simulate.cycle		Paso a paso (n-Aº ciclos)$)B
+menu.simulate.break		Punto de ruptura...
+menu.simulate.script		Ejecutar Guin...
+menu.simulate.load		Fichero -> Memoria...
+menu.simulate.dump		Memoria -> Fichero...
+
+menu.module.open		Abrir
+menu.module.close		TODO: Close
+menu.module.new		TODO: New...
+menu.module.del		TODO: Delete...
+menu.module.copy		Copia...
+menu.module.rename		Renombra...
+menu.module.claim		Mdulo libreria -> Mdulo usuario...
+menu.module.setroot		TODO: Set As Root...
+menu.module.prop		Propiedades...
+menu.module.interface		TODO: 0:Interface
+menu.module.interface.set		TODO: 0:Set As Default
+menu.module.interface.update		TODO: 1:Sync. to Default
+menu.module.interface.updateall		TODO: 6:Sync. All to Default...
+menu.module.interface.edit		TODO: 0:Edit...
+menu.module.interface.auto		TODO: 5:Auto Generate...
+
+menu.format.addport		TODO: 4:Add Port
+menu.format.ioset		TODO: Set Type
+menu.format.anchor		Anclar Seleccin
+menu.format.unanchor		Liberar Seleccin
+menu.format.prop		TODO: Gate Properties...
+menu.tool.rep		R-Aéplica$)B
+menu.format.del		TODO: Delete
+menu.format.settech		Seleccionar Tecnolog-Aía$)B
+
+menu.help.about		Acerca de...
+menu.help.license		Licencia...
+menu.help.doc		Documentacin...
+menu.help.tut		Tutoriales
+menu.help.home		TODO: 1:Home Page
+menu.help.example		Ejemplos
+
+#############################################################################
+# Scope Menu
+#
+menu.scope_file		TODO: 0:File
+menu.scope_sim		TODO: 0:Simulate
+menu.scope_trace		TODO: 0:Trace
+menu.scope_help		TODO: 0:Help
+
+menu.scope_file.ptrace		TODO: 0:Print Trace...
+menu.scope_file.close		TODO: 0:Close
+menu.scope_trace.zoomin		TODO: 5:Zoom In
+menu.scope_trace.zoomout		TODO: 5:Zoom Out
+menu.scope_sim.addprobe		TODO: 0:Add/Delete Probe
+menu.scope_sim.run		TODO: 0:Run
+menu.scope_sim.pause		TODO: 0:Pause
+menu.scope_sim.step		TODO: 0:Step Epoch(s)
+menu.scope_sim.cycle		TODO: 5:Step Cycle
+menu.scope_sim.break		TODO: 0:Breakpoint...
+menu.scope_sim.script		TODO: 1:Exec. Script...
+menu.scope_sim.load		TODO: 1:Load Memory...
+menu.scope_sim.dump		TODO: 1:Dump Memory...
+menu.scope_help.about		TODO: 0:About...
+menu.scope_help.license		TODO: 0:License...
+menu.scope_help.doc		TODO: 0:Documentation...
+
+mod.intf		TODO: Interface
+
+port.parms		TODO: Port Parameters
+port.in		TODO: In
+port.out		TODO: Out
+port.inout		TODO: InOut
+
+
+##############################################################################
+#
+# Tags for built-in gate types
+#
+
+gm.io		Entrada/Salida
+gm.gate		TODO: Gate
+gm.rgate		Reduccin
+gm.msi		MSI
+gm.alu		ALU
+gm.mem		Memoria
+gm.mod		TODO: Module
+gm.comment		Comentario
+gm.frame		Marco
+
+gm.io.switch		Conmutador
+gm.io.dip		Interruptores DIP
+gm.io.ground		Masa
+gm.io.vdd		Vdd
+gm.io.merge		TODO: Concat
+gm.io.clock		Seal de Reloj
+
+gm.io.led		LED
+gm.io.ledbar		Barra de LEDs 
+gm.io.ledhex		7-Seg. LED (HEXADECIMAL)
+gm.io.leddec		7-Seg. LED (DECIMAL)
+gm.io.ledseg		7-Seg. LED (Directo)
+
+gm.io.tty		TTY (Terminal)
+
+gm.gate.and		AND  (Y)
+gm.gate.nand		NAND (NO-Y)
+gm.gate.or		OR   (O)
+gm.gate.nor		NOR  (NO-O)
+gm.gate.xor		XOR  (O-EX)
+gm.gate.xnor		XNOR (NO-O-EX)
+gm.gate.buf		Buffer 
+gm.gate.inv		Inversor
+gm.gate.tribuf		Buffer-Triestado 
+gm.gate.nmos		NMOS
+gm.gate.pmos		PMOS
+
+gm.rgate.and		TODO: AND
+gm.rgate.nand		TODO: NAND
+gm.rgate.or		TODO: OR
+gm.rgate.nor		TODO: NOR
+gm.rgate.xor		TODO: XOR
+gm.rgate.xnor		TODO: XNOR
+
+gm.alu.add		Sumador
+gm.alu.mult		Multiplicador
+gm.alu.div		Divisor
+gm.alu.lshift		DespL. Izquierda
+gm.alu.rshift		DespL. Derecha
+gm.alu.arshift		DespL. Arit. Derecha
+gm.alu.roll		DespL. c-Aíclico$)B
+
+gm.mem.reg		Registro
+gm.mem.ff		Flip-Flop D
+gm.mem.rff		TODO: Rev. Flip-Flop
+gm.mem.ram		RAM
+gm.mem.rom		ROM
+
+gm.msi.21mux		2-1 Multiplexor
+gm.msi.41mux		4-1 Multiplexor
+gm.msi.81mux		8-1 Multiplexor
+gm.msi.12dec		1-2 Decodificador
+gm.msi.14dec		1-4 Decodificador
+gm.msi.18dec		1-8 Decodificador
+    
+gm.mod.inst		Inserta mdulo
+gm.mod.in		Entrada Mdulo
+gm.mod.out		Salida Mdulo
+gm.mod.inout		Bidireccional Mdulo
+
+tutorial.prev		TODO: PREVIOUS
+tutorial.next		TODO: NEXT
+tutorial.chapter		TODO: CHAPTER LIST
+tutorial.reload		TODO: RELOAD
+
+##############################################################################
+#
+# Popup menus
+#
+pop.make		TODO: Make
+pop.tool		TODO: Tool
+
+pop.edit.paste		TODO: Paste
+pop.edit.cut		TODO: Cut
+pop.edit.copy		TODO: Copy
+
+pop.port.in		TODO: In
+pop.port.out		TODO: Out
+pop.port.inout		TODO: InOut
+
+pop.wire.addseg		Aadir segmento de cable
+pop.wire.prop		TODO: Properties...
+pop.wire.hidesize		TODO: Hide Bit Width
+pop.wire.showsize		TODO: Show Bit Width
+pop.wire.hidelabel		TODO: Hide Label 
+pop.wire.hidealllabel		TODO: Hide All Labels
+pop.wire.clearalllabel		TODO: Clear All Labels
+pop.wire.showlabel		TODO: Show Label 
+
+pop.gate.open		TODO: Open
+pop.gate.close		TODO: Close
+pop.gate.prop		TODO: Properties...
+pop.gate.addport		TODO: Add Port
+pop.gate.addin		TODO: Add Input
+pop.gate.addout		TODO: Add Output
+pop.gate.addinout		TODO: Add BiDir
+pop.gate.anchor		TODO: Anchor
+pop.gate.settech		TODO: Set Technology
+pop.gate.delete		TODO: Delete
+pop.gate.ioset		TODO: Set Type
+
+pop.module.new		TODO: New...
+pop.module.del		TODO: Delete...
+pop.module.copy		TODO: Copy...
+pop.module.rename		TODO: Rename...
+pop.module.claim		TODO: Claim...
+pop.module.setroot		TODO: Set As Root...
+pop.module.prop		TODO: Properties...
+pop.module.int		TODO: Edit Interface...
+
+
+pop.simulate.end		TODO: End Simulation
+pop.simulate.begin		TODO: Begin Simulation
+pop.simulate.addprobe		TODO: Add/Delete Probe
+pop.simulate.delprobe		TODO: Delete Probe
+pop.simulate.run		TODO: Run
+pop.simulate.pause		TODO: Pause
+pop.simulate.step		TODO: Step Epoch(s)
+pop.simulate.cycle		TODO: Step Cycle
+pop.simulate.break		TODO: Breakpoint...
+pop.simulate.script		TODO: Exec. Script...
+pop.simulate.load		TODO: Load Memory...
+pop.simulate.dump		TODO: Dump Memory...
+
+pop.interface		TODO: Interface
+pop.interface.set		TODO: Set as Default
+pop.interface.update		TODO: Sync. to Default
+pop.interface.updateall		TODO: Sync. All to Default...
+pop.interface.edit		TODO: Edit Interface...
+pop.interface.auto		TODO: Auto Generate...
+pop.interface.replace		TODO: Replace
+
+pop.igen.type		TODO: Type
+pop.igen.side		TODO: Side
+pop.igen.size		TODO: Size
+pop.igen.delete		TODO: Delete
+pop.igen.in		TODO: in
+pop.igen.out		TODO: out
+pop.igen.inout		TODO: inout
+pop.igen.left		TODO: left
+pop.igen.right		TODO: right
+pop.igen.top		TODO: top
+pop.igen.bottom		TODO: bottom
+pop.igen.other		TODO: other
+
+
+##############################################################################
+#
+# Symbol editor strings
+#
+#symed.bsave		Store
+#symed.file		File
+#symed.file.load		Load Bitmap...
+#symed.file.save		Save Bitmap...
+#symed.file.updateclose	Close and Update
+#symed.file.discardclose	Close and Discard
+#symed.help		Help
+#symed.help.about	About...
+#symed.edit		Edit
+#symed.edit.cut		Cut
+#symed.edit.copy		Copy
+#symed.edit.paste	Paste
+#symed.edit.overlay	Overlay Paste
+#symed.edit.rclock	Rotate Clockwise
+#symed.edit.rcclock	Rotate Counter-Clockwise
+#symed.module		Module
+#symed.modes		Modes
+#symed.cutpaste		Cut/Paste
+#symed.rotate		Port Rotation
+#symed.zoom		Zoom
+#symed.cancel		Cancel
+
+#symed.update		Update
+symed.tab.normal		TODO: UnSelected
+symed.tab.select		TODO: Selected
+symed.link		TODO: Link selected to unselected
+# width of symbol editor tabs
+@symed.tab.width		125
+
+
+##############################################################################
+
+scope.emptymsg		TODO: Double-click on a wire to add or delete a trace.
+comment.empty		TODO: [Double click to add text.]
+
+##############################################################################
+# Interface strings
+#
+ifile		Fichero
+imodule		Mdulo
+iblmodule		Mdulos:
+iports		Puertos:
+ibits		Bits:
+itype		TODO: Type:
+
+#############################################################################
+# Module Dialog Box
+#
+db.mod.name		TODO: Name
+db.mod.file		TODO: File Name
+db.mod.type		TODO: Type
+db.mod.flags		TODO: Flags
+db.mod.dataprot		TODO: Disallow editing of module definition.
+db.mod.intfprot		TODO: Disallow all interface changes.
+db.mod.edprot		TODO: Disallow edit mode interface changes.
+db.mod.props		TODO: Properties
+db.mod.inuse.0		TODO: Module is not in use.
+db.mod.inuse.1		TODO: Module is in use.
+db.mod.lmod.0		TODO: Module has not been modified since loading.
+db.mod.lmod.1		TODO: Module has been modified since loading.
+db.mod.smod.0		TODO: Module has not been modified since saving.
+db.mod.smod.1		TODO: Module has been modified since saving.
+db.mod.islib.1		TODO: Module is part of [%s] library.
+db.mod.islib.0		TODO: Module is not a library module.
+db.mod.netlist		TODO: Netlist
+db.mod.hdl		TODO: HDL
+
+db.mod.netexpl		-begin-
+TODO: Modules of this type are described as a network of connected components. A graphical editor is used to edit the definition.
+-end-
+
+db.mod.hdlexpl		-begin-
+TODO: Modules of this type are described in text format. A text editor is used to create the module definition.
+-end-
+
+#############################################################################
+# Error List Dialog box
+#
+db.err.caption		TODO: Error List
+db.err.explain		-fillbegin-
+TODO: I am unable to enter simulation mode due to errors in your circuit.  Select an error message to see the error location.
+-end-
+db.err.neededit		-fillbegin-
+TODO: You must first switch to Edit mode before navigating to warnings.
+-end-
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.name		Nombre Conexin
+db.net.hide		Nombre Oculto
+db.net.bits		Anchura Bus	
+db.net.type		TODO: Net Type	
+db.net.port		Tipo de Patilla
+db.net.in		entrada
+db.net.out		salida
+db.net.inout		bidireccional
+db.net.inets		Conexiones
+
+##############################################################################
+#
+# New circuit dialog box
+#
+db.newcirc.directory		TODO: Directory:
+db.newcirc.cap		TODO: New Circuit
+db.newcirc.exp		-fillbegin-
+TODO: Discard the current circuit and start editing a new circuit.
+-end-
+db.newcirc.file		TODO: File Name
+db.newcirc.topname		Nombre del mdulo principal
+
+
+
+##############################################################################
+# Gate dialog box
+#
+@db.gate.tabwidth		*80
+@db.gate.width			*600
+@db.gate.height			*400
+@db.gate.comment.width		*900
+@db.gate.comment.height		*500
+
+db.gate.signam		Nombre de la Seal
+db.gate.portnam		Nombre de la Patilla
+db.gate.iotype		Tipo
+db.gate.bitw		Anchura Bus
+db.gate.cyclew		Anchura Ciclo
+db.gate.phase		Fase
+db.gate.duty		Funcin
+db.gate.port		Patilla
+db.gate.bitws		Bits
+db.gate.side		TODO: Side
+db.gate.gtype		Tipo de Puerta
+db.gate.gname		Nombre de la Puerta
+db.gate.hidenam		Nombre Oculto
+db.gate.anchor		Anclada
+db.gate.cpbreak		Ruptura del camino cr-Aítico$)B
+db.gate.butstate		Estado del Botn
+db.gate.dipval		Valor del conmutador
+db.gate.range		TODO: Bit Range
+db.gate.memfilenam		Fichero de Memoria
+db.gate.modname		Funcin
+db.gate.general		General
+db.gate.details		Detalles
+db.gate.text		TODO: Text
+db.gate.ports		Patilla
+db.gate.delay		Retraso
+db.gate.parameters		TODO: Parameters
+db.gate.stddelay		Retraso Normal
+db.gate.custdelay		Retraso Personalizado
+db.gate.catdiruse		TODO: Port Placement
+db.gate.edit		TODO: Edit
+db.gate.delete		TODO: Delete
+db.gate.add		TODO: Add
+
+db.gate.ff.type		TODO: Flip-Flop Orientation 
+db.gate.ff.normal.hdr		TODO: Normal
+db.gate.ff.normal.exp		-fillbegin-
+TODO: Flip-Flop with data flowing left to right.
+-end-
+db.gate.ff.reverse.hdr		TODO: Reversed
+db.gate.ff.reverse.exp		-fillbegin-
+TODO: Flip-Flop with data flowing right to left.
+-end-
+
+db.gate.cat.asc.hdr		TODO: Ascending
+db.gate.cat.dec.hdr		TODO: Decending
+db.gate.cat.asc.exp		-fillbegin-
+TODO: Bits are concatenated in ascending order from top to bottom.
+-end-
+db.gate.cat.dec.exp		-fillbegin-
+TODO: Bits are concatenated in descending order from top to bottom.
+-end-
+
+db.gate.cat.sigdir		TODO: Signal Direction 
+db.gate.cat.auto.hdr		TODO: Auto
+db.gate.cat.multin.hdr		TODO: Multi-Input
+db.gate.cat.singin.hdr		TODO: Single-Input
+db.gate.cat.tran.hdr		TODO: Bidirectional
+
+
+db.gate.cat.auto.exp		-fillbegin-
+TODO: Determine signal direction automatically from connected nets.
+-end-
+
+db.gate.cat.multin.exp		-fillbegin-
+TODO: Always assume multi-port side is the input.
+-end-
+
+db.gate.cat.singin.exp		-fillbegin-
+TODO: Always assume single-port side is the input.
+-end-
+
+db.gate.cat.tran.exp		-fillbegin-
+TODO: Allow bidirectional (tran) signal flow.  Can not be connected to switches or registers.
+-end-
+
+db.gate.tab.General.cap		TODO: General Properties
+db.gate.tab.Ports.cap		TODO: Port Properties
+db.gate.tab.Delay.cap		TODO: Delay Properties
+db.gate.tab.Parameters.cap		TODO: Module Parameters
+db.gate.tab.CLOCK.cap		TODO: Clock Properties
+db.gate.tab.SWITCH.cap		TODO: Switch Properties
+db.gate.tab.DIP.cap		TODO: DIP Properties
+db.gate.tab.TAP.cap		TODO: Tran Properties
+db.gate.tab.RAM.cap		TODO: RAM Properties
+db.gate.tab.ROM.cap		TODO: ROM Properties
+db.gate.tab.MODULE.cap		TODO: Module Properties
+db.gate.tab.FRAME.cap		TODO: Frame Properties
+db.gate.tab.LED.cap		TODO: LED Properties
+db.gate.tab.AND.cap		TODO: AND Properties
+db.gate.tab.OR.cap		TODO: OR Properties
+db.gate.tab.XOR.cap		TODO: XOR Properties
+db.gate.tab.MUX.cap		TODO: Mux Properties
+db.gate.tab.DEMUX.cap		TODO: Demux Properties
+db.gate.tab.CONCAT.cap		TODO: Concat Properties
+db.gate.tab.COMMENT.cap		TODO: Text Properties
+db.gate.tab.FF.cap		TODO: Flip-Flop Properties
+
+
+db.gate.tab.General.exp		-fillbegin-
+TODO: View and modify basic properties of an instance.
+-end-
+
+db.gate.tab.Ports.exp		-fillbegin-
+TODO: Add, edit or delete ports on an instance.
+-end-
+
+db.gate.tab.Delay.exp		-fillbegin-
+TODO: Delay can be specified either as a technology or as specific values for this instance.
+-end-
+
+db.gate.tab.Parameters.exp		-fillbegin-
+TODO: Set the module parameters for this instance of this module if any are defined.  Module parameters are used to configure delays and constant values used in a module.
+-end-
+
+db.gate.tab.details.exp		-fillbegin-
+TODO: Set detailed type specific properties of a gate here. 
+-end-
+
+
+db.gate.tab.CLOCK.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.SWITCH.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.DIP.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.TAP.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.RAM.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.ROM.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.MODULE.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.FRAME.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.LED.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.AND.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.OR.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.XOR.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.MUX.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.DEMUX.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.CONCAT.exp		TODO: `db.gate.tab.details.exp
+db.gate.tab.FF.exp		TODO: `db.gate.tab.details.exp
+
+db.gate.tab.COMMENT.exp		-fillbegin-
+TODO: Set the text to be displayed in a comment. Limited html commands including links can be used here.
+-end-
+
+db.gate.mparm.parameter		TODO: Parameter
+db.gate.mparm.value		TODO: Value
+db.gate.mparm.exampleA		-begin-
+TODO: This module does not have any parameters.  Parameters can be added to Verilog text modules.  The value of each parameter can be customized for each instance through this dialog box.  Module parameters are declared in a parenthesized list starting with a '#' character.  Below is an example module declaration with a parameter named "base_value" that has a  default value of 1'b1.
+-end-
+db.gate.mparm.exampleB		-begin-
+TODO: module foo #(.base_value(1'b1)) (Z,A,B);   assign Z = A ^ B ^ base_value; endmodule
+-end-
+
+db.gate.mux.dataorder		TODO: Input Ordering
+db.gate.mux.ord1.hdr		TODO: Left-to-Right
+db.gate.mux.ord2.hdr		TODO: Right-to-Left
+db.gate.mux.ord1.exp		-fillbegin-
+TODO: Order MUX inputs from left to right.
+-end-
+db.gate.mux.ord2.exp		-fillbegin-
+TODO: Order MUX inputs from right to left.
+-end-
+
+db.gate.demux.dataorder		TODO: Output Ordering
+db.gate.demux.ord1.hdr		TODO: Left-to-Right
+db.gate.demux.ord2.hdr		TODO: Right-to-Left
+db.gate.demux.ord1.exp		-fillbegin-
+TODO: Order DEMUX outputs from left to right.
+-end-
+db.gate.demux.ord2.exp		-fillbegin-
+TODO: Order DEMUX outputs from right to left.
+-end-
+
+db.gate.mux.select		TODO: Selector Style
+db.gate.mux.sel1.hdr		TODO: Selector on Left
+db.gate.mux.sel2.hdr		TODO: Selector on Right
+db.gate.mux.sel1.exp		-fillbegin-
+TODO: Place the data selector on the left side of the gate.
+-end-
+db.gate.mux.sel2.exp		-fillbegin-
+TODO: Place the data selector on the right side of the gate.
+-end-
+
+db.gate.demux.select		TODO: `db.gate.mux.select
+db.gate.demux.sel1.hdr		TODO: `db.gate.mux.sel1.hdr
+db.gate.demux.sel2.hdr		TODO: `db.gate.mux.sel2.hdr
+db.gate.demux.sel1.exp		TODO: `db.gate.mux.sel1.exp
+db.gate.demux.sel2.exp		TODO: `db.gate.mux.sel2.exp
+
+
+
+db.gate.aox.extbaruse		TODO: Extender Bar Use
+db.gate.aox.use.hdr		TODO: Extender Bars
+db.gate.aox.nouse.hdr		TODO: No Extender Bars
+db.gate.aox.use.exp		-fillbegin-
+TODO: Basic gates (AND, OR, etc.) will use extender bars as inputs are added.
+-end-
+db.gate.aox.nouse.exp		-fillbegin-
+TODO: Basic gates (AND, OR, etc.) will not use extender bars as inputs are added.
+-end-
+
+
+db.gate.led.type		Tipo de LED
+db.gate.led.bit.hdr		Bit
+db.gate.led.bar.hdr		Barra Grafica
+db.gate.led.hex.hdr		7-Segment (HEXADECIMAL)
+db.gate.led.dec.hdr		7-Segment (DECIMAL)
+db.gate.led.seg.hdr		7-Segment (Directo)
+
+db.gate.led.bit.exp		-fillbegin-
+TODO: Single-lamp led display for 1-bit signals.
+-end-
+db.gate.led.bar.exp		-fillbegin-
+TODO: LED bar graph with one bar per bit.
+-end-
+db.gate.led.hex.exp		-fillbegin-
+TODO: Display signal in hexidecimal.
+-end-
+db.gate.led.dec.exp		-fillbegin-
+TODO: Display signal in decimal.
+-end-
+db.gate.led.seg.exp		-fillbegin-
+TODO: Signal bits directly control led segments.
+-end-
+
+db.seq.back		TODO: <Back
+db.seq.next		TODO: Next>
+
+db.hdl.savecap		TODO: Multiple Modules
+
+db.hdl.saveexp		-fillbegin-
+TODO: The text buffer for the module you have just edited appears to contain more than one module definition.  Please select one of the three actions described to the right.
+-end-
+
+db.hdl.autoedit		TODO: Auto Edit
+db.hdl.split		TODO: Split
+db.hdl.comment		TODO: Comment
+db.hdl.cancel		TODO: Cancel
+db.hdl.ignore		TODO: Ignore
+
+db.hdl.autoeditcap		TODO: Name Mismatch
+
+db.hdl.autoeditexp		-fillbegin-
+TODO: The textual description of the module does not match the expected name.  Please select an option to the right to handle the discrepancy.
+-end-
+
+
+cpath.cloops		-fillbegin-
+Se ha detectado un bucle de realimentacin en su circuito. Para poder realizar un an-Aálisis de los retrasos en dicho circuito deberemos, o bién romper el bucle, o marcar alguna de las puertas en el bucle como punto de un "Camino crítico". Las conexiones detectadas como bucle se listan más abajo.$)B
+-end-
+
+##############################################################################
+# Print dialog box
+#
+#print.outto		Output to
+print.printer		Impresora
+print.file		Fichero
+print.prcmd		Comando de Impresin
+print.prname		TODO: Printer
+print.advanced		TODO: Advanced...
+
+print.filename		Nombre del Fichero
+print.epssave		Salvar como Postscript Encapsulado.
+#print.doctit		Document Title
+#print.prmod		Print Modules
+print.epcm		Periodo de tiempo/cm
+print.estpg		P-Aáginas estimadas$)B
+print.all		Todo
+print.cur		Actual
+print.use		Usados
+print.sel		Seleccionados
+print.inclib		Incluye mdulos de libreria.
+print.incunused		TODO: Include unused modules.
+print.papsz		Tamao del Papel 
+print.orient		Orientacin
+print.portrait		Vertical
+print.landscape		Apaisada
+print.2side		Imprimir a doble cara
+print.opts		Opciones
+print.scale		Escalar mdulos hasta completar p-Aágina.$)B
+print.partition		Dividir mdulos grandes en varias p-Aáginas.$)B
+print.incidx		Incluye indice.
+print.incgraph		Incluye gr-Aáfico de jerarquia.$)B
+print.4up		Imprimir cuatro mdulos pequeos por p-Aágina.$)B
+print.rangeselection		TODO: Range Selection
+print.scaleselect		TODO: Scale Selection
+print.fulltr		Trazado completo
+print.parttr		Trazado parcial
+print.start		Empezar
+print.range		Rango
+print.linelen		TODO: Line Length
+print.filesel		TODO: Output to file
+print.printersel		TODO: Output to printer
+print.defaultprinter		TODO: Default Printer
+print.pageset		TODO: Page Setup
+print.modulesel		TODO: Module Selection
+
+##############################################################################
+#
+# TkGate 2.0 print dialog strings
+#
+print.ok		TODO: Print
+print.printtrace.cap		TODO: Print Trace
+print.printcirc.cap		TODO: Print Schematic
+print.printcirc.out.exp		-fillbegin-
+TODO: Choose whether to send your schematic to the printer or to a PostScript file.
+-end-
+
+print.printcirc.page.exp		-fillbegin-
+TODO: Choose page and printer options here.
+-end-
+
+print.printcirc.mod.exp		-fillbegin-
+TODO: Choose which modules are to be printed and set options controlling the presentation.
+-end-
+
+print.printtrace.trace.exp		-fillbegin-
+TODO: Choose the time range over which to produce output.  Also set the scale to compute the estimated page count.
+-end-
+
+print.tab.output		TODO: Output
+#print.tab.page		Page
+print.tab.modules		TODO: Modules
+print.tab.content		TODO: Content
+print.tab.advanced		TODO: Advanced
+
+#
+# Circuit print dialog box
+#
+@print.dlgbox.width		*450
+@print.dlgbox.height		*450
+@print.dlgbox.tabwidth		*95
+
+#
+# Scope print dialog box
+#
+@print.scopedlg.width		*475
+@print.scopedlg.height		*400
+@print.scopedlg.tabwidth	*95
+
+##############################################################################
+#
+# Options dialog
+#
+
+# Width of options dialog box (not including image sidebar)
+@opt.width		700
+# Height of options dialog box
+@opt.height		450
+# Width of tabs on options dialog box
+@opt.tabwidth		95
+# Number of columns in list of toolbars
+@opt.tool.columns		3
+# Width of columns in list of toolbars
+@opt.tool.colwidth		30
+# Width of image sidebar
+@opt.sidebar.width		*170
+#
+@opt.tree.width		*135
+
+opt.general		General
+opt.interface		TODO: Interface
+opt.toolbars		TODO: Toolbars
+opt.toolbars.edit		TODO: Editor
+opt.toolbars.sim		TODO: Simulation
+opt.toolbars.symed		TODO: Symbol Editor
+opt.editor		TODO: Editor
+opt.print		Imprimir
+opt.print.output		TODO: Output
+opt.print.content		TODO: Content
+opt.simulate		Simular
+opt.simulate.basic		TODO: Basic
+opt.simulate.tech		TODO: Technology
+opt.simulate.error		TODO: Error Handling
+opt.library		TODO: Libraries
+opt.library.path		TODO: Path
+opt.library.load		TODO: Auto Loading
+opt.library.vpd		TODO: VPD
+opt.analysis		An-Aálisis$)B
+opt.color		Color
+opt.color.edit		TODO: Editor
+opt.color.scope		TODO: Scope
+opt.color.hdl		TODO: HDL Editor
+opt.html		TODO: HTML
+opt.debug		Habilitar Depuracin
+
+opt.lib.load.available		TODO: Available Libraries
+opt.lib.load.selected		TODO: Selected Libraries
+
+opt.identity		TODO: Identity
+opt.site		Nombre de la Empresa
+opt.username		TODO: User Name
+opt.libname		TODO: Library Name:
+opt.inst		Instancias
+opt.mods		Mdulos
+opt.modports		Patillas de Mdulos
+opt.frames		Marcos
+opt.comment		Comentarios
+opt.hlink		Hiperenlaces
+opt.wire		Cables simples (1 Bit)
+opt.bus		Buses
+opt.tools		Herramientas de Puerta
+opt.background		TODO: Background
+opt.cpath		Caminos cr-Aíticos$)B
+opt.grid		Visualizar Rejilla
+opt.logic1		Lgica '1'
+opt.logic0		Lgica '0'
+opt.float		Flotante
+opt.unknown		Conflicto Desconocido
+opt.offled		LED apagado
+opt.onled		LED encendido
+opt.zled		LED flotante
+opt.restdef		Restaura opciones por defecto
+opt.regudate		Actualizar Regin
+opt.smoothscroll		Desplazamiento Suave
+opt.balloon		Habilitar Globos de Ayuda
+opt.safeSave		TODO: Do safe file saving
+opt.saveCells		TODO: Include cells in save files
+opt.showimage		TODO: Show side-bar images in dialog boxes
+opt.novice		Modo Novato
+opt.blockDropConnect		TODO: Wire drop port creation
+opt.ckpoint.1		TODO: Do Checkpointing every
+opt.ckpoint.2		TODO: commands.
+opt.freq		Frecuencia
+opt.beak		Habilitar Modo Especial
+opt.bat		Bat
+opt.trek		Star Trek
+opt.miles		Miles
+opt.contver		TODO: Automatic Integrity Checking
+opt.showsimcmd		Visualizar Cadena Simulada
+opt.estepsz		Ajuste Tiempo (Simulacin paso a paso)
+opt.cstepsz		Ajuste n-Aº ciclos (Simulacin paso a paso)$)B
+opt.overstep		Exceder Reloj
+opt.sorttraces		TODO: Sort traces alphabetically on scope
+opt.vpopupdelay		TODO: Pop-Up Delay
+#opt.initscript		Global Initialization Script
+opt.posedge		El reloj para despu-Aés de todos los flancos$)B
+opt.setclock		El reloj para en punto
+opt.delayfilepath		Ficheros de Retraso
+opt.devfilepath		TODO: VPD (Virtual Peripheral Device) File Path
+opt.vlibpath		TODO: Verilog Library Path
+opt.vlibnames		TODO: Base Libraries
+opt.display		TODO: Display
+opt.interaction		TODO: Interaction
+opt.input		TODO: Input
+opt.security		TODO: Security
+opt.undolen		TODO: Max Undo
+opt.keybind		TODO: Key Binding Style
+opt.useless		TODO: Enable Useless Features
+opt.features		TODO: Basic Features
+opt.simbase		TODO: Basic Simulator Options
+opt.simclock		TODO: Clock Options
+
+opt.cpopts		Opciones de los caminos cr-Aíticos:$)B
+opt.maxpath		M-Aáximo nº de caminos:$)B
+opt.cpflash		Presentar como relampago
+
+opt.general.fontset		TODO: Font Set
+
+opt.simulator.savetraces		TODO: Save probe locations between simlation runs.
+opt.simulator.noglitch		TODO: Enable simulator glitch suppression.
+
+opt.simulator.err		TODO: Error Handling
+opt.simulator.stopany		TODO: Cancel simulation on any warnings.
+opt.simulator.showall		TODO: Always display warnings.
+opt.simulator.showiferr		TODO: Display warnings only if with errors.
+opt.simulator.ignore		TODO: Ignore all warnings.
+
+opt.tool.file		TODO: File
+opt.tool.edit		TODO: Edit
+opt.tool.gateopt		TODO: Gate Operations
+opt.tool.gateprop		TODO: Gate
+opt.tool.undo		TODO: Undo/Redo
+opt.tool.zoom		TODO: Zoom
+opt.tool.mode		Modo
+opt.tool.module		TODO: Module
+opt.tool.tech		TODO: Technology
+opt.tool.simctl		TODO: Simulator Control
+opt.tool.simaux		TODO: Simulator Commands
+opt.tool.simmode		TODO: Simulator Tools
+opt.tool.symmode		TODO: Symbol Edit Mode
+opt.tool.symedit		TODO: Symbol Edit Cut/Paste
+opt.tool.symport		TODO: Symbol Edit Ports
+opt.tool.symshift		TODO: Symbol Edit Bit Shift
+opt.tool.symopr		TODO: Symbol Edit Bit Ops
+
+opt.editor.features		TODO: Basic Editor Features
+opt.editor.format		TODO: Enable automatic formatting
+opt.editor.colorize		TODO: Enable code colorization
+opt.editor.comments		TODO: Comments
+opt.editor.strings		TODO: Strings
+opt.editor.reserved		TODO: Reserved Words
+opt.editor.gateword		TODO: Built-in Gates
+opt.editor.instword		TODO: Module Instances
+opt.editor.taskword		TODO: System Tasks
+opt.editor.color		TODO: Color
+opt.editor.bold		TODO: Bold
+opt.editor.italic		TODO: Italic
+opt.editor.indentlevel		TODO: Indentation per level:
+opt.editor.beginindent		TODO: Make begin...end flush with enclosing level.
+opt.editor.movesel		TODO: Enable drag-and-drop of selection.
+opt.editor.returntab		TODO: Auto indent after return.
+
+
+
+opt.vercheck		-begin-
+Chequea de forma peridica si existen nuevas versiones del programa TKGATE en Internet. No habilitarla si no se dispone  de una conexin permanente a la RED.
+-end-
+
+opt.general.cap		TODO: General Options
+opt.editor.cap		TODO: HDL Text Editor
+opt.interface.cap		TODO: Interface Options
+opt.toolbars.cap		TODO: Toolbar Options
+opt.print.cap		TODO: Print Options
+opt.analysis.cap		-begin-
+TODO: Critical Path Options
+-end-
+opt.simulator.cap		TODO: Simulator Options
+opt.security.cap		TODO: Security Options
+opt.color.cap		TODO: Color Options
+opt.html.cap		TODO: HTML/HTTP Options
+opt.debug.cap		TODO: Debug Options
+opt.library.cap		TODO: Library Options
+
+opt.sec.execlevel		TODO: The $tkg$exec() system task is
+opt.sec.exec		TODO: fully enabled.
+opt.sec.regexec		TODO: enabled only for registered functions.
+opt.sec.noexec		TODO: disabled.
+
+opt.sec.simfeatures		TODO: Simulator Features
+opt.sec.send		TODO: Enable the $tkg$command() system task.
+opt.sec.open		TODO: Enable the $fopen() system task.
+opt.sec.writemem		TODO: Enable the $writememb() and $writememh() system tasks.
+opt.sec.enqueue		TODO: Enable the $tkg$recv() and $tkg$send() system tasks.
+
+opt.sec.handle		TODO: Security Violation Handling
+opt.sec.stop		TODO: Stop simulator when disabled feature is used.
+opt.sec.warn		TODO: Display warning message when disabled feature is used.
+opt.sec.ignore		TODO: Ignore attempted usage of disabled features.
+
+opt.html.linkopts		TODO: Link Options
+opt.html.browser		TODO: Browser Command
+opt.html.email		TODO: e-Mail Command 
+
+opt.debug.opt		TODO: Debugging Options
+
+opt.color.editwin		TODO: Edit Window Colors
+opt.color.scopewin		TODO: Scope Window Colors
+
+opt.vlibadd.cap		TODO: Add Library
+opt.vlibadd.exp		-fillbegin-
+TODO: Enter the name of a TkGate Verilog library.  Libraries named in the autoload list will be automatically loaded on startup.
+-end-
+
+opt.editor.exp		-fillbegin-
+TODO: Set options for the HDL text editor.
+-end-
+
+opt.general.exp		-fillbegin-
+TODO: Set personal identification and basic TkGate options on this page.  The personal identification will be used on printed output.
+-end-
+
+opt.interface.exp		-fillbegin-
+TODO: Set options controlling the look and feel of the interface.
+-end-
+
+opt.toolbars.exp		-fillbegin-
+TODO: Specify which toolbars to display.
+-end-
+
+opt.print.exp		-fillbegin-
+TODO: Set default printer options on this page.
+-end-
+
+opt.analysis.exp		-fillbegin-
+TODO: These options control the critical path analysis function.
+-end-
+
+opt.simulator.exp		-fillbegin-
+TODO: These options control the functioning of the simulator.
+-end-
+
+opt.library.exp		-fillbegin-
+TODO: Set search paths for User Device and Verilog library files.
+-end-
+
+
+opt.security.exp		-fillbegin-
+TODO: Set the simulator security options by enabling or disabling features that may be a risk when simulating circuits from untrusted sources.
+-end-
+
+opt.color.exp		-fillbegin-
+TODO: Use these options to set the color scheme to use in TkGate.
+-end-
+
+opt.html.exp		-fillbegin-
+TODO: Set options pertaining to html commands in tkgate circuit comments.
+-end-
+
+
+opt.debug.exp		-fillbegin-
+TODO: Debugging options can be set here.
+-end-
+
+
+opt.gen.basetoolbar		TODO: Core Editor Toolbars
+opt.gen.simtoolbar		TODO: Simulation Mode Toolbars
+opt.gen.symedtoolbar		TODO: Symbol Editor Toolbars
+
+opt.bbar.restore		TODO: Restore Page Defaults
+opt.bbar.restoreall		TODO: Restore All Defaults
+
+##############################################################################
+#
+# Interface generator
+#
+igen.port		TODO: Port
+igen.type		TODO: Type
+igen.side		TODO: Side
+igen.size		TODO: Size
+igen.bits		TODO: Bits
+
+igen.modname		TODO: Module Name:
+
+#igen.resort		Re-sort
+igen.add		TODO: Add
+igen.delete		TODO: Delete
+igen.edit		TODO: Edit
+
+igen.in		TODO: in
+igen.out		TODO: out
+igen.inout		TODO: inout
+
+igen.left		TODO: left
+igen.right		TODO: right
+igen.top		TODO: top
+igen.bottom		TODO: bottom
+
+#igen.other		other
+
+igen.mod		TODO: Use ports used in module only.
+igen.int		TODO: Use ports from exisiting interface only.
+igen.modint		TODO: Use both module and interface ports.
+
+igen.portsel		TODO: Port Selection
+igen.portpos		TODO: Port Positions
+igen.portpos.keep		TODO: Keep exiting port positions when possible.
+igen.portpos.renew		TODO: Regenerate all port positionings.
+
+igen.caption		TODO: Generate Interface
+
+igen.description		-begin-
+TODO: Create a new interface for a module.
+-end-
+
+info.script.error		TODO: Script Errors
+
+module.props		TODO: Module Properties
+
+ipanel.plist		TODO: Port List
+ipanel.props		TODO: Interface Properties
+#ipanel.itype.change	Change Type...
+#ipanel.itype.edsymbol	Edit Symbol...
+ipanel.block		TODO: Block
+ipanel.symbol		TODO: Symbol
+
+ipanel.autogen		TODO: Auto Generate
+ipanel.updateall		TODO: Synchronize All...
+
+ipanel.itype.select		TODO: Interface Type
+
+#ipanel.block.description	Standard Interface
+#ipanel.symbol.description	Custom Symbol Interface
+
+ipanel.ppos.label		TODO: Block resize port handling:
+ipanel.ppos.fix		TODO: Fixed positions
+ipanel.ppos.scale		TODO: Scaled positions
+#ipanel.ppos.grid	Grid
+
+ipanel.warn.toblock		-begin-
+TODO: You are about to change the interface type for this module to "block".  This will result in the current interface data being destroyed.  Are you sure you want to do this?
+-end-
+
+ipanel.warn.tosymbol		-begin-
+TODO: You are about to change the interface type for this module to "symbol".  This will result in the current interface data being destroyed.  You will also need to create a bitmap image for your new symbol.  Are you sure you want to do this?
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+blklst.claim		Mdulo libreria -> Mdulo ususario
+blklst.to		a
+blklst.from		TODO: From
+blklst.name		TODO: Name
+blklst.new.cap		TODO: Create New Module
+blklst.del.cap		Borra Mdulo
+blklst.copy.cap		TODO: Copy Module
+blklst.rename.cap		TODO: Rename Module
+blklst.claim.cap		TODO: Claim Module
+blklst.setroot.cap		TODO: Set Root Module
+
+blklst.new.exp		-fillbegin-
+TODO: Use this dialog box to create a new module definition.  You can create the module as a netlist or an HDL module, but once created you will not be able to modify the type without deleting and rebuilding the module.
+-end-
+
+blklst.del.exp		-fillbegin-
+TODO: Delete the definition and interface data for the specified module.  Existing instances of the deleted module will be retained but will be marked as undefined.
+-end-
+
+blklst.copy.exp		-fillbegin-
+TODO: Create a copy of the specified module definition.  Use this to create a new variant of an existing module.
+-end-
+
+blklst.rename.exp		-fillbegin-
+TODO: Rename a module definition.  This operation will affect only the definition, any existing instances of this module will continue to point to the old module name.
+-end-
+
+blklst.claim.exp		-fillbegin-
+TODO: Convert a library module to a user module.  This allows the module to be edited and to be saved with the user circuit.
+-end-
+
+blklst.setroot.exp		-fillbegin-
+TODO: Make the specified module the top-level module.
+-end-
+
+
+find.label		TODO: Find Objects
+find.exp		-fillbegin-
+TODO: Look for text either in a gate name, a wire name or in the text of a comment. Double click on a result to go to that item.
+-end-
+
+find.ignorecase		TODO: Ignore Case
+
+find.result.module		TODO: Module
+find.result.type		TODO: Type
+find.result.name		TODO: Object Name
+
+#
+# These are special tags used by the search feature.  Do not change their value.
+#
+@find.type.gate		gate
+@find.type.net		net
+@find.type.comment		comment
+
+find.options		TODO: Search Options
+find.results		TODO: Search Results
+
+#
+# This is a special tag used to indicate whether the position qualifier box
+# should be "before" or "after" the text entry box.  Use the keywords before
+# or after to indicate the position.
+#
+@find.qual.pos		before
+
+find.qual.contains		TODO: Contains...
+find.qual.begins		TODO: Begins with...
+find.qual.ends		TODO: Ends with...
+find.qual.matches		TODO: Matches...
+
+find.dom.label		TODO: Look for objects in:
+find.dom.gates		TODO: Gates
+find.dom.nets		TODO: Nets
+find.dom.text		TODO: Comment Text
+
+find.search		TODO: Find:
+find.target		TODO: Target
+
+#
+# These are special tags used to indicate the image file to be used for
+# displaying port types.
+#
+@portlist.in		port_in1.gif
+@portlist.out		port_out1.gif
+@portlist.inout		port_inout1.gif
+@portlist.in2		port_in2.gif
+@portlist.out2		port_out2.gif
+@portlist.inout2		port_inout2.gif
+
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.label		TODO: Circuit Properties
+circ.ident		TODO: Identification
+circ.filev		TODO: File Version
+circ.file		TODO: File Name
+circ.title		TODO: Circuit Title
+circ.discchg		Descartar cambios
+circ.extbar		TODO: Use extender bars.
+circ.autostart		TODO: Enable auto-start of simulation.
+circ.iniscript		Guiones de Inicializacin
+#circ.noscript		No script files selected.
+#circ.really		Do you really want to remove '%s' from the list of initialization scripts.
+
+circ.script.cap		TODO: Edit Script
+circ.script.label		TODO: Edit script name:
+circ.vlib.cap		TODO: Edit Library
+circ.vlib.label		TODO: Library script name:
+
+circ.reallyupdate		-fillbegin-
+TODO: Do you really want to update the interface of all '%s' instances?
+-end-
+
+@circ.tabwidth		100
+@circ.width		650
+@circ.height		400
+
+circ.general		TODO: General
+circ.library		TODO: Libraries
+circ.script		TODO: Script
+circ.simulator		TODO: Simulation
+circ.timescale		TODO: Default Simulation Time Scale
+circ.timescale.unit		TODO: Units:
+circ.timescale.prec		TODO: Precision:
+
+
+circ.exp.general		-fillbegin-
+TODO: View and modifiy circuit specific properties. These properties will be stored with the circuit when you save.
+-end-
+
+circ.exp.library		-fillbegin-
+TODO: Select libraries required by this circuit. Library requirements are saved with the circuit and will be automatically loaded the next time you load this circuit.
+-end-
+
+circ.exp.simulator		-fillbegin-
+TODO: View and modifiy simulation preferences for this circuit.
+-end-
+
+##############################################################################
+#
+# Library Manager
+#
+libmgr.cap		TODO: Library Manager
+libmgr.library		TODO: Library
+libmgr.description		TODO: Description
+libmgr.status		TODO: Status
+libmgr.status.load		TODO: Loaded
+libmgr.status.unload		TODO: Not Loaded
+libmgr.status.loadp		TODO: [Loaded]
+libmgr.status.unloadp		TODO: [Not Loaded]
+libmgr.exp		-fillbegin-
+TODO: Select libraries to be loaded or unloaded.
+-end-
+libmgr.load		TODO: Load
+libmgr.unload		TODO: Unload
+libmgr.unloadall		TODO: Unload All
+
+libmgr.notedit		-fillbegin-
+TODO: Must be in circuit edit mode to open library manager.
+-end-
+
+#############################################################################
+#
+# Dynamic Verilog Module Manager
+#
+break.tab		TODO: Breakpoints
+break.id		TODO: ID
+break.state		TODO: S
+break.condition		TODO: Condition
+break.value		TODO: Value
+
+
+##############################################################################
+# Simulator
+#
+#sim.breakpt		Breakpoint
+
+sim.recursive		-fillbegin-
+TODO: Recursive module definition found at '%s'.  Can not start simulator or perform critical path analysis.
+-end-
+sim.hyperlinkstop		-fillbegin-
+TODO: The simulator is currently running.  Would you like to stop the simulation and follow the link?
+-end-
+
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		Retraso del camino:
+cp.pathl		Lista de caminos:
+cp.numpath		Nmero de caminos:
+cp.recompute		Recmputo
+
+##############################################################################
+# Error messages
+#
+err.rootinterface		TODO: Can not set interface of root module.
+err.nopin		No puedo cambiar la patilla seleccionada.
+err.badhex		Valor hexadecimal incorrecto. Ignoro '%s'.
+err.gatanchor		Puertas Ancladas no pueden moverse.
+err.protdata		TODO: Can not modify contents of protected or library module.
+err.badfind		No puedo encontrar '%s' como destino.
+err.badopendel		No puedo borrar el mdulo abierto.
+err.nosrcmod		No puedo encontrar '%s' como mdulo fuente.
+err.noerr		No puedo indicarle el error.
+err.misserr		Error informacin incompleta (did the simulator crash?)
+
+err.badinadd		No puedo aadir m-Aás entradas a la puerta seleccionada.$)B
+err.badoutadd		No puedo aadir m-Aás salidas a la puerta seleccionada.$)B
+err.badinoutadd		No puedo aadir m-Aás lineas bidireccionales a la puerta$)B
+err.badpinchg		No puedo cambiar el tipo de patillas de la puerta.
+err.badnetname		He borrado caracteres incorrectos en el identificador.
+err.netbcrename		Identificador cambia a '%s' por caracteres incorrectos.
+err.netconfnet		Identificador cambia a '%s' debido a un conflicto.
+err.netconfgat		Identificador cambia debido a conflicto con nombre de puerta b-Aásica.$)B
+err.netconfkw		Identificador cambia debido a conflicto con palabra reservada.
+err.badconsame		Unin rechazada debido a que los cables forman parte de la misma conexin.
+err.badconptsp		Unin rechazada debido a que ambos cables son patillas de mdulos o alimentacin.
+err.badconbitw		Unin rechazada por no poderse emparejar la anchura de los dos buses.
+err.badrange		No se permite visualizar el rango no positivo de la seal.
+err.badlprcmd		No puedo ejecutar el comando  '%s' de impresin.
+err.badpsopen		No puedo abrir el fichero '%s' para salida postscript.
+err.badid		TODO: Illegal identifier '%s'.
+err.noinvgate		TODO: Inverters are not allowed on gates of this type.
+
+err.protintf		TODO: Can't modifiy protected interface on module '%s'.
+
+err.bkpt.badexp		Error de sintaxis en expresin para punto de ruptura. Debe ser una de las siguientes: 'conexin', '!conexin', 'conexin == valor', 'conexin != valor'
+err.bkpt.badnet		'%s' es un nombre incorrecto de conexin. Los nombres v-Aálidos deben empezar por una letra y contener slo letras, nmeros y el signo '.'.$)B
+err.bkpt.badval		Error de sintaxis en el valor '%s'.  Debe ser decimal o una constante en el estilo Verilog.
+err.bkpt.toomany		Demasiados puntos de ruptura.  El m-Aáximo es de %d.$)B
+
+err.sim.badtmp		No puedo salvar el fichero temporal '%s' para la simulacin ( -A¿ Disco lleno ? )$)B
+err.sim.syntx		Error de sintaxis en el comando '%s'.
+err.sim.noincl		El fichero Include '%s' no se encuentra.
+err.sim.badedge		Ilegal indicador en el pulso '%c' del comando de reloj.
+err.sim.nobkpt		No existe punto de ruptura '%s'.
+err.sim.nonet		No puedo encontrar la conexin '%s'.
+err.sim.nogate		No puedo encontrar la puerta '%s'.
+err.sim.badbin		'%s' es un car-Aácter incorrecto en constante binaria.$)B
+err.sim.notswitch		La puerta '%s' no es un conmutador, dip o registro.
+err.sim.badcmd		No reconozco el comando '%s' en el guin de simulacin.
+err.sim.isrun		El simulador est ejecutandose en estos momentos (Utiliza 'Ctrl-s e' para terminar).
+err.sim.run		TODO: Run-time Error
+err.sim.cmd		TODO: Internal Command Error
+
+err.noteditpchg		Las propiedades slo pueden cambiarse en modo Edicin.	
+err.badeditop		Operacin ilegal en el modo de Edicin.
+err.badopen		No se puede abrir el fichero '%s'.
+err.badlibopen		No puedo abrir la libreria '%s'.
+
+err.nomark		Por favor marca con el botn izquierdo antes de seleccionar el tipo de puerta.
+err.badgate		No conozco ese tipo de puerta.
+
+err.badportadd		TODO: Can't add ports to gates of this type.
+
+err.modmissing		TODO: HDL module text missing for module "%s".
+err.modtoomany		TODO: Excess module definitions in module "%s".
+err.modmismatch		TODO: Name mismatch between text definition and module name in "%s".
+
+err.manypages		-fillbegin-
+Hay un montn de p-Aáginas en este documento. ¿ Estás seguro de querer imprimirlo ?.$)B
+-end-
+
+err.nojump		-fillbegin-
+La posibilidad de 'saltar al mdulo' no se  puede utilizar en el modo de simulacin o en el an-Aálisis de un camino crítico. Por favor navega de forma manual hasta el bloque de destino seleccionando los mdulos adecuados y utilizando la opcin '>' del teclado. Se  acceder al mdulo de nivel superior en la jerarquia actuando sobre la tecla '<'.$)B
+-end-
+
+err.nomod		Mdulo '%s' no est definido.
+err.modlock		!Este bloque lgico lo est visualizando!
+err.closeroot		No puedo cerrar el mdulo principal. Utiliza la opcin Salir del men Fichero.
+err.editonly		Comando incorrecto en el modo de Simulacin.
+err.simonly		Comando slo v-Aálido en modo Simulacin.$)B
+
+err.deltop		TODO: Can not delete top-level module '%s'.
+err.delprot		TODO: Can not delete protected module '%s'.
+err.nodel		No se puede borrar lo seleccionado.
+err.modnotdef		Mdulo '%s' no definido.
+err.moddef		El bloque '%s' ya existe.
+err.primredef		TODO: Built-in element name '%s' can not be redefined.
+err.noprop		No se pueden editar las propiedades de la puerta seleccionada.
+err.openscript		No puedo abrir el fichero de guin de simulacin '%s'
+err.oldversion		Cargado fichero de la versin %s, obsoleta (la m-Aás reciente es la versin %s).$)B
+err.futureversion		Fichero salvado en la versin %s, futura versin del programa tkgate (la versin actual es %s).
+err.badversion		Se desconoce el nmero de versin.  Usada bajo su responsabilidad.
+err.nodrive		Conexin %s no posee entrada en el mdulo %s.
+err.noconn		Cable %s{%d} no posee conexiones - lo borramos.
+err.oldportact		TODO: Please right click on port or module edge to add/change port.
+err.nomodule		TODO: No selected module.
+err.nomodop		TODO: No suitable modules for operation.
+err.protexec		TODO: Attempted execution of protected command '%s' in $tkg$exec().
+
+err.notwritable		TODO: File '%s' is not writable.
+err.backupfail		TODO: Unable to create backup file '%s'.
+
+err.yy.badprop		TODO: Ignoring unknown circuit property '%s'.
+err.yy.baddata		TODO: Bad data type supplied for circuit property '%s'.
+err.yy.nosym		TODO: No current module symbol.
+err.yy.badicon		TODO: Bad icon type '%s'.
+err.yy.toomuchdata		TODO: Too much icon data.
+err.yy.nosyminst		TODO: Missing symbol %d on instance %s of %s.
+err.yy.badmodprop		TODO: Ignoring unknown module property '%s'.
+err.yy.badmoddata		TODO: Bad data type supplied for module property '%s'.
+err.yy.badprim		TODO: Unknown primitive name '%s'.
+err.yy.nonet		TODO: Undeclared net '%s'.
+err.yy.bogussave		TODO: Bogus save data detected. circuit may be damaged.
+err.yy.pinformat		TODO: Illegal pin name format '%s'.
+err.yy.pinname		TODO: Pin name '%s' not defined for gate type '%s'
+err.yy.nonetpos		TODO: No net for position %d on gate %s.
+err.yy.baddirective		TODO: Illegal or badly formed directive '%s'.
+
+err.corruptnewsave		-fillbegin-
+TODO: TkGate was able to save your file in '%s', but it appears to be corrupted.  If you have checkpointing enabled try loading one of the checkpoint files.  Use 'tkgate -V' to check the integrety of a save file.
+-end-
+
+err.corruptsave		-fillbegin-
+TODO: TkGate detetected a problem while trying to save the file '%s'. The existing file has been left unmodified and the damaged file has been written to '%s'.  If you have checkpointing enabled you can try loading one of the checkpoint files.  You can also use 'tkgate -V' to check the integrety of a save file.
+-end-
+
+err.badsave		-fillbegin-
+TODO: A problem has occured trying to open or write the file '%s'.  Check file/directory protections and or disk space.
+-end-
+
+err.nosafesave		-fillbegin-
+TODO: A problem has occured attempting to save '%s'.  If you wish, you can try again without save validation.  If you say "no", the original file will remain unmodified.  If you say "yes" the original file will be overwritten, but may be destroyed if a problem occurs.  Would you like to attempt an unvalidated save?
+-end-
+
+err.noback		-fillbegin-
+El fichero %s, se crear por el programa tkgate, y no puede leerse por versiones anteriores a la actual (%s), si decide salvarlo. 
+-end-
+
+err.viewfile		TODO: Can not open file '%s'.
+
+
+##############################################################################
+#
+# Internal error messages (indicating a problem with tkgate)
+#
+err.internal.nomod		TODO: internal error: Failed to find module '%s'.
+
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		Seleccionado cable denominado '%s'.
+msg.selgate		Seleccionado %s denominado '%s'.
+msg.selblock		Seleccionado bloque %s denominado '%s'.
+msg.iselwire		TODO: Selected port '%s' on block '%s'.
+msg.iselgate		TODO: Selected %s named '%s' (huh? this message should be impossible).
+msg.iselblock		TODO: Selected module interface for '%s'.
+
+msg.modoverwt		Mdulo de destino '%s' existe. -A¿ Sobreescribir ?$)B
+msg.foundgate		Encontrada puerta denominada '%s'.
+msg.foundwire		Encontrado cable denominado '%s'.
+msg.searchagn		Cadena destino '%s' no encontrada.  Pulsa 'find' para reiniciar la bsqueda.
+msg.sim.chgtoroot		El modo Simulacin requiere el mdulo principal en la cima de la pila de Edicin.
+msg.sim.nogatemod		Modo SimulacinSimulation requiere un mdulo concreto de pila.
+msg.setinterface		Ajustar el interfaz del mdulo para '%s'.
+msg.needsel		Por favor selecciona una instancia de mdulo.
+msg.wroteckpt		Chequea punto a %s...
+msg.save		Salva circuito como '%s'.
+msg.reallynew		El circuito se ha modificado. -A¿ Realmente desea perder los cambios y crear uno nuevo ?$)B
+msg.reallyquit		El circuito se ha modificado. -A¿ Realmente desea salir ??$)B
+msg.notlib		'%s' no es un mdulo de libreria.
+
+##############################################################################
+# Miles messages (Activated when Miles Bader uses tkgate)
+#
+miles.msg1		Slo un loco colocaria %s%s aqu, Miles.
+miles.msg2		Es realmente un estpido lugar donde colocar %s%s, Miles.
+miles.msg3		Es un lugar horrible para colocar %s%s, Miles.
+miles.msg4		Miles, debes estar loco si colocas %s%s aqu.
+miles.msg5		Slo tu puedes colocar %s%s aqu, Miles.
+miles.msg6		Colocar %s%s aqu es un prueba m-Aás de que eres absolutamente estpido, Miles.$)B
+miles.msg7		No sabes lo que haces, Miles, es un circuito estpido.
+miles.msg8a		Es intil continuar, Miles.
+miles.msg8b		Es obvio que no puedes disear un circuito
+
+
+#############################################################################
+#
+# Error messages generated by verga
+#
+verga.err.OK		TODO: Don't worry, be happy.
+verga.err.INPORT		TODO: Port size mismatch on input port '%s'.
+verga.err.OUTPORT		TODO: Port size mismatch on output port '%s'.
+verga.err.FLOATNET		TODO: Net '%s' has no drivers (floating net).
+verga.err.DIRECTCONN		TODO: Direct connect operator '=>' unsupported.  Treated as '*>'.
+verga.err.MEMADDR		TODO: Attempt to write to memory %s with unknown address.
+verga.err.MEMBITS		TODO: Attempt to write to memory %s with unknown bitrange.
+verga.err.BADARRAYUSG		TODO: Array '%s' used in expression without index.
+verga.err.BADARRAYLHS		TODO: Array '%s' used without index on left-hand-side.
+verga.err.BADCLOSE		TODO: Attempt to close non-open descriptor in task '%s'.
+verga.err.BADAUTORNG		TODO: Auto range [*] is only valid with 'wire' declaration.
+verga.err.BADGATERNG		TODO: Bad gate instance range expression.
+verga.err.BADARGVALUE		TODO: Bad value for argument '%s' in task '%s'.
+verga.err.DIVZERO		TODO: Divide by zero.
+verga.err.NODIV		TODO: Divide/module unsupported on this machine - sizeof(short) must be 2.
+verga.err.BADEDGEEVENT		TODO: Event on multi-bit net '%s' can not have posedge/negedge.
+verga.err.NEEDEDGE		TODO: Must specify posedge or negedge on event for %s.
+verga.err.ASGNEVENT		TODO: Event wait on assign is illegal.
+verga.err.PROTTASK		TODO: Execution of protected system task '%s' blocked.
+verga.err.NEEDIDENT		TODO: Expecting identifier for argument %s of task '%s'.
+verga.err.BADOP		TODO: Expression operator error in '%s'.
+verga.err.NOREAD		TODO: Failed to load source file '%s'.
+verga.err.MEMFILE		TODO: Failed to open memory file '%s'.
+verga.err.WRONGMOD		TODO: Found module '%s' when expecting '%s'.
+verga.err.NOTPARM		TODO: Identifier '%s' in constant expression is not a parameter.
+verga.err.BADADDR		TODO: Illegal address range on port '%s'.
+verga.err.BADADDRSPEC		TODO: Illegal address range specification '%s'.
+verga.err.BADCHAR		TODO: Illegal character (%s) '%s'.
+verga.err.BADEVENT		TODO: Illegal event control expression.
+verga.err.BADCONSTOP		TODO: Illegal operator in constant expression.
+verga.err.BADXOP		TODO: Illegal operator in expression.
+verga.err.NETREDEF		TODO: Illegal redefinition of net '%s'.
+verga.err.BADINOUT		TODO: Inout connections must be net-to-net on port '%s'.
+verga.err.MODUNDEF		TODO: Instance of undefined module '%s'.
+verga.err.BADASGNLHS		TODO: Invalid left-hand-side in 'assign'.
+verga.err.LHSNOTREG		TODO: Illegal use of '%s' in left-hand-side of assignment.
+verga.err.BADLHS		TODO: Invalid left-hand-side in assignment.
+verga.err.BADOUT		TODO: Invalid output assignment.
+verga.err.NOTREG		TODO: Memories must be declared as register.
+verga.err.PORTMIX		TODO: Mixed named and unnamed ports on interface '%s' of '%s'.
+verga.err.REPCASE		TODO: More than one default: in case statement.
+verga.err.NOMEM		TODO: No current memory in memory file read.
+verga.err.BADCMD		TODO: No such command '%s'.
+verga.err.CMDNOTNET		TODO: No such net '%s' in '%s' command.
+verga.err.MEMNONBLK		TODO: Non-blocking assignments to memories not implemented.
+verga.err.NOTPPORT		TODO: Parameter '%s' is not declared as a port.
+verga.err.REDEFP		TODO: Parameter redefines identifier '%s'.
+verga.err.PORTNOTDEF		TODO: Port '%s' on interface '%s' is not defined in module '%s'.
+verga.err.NOCONN		TODO: Port '%s' has no connections on interface '%s' of '%s'.
+verga.err.MULTCONN		TODO: Port '%s' has multiple connections on interface '%s' of '%s'.
+verga.err.PORTCOUNT		TODO: Port count does not match definition on interface '%s' of '%s'.
+verga.err.BADPRTRANGE		TODO: Range on port '%s' is not numeric.
+verga.err.BADARRAYRNG		TODO: Range specification not allowed for memory reference of '%s'.
+verga.err.CMDMODREDEF		TODO: Redefinition of dynamic module '%s'.
+verga.err.REDEF		TODO: Redefinition of identifier %s.
+verga.err.PROTTASKSTOP		TODO: Simulation stopped on attempted execution of protected system task '%s'.
+verga.err.NOTMEM		TODO: Specified net '%s' is not a memory.
+verga.err.CMDNOTMEM		TODO: Specified net '%s' is not a memory in '%s' command.
+verga.err.SYNTAX		TODO: Syntax error.
+verga.err.TOOFEWPP		TODO: Too few parameter ports on instance %s.
+verga.err.OPENTOOMANY		TODO: Too many files open in task '%s'.
+verga.err.TOOMANYPP		TODO: Too many parameter ports on instance %s.
+verga.err.NOTOP		TODO: Top-module '%s' not defined.
+verga.err.BADOPEN		TODO: Unable to open output file '%s' in task '%s'.
+verga.err.CMDNOMOD		TODO: Undefined dynamic module '%s' in '%s' command.
+verga.err.BADEVENTNET		TODO: Undefined net '%s' in event control expression.
+verga.err.NOTASK		TODO: Undefined task '%s'.
+verga.err.NOTDEF		TODO: Undefined variable '%s'.
+verga.err.BADRANGE		TODO: Unsupported bit range [%s] on net %s (must be of form [n:0]).
+verga.err.GATEUNIMP		TODO: Unimplemented primitive gate instance type.
+verga.err.USAGE		TODO: Usage: thyme [options][files...]
+verga.err.CLSDWRITE		TODO: Write to closed descriptor.
+verga.err.PRIMPTCOUNT		TODO: Wrong number of ports on primitive gate instance '%s'.
+verga.err.CMDARGS		TODO: Wrong number of arguments in '%s' command.
+verga.err.YYERROR		TODO: YYError - %s.
+verga.err.TASKARGS		TODO: Task '%s' called with wrong number of arguments.
+verga.err.BADSTART		TODO: Illegal start value in task '%s'.
+verga.err.BADSTOP		TODO: Illegal stop value in $readmemb.
+verga.err.SPECTASKUSG		TODO: Task '%s' must be used in a specify block.
+verga.err.BADSPECTASK		TODO: Task '%s' can not be used in a specify block.
+verga.err.TIMING		TODO: Timing violation at %s in %s[%s] %s.
+verga.err.NOIFDEF		TODO: No matching `ifdef/`ifndef for %s declaration.
+verga.err.BADSPECLVAL		TODO: Bit-ranges on path delay specifiers unsupported.
+verga.err.PATHDITEM		TODO: Unsupported construct in module with path-delay specification.
+verga.err.PATHDINOUT		TODO: Use of 'inout' in module with path-delay specification is unsupported.
+verga.err.PATHDLOOP		TODO: Loops in modules with path-delay specification are unsupported.
+verga.err.PATHDCOND		TODO: DelaMust set through both # expression and specify block. 
+verga.err.TASKREDEF		TODO: Redefinition of task or function '%s' in module '%s'.
+verga.err.TASKASFUNC		TODO: Task '%s' used as function.
+verga.err.FUNCASTASK		TODO: Function '%s' used as task.
+verga.err.TASKBADTYPE		TODO: Non-register type used in task or function.
+verga.err.TASKBADPORT		TODO: Only input ports are allowed on functions.
+verga.err.TIMESCALEU		TODO: Invalid units '%s' in `timescale declaration.
+verga.err.TIMESCALEN		TODO: Invalid scale '%s' in `timescale declaration (must be 1, 10 or 100).
+verga.err.TIMESCALES		TODO: Invalid syntax in `timescale declaration.
+verga.err.TIMESCALEX		TODO: Units must be larger than precision in `timescale declaration.
+verga.err.TIMESCALEAN		TODO: Design contains some modules with `timescale and some without.
+verga.err.BADPORTTYPE		TODO: Invalid type declaration used on port '%s'
+verga.err.BADVALUE		TODO: Bad numeric value '%s'.
+verga.err.NONEXPCTL		TODO: Event control @(*) applied to non-expression.
+verga.err.NONSTATCTL		TODO: Event control @(*) applied to non-statment.
+verga.err.IE_TASK		TODO: Task definition '%s' found outside module - internal error.
+verga.err.IE_NONET		TODO: Failed to find net '%s' - internal error.
+verga.err.IE_NOOP		TODO: Can not find operator description -- internal error.
+verga.err.IE_BADEXP		TODO: Unexpected expression type %s - internal error.
+verga.err.IE_BADVAR		TODO: Undefined variable or unknown net - internal error.
+verga.err.IE_BADSTATE		TODO: Unexpected internal state at %s  - internal error.
+verga.err.IE_RETURN		TODO: Executed BCReturn bytecode with empty return stack - internal error.
+
+
+##############################################################################
+#
+# Errors for primitive handling.  These are internal errors and probably do
+# not need to be translated.
+#
+primitive.err.missing		TODO: Internal Error: primitive definition for '%s' is missing.
+primitive.err.nomodule		TODO: Internal Error: primitive definition for '%s' is missing 'module'.
+primitive.err.nomodname		TODO: Internal Error: missing module name in definition of '%s' module.
+primitive.err.wrongname		TODO: Internal Error: module name mismatch in definition of '%s' module.
+
+
+##############################################################################
+##############################################################################
+##############################################################################
+# Balloon Help
+##############################################################################
+##############################################################################
+##############################################################################
+
+
+ho.setsel.allr		TODO: Move all items to selected list.
+ho.setsel.alll		TODO: Move all items to unselected list.
+ho.setsel.ltor		TODO: Move highlighted items to selected list. 
+ho.setsel.rtol		TODO: Move highlighted items to unselected list. 
+
+ho.net.in		TODO: Single-Bit Input
+ho.net.out		TODO: Single-Bit Output
+ho.net.inout		TODO: Single-Bit Inout
+ho.net.in2		TODO: Multi-Bit Input
+ho.net.out2		TODO: Multi-Bit Output
+ho.net.inout2		TODO: Multi-Bit Inout
+ho.net.wire		TODO: Single-Bit Wire (Name Visible)
+ho.net.wire2		TODO: Multi-Bit Wire (Name Visible)
+ho.net.hwire		TODO: Single-Bit Wire (Name Hidden)
+ho.net.hwire2		TODO: Multi-Bit Wire (Name Hidden)
+ho.net.reg		TODO: Single-Bit Reg
+ho.net.reg2		TODO: Multi-Bit Reg
+
+
+ho.opt.tool.file		TODO: Save, load of circuit files
+ho.opt.tool.edit		TODO: Cut, Paste and Find operations
+ho.opt.tool.gateopt		TODO: Gate rotation and alignment operations
+ho.opt.tool.gateprop		TODO: Basic editing of gates
+ho.opt.tool.undo		TODO: Undo and redo operations
+ho.opt.tool.zoom		TODO: Zoom in and zoom out
+ho.opt.tool.mode		TODO: Select the editing tool
+ho.opt.tool.module		TODO: Create, delete, rename,etc. of module definitions
+ho.opt.tool.tech		TODO: Select default technology for gates
+ho.opt.tool.simctl		TODO: Start, stop and pause of simulator
+ho.opt.tool.simaux		TODO: Auxliary simulator commands (read/write memory files, etc.)
+ho.opt.tool.simmode		TODO: Choose between the select and scroll tool in simulator.
+ho.opt.tool.symmode		TODO: Selecting editing tool in symbol editor
+ho.opt.tool.symedit		TODO: Cut and paste operations for symbol editor
+ho.opt.tool.symport		TODO: Port rotation operations for symbol editor
+ho.opt.tool.symshift		TODO: Shift the bit map or portion of bitmap
+ho.opt.tool.symopr		TODO: Miscellaneous symbol editor operations
+
+ho.opt.editor.movesel		-begin-
+TODO: If this option is enabled, a selected block of text can be grabbed with the mouse pointer and moved to a new location.
+-end-
+
+ho.opt.editor.format		-begin-
+TODO: If enabled, verilog source code will be automatically indented when pressing the tab key.
+-end-
+
+ho.opt.editor.indent		-begin-
+TODO: Number of spaces to indent per level.
+-end-
+
+ho.opt.editor.rtab		-begin-
+TODO: Automatically indent the current line and tab to the appropriate level when pressing the return key.
+-end-
+
+ho.opt.editor.beginindent		-begin-
+TODO: Causes a begin..end block to be indented to the same level as its parent block.
+-end-
+
+ho.opt.editor.colorize		-begin-
+TODO: Enable context-dependent colorization of code according to the options listed below.
+-end-
+
+ho.hdl.splitexp		-begin-
+TODO: Multiple modules in the HDL text will be split into different modules defining new modules as necessary.  Any name conflicts will be resolved by slightly modifying module names as necessary.
+-end-
+
+ho.hdl.commentexp		-begin-
+TODO: Modules other than the first module or module matching the expected name will be converted to HDL comments.
+-end-
+
+ho.hdl.autoeditexp		-begin-
+TODO: Automatically edit the HDL description to fix the module name.
+-end-
+
+ho.hdl.cancelexp		-begin-
+TODO: Take no action and continue editing the current module.
+-end-
+
+ho.hdl.ignoreexp		-begin-
+TODO: Ignore the inconsistency and continue with the selected action.
+-end-
+
+ho.new		-begin-
+Borra el circuito actual y, empieza a editar uno nuevo.
+-end-
+
+ho.open		Fichero -> Circuito
+ho.save		Circuito -> Fichero actual
+ho.saveas		TODO: Save circuit to specified file.
+ho.print		Circuito -> Impresora
+ho.library		TODO: Load a library file.
+
+ho.symed.tab.normal		-begin-
+TODO: Edit the unselected symbol bitmap.
+-end-
+
+ho.symed.tab.select		-begin-
+TODO: Edit the selected symbol bitmap.
+-end-
+
+ho.move		-begin-
+Move/Connect - Pulsando y arrastrando el ratn puedes:   Ajustar la posicin de una puerta reci-Aén insertada   Mover puertas y conexiones ya colocadas   Conectar cables entre patillas de puertas Realizando una doble pulsacin puedes:   Editar las propiedades de puertas, conexiones y puertos   Editar el texto de los comentarios$)B
+-end-
+
+ho.delgat		-begin-
+borrar puerta - Usa esta herramienta para borrar las puertas.
+-end-
+
+ho.cutw		-begin-
+Corta cables - Usa esta herramienta para desconectar cables.
+-end-
+
+ho.inv		-begin-
+Invertir - Usa esta herramienta para insertar o borrar inversiones  de las patillas de las puertas.
+-end-
+
+ho.bitw		-begin-
+Anchura del Bus - Usa esta herramienta para cambiar el nmero de lineas del Bus. Introduce dicho nmero en la  parte inferior derecha de la ventana.
+-end-
+
+ho.ipanel.select		-begin-
+TODO: Use "standard" modules for regular rectangular interfaces.  Use "symbol" modules for custom bitmaped symbols.
+-end-
+
+ho.ipanel.addport		-begin-
+TODO: Add a port to the module.  You can also double-click after the last item to add port.
+-end-
+
+ho.ipanel.deleteport		-begin-
+TODO: Delete the selected port.
+-end-
+
+ho.ipanel.editport		-begin-
+TODO: Edit the selected port.  You can also double-click to edit a field in a port.
+-end-
+
+ho.ipanel.generate		-begin-
+TODO: Generate a new interface for a module based on ports in the port list and port elements used in the module definition.
+-end-
+
+ho.ipanel.updateall		-begin-
+TODO: Replace the interface on all instances of this module with the canonical interface shown here.
+-end-
+
+
+ho.ipanel.prot		-begin-
+TODO: Do not allow the definition of a module to be modified.
+-end-
+
+ho.ipanel.protint		-begin-
+TODO: Do not allow the interface of a module to be modified.
+-end-
+
+ho.ipanel.proted		-begin-
+TODO: Do not allow the interface of a module to be modified except through the interface editor.  Use this to prevent accidental modification of the interface in the main edit window.
+-end-
+
+ho.ipanel.scale		-begin-
+TODO: Scale the distance between ports as a module is resized.
+-end-
+
+ho.ipanel.fix		-begin-
+TODO: Keep the distance between ports fixed even if the module is resized.
+-end-
+
+ho.mod.open		Abre el mdulo seleccionado.
+ho.mod.close		Cierra el mdulo actual.
+
+ho.mod.new		TODO: Create a new module type.
+ho.mod.del		TODO: Delete a module.
+ho.mod.copy		TODO: Copy a module.
+ho.mod.rename		TODO: Rename a module.
+ho.mod.claim		-begin-
+TODO: Convert a library module to a regular module.
+-end-
+ho.mod.setroot		-begin-
+TODO: Designate a module to be the root module.
+-end-
+
+ho.mod.type.allparts		TODO: Set of Libraries
+ho.mod.type.partlib		TODO: Library
+ho.mod.type.part		TODO: Library module
+ho.mod.type.unknown		TODO: Unknown module type
+ho.mod.type.unused		TODO: Set of unused modules
+ho.mod.type.conflict		TODO: Module recursion
+ho.mod.type.root		TODO: Top-level module
+ho.mod.type.netlist		TODO: Netlist module
+ho.mod.type.Lnetlist		TODO: Netlist module (locked)
+ho.mod.type.hdl		TODO: HDL module
+ho.mod.type.Lhdl		TODO: HDL module (locked)
+
+ho.undo		TODO: Undo previous action(s)
+ho.redo		TODO: Redo undone action(s)
+
+ho.tab.edit		-begin-
+TODO: Primary editing mode.
+-end-
+
+
+ho.tab.interface		-begin-
+TODO: Edit module interfaces.  While in interface mode, double click on a module in the module list to edit its interface, or on the root module to display all interface.
+-end-
+
+
+ho.tab.simulate		-begin-
+TODO: Start the simulator, open the logic analyzer and execute any initialization scripts if defined.
+-end-
+
+
+ho.tab.cpath		-begin-
+Encuentra caminos cr-Aíticos en el circuito.$)B
+-end-
+
+ho.log		-begin-
+TODO: Log of tkgate messages including error messages, information messages and simulator console output.
+-end-
+
+ho.simgo		-begin-
+Si no estamos simulando, inicia la  Simulacin y ejecuta cualquier guin de inicializacin. Si estamos simulando, se coloca en modo continuo o interactivo.
+-end-
+
+ho.simpause		-begin-
+Para la simulacin en curso.
+-end-
+
+ho.simstep		-begin-
+Avanza la simulacin un intervalo de tiempo fijo. Abre el submenu Opciones de Simulacin para ajustarlo.
+-end-
+
+ho.simclock		-begin-
+Avanza la simulacin un nmero fijo de ciclos de reloj. Abre el submenu Opciones de Simulacin para ajustarlo.
+-end-
+
+ho.simstop		-begin-
+Finaliza la simulacin en curso y vuelve al modo de Edicin.
+-end-
+
+ho.simbreak		-begin-
+Edita los puntos de ruptura. La Simulacin se detendr cuando la condicin ajustada sea vuelva verdadera.
+-end-
+
+ho.simexec		-begin-
+Ejecuta un guin de simulacin.
+-end-
+
+ho.simoptions		-begin-
+TODO: Set various options that control the simulation.
+-end-
+
+ho.simload		-begin-
+Carga la memoria con el contenido de un fichero con extensin mem.
+-end-
+
+ho.simdump		-begin-
+Almacena el contenido de la memoria en un fichero con extensin mem.
+-end-
+
+ho.f.modlist		-begin-
+Lista todos los mulos actualmente cargados. El mdulo principal, el superior en la jerarquia se indica con el signo "+", los mdulos de libreria se visualizan entre par-Aéntesis.$)B
+-end-
+
+ho.f.modlisttab		-begin-
+TODO: List of all modules currently loaded. You can display the list in either alphabetical or hierarchical form by selecting the appropriate tab. Drag modules to the edit window to create new instances.
+-end-
+
+ho.netlist		-begin-
+Lista todas las conexiones del mdulo actual. Conexiones marcadas con el signo "@" no presentan su nombre en el esquema (conexiones ocultas). Las  conexiones BUS van seguidas del nmero de lineas que poseen.
+-end-
+
+ho.ports		-begin-
+Lista todas las patillas del mdulo actual El signo '>' indica entrada, '<' indica salida, y '=' indica linea bidireccional. 
+-end-
+
+ho.status.logo		-begin-
+Estado de la Simulacin.  Si se presenta una puerta de hierro estamos en el modo de Edicin. Si se presenta una puerta AND con cuatro patas estamos en modo de simulacin. Si la puerta est parada, la simulacin est detenida y si est en movimiento, la simulacin est en  pleno funcionamiento.
+-end-
+
+ho.status.msg		Los mensajes del programa se presentan aqu.
+
+ho.status.block		La pila de mdulos que est-Aán siendo editados.$)B
+
+ho.status.file		-begin-
+Fichero actualmente editado.  El signo '*' indica que el buffer se ha modificado desde la ltima vez que el fichero se salvo en disco.
+-end-
+
+ho.print.selall		Imprimir todos los mdulos actualmente cargados en TKGate.
+ho.print.selcur		Imprimir slo el mdulo presente en la ventana de Edicin de TKGate.
+ho.print.seluse		-begin-
+Imprime todos los mdulos "en uso". Los mdulos en uso son aquellos que descienden del principal siguiendo la jerarquia arborescente.
+-end-
+
+ho.print.fulltrace		TODO: Print the entire trace.
+
+ho.print.parttrace		-begin-
+TODO: Print a portion of the trace.  Enter the starting and stopping times in the entry windows below, or use the right mouse button to select a range on the scope window (use shift-right to select long ranges).
+-end-
+
+ho.print.parttracestart		TODO: Starting time of trace output.
+ho.print.parttraceend		TODO: Ending time of trace output.
+
+
+ho.print.selsel		-begin-
+Imprime slo los mdulos seleccionados m-Aás abajo. Usa la tecla CONTROL para seleccionar más de uno.$)B
+-end-
+
+ho.print.modlist		Selecciona los mdulos a imprimir.
+
+ho.print.timegraph		-begin-
+TODO: The display of the region selected to be printed is shown here.  The green area is the entire range of trace data available, and the grey area shows the area to be printed. Use the selectors to the left to select a region, or select the region in the scope window before bringing  up this diaglog box. 
+-end-
+
+ho.circuit.discchg		-begin-
+TkGate no presenta un aviso si descartas los cambios sin salvar.
+-end-
+
+ho.circuit.extbar		-begin-
+TODO: Basic gates (AND, OR, XOR) will use extender bars to handle many input gates.
+-end-
+
+ho.circuit.autostart		-begin-
+TODO: If enabled, simulation will begin as soon as the simulation pane is selected.
+-end-
+
+ho.cmd.bitw		-begin-
+Cables seleccionados con el cursor pueden ajustarse a esta anchura de Bus.
+-end-
+
+ho.edgat.signam		-begin-
+El nombre de la seal seleccionada en la puerta. Puedes cambiar este nombre editandolo aqu.
+-end-
+
+ho.edgat.port		-begin-
+El nombre de la patilla para esta seal en esta puerta. Este campo slo puede ser editado para intancias de mdulos.
+-end-
+
+ho.edgat.iolab		-begin-
+La direccin de la seal seleccionada de esta puerta. Este campo slo puede editarse en las instancias de mdulos.
+-end-
+
+ho.edgat.bitlab		-begin-
+La anchura de Bus de la seal seleccionada de  esta puerta. Se puede cambiar editandola aqu.
+-end-
+
+ho.edgat.cycle		El nmero total de periodos de tiempo en un ciclo de reloj.
+ho.edgat.phase		El punto inicial del ciclo (en %).
+ho.edgat.duty		El % del ciclo que el reloj est en estado bajo.
+
+
+ho.edgat.hide		-begin-
+Activa esta bandera para no  visualizar el nombre de la puerta.
+-end-
+
+ho.edgat.gtype		Tipo de puerta.
+ho.edgat.gname		Nombre de esta instancia de puerta.
+ho.edgat.ganchor		Activa esta bandera para anclar la posicin de la puerta.
+ho.edgat.gx		Coordenada X de la puerta.
+ho.edgat.gy		Coordenada Y de la puerta.
+
+ho.edgat.swstate		-begin-
+El estado inicial del conmutador cuando se inicia una sesin de Simulacin.
+-end-
+
+ho.edgat.dipstate		-begin-
+El estado inicial de los interruptores DIP cuando se inicia una sesin de Simulacin.
+-end-
+
+ho.edgat.range		El rango de bits a colocar en un bus.
+
+ho.edgat.memfile		-begin-
+El fichero con el estado inicial de esta memoria. Este fichero se lee cuando se inicia el Simulador.
+-end-
+
+ho.edgat.func		El tipo de funcin de este mdulo.
+ho.edgat.frame		La etiqueta del panel.
+
+ho.traceprint		-begin-
+TODO: Print trace logic trace. 
+-end-
+
+ho.showxhair		-begin-
+TODO: If this button is depressed, a vertical crosshair line will be displayed in the scope window.
+-end-
+
+ho.opt.general.fontset		-begin-
+TODO: Specifies the basic font size to use in the tkgate interface.  This option will not take effect until restarting tkgate.
+-end-
+
+ho.opt.sec.send		-begin-
+TODO: Enabling the $tkg$command() system task will allow user circuits to send arbitrary simulator control commands to the tkgate GUI.  This includes the ability to execute arbitrary shell commands.  If the simulator will be used to execute untrusted circuits, it is recommended that this task be disabled.  Enabling this option has a very high security risk.
+-end-
+
+ho.opt.sec.open		-begin-
+TODO: Enabling the $fopen() system task will allow user circuits to write to any file that the user invoking tkgate has access to.  Enabling this option has a high security risk.
+-end-
+
+ho.opt.sec.writemem		-begin-
+TODO: Enabling the $writememb() and $writememh() system tasks will allow user circuits to write to any file that the user invoking tkgate has access to.  Enabling this option has a high security risk.
+-end-
+
+ho.opt.sec.enqueue		-begin-
+TODO: Enabling the $tkg$recv() and $tkg$send() system tasks will enable virtual peripheral devices to send messages to tkgate circuits.  Enabling this option has a low security risk.
+-end-
+
+ho.opt.ssave		-begin-
+TODO: Perform consistency checks on circuit files before overwriting existing save file to verify that there are no problems with the save file.
+-end-
+
+ho.opt.sec.exec		-begin-
+TODO: Fully enabling the $tkg$exec() system task allows user circuit to execute arbitrary tcl/tk commands including the ability to execute arbitrary shell commands.  Enabling this option has a very high security risk.
+-end-
+
+ho.opt.sec.regexec		-begin-
+TODO: Enabling the $tkg$exec() system task for registered functions allows user circuits to execute only tcl/tk commands that have been registered as safe.  As long has all Virtual Peripheral Device files are trusted, enabling $tkg$exec() at this level should prevent dangerous commands from being executed.  Enabling this option has a medium security risk.
+-end-
+
+ho.opt.sec.noexec		-begin-
+TODO: Fully disabling the $tkg$exec() command will prevent user circuits from executing tcl/tk commands.  This will make it impossible to use Virtual Peripheral Devices.  Selecting this option has a minimal security risk.
+-end-
+
+ho.opt.sec.stop		-begin-
+TODO: If this setting is enabled, the simulation will be terminated as soon as any attempt is made by the user circuit to execute a disabled feature.
+-end-
+
+ho.opt.sec.warn		-begin-
+TODO: If this setting is enabled, the simulation will continue, but an error message will be displayed when any attempt is made by the user circuit to execute a disabled feature.
+-end-
+
+ho.opt.sec.ignore		-begin-
+TODO: If this setting is enabled, use of any disabled features will be ignored and no error messages will be displayed.
+-end-
+
+ho.opt.html.browser		-begin-
+TODO: Command to be execute when the user clicks on a link to an html file.  A "%s" in the command will be replaced with the link URL. 
+-end-
+
+ho.opt.html.email		-begin-
+TODO: Command to be execute when the user clicks on a link to send an e-mail message.  A "%s" in the command will be replaced with the link URL.
+-end-
+
+ho.opt.fsave		-begin-
+TODO: Save tkgate internal cells with circuit data.  This will increase save file size by about 20% for a typical circuit, but will result in save files that can be exported to third party tools.
+-end-
+
+ho.opt.sorttraces		-begin-
+TODO: If this option is enabled, traces on the scope window will be displayed in sorted order.  If this option is disabled, traces on the scope window will be displayed in the order in which the probes were set.
+-end-
+
+ho.opt.sim.noglitch		-begin-
+TODO: If this option is enabled, rapidly changing inputs to a gate will cause the gate to output unknown rather simply the time shifted input signal.  This can eliminate spurious events and prevent oscilations in gate-level sequential circuits.
+-end-
+
+ho.opt.sim.savetraces		-begin-
+TODO: Probes placed during a simulation run will be remembered and replaced when restarting the simulation of the same circuit.
+-end-
+
+
+ho.opt.sim.tech		-begin-
+TODO: List of files to load as potential "technology" files.  Technology files specify delay and area estimates for built-in gates.
+-end-
+
+ho.opt.sim.err		-begin-
+TODO: Select how warnings from the simulator should be handled.
+-end-
+
+ho.opt.sim.err.stopany		-begin-
+TODO: Do not simulate the circuit if there are any warnings in the circuit, even if there are no actual erros.
+-end-
+
+ho.opt.sim.err.showall		-begin-
+TODO: Always show warnings in the circuit, even if there are no errors.  If there are only warnings, the simualtor will be started and the list of warnings will be displayed in a separate window.
+-end-
+
+ho.opt.sim.err.showiferr		-begin-
+TODO: Show warnings only if there are also errors in the circuit.  If a circuit contains only warnings, they will be ignored and the simulator will be started.
+-end-
+
+ho.opt.sim.err.ignore		-begin-
+TODO: Never display warning messages, even if there are errors in the circuit.
+-end-
+
+ho.opt.lib.vpath		-begin-
+TODO: List of directories to search for tkgate library files.  Library files should have a .v extention and contain modules useful for use in user circuits.
+-end-
+
+ho.opt.lib.vlib		-begin-
+TODO: List of libaries that should automatically be loaded when tkgate starts.
+-end-
+
+ho.opt.lib.vpd		-begin-
+TODO: List of directories to search for virtual peripheral devices.  Virtual peripheral devices have a .tcl extension and typically implement a GUI representing a peripheral device that can be controlled by a user circuit.
+-end-
+
+ho.opt.undolen		-begin-
+TODO: Maximum number of undo actions to retain.
+-end-
+
+ho.opt.name		-begin-
+TODO: User name to be used on tkgate generated reports such as circuit printouts.
+-end-
+
+ho.opt.site		-begin-
+El nombre del lugar donde tkgate se ha instalado. Se utiliza en la salida impresa o fichero postscript.
+-end-
+
+ho.opt.smooth		-begin-
+Si esta opcin est habilitada, el desplazamiento se optimiza al usar copias bitmap en lugar de un completo redibujado. Puedes colocarla en off si  hay problemas con su servidor.
+-end-
+
+ho.opt.clip		-begin-
+Si esta opcin est habilitada, Se actualiza solo la regin actualmente expuesta del entorno de  Edicin. De lo contrario se redibuja todo.
+-end-
+
+ho.opt.showimage		-begin-
+TODO: Unset this option to suppress display of the image and explanitory text at the edge of dialog boxes.
+-end-
+
+
+ho.opt.outmove		-begin-
+Si esta opcin est habilitada, slo un recuadro que rodea a las instancias de mdulos se dibuja mientras se arrastra este. Usa esta opcin en las m-Aáquinas con micros y tarjetas gráficas lentas.$)B
+-end-
+
+ho.opt.bhelp		-begin-
+Si esta opcin est habilitada, los globos de ayuda se activan.  Los globos de ayuda, como este mismo, proporciona una ayuda resumida sobre los elementos  del interfaz, cuando el ratn se situa encima de ellos.
+-end-
+
+ho.opt.novice		-begin-
+Si no se especifica ningn circuito en la linea de  comandos. El programa TkGate presenta un tutorial para iniciarse en el manejo del programa.
+-end-
+
+ho.opt.blockDropConnect		-begin-
+TODO: Allow ports on module interfaces to be created by dropping free wires near an edge.
+-end-
+
+ho.opt.debug		-begin-
+Habilita algunas opciones de depuracin.  Slo es util para desarrolladores del programa TkGate.
+-end-
+
+ho.opt.ckpt		Habilitat puntos de chequeo para circuitos no salvados.
+ho.opt.ckptfreq		Frecuencia de los puntos de chequeo en segundos.
+
+ho.opt.beak		-begin-
+Habilitar todas estas opciones. Si deshabilita esta opcin, estos modos (y esta caja de di-Aálogo) no aparece en el men opciones. Slo puede recuperarse editando el fichero .tkgate-properties.$)B
+-end-
+
+ho.opt.miles		-begin-
+Si este modo est habilitado, el programa insulta periodicamente la inteligencia del usuario.
+-end-
+
+ho.opt.bat		-begin-
+Si este modo est habilitado, el programa activar el entorno para disear un computador sencillo a partir de mdulos.
+-end-
+
+ho.opt.trek		Ayudame Scoty!
+
+ho.opt.simstep		-begin-
+El nmero de periodos de tiempo que avanzamos si hemos activado el modo paso a paso por tiempo.
+-end-
+
+ho.opt.ckstep		-begin-
+El nmero de ciclos de reloj que avanzamos si hemos activado el modo paso a paso por n-Aº de ciclos.$)B
+-end-
+
+ho.opt.ckover		-begin-
+El nmero de periodos de tiempo despu-Aés de un flanco de bajada de reloj que avanzamos si  hemos activado el modo paso a paso.$)B
+-end-
+
+ho.opt.vpopupdelay		-begin-
+TODO: The delay in milliseconds between pressing and holding the mouse button and the display of a signal value.  On some systems, short delay values interfere with the ability to recognize a double click.  If you have this problem, increase this value.  Values between 1 and 10000 are allowed.
+-end-
+
+ho.opt.init		-begin-
+El fichero de guin que se ejecuta de forma autom-Aática al iniciar la Simulacin.$)B
+-end-
+
+ho.opt.ckall		-begin-
+Si este modo se habilita, el comando paso a paso parar la simulacin en el flanco de subida de cualquier reloj presente en el circuito.
+-end-
+
+ho.opt.ckspec		-begin-
+Si este modo est habilitado, el comando paso a paso parar la simulacin es el flanco de subida de la seal de reloj especificada.
+-end-
+
+ho.opt.keybind		-begin-
+TODO: Specifies the basic style for key bindings.  If you change this option, bindings will be updated immediately, but you will need to restart tkgate to see any user defined keybindings.
+-end-
+
+ho.deftech		-begin-
+La tecnolog-Aía por defecto utilizada para las puertas recién creadas. Afecta al tiempo de retraso de las puertas. Para cambiar la tecnología de una puerta especifica, abrir la caja de propiedades ( doble click ) y selecciona "Retraso".$)B
+-end-
+
+ho.techbut		-begin-
+Usa retrasos para la tecnolog-Aía standard de un fichero de  definicin. Para aadir tecnologias personalizadas, aadirlas en la lista del men  "Fichero -> Opciones -> Simulador".$)B
+-end-
+
+ho.custbut		-begin-
+Ajustar valores de retrasos personalizados para esta puerta.
+-end-
+
+ho.contver		-begin-
+TODO: Continuously verify the integrity of internal data structures after every operation.
+-end-
+
+ho.simwatch		-begin-
+Visualizar comandos enviados entre el entorno de visualizacin (GUI) y el Simulador.
+-end-
+
+ho.symed.point		-begin-
+TODO: Pixel edit mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.line		-begin-
+TODO: Line mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.rect		-begin-
+TODO: Rectangle mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.fillrect		-begin-
+TODO: Filled rectangle mode.  Use the left mouse button to set pixels and the right button to clear them.
+-end-
+
+ho.symed.select		-begin-
+TODO: Bitmap select mode.  Use the left mouse buttons to select regions of the bitmap and do cut and paste operations on the selection.
+-end-
+
+ho.symed.port		-begin-
+TODO: Port select mode.  Select ports and move them or rotate them.
+-end-
+
+ho.symed.rshift		TODO: Shift selected pixels right.
+ho.symed.lshift		TODO: Shift selected pixels left.
+ho.symed.ushift		TODO: Shift selected pixels up.
+ho.symed.dshift		TODO: Shift selected pixels down.
+ho.symed.cwrotate		TODO: Rotate selected pixels clockwise.
+ho.symed.ccwrotate		TODO: Rotate selected pixels counter-clockwise.
+ho.symed.autobold		TODO: Make selected image bold.
+ho.symed.resize		TODO: Resize the image editor.
+ho.symed.import		TODO: Import image from file.
+ho.symed.export		TODO: Export image to file.
+
+ho.tool.currot		-begin-
+TODO: Displays the current default rotation.  Click on this button to change the current default rotation.
+-end-
+
+
+ho.tool.zoomin		TODO: Zoom in
+ho.tool.zoomout		TODO: Zoom out
+ho.tool.rotate		TODO: Rotate selected gate(s) counter-clockwise.
+ho.tool.brotate		TODO: Rotate selected gate(s) clockwise.
+ho.tool.valgn		TODO: Align selected gate(s) vertically.
+ho.tool.halgn		TODO: Align selected gate(s) horizontally.
+
+ho.tool.cut		TODO: Cut selection.
+ho.tool.copy		TODO: Copy selection.
+ho.tool.paste		TODO: Paste from cut buffer.
+ho.tool.find		TODO: Find gate, wire or text.
+
+ho.tool.addport		TODO: Add a port to the selected gate.
+ho.tool.anchor		TODO: Anchor the selected gate(s).
+ho.tool.unanchor		TODO: Unanchor the selected gate(s).
+ho.tool.replicate		TODO: Replicate a gate.
+ho.tool.delete		TODO: Delete the selection.

@@ -1,0 +1,26 @@
+/* XPM */
+static char * mod_hdl_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+" 	c white",
+".	c #8b008b",
+"X	c #ff0000",
+"o	c black",
+/* pixels */
+"                ",
+"   ..........   ",
+"   ..........   ",
+" XX..      ..XX ",
+"   ..      ..   ",
+"   ..      ..   ",
+" XX..      ..XX ",
+"   .. o  o ..   ",
+"   .. o  o ..   ",
+" XX.. oooo ..XX ",
+"   .. o  o ..   ",
+"   .. o  o ..   ",
+" XX..      ..XX ",
+"   ..........   ",
+"   ..........   ",
+"                "};

@@ -1,0 +1,25 @@
+/* XPM */
+static char * symed_autobold_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+" 	c white",
+".	c #FFFF88880000",
+"X	c #0000ff",
+/* pixels */
+"    . XXXXXX    ",
+" . ...XXXXXXX   ",
+"    . XX    XX  ",
+" .    XX     XX ",
+"      XX     XX ",
+" .    XX    XX  ",
+"      XXXXXXX   ",
+" .    XXXXXX    ",
+" XXXXXX     .   ",
+" X     X   ...  ",
+" X      X       ",
+" X       X  .   ",
+" X       X      ",
+" X      X   .   ",
+" X     X        ",
+" XXXXXX . . .   "};

@@ -1,0 +1,1054 @@
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Fri Jun  4 10:37:11 2004
+# Do èe¹tiny pøelo¾ila Katarína Bubli Machálková (K.Machalkova@pod.cvut.cz)
+# Poslední aktualizace 3.srpna 2004
+
+##############################################################################
+#
+# basic strings
+#
+b.dismiss	Zru¹it
+b.close		Zavøít
+b.ok		OK
+b.clear		Znova
+b.cancel	Zru¹it
+b.open		Otevøít...
+b.bitw		Bitová ©íøka
+b.in		Vstup
+b.out		Výstup
+b.inout		Vst./Výst.
+b.browse	Procházet...
+b.label		Popisek
+b.find		Najít
+b.edit		Upravit...
+b.add		Pøidat...
+b.delete	Smazat
+b.deleteb	Smazat...
+b.apply		Pou¾ít
+b.anchor	Ukotvit
+b.tech		Technologie
+
+##############################################################################
+# Menu strings
+#
+file		Soubor
+edit		Úpravy
+tool		Nástroje
+simulate	Simulace
+module		Modul
+gate		Hradlo
+make		Pøidat
+circ		Obvod
+
+new		Nový
+open		Otevøít...
+openlib		Otevøít Knihovnu...
+save		Ulo¾it
+saveas		Ulo¾it Jako...
+print		Tisk...
+options		Mo¾nosti...
+quit		Ukonèit
+
+undo		Zpìt
+redo		Znovu
+cut		Vyjmout
+copy		Kopírovat
+paste		Vlo¾it
+selall		Vybrat V¹e
+find		Najít...
+algnv		Uspoøádat Ver.
+algnh		Uspoøádat Horiz.
+zoomin		Zvìt¹it
+zoomout		Zmen¹it
+
+move		Pøesunout/Spojit
+delg		Smazat Hradlo
+cutw		Pøeru¹it Vodiè
+inv		Invertovat
+bitw		Bitová ©íøka
+debug		Debug
+rot0		Otoèit 0
+rot90		Otoèit 90
+rot180		Otoèit 180
+rot270		Otoèit 270
+
+simbegin	Zaèít Simulaci
+simend		Ukonèit Simulaci
+simadprobe	Pøidat/Smazat Sondu
+simrun		Spustit
+simpause	Pøeru¹it
+simstep		Posun o Jednotku(y) Èasu
+simcycle	Posun o Hodinový Cyklus
+simbreak	Kontrolní Bod...
+simscript	Spustit Skript...
+simload		Nahrát Obraz Pamìti...
+simdump		Ulo¾it Obraz Pamìti...
+
+modopen		Otevøít
+modclose	Zavøít
+modseti		Nastavit Rozhraní
+modediti	Upravit Rozhraní...
+modnew		Nový...
+moddel		Smazat...
+modcopy		Kopírovat...
+modrename	Pøejmenovat...
+modclaim	Konvertovat...
+circprop	Vlastnosti Obvodu...
+cpath		Citlivá Cesta...
+
+gataddin	Pøidat Vstup
+gataddout	Pøidat Výstup
+gataddinout	Pøidat Vst./Výst.
+gatiochg	Zmìnit Typ
+gatanchor	Ukotvit Vybrané
+gatunanchor	Uvolnit Vybrané
+gatprop		Vlastnosti...
+gatrep		Vytvoøit Kopii
+gatdel		Smazat
+gatsettech	Nastavit Technologii
+
+gmswitch	I/O
+gmgate		Hradlo
+gmredgate	Redukce
+gmmsi		MSI
+gmalu		ALU
+gmmem		Pamì»
+gmmod		Modul
+gmcomment	Komentáø
+gmframe		Rámec
+
+gmxswitch	Spínaè
+gmdip		DIP Spínaè
+gmground	Uzemnìní
+gmvdd		Vdd
+gmmerge		Spojení Vodièù
+gmclock		Hodiny
+
+gm.led		LED
+gm.ledbar	LED Panel
+gm.ledhex	7-Seg. LED (HEX)
+gm.leddec	7-Seg. LED (DEC)
+gm.ledseg	7-Seg. LED (Pøímý kód)
+
+gmtty		TTY
+
+gmand		AND
+gmnand		NAND
+gmor		OR
+gmnor		NOR
+gmxor		XOR
+gmxnor		XNOR
+gmbuf		Budiè Sbìrnice
+gminv		Invertor
+gmtribuf	3stav. Budiè Sbìrnice 
+gmnmos		NMOS
+gmpmos		PMOS
+
+gmrand		AND
+gmrnand		NAND
+gmror		OR
+gmrnor		NOR
+gmrxor		XOR
+gmrxnor		XNOR
+
+gmadd		Sèítaèka
+gmmult		Násobièka
+gmdiv		Dìlièka
+gmlshift	Posun Doleva
+gmrshift	Posun Doprava
+gmarshift	Arit.Posun Doprava
+gmroll		Rotace
+
+gmreg		Registr
+gmff		Klopný Obvod
+gmram		RAM
+gmrom		ROM
+
+gm21mux		2-1 Multiplexor
+gm41mux		4-1 Multiplexor
+gm81mux		8-1 Multiplexor
+gm12dec		1-2 Dekodér
+gm14dec		1-4 Dekodér
+gm18dec		1-8 Dekodér
+    
+gmmodinst	Instance Modulu
+gmmodin		Vstup Modulu
+gmmodout	Výstup Module 
+gmmodinout	Vst./Výst. Modulu
+
+addwireseg	Pøidat Segment Vodièe
+
+help		Nápovìda
+hlpabout	O programu...
+hlplicense	Licence...
+hlpdoc		Dokumentace...
+hlptut		Návody
+hlpexample	Pøíklady
+exampcomb	Kombinaèní Logika
+examp3bit	3-Bitový Èítaè
+examp8bit	8-Bitový Èítaè
+examptrff	Transistorový KO
+exampcpu	Cvièný CPU
+tutwelcome	TkGate Intro
+tutcreate	Vytvoøení Obvodu
+tutedit1	Úpravy Obvodu (1)
+tutedit2	Úpravy Obvodu (2)
+tutmods		Pou¾ití Modulù
+tutsim		Simulace Obvodu
+
+# Scope Menu
+menu.sc.prtrace	Tisknout Stopu...
+menu.sc.close	Zavøít
+menu.sc.trace	Stopa
+menu.sc.zoomin Zvìt¹it	
+menu.sc.zoomout Zmen¹it
+
+scope.emptymsg	Dvojitým kliknutím na vodiè pøidejte nebo sma¾te stopu.
+comment.empty	[Dvojitým kliknutím pøidejte text.]
+##############################################################################
+# Interface strings
+#
+ifile		Soubor
+imodule		Modul
+iblmodule	Moduly
+iports		Konektory
+ibits		Bity
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.name	Název Sítì
+db.net.hide	Skrýt Jméno
+db.net.bits	Bitová ©íøka	
+db.net.port	Typ Konektoru
+db.net.in	Vstup
+db.net.out	Výstup
+db.net.inout	Vst./Výst.
+db.net.inets	Sítì
+
+##############################################################################
+# Gate dialog box
+#
+db.gate.signam		Název Signálu
+db.gate.portnam		Název Konektoru
+db.gate.iotype		Typ
+db.gate.bitw		Bitová ©íøka
+db.gate.cyclew		©íøka Cyklu
+db.gate.phase		Fáze
+db.gate.duty		Støída
+db.gate.port		Konektor
+db.gate.bitws		Bity
+db.gate.gtype		Typ Hradla
+db.gate.gname		Název Hradla
+db.gate.hidenam		Skrýt Název
+db.gate.anchor		Ukotvit
+db.gate.cpbreak		Pøeru¹ení Citlivé Cesty
+db.gate.butstate	Stav Tlaèítka
+db.gate.dipval		Hodnota Pøepínaèe
+db.gate.memfilenam	Soubor s Obsahem Pamìti
+db.gate.modname		Funkce
+db.gate.islink		Text Je Hypertextový Odkaz
+db.gate.link		Odkaz na Soubor
+db.gate.findw		Hledat Pouze Vodièe
+db.gate.findg		Hledat Pouze Hradla
+db.gate.findwg		Hledat Vodièe i Hradla
+db.gate.general		Obecné
+db.gate.details		Detaily
+db.gate.ports		Konektory
+db.gate.delay		Zpo¾dìní
+db.gate.stddelay	Standardní Zpo¾dìní
+db.gate.custdelay	Definované Zpo¾dìní
+db.gate.extbar		Pou¾ít Roz¹iøující Li¹ty
+
+db.led.type		Typ LED 
+db.led.bit		Dioda
+db.led.bar		Panel diod
+db.led.hex		7-Segment (HEX)
+db.led.dec		7-Segment (DEC)
+db.led.seg		7-Segment (Pøímý kód)
+
+cpath.cloops -begin-
+Ve va¹em obvodu byla zji¹tìna kombinaèní smyèka.
+Aby bylo mo¾no provést analýzu zpo¾dìni v obvodu, 
+musíte buï pøeru¹it smyèku, nebo oznaèit nìkteré
+z hradel ve smyèce jako bod "Pøeru¹ení citlivé 
+cesty". Sítì, v nich¾ byla zji¹tìna smyèka, jsou 
+vypsány ní¾e.
+-end-
+
+##############################################################################
+# Print dialog box
+#
+print.outto		Výstup do
+print.printer		Tiskárna
+print.file		Soubor
+print.prcmd		Pøíkaz k Tisku
+print.filename		Název Souboru
+print.epssave		Ulo¾it jako Encapsulated Postscript
+print.doctit		Název Dokumentu
+print.prmod		Tisknout Moduly
+print.epcm		Jedn. èasu/cm
+print.estpg		Odhad Poètu Stránek
+print.all		V¹echny
+print.cur		Aktuální
+print.use		Pou¾ité
+print.sel		Vybrané
+print.inclib		Vlo¾it Knihovní Moduly.
+print.papsz		Velikost Papíru
+print.orient		Orientace
+print.portrait		Na Vý¹ku
+print.landscape		Na ©íøku
+print.2side		Tisknout Oboustrannì
+print.opts		Mo¾nosti
+print.scale		Pøizpùsobit velké moduly velikosti stránky.
+print.partition		Rozdìlit velké moduly do více stránek.
+print.incidx		Vlo¾it index.
+print.incgraph		Vlo¾it graf hierarchie.
+print.4up		Tisknout malé moduly 4 na stránku.
+print.range		Výbìr Rozsahu
+print.fulltr		Úplná Stopa
+print.parttr		Èást Stopy
+print.start		Start
+print.end		Konec
+
+##############################################################################
+#
+# Options dialog
+#
+opt.site		Název Organizace
+opt.inst		Instance
+opt.mods		Moduly
+opt.modports		Konektory modulù
+opt.frames		Rámce
+opt.comment		Komentáøe
+opt.hlink		Hypertextové odkazy
+opt.wire		1-bitové vodièe
+opt.bus			Vícebitové vodièe
+opt.tools		Nástroje pro práci s hradly
+opt.cpath		Citlivá cesta
+opt.grid		Møí¾ka v simulátoru
+opt.logic1		Logická 1
+opt.logic0		Logická 0
+opt.float		Plovoucí
+opt.unknown		Nedefinována/Konfliktní
+opt.offled		Nesvítící LED
+opt.onled		Svítící LED
+opt.zled		Plovoucí LED
+opt.restdef		Obnovit pùvodní nastavení
+opt.regudate		Aktualizace oblastí
+opt.smoothscroll	Plynulé posouvání
+opt.outmove		Pohyb popiskù modulu
+opt.balloon		Povolit bublinovou nápovìdu
+opt.debug		Povolit debugování
+opt.novice		Zaèáteènický re¾im
+opt.ckpoint		Provádìt prùbì¾né ukládání
+opt.freq		Interval
+opt.beak		Povolit speciální re¾imy
+opt.mode		Re¾im
+opt.normal		Normální
+opt.bat			Bat
+opt.trek		Star Trek
+opt.miles		Miles
+opt.contver		Automatická kontrola integrity 
+opt.showsimcmd		Zaznamenat prùbìh simulace
+opt.logfile		Logovací soubor simulátoru
+opt.estepsz		Jednotky èasu/krok
+opt.cstepsz		Hodinové cykly/krok
+opt.overstep		Pøesah hodin
+opt.sorttraces		Seøadit stopy podle abecedy
+opt.rememberprobes	Pamatovat si umístìní sond
+opt.vpopupdelay		Zpo¾dìní zobrazení hodnoty
+opt.initscript		Inicializaèní skript
+opt.posedge		Ukonèit hodinový cyklus na vzestupné hranì
+opt.setclock		Ukonèit hodinový cyklus na
+opt.delayfilepath	Soubor se zpo¾dìními
+opt.general		Obecné
+opt.print		Tisk
+opt.simulate		Simulace
+opt.analysis		Analýza
+opt.color		Barvy
+opt.undolen		Max poèet krokù zpìt (Undo)
+
+opt.cpopts		Mo¾nosti citlivé cesty:
+opt.maxpath		Maximální poèet cest:
+opt.cpflash		Zobrazit blikající cestu
+
+opt.vercheck		-begin-
+Pravidelnì kontrolovat pøítomnost nové verze TkGate
+na Internetu.  Nevybírejte tuto mo¾nost pokud nemáte
+stálý pøístup k Internetu.
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+blklst.newmod		Nový Modul 
+blklst.delmod		Smazat Modul
+blklst.frommod		Kopírovat Modul Z
+blklst.tomod		Do
+blklst.oldname		Starý Název
+blklst.newname		Nový Název
+blklst.claim		Konvertovat Modul
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.topmod		Hlavní Modul
+circ.discchg		Zru¹it Zmìny
+circ.iniscript		Inicializaèní Skripty
+circ.noscript		Nebyli vybrány ¾ádné soubory se skripty.
+circ.really1		Opravdu chcete odstranit
+circ.really2		ze seznamu inicializaèních skriptù.
+circ.extbar		Pou¾ít Roz¹iøující Li¹ty
+
+##############################################################################
+# Simulator
+#
+sim.breakpt		Kontrolní Bod
+
+##############################################################################
+#
+# Command box
+#
+cmd.file		Název Souboru
+cmd.topname		Název Hlavního Modulu
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		Zpo¾dìní Cesty:
+cp.pathl		Seznam Cest:
+cp.numpath		Poèet Cest:
+cp.recompute		Pøepoèítat
+
+##############################################################################
+# Error messages
+#
+err.verilog		Chyby v souboru:
+err.nopin		Vybraný konektor není mo¾no zmìnit.
+err.badhex		Neplatná hexadecimální hodnota '%s' byla ignorována.
+err.gatanchor		Hradlo(a) jsou ukotveny a nelze je pøemístit.
+err.libmode		Neplatná operace s knihovním modulem (pro úpravy jej zmìòtì na u¾ivatelský modul).
+err.badfind		Nelze najít cíl '%s'.
+err.badopendel		Nelze smazat otevøený modul.
+err.nosrcmod		Zdrojový modul '%s' nebyl nalezen.
+err.noerr		Chybu nelze lokalizovat.
+err.misserr		Informace o chybì nejsou kompletní (spadl simulátor?).
+err.pounimpl		Neimplementovaná chyba v ParseOption
+
+err.badinadd	     Nelze pøidat dal¹í vstup k vybranému hradlu.	
+err.badoutadd	     	Nelze pøidat dal¹í výstup z vybraného hradla.
+err.badinoutadd		Nelze pøidat dal¹í vst./výst. konektory k vybranému hradlu.
+err.badpinchg		Nelze zmìnit typ konektoru na vybraném hradlu.
+err.badnetname		Neplatné znaky v identifikátoru byly smazány.
+err.netbcrename		Identifikátor pøejmenován na '%s' kvùli neplatným znakùm.
+err.netconfnet		Identifikátor pøejmenován na '%s' kvùli konfliktu.
+err.netconfgat		Identifikátor pøejmenován kvùli konfliktu s primitivním názvem hradla.
+err.netconfkw		Identifikátor pøejmenován kvùli konfliktu s rezervovaným slovem.
+err.badconsame		Spojení nepovoleno. Vodièe jsou souèástí stejné sítì.
+err.badconptsp		Spojení nepovoleno. Vodièe jsou konektory modulu nebo jeho napájení.
+err.badconbitw		Spojení nepovoleno. Bitové ¹íøky vodièù nejsou stejné.
+err.badrange		Záporný rozsah stop není povolen.
+err.badlprcmd		Nelze vykonat pøíkaz k tisku '%s'.
+err.badpsopen		Nelze otevøít soubor '%s' pro postskriptový výstup.
+err.badid		Neplatný identifikátor '%s'.
+
+err.bkpt.badexp		Syntaktická chyba ve výrazu pro kontrolní bod. Výraz musí být jedno z: 'net', '!net', 'net==hodnota', 'net!=hodnota'
+err.bkpt.badnet		Neplatný název sítì '%s'. Názvy musí zaèínat písmenem a obsahovat jenom písmena, èíslice a '.'.
+err.bkpt.badval		Syntaktická chyba v hodnotì '%s'. Hodnota musí být desítkové èíslo nebo verilog-style konstanta.
+err.bkpt.toomany	Pøíli¹ mnoho kontrolních bodù.  Maximální poèet je %d.
+
+err.sim.badtmp		Nelze ulo¾it doèasný soubor '%s' simulátoru (plný disk?).
+err.sim.syntx		Syntaktická chyba v pøíkazu '%s'.
+err.sim.noincl		Vkládaný soubor '%s' nenalezen.
+err.sim.clockbadedge	Neplatná definice hrany '%c' v pøíkazu pro hodiny.
+err.sim.nobkpt		Neexistující kontrolní bod '%s'.
+err.sim.nonet		Sí» '%s' nebyla nalezena.
+err.sim.nogate		Hradlo '%s' nebylo nalezeno.
+err.sim.badbin		Neplatný znak v binární konstantì '%s'.
+err.sim.notswitch	Hradlo '%s' není pøepínaè, dip nebo registr.
+err.sim.badcmd		Neznámý pøíkaz '%s' v simulaèním skriptu.
+
+err.noteditpchg		Vlastnosti mohou být mìnìny pouze v re¾imu úprav.	
+err.badeditop		Neplatná operace v re¾imu úprav rozhraní.
+err.badopen		Nelze otevøít vstupní soubor '%s'.
+err.badlibopen		Nelze otevøít knihovní soubor '%s'.
+
+err.nomark		Pøed výbìrem typu hradla nastavte znaèku levým tlaèítkem my¹i.
+err.badgate		Neznámý typ hradla.
+err.badmake		Hradlo nelze vytvoøit.
+
+err.badportadd		Nelze pøidat konektory k hradlùm tohoto typu.
+err.badportdel		Vybraný konektor nelze smazat.
+err.badportedit		Vybraný konektor nelze upravovat.
+err.noport		Nebyly vybrány ¾ádné konektory.
+
+err.manypages		-begin-
+V tomto dokumentu je pøí¹ernì 
+mnoho stránek.  Jste si jisti,
+¾e je chcete v¹echny tisknout?
+-end-
+
+err.nojump		-begin-
+Vlastnost 'jump-to-module' nemù¾e být pou¾ita
+v re¾imu simulace nebo analýzy citlivé cesty.
+Pøemístìte se prosím ruènì do cílového bloku
+tak, ¾e vyberete pøíslu¹né moduly a otevøete je 
+stiskem klávesy '>'. Z modulu, ve kterém  se 
+nacházíte, je mo¾no vyskoèit stiskem klávesy '<'.
+-end-
+
+err.nomod		Modul '%s' není definován.
+err.modlock		Logický blok je uzamèen!
+err.closeroot		Nelze zavøít hlavní modul. Pou¾ijte funkci 'Ukonèit' v hlavním menu.
+err.sim.isrun		Simulátor u¾ bì¾í (Pou¾ijte 'Ctrl-s e' pro ukonèení).
+err.sim.isnotrun	Simulátor nebì¾í (Pou¾ijte 'Ctrl-s b' pro start).
+err.editonly		Neplatný pøíkaz v re¾imu simulace.
+err.simonly		Pøíkaz platný jen v re¾imu simulace.
+
+err.nodel		Nebyly vybrány objekty, které by bylo mo¾no smazat.
+err.modnotdef		Modul '%s' není definován.
+err.moddef		Blok '%s' ji¾ existuje.
+err.noprop		Zvolené hradlo nemá vlastnosti, které by ¹lo mìnit.
+err.openscript		Soubor se simulaèním skriptem '%s' nelze otevøít.
+err.oldversion		Nahrán soubor ulo¾ený ve star¹í verzi TkGate %s (aktuální verze je %s).
+err.futureversion	Nahraný soubor byl ulo¾en novìj¹í verzí TkGate %s (tato verze je %s).
+err.badversion		Neznámé èíslo verze TkGate. Pou¾ívejte na vlastní riziko
+err.nodrive		Sí» %s nemá ¾ádný driver v modulu %s.
+err.noconn		Vodiè %s{%d} není nikam pøipojen - byl smazán.
+err.oldportact		Pro pøidání/úpravu konektoru kliknìte pravým tlaèítkem na konektor nebo okraj modulu.
+
+err.backupfail		Nelze vytvoøit zálo¾ní soubor '%s'.
+
+err.corruptnewsave	-begin-
+Aplikace TkGate ulo¾ila vá¹ soubor jako '%s', ale zdá se být 
+po¹kozený. Pokud máte povoleno prùbì¾né ukládání, zkuste 
+nahrát nìkterý z prùbì¾nì ulo¾ených souboru. Pro kontrolu 
+integrity ulo¾eného souboru pou¾ijte pøíkaz 'TkGate -V'
+-end-
+
+err.corruptsave		-begin-
+Pøí pokusu ulo¾it soubor '%s' aplikace TkGate zjistila problém.
+Existující soubor nebyl zmìnìn a po¹kozený soubor byl zapsán
+jako '%s'. Pokud máte povoleno prùbì¾né ukládání, zkuste 
+nahrát nìkterý z prùbì¾nì ulo¾ených souboru. Pro kontrolu
+integrity ulo¾eného souboru mù¾ete pou¾ít pøíkaz 'TkGate -V'.
+-end-
+
+err.badsave		-begin-
+Pøi pokusu otevøít nebo ulo¾it soubor '%s' do¹lo k chybì. Zkontrolujte
+pøístupová práva souboru/adresáøe a/nebo místo na disku.
+-end-
+
+err.nosafesave		-begin-
+Pøi pokusu ulo¾it soubor '%s' se vyskytl problém.  Pokud chcete, zkuste
+to znova bez ovìøení korektnosti ulo¾ení. Pokud stisknete "ne", pùvodní 
+soubor zùstane nezmìnìn.  Pokus stisknete "ano", pùvodní soubor bude
+pøepsán, ale mù¾e být znièen, pokud se vyskytnou problémy. Chcete zkusit 
+soubor ulo¾it bez ovìøení korektnosti ulo¾ení?
+-end-
+
+err.noback		-begin-
+Soubor byl vytvoøen v TkGate 
+verze %s, a nemusí být èitelný
+verzemi star¹ími ne¾ aktuální 
+verze (%s) bude-li ulo¾en.
+-end-
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		Vybrán vodiè s názvem '%s'.
+msg.selgate		Vybráno hradlo s názvem '%s'.
+msg.selblock		Vybrán %s blok s názvem '%s'.
+msg.modoverwt		Cílový modul '%s' ji¾ existuje.  Pøepsat?
+msg.foundgate		Nalezeno hradlo '%s'.
+msg.foundwire		Nalezen vodiè '%s'.
+msg.searchagn		Cílový øetìzec '%s' nenalezen.  Kliknìte na 'Najít' pro nové hledání.
+msg.sim.chgtoroot	Re¾im simulace vy¾aduje koøenový modul na vrcholu editovacího zásobníku.
+msg.sim.nogatemod	Re¾im simulace vy¾aduje konkrétní zásobník modulù.
+msg.setinterface	Nastavení rozhraní modulu pro '%s'.
+msg.needsel		Zvolte prosím instanci modulu.
+msg.wroteckpt		Prùbì¾né ukládání %s...
+msg.save		Obvod ulo¾en jako '%s'.
+msg.reallynew		Obvod byl zmìnìn. Opravdu chcete zru¹it v¹echny zmìny a vytvoøit nový obvod?
+msg.reallyquit		Obvod byl zmìnìn. Opravdu chcete ukonèit aplikaci?
+msg.notlib		Modul '%s' není knihovní modul.
+
+##############################################################################
+# Miles messages (Activated when Miles Bader uses TkGate)
+#
+miles.msg1		Only a fool would put %s%s there, Miles.
+miles.msg2		That's a really stupid place to put %s%s, Miles.
+miles.msg3		That's a terrible place for %s%s, Miles.
+miles.msg4		Miles, you are a fool for putting %s%s there.
+miles.msg5		Only you would put %s%s there, Miles.
+miles.msg6		Putting %s%s there is proof of your absolute stupidity, Miles.
+miles.msg7		Why don't you give up Miles, this is a stupid circuit.
+miles.msg8a		It's pointless to continue, Miles.
+miles.msg8b		It's obvious you can't design a circuit
+
+
+##############################################################################
+# Balloon Help
+#
+
+ho.new		-begin-
+Smazat aktuální obvod
+a zaèít editovat nový.
+-end-
+
+ho.open		Otevøít obvod ze souboru.
+ho.save		Ulo¾it obvod do aktuálního souboru.
+ho.print	Tisk aktuálního obvodu.
+
+ho.move		-begin-
+Move/Connect - Kliknutím my¹í a pøetáhnutím mù¾ete:
+  Nastavit novou pozici hradla
+  Pøemístit hradla a vodièe
+  Spojit vodièe
+Dvojitým kliknutím mù¾ete :
+  Upravit vlastnosti hradla, vodièe a konektoru
+  Upravit text komentáøe
+-end-
+
+ho.delgat	-begin-
+Smazat hradlo - Pou¾ijte tento nástroj 
+na smazání hradel.
+-end-
+
+ho.cutw		-begin-
+Pøeru¹it vodiè - Pou¾ijte tento nástroj 
+na pøeru¹ení vodièù.
+-end-
+
+ho.inv		-begin-
+Invertovat - Pou¾ijte tento nástroj
+na pøidání nebo odebrání invertorù
+z konektorù hradel.
+-end-
+
+ho.bitw		-begin-
+Bitová ¹íøka - Pou¾ijte tento nástroj
+na zmìnu bitové ¹íøky vodièù.  Vlo¾te poèet
+bitù do políèka v pravém dolním rohu okna.
+-end-
+
+ho.modopen	Otevøít vybraný modul.
+ho.modclose	Zavøít aktuální modul.
+
+ho.undo	Zpìt o pøedchozí krok(y).
+ho.redo	Vpøed o zru¹ený krok(y).
+
+ho.simstart	-begin-
+Spustit simulátor, otevøít logický analyzátor
+a vykonat inicializaèní skripty, pokud jsou definovány.
+-end-
+
+ho.simgo	-begin-
+Spustit simulátor v re¾imu stálého bìhu.
+Poznámka: Simulace kombinaèních obvodù
+probíhá jen dokud obvod nedosáhne ustálený stav
+-end-
+
+ho.simpause	-begin-
+Pozastavit právì bì¾ící simulaci.
+-end-
+
+ho.simstep	-begin-
+Posunout se o pevný poèet jednotek èasu.
+Otevøete okno s mo¾nostmi simulace pro 
+nastavení velikosti kroku.
+-end-
+
+ho.simclock	-begin-
+Posunout se o pevný poèet hodinových cyklù.
+Otevøete okno s mo¾nostmi simulace pro 
+nastavení velikosti kroku.
+-end-
+
+ho.simstop	-begin-
+Ukonèit právì bì¾ící simulaci
+a vrátit se do editovacího re¾imu.
+-end-
+
+ho.simbreak	-begin-
+Upravit aktuální kontrolní body. Simulace
+se zastaví ve chvíli, kdy se podmínka v
+kontrolním bodì stane pravdivou.
+-end-
+
+ho.simexec	Vykonat simulaèní skript.
+
+ho.simload	-begin-
+Nahrát obsah pamìti
+z .mem souboru.
+-end-
+
+ho.simdump	-begin-
+Ulo¾it obsah pamìti 
+do .mem souboru.
+-end-
+
+ho.sim.break	-begin-
+Vlo¾it kontrolní bod simulace.  Kontrolní body jsou výrazy,
+které, pokud se stanou pravdivými, zpùsobí zastavení
+simulace.  Momentálnì jsou podporovány jenom jednoduché 
+výrazy s jediným relaèním operátorem jako tøeba "w1 == 0" 
+nebo "w7 != 8". Výrazy jako "w8" nebo "!w2" mù¾ou být 
+rovnì¾ pou¾ity pro test na nenulovou resp. nulovou hodnotu.
+-end-
+
+ho.f.modlist	-begin-
+Seznam v¹ech aktuálnì nahraných modulù.
+Hlavní modul je oznaèen znaménkém "+", 
+knihovní moduly jsou v závorkách.
+-end-
+
+ho.netlist	-begin-
+Seznam v¹ech sítí v aktuálním modulu.
+Sítì oznaèeny '@' mají skrytá jména
+Vícebitové sítì jsou zobrazeny s 
+bitovou ¹íøkou na konci.
+-end-
+
+ho.ports	-begin-
+Seznam v¹ech konektorù aktuálního
+modulu. Znaèka'>' oznaèuje vstup,
+'<' oznaèuje výstup a znaèka '=' 
+vstup-výstup."
+-end-
+
+ho.status.logo		-begin-
+Indikátor stavu simulace. Pokud ukazuje ¾eleznou bránu, 
+TkGate je v editovacím re¾imu. Pokud ukazuje AND hradlo 
+na ètyøech no¾ièkách, TkGate je v re¾imu simulace. Pokud 
+hradlo AND stojí, simulace je pozastavena a pokud kráèí, 
+simulace bì¾í
+-end-
+
+ho.status.msg		Zde se zobrazují zprávy TkGate.
+
+ho.status.block		Zásobník editovaných modulù.
+
+ho.status.file		-begin-
+Aktuálnì editovaný soubor. Znak '*' ukazuje,
+¾e od posledního ulo¾ení byl soubor zmìnìn.
+-end-
+
+ho.print.selall		Vytisknout v¹echny moduly v aplikaci TkGate.
+ho.print.selcur		Vytisknout jen aktuální modul v editovacím oknì aplikace TkGate.
+ho.print.seluse		-begin-
+Vytisknout v¹echny "pou¾ívané" moduly. Pou¾ívané moduly 
+jsou takové, které jsou potomky koøenového modulu.
+-end-
+
+ho.print.fulltrace	Vytisknout celou stopu.
+
+ho.print.parttrace	-begin-
+Vytisknout èást stopy. Vlo¾te èas zaèátku a konce
+stopy v okénku dole, nebo pou¾ijte pravé tlaèítko 
+my¹i pro výbìr rozsahu v oknì simulace (pou¾ijte 
+klávesy shift-pravá ¹ipka pro výbìr velkých rozsahù).
+-end-
+
+ho.print.parttracestart	Èas zaèátku výstupu stopy.
+ho.print.parttraceend	Èas konce výstupu stopy.
+
+
+ho.print.selsel		-begin-
+Vytisknout jenom ní¾e vybrané moduly. Pou¾ijte
+klávesu Ctrl pro výbìr více modulù.
+-end-
+
+ho.print.modlist	Vybrat moduly pro tisk.
+
+ho.circuit.discchg	-begin-
+TkGate nezobrazí varování pokud zru¹íte
+zmìny bez toho, aby byly ulo¾eny.
+-end-
+
+ho.circuit.extbar	-begin-
+Základní hradla (AND, OR, XOR) pou¾ijí
+roz¹iøující li¹ty pro manipulaci s více
+vstupy.
+-end-
+
+ho.cmd.bitw		-begin-
+Vodièe vybrané kurzorem budou 
+nastaveny na tuto bitovou ¹íøku
+-end-
+
+ho.edgat.extbar		-begin-
+Pøi této volbì budou vícevstupová 
+základní hradla pou¾ívat roz¹iøující
+li¹ty pøi pøidání dal¹ích vstupù 
+k hradlu.
+-end-
+
+ho.edgat.signam		-begin-
+Název vybraného signálu na vybraném 
+hradlu. Zde mù¾ete zmìnit název signálu.
+-end-
+
+ho.edgat.port		-begin-
+Název konektoru pro tento signál
+na tomto hradle. Toto pole mù¾e
+být upravováno pouze pro instance
+modulu.
+-end-
+
+ho.edgat.iolab		-begin-
+Smìr vybraného signálu na vybraném hradle
+Toto pole mù¾e být upravováno pouze pro 
+instance modulu.
+-end-
+
+ho.edgat.bitlab		-begin-
+Bitová ¹íøka vybraného signálu na
+vybraném hradle. Zde mù¾ete zmìnit 
+bitovou ¹íøku signálu.
+-end-
+
+ho.edgat.cycle		Celkový poèet èasových jednotek v hodinovém cyklu.
+ho.edgat.phase		Poèáteèní bod cyklu (v procentech).
+ho.edgat.duty		Èást cyklu kde jsou hodiny na ni¾¹í hodnotì.
+
+ho.edgat.cname		Název pøipojené sítì.
+ho.edgat.cport		Konektor ke kterému je pøipojena sí».
+ho.edgat.ctype		Typ pøipojení.
+ho.edgat.cbitw		Bitová ¹íøka pøipojené sítì.
+ho.edgat.cedit		Upravit vybraný konektor.
+ho.edgat.cadd		Pøidat konektor.
+ho.edgat.cdel		Smazat vybraný konektor.
+
+ho.edgat.hide		-begin-
+Nastavte tento pøíznak pro zakázání
+zobrazení názvu hradla.
+-end-
+
+ho.edgat.gtype		Typ hradla.
+ho.edgat.gname		Název této instance hradla.
+ho.edgat.ganchor	Nastavte tento pøíznak pro ukotvení pozice hradla.
+ho.edgat.gx		X souøadnice hradla.
+ho.edgat.gy		Y souøadnice hradla.
+
+ho.edgat.swstate	-begin-
+Výchozí stav spínaèe, který bude
+pou¾it na zaèátku simulace.
+-end-
+
+ho.edgat.dipstate	-begin-
+Výchozí stav dip spínaèe, který bude
+pou¾it na zaèátku simulace.
+-end-
+
+ho.edgat.range		Bitový rozsah sbìrnice.
+
+ho.edgat.memfile	-begin-
+Soubor s výchozím stavem pamìti. Tento soubor
+je naèten na zaèátku simulace.
+-end-
+
+ho.edgat.func		Typ funkce tohoto modulu.
+ho.edgat.frame		Popisek rámce.
+
+ho.traceprint		Vytisknout logickou stopu 
+
+ho.showxhair		-begin-
+Je-li toto tlaèítko aktivní, v oknì simulace 
+se objeví vertikální èára.
+-end-
+
+ho.opt.sorttraces	-begin-
+Je-li tato mo¾nost aktivní, stopy v oknì
+simulace se zobrazí v setøídìném poøadí.  
+Není-li tato mo¾nost aktivní, stopy v oknì
+simulace se zobrazí v tom poøadí, v jakém
+byly nastaveny sondy.
+-end-
+
+ho.opt.rememberprobes	-begin-
+Je-li tato mo¾nost aktivní, v¹echny sondy
+nastaveny v re¾imu simulace se zapamatují
+a budou automaticky pøidány pøi opìtovném
+spu¹tìní simulace.
+-end-
+
+
+ho.opt.undolen		-begin-
+Maximální poèet krokù zpátky, které se budou pamatovat.
+-end-
+
+ho.opt.site		-begin-
+Jméno organizace, kde je TkGate nainstalováno.
+Toto jméno se pou¾ije na v¹ech výstupech na 
+tiskárnu nebo do postskriptového souboru.
+-end-
+
+ho.opt.smooth		-begin-
+Je-li tato mo¾nost aktivní, posouvání okna
+bude optimalizováno pou¾itím kopie bitmapy
+místo úplného znovuzobrazení. Mù¾ete tuto 
+mo¾nost vypnout, pokud máte jakékoliv problémy
+s va¹ím serverem.
+-end-
+
+ho.opt.clip		-begin-
+Je-li tato mo¾nost aktivní, pøi pøekreslování
+bude aktualizována jenom ta èást okna, která se
+momentálnì mìní. Jinak bude pøekreslována v¾dy 
+celá obrazovka.
+-end-
+
+ho.opt.outmove		-begin-
+Je-li tato mo¾nost aktivní, pøi pøetahování bude 
+zobrazen pouze popisek instance modulu, která se 
+právì pøemís»uje. Pou¾ívejte tuto vlastnost na 
+poèítaèích s pomalým displejem.
+-end-
+
+ho.opt.bhelp		-begin-
+Je-li tato mo¾nost aktivní, budou pou¾ívány
+bubliny s nápovìdou. Bubliny s nápovìdou (jako 
+tato) obsahují vysvìtlení k jednotlivým polo¾kám,
+kdy¾ je nad nimi kurzor my¹i.
+-end-
+
+ho.opt.novice		-begin-
+Pokud není na pøíkazovém øádku specifikován jiný
+obvod, pøi spu¹tìní aplikace bude jako výchozí
+obvod zobrazen TkGate tutoriál.
+-end-
+
+ho.opt.debug		-begin-
+Povolit nìkolik debugovacích prvkù
+(u¾iteèné pouze pro TkGate vývojáøe).
+-end-
+
+ho.opt.ckpt		Povolit prùbì¾né ukládání neulo¾ených obvodù.
+ho.opt.ckptfreq		Frekvence prùbì¾ného ukládání v sekundách.
+
+ho.opt.beak		-begin-
+Enable these totally useless features.
+If you disable this feature, these modes
+(and this checkbox) will no longer appear
+in the options box.  The only way to
+reenable them will be to edit
+your .TkGate-preferences file.
+-end-
+
+ho.opt.miles		-begin-
+If this mode is enabled, TkGate will
+periodically insult the intelligence of
+the user.
+-end-
+
+ho.opt.bat		-begin-
+If this mode is enabled, TkGate will
+set up an enviornment for designing a
+bat computer.
+-end-
+
+ho.opt.trek		Beam me up Scoty!
+ho.opt.normal		Disable fun Stuff.
+
+ho.opt.simstep		-begin-
+Poèet jednotek èasu, o které se pøi 
+jednom kroku postoupí dopøedu.
+-end-
+
+ho.opt.ckstep		-begin-
+Poèet hodinových cyklù, o které se
+pøi jednom kroku postoupí dopøedu.
+-end-
+
+ho.opt.ckover		-begin-
+Poèet jednotek èasu bezprostøednì po
+vzestupné hranì hodin, o které se
+pøi jednom kroku postoupí dopøedu.
+-end-
+
+ho.opt.vpopupdelay		-begin-
+Zpo¾dìní v milisekundách mezi stisknutím
+a pøidr¾ením tlaèítka my¹i a zobrazením
+hodnoty signálu. Na nìkterých systémech
+jsou hodnoty zpo¾dìní v konfliktu se 
+schopností rozpoznat dvouklik. Pokud máte
+tento problém, zvy¹te tuto hodnotu. Jsou
+povoleny hodnoty mezi 1 and 10000.
+-end-
+
+ho.opt.init		-begin-
+Soubor se simulaèním skriptem, který bude 
+automaticky vykonán pøi spu¹tìní simulace.
+-end-
+
+ho.opt.ckall		-begin-
+Pokud je tento re¾im aktivní, posunutí o
+hodinový cyklus zastaví simulaci na vzestupné
+hranì kterýchkoliv hodin v obvodu.
+-end-
+
+ho.opt.ckspec		-begin-
+Pokud je tento re¾im aktivní, posunutí o
+hodinový cyklus zastaví simulaci na vzestupné
+hranì specifikovaných hodin v obvodu.
+-end-
+
+ho.deftech		-begin-
+Pøednastavená technologie pro nová 
+hradla. Ovlivòuje zpo¾dìní hradel.
+Pro zmìnu technologie konkrétního 
+hradla otevøete okno s jeho vlastnostmi 
+(dvouklikem) a vyberte zálo¾ku "Zpo¾dìní".
+-end-
+
+ho.techbut		-begin-
+Pou¾ít zpo¾dìní ze souboru definujícího standardní 
+technologii. Nové technologie mù¾ete pøidat v menu 
+"Soubor -> Mo¾nosti -> Simulace".
+-end-
+
+ho.custbut		-begin-
+Nastavit vlastní hodnoty zpo¾dìní pro toto hradlo.
+-end-
+
+ho.contver		-begin-
+Stále ovìøovat integritu vnitøních
+datových struktur po ka¾dé operaci.
+-end-
+
+ho.simwatch		-begin-
+Zaznamenat pøíkazy zasílané mezi
+GUI a simulátorem.
+-end-
+
+ho.simlog		-begin-
+Zapsat pøíkaz pou¾itý v simulátoru 
+do logovacího souboru. Logovací 
+soubor mù¾e být potom pou¾it jako 
+vstup simulátoru v debugovacím 
+re¾imu.
+-end-
+
+ho.cpathanal		-begin-
+Najít citlivou cestu v obvodu.
+-end-

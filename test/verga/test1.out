@@ -1,0 +1,6 @@
+hello world
+x=0
+x=1
+3: monitored x = 0
+6: monitored x = 1
+8: monitored x = 0

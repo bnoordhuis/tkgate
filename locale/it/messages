@@ -1,0 +1,1048 @@
+#
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Mon Nov 29 14:37:44 2004
+
+\language Italian
+
+##############################################################################
+#
+# basic strings
+#
+b.dismiss	Dismiss
+b.close		Close
+b.ok		OK
+b.clear		Clear
+b.cancel	Cancel
+b.open		Open...
+b.bitw		Bit Width
+b.in		in
+b.out		out
+b.inout		inout
+b.browse	Browse...
+b.label		Label
+b.find		Find
+b.edit		Edit...
+b.add		Add...
+b.delete	Delete
+b.deleteb	Delete...
+b.apply		Apply
+b.anchor	Anchor
+b.tech		Technology
+
+##############################################################################
+# Menu strings
+#
+file		File
+edit		Edit
+tool		Tool
+simulate	Simulate
+module		Module
+gate		Gate
+make		Make
+circ		Circuit
+
+new		New
+open		Open...
+openlib		Open Library...
+save		Save
+saveas		Save...
+print		Print...
+options		Options...
+quit		Quit
+
+undo		Undo
+redo		Redo
+cut		Cut
+copy		Copy
+paste		Paste
+selall		Select All
+find		Find...
+algnv		Align Ver.
+algnh		Align Horz.
+zoomin		Zoom In
+zoomout		Zoom Out
+
+move		Move/Connect
+delg		Delete Gate
+cutw		Cut Wire
+inv		Invert
+bitw		Bit Width
+debug		Debug
+rot0		Rot 0
+rot90		Rot 90
+rot180		Rot 180
+rot270		Rot 270
+
+simbegin	Begin Simulation
+simend		End Simulation
+simadprobe	Add/Delete Probe
+simrun		Run
+simpause	Pause
+simstep		Step Epoch(s)
+simcycle	Step Cycle
+simbreak	Breakpoint...
+simscript	Exec. Script...
+simload		Load Memory...
+simdump		Dump Memory...
+
+modopen		Open
+modclose	Close
+modseti		Set Interface
+modediti	Edit Interfaces...
+modnew		New...
+moddel		Delete...
+modcopy		Copy...
+modrename	Rename...
+modclaim	Claim...
+circprop	Circuit Properties...
+cpath		Critical Path...
+
+gataddin	Add Input
+gataddout	Add Output
+gataddinout	Add BiDir
+gatiochg	Change Type
+gatanchor	Anchor Selected
+gatunanchor	Unanchor Selected
+gatprop		Properties...
+gatrep		Replicate
+gatdel		Delete
+gatsettech	Set Technology
+
+gmswitch	I/O
+gmgate		Gate
+gmredgate	Reduction
+gmmsi		MSI
+gmalu		ALU
+gmmem		Memory
+gmmod		Module
+gmcomment	Comment
+gmframe		Frame
+
+gmxswitch	Switch
+gmdip		DIP Switch
+gmground	Ground
+gmvdd		Vdd
+gmmerge		Wire Merge
+gmclock		Clock
+
+gm.led		LED
+gm.ledbar	LED Bar
+gm.ledhex	7-Seg. LED (HEX)
+gm.leddec	7-Seg. LED (DEC)
+gm.ledseg	7-Seg. LED (Direct)
+
+gmtty		TTY
+
+gmand		AND
+gmnand		NAND
+gmor		OR
+gmnor		NOR
+gmxor		XOR
+gmxnor		XNOR
+gmbuf		Buffer
+gminv		Inverter
+gmtribuf	Tri-Buffer
+gmnmos		NMOS
+gmpmos		PMOS
+
+gmrand		AND
+gmrnand		NAND
+gmror		OR
+gmrnor		NOR
+gmrxor		XOR
+gmrxnor		XNOR
+
+gmadd		Adder
+gmmult		Multiplier
+gmdiv		Divider
+gmlshift	Left Shift
+gmrshift	Right Shift
+gmarshift	Arith. Right Shift
+gmroll		Roll
+
+gmreg		Register
+gmff		Flip-Flop
+gmram		RAM
+gmrom		ROM
+
+gm21mux		2-1 Multiplexor
+gm41mux		4-1 Multiplexor
+gm81mux		8-1 Multiplexor
+gm12dec		1-2 Decoder
+gm14dec		1-4 Decoder
+gm18dec		1-8 Decoder
+    
+gmmodinst	Module Instance
+gmmodin		Module Input
+gmmodout	Module Output
+gmmodinout	Module InOut
+
+addwireseg	Add Wire Segment
+
+help		Help
+hlpabout	About...
+hlplicense	License...
+hlpdoc		Documentation...
+hlptut		Tutorials
+hlpexample	Examples
+exampcomb	Combinational Logic
+examp3bit	3-Bit Counter
+examp8bit	8-Bit Counter
+examptrff	Transistor-Level FF
+exampcpu	Menagerie CPU
+tutwelcome	TkGate Intro
+tutcreate	Creating a Circuit
+tutedit1	Editing a Circuit (1)
+tutedit2	Editing a Circuit (2)
+tutmods		Using Modules
+tutsim		Simulating a Circuit
+
+# Scope Menu
+menu.sc.prtrace	Print Trace...
+menu.sc.close	Close
+menu.sc.trace	Trace
+menu.sc.zoomin	Zoom In
+menu.sc.zoomout	Zoom Out
+
+scope.emptymsg	Doppio click su un collegamento per agganciare o togliere una sonda.
+comment.empty	[Doppio click per aggiungere testo.]
+##############################################################################
+# Interface strings
+#
+ifile		File
+imodule		Module
+iblmodule	Modules
+iports		Ports
+ibits		Bits:
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.name	Net Name
+db.net.hide	Hide Name
+db.net.bits	Bit Width	
+db.net.port	Port Type
+db.net.in	in
+db.net.out	out
+db.net.inout	inout
+db.net.inets	Nets
+
+##############################################################################
+# Gate dialog box
+#
+db.gate.signam		Signal Name
+db.gate.portnam		Port Name
+db.gate.iotype		Type
+db.gate.bitw		Bit Width
+db.gate.cyclew		Cycle Width
+db.gate.phase		Phase
+db.gate.duty		Duty
+db.gate.port		Port
+db.gate.bitws		Bits
+db.gate.gtype		Gate Type
+db.gate.gname		Gate Name
+db.gate.hidenam		Hide Name
+db.gate.anchor		Anchor
+db.gate.cpbreak		Critical Path Partition
+db.gate.butstate	Button State
+db.gate.dipval		Switch Value
+db.gate.memfilenam	Memory File
+db.gate.modname		Function
+db.gate.islink		Text is Hyperlink
+db.gate.link		Link to File
+db.gate.findw		Search for wires only
+db.gate.findg		Search for gates only
+db.gate.findwg		Search for wires and gates
+db.gate.general		General
+db.gate.details		Details
+db.gate.ports		Port
+db.gate.delay		Delay
+db.gate.stddelay	Standard Delay
+db.gate.custdelay	Custom Delay
+db.gate.extbar		Use extender bars
+
+db.led.type		LED Type
+db.led.bit		Bit
+db.led.bar		Bar Graph
+db.led.hex		7-Segment (HEX)
+db.led.dec		7-Segment (DEC)
+db.led.seg		7-Segment (Direct)
+
+		## - Italian localization - 
+		## - April 2004 P. Ceppi; SUPSI-DTI
+		## - Will translate:
+		## - - instructive/helpful text only
+
+cpath.cloops -begin-
+Il circuito contiene loop combinatori!
+Per procedere ad analisi di ritardi in questo
+circuito devi interrompere i loop oppure indicare 
+una porta per ogni loop come punto di interruzione:
+lo puoi fare nel form "Properties" della porta,
+usa il check box "Critical Path Partition". 
+I collegamenti per i quali è stato trovato un loop
+sono elencati sotto.
+-end-
+
+##############################################################################
+# Print dialog box
+#
+print.outto		Output to
+print.printer		Printer
+print.file		File
+print.prcmd		Print Command
+print.filename		File Name
+print.epssave		Save as Encapsulated Postscript.
+print.doctit		Document Title
+print.prmod		Print Modules
+print.epcm		Epochs/cm
+print.estpg		Estimated pages
+print.all		All
+print.cur		Current
+print.use		Used
+print.sel		Selected
+print.inclib		Include library modules.
+print.papsz		Paper Size
+print.orient		Orientation
+print.portrait		Portrait
+print.landscape		Landscape
+print.2side		Print Double-Sided
+print.opts		Options
+print.scale		Scale large modules to fit page.
+print.partition		Partition large modules into multiple pages.
+print.incidx		Include index.
+print.incgraph		Include hierarchy graph.
+print.4up		Print small modules four per page.
+print.range		Range Selection
+print.fulltr		Full Trace
+print.parttr		Partial Trace
+print.start		Start
+print.end		End
+
+##############################################################################
+#
+# Options dialog
+#
+opt.site		Site Name
+opt.inst		Instances
+opt.mods		Modules
+opt.modports		Module Ports
+opt.frames		Frames
+opt.comment		Comments
+opt.hlink		Hyperlinks
+opt.wire		Single-Bit Wires
+opt.bus			Multi-Bit Wires
+opt.tools		Gate Tools
+opt.cpath		Critical Path
+opt.grid		Scope Grid
+opt.logic1		Logic One
+opt.logic0		Logic Zero
+opt.float		Float
+opt.unknown		Unknown/Conflict
+opt.offled		Off LED
+opt.onled		On LED
+opt.zled		Floating LED
+opt.restdef		Restore Defaults
+opt.regudate		Region Update
+opt.smoothscroll	Smooth Scrolling
+opt.outmove		Outline Move modules
+opt.balloon		Enable Help Balloons
+opt.debug		Enable Debugging
+opt.novice		Novice Mode
+opt.ckpoint		Do Checkpointing
+opt.freq		Interval
+opt.beak		Enable Special Modes
+opt.mode		Mode
+opt.normal		Normal
+opt.bat			Bat
+opt.trek		Star Trek
+opt.miles		Giuan 
+opt.contver		Automatic Integrity Checking
+opt.showsimcmd		Display Simulator Stream
+opt.logfile		Simulator Log File
+opt.estepsz		Epoch Step Size
+opt.cstepsz		Clock Cycle Step Size
+opt.overstep		Clock Overstep
+opt.sorttraces		Sort traces alphabetically on scope
+opt.rememberprobes	Remember Probe Placement
+opt.vpopupdelay		Value Pop-Up Delay
+opt.initscript		Initialization script
+opt.posedge		Clock step stops on all clock posedges
+opt.setclock		Clock step stops on clock
+opt.delayfilepath	Delay Files
+opt.general		General
+opt.print		Print
+opt.simulate		Simulate
+opt.analysis		Analysis
+opt.color		Color
+opt.undolen		Max Undo
+
+opt.cpopts		Critical Path Options:
+opt.maxpath		Maximum Number of Paths:
+opt.cpflash		Display with Flashing Path
+
+opt.vercheck		-begin-
+Controlla di tanto in tanto se ci sono nuove versioni
+di TkGate in rete. Non abilitare se non hai accesso 
+continuo a Internet.
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+blklst.newmod		New Module 
+blklst.delmod		Delete Module
+blklst.frommod		Copy Module From
+blklst.tomod		To
+blklst.oldname		Old Name
+blklst.newname		New Name
+blklst.claim		Claim Module
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.topmod		Top-Level Module
+circ.discchg		Discard Changes
+circ.iniscript		Initialization Scripts
+circ.noscript		No script files selected.
+circ.really1		Do you really want to remove
+circ.really2		from the list of initialization scripts
+circ.extbar		Use Extender Bars
+
+##############################################################################
+# Simulator
+#
+sim.breakpt		Breakpoint
+
+##############################################################################
+#
+# Command box
+#
+cmd.file		File Name
+cmd.topname		Top Module Name
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		Path Delay:
+cp.pathl		Path List:
+cp.numpath		Number of Paths:
+cp.recompute		Recompute
+
+##############################################################################
+# Error messages
+#
+err.verilog		Errrori nel file:
+err.nopin		Non posso modificare il pin selezionato.
+err.badhex		Valore hex '%s' errato: viene ignorato.
+err.gatanchor		Le porte sono ancorate: non possono essere spostate.
+err.libmode		Operazione non ammessa su un modulo di libreria (convertilo in un modulo normale per editarlo).
+err.badfind		Non trovo il target '%s'.
+err.badopendel		Non posso cancellare un modulo aperto.
+err.nosrcmod		Non ho trovato il modulo '%s'.
+err.noerr		Non so localizzare l'errore.
+err.misserr		Errore informazione incompleta (il simulatore è caduto?)
+err.pounimpl		Errore non implementato in ParseOption
+
+err.badinadd		Non posso aggiungere ulteriori pin di input alla porta selezionata.
+err.badoutadd		Non posso aggiungere ulteriori pin di output alla porta selezionata.
+err.badinoutadd		Non posso aggiungere ulteriori pin inout alla porta selezionata.
+err.badpinchg		Non posso modificare il tipo di pin della porta selezionata.
+err.badnetname		Carattere non ammesso cancellato dall'identificatore.
+err.netbcrename		Identificatore rinominato con '%s' a causa di un carattere non ammesso.
+err.netconfnet		Identificatore rinominato con '%s' a causa di un conflitto.
+err.netconfgat		Identificatore rinominato per evitare conflitti con nomi di porte primitive.
+err.netconfkw		Identificatore rinominato per evitare conflitti con parole riservate.
+err.badconsame		Collegamento rifiutato perchè i fili appartengono allo stesso collegamento.
+err.badconptsp		Collegamento rifiutato perchè ambedue i fili sono porte di moduli o alimentazioni.
+err.badconbitw		Collegamento rifiutato perchè il numero di bit non coincide.
+err.badrange		L'istante di inizio deve precedere quello di fine della stampa (Start < End)!
+err.badlprcmd		Non posso eseguire il comando di stampa '%s'.
+err.badpsopen		Non posso aprire il '%s' per output in postscript.
+err.badid		Identificatore non ammesso '%s'.
+
+err.bkpt.badexp		Errore di sintassi nell'espressione di breakpoint.  Devi scegliere fra: 'net', '!net', 'net==value', 'net!=value'
+err.bkpt.badnet		Errore nel nome del collegamento '%s'. I nomi devono iniziare con una lettera e contengono solo lettere, numeri e '.'.
+err.bkpt.badval		Errore di sintassi nel valore '%s'.  Deve essere un decimale o una costante in stile verilog.
+err.bkpt.toomany	Troppi breakpoints.  Al massimo %d.
+
+err.sim.badtmp		Non ho potuto salvare il file temporaneo '%s' per il simulatore (disco pieno?)
+err.sim.syntx		Errore di sintassi nel comando '%s'.
+err.sim.noincl		Non trovo il file '%s' da includere.
+err.sim.clockbadedge	Specifica di fianco '%c' non ammessa nel comando di avanzamento della simulazione.
+err.sim.nobkpt		Il breakpoint '%s' non esiste.
+err.sim.nonet		Non trovo il collegamento '%s'.
+err.sim.nogate		Non trovo il gate '%s'.
+err.sim.badbin		Carattere non ammesso nella costante binaria '%s'.
+err.sim.notswitch	Il gate '%s' non è uno switch, un dip o un registro. Il comando "Set" si applica solo a questi componenti.
+err.sim.badcmd		Comando sconosciuto '%s' nello script di simulazione.
+
+err.noteditpchg		Le proprietà possono venir cambiata solo in modalità di edizione.
+err.badeditop		Operazione non ammessa in modalità di edizione di interfaccia.
+err.badopen		Impossibile aprire il file '%s'.
+err.badlibopen		Impossibile aprire il file di libreria '%s'.
+
+err.nomark		Posiziona un punto di riferimento con il tasto sinstro del mouse prima di scegliere un gate.
+err.badgate		Tipo di gate sconosciuto.
+err.badmake		Non posso a creare il gate.
+
+err.badportadd		Impossibile aggiungere porte a un gate di questo tipo.
+err.badportdel		La porta selezionata non può essere concellata.
+err.badportedit		La porta selezionata non può essere modificata.
+err.noport		Non è stata selezionato alcun port.
+
+err.manypages		-begin-
+C'è una quantità tremenda di pagine
+in questo documento!
+Sei sicuro di volerlo stampare?
+-end-
+
+err.nojump		-begin-
+L'opzione 'jump-to-module' non è disponibile
+nella modalità di simulazione o di analisi del
+percorso critico.
+Spostati manualmente nel blocco desiderato
+selezionando moduli e aprendoli con 
+il carattere '>' da tastiera. Puoi abbandonare
+un modulo inserendo il carattere '<' da tastiera.
+-end-
+
+err.nomod		Il modulo '%s' non è definito.
+err.modlock		Il blocco logico è bloccato ("locked")!
+err.closeroot		Non posso chiudere il modulo "top".  Usa "quit".
+err.sim.isrun 		Il simulatore è già attivo (Usa 'Ctrl-s e' per terminare).
+err.sim.isnotrun	Il simulatore non è attivo (Usa 'Ctrl-s b' per avviarlo).
+err.editonly		Comando non ammesso in modalità di simulazione.
+err.simonly		Comando ammesso solo in modalità di simulazione.
+
+err.nodel		Non è selezionato alcun elemento cancellabile.
+err.modnotdef		Il module '%s' non è definito.
+err.moddef		Il blocco '%s' esiste già.
+err.noprop		Il gate selezionato non ha proprietà editabili.
+err.openscript		Non posso aprire lo script di simulazione '%s'
+err.oldversion		Caricato un file con l'identificatore di versione obsoleta %s (la versione attuale è %s).
+err.futureversion	Caricato un file salvato dalla versione futura %s di TkGate (questa versione è %s).
+err.badversion		Numero di versione sconosciuto.  Usa a tuo rischio.
+err.nodrive		Il collegamento %s non ha driver nel modulo %s.
+err.noconn		Il filo %s{%d} non ha collegamenti - cancellato.
+err.oldportact		Clicca con il tasto destro sul port o sul bordo del modulo per aggiungere/modificare un port.
+
+err.backupfail		Non riesco a creare il file di backup '%s'.
+
+err.corruptnewsave	-begin-
+TkGate è riuscito a salvare il file '%s', ma sembra rovinato.
+Se hai abilitato la modalità "checkpointing" prova a caricare
+uno dei files di "checkpoint".  Usa 'tkgate -V' per verificare
+l'integrità di un file di salvataggio.
+-end-
+
+err.corruptsave		-begin-
+TkGate ha riscontrato un problema nel salvataggio del file '%s'.
+Il file esistente è stato lasciato intatto e il file danneggiato
+è stato salvato in '%s'. Se hai abilitato la modalità "checkpointing" 
+puoi provare a caricare uno dei files di "checkpoint". 
+Puoi anche usare 'tkgate -V' per verificare l'integrità 
+di un file di salvataggio.
+-end-
+
+err.badsave		-begin-
+C'è un problema ad aprire o a salvare il file '%s'.  
+Controlla le protezioni del file/directory e/o lo spazio disco.
+-end-
+
+err.nosafesave		-begin-
+C'è un problema a salvare '%s'.  Se vuoi, puoi ritentare senza validazione.
+Se rispondi "no", il file originale rimane inalterato.
+Se rispondi "yes" il file originale verrà sovrascritto, ma potrebbe venir distrutto se si verifica un problema.
+Vuoi tentare un salvataggio senza validazione?
+-end-
+
+err.noback		-begin-
+Il file è stato creato con TkGate %s.
+Se lo salvi, è probabile che non possa venir 
+riletto da versioni precedenti a questa (%s).
+-end-
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		Nome del collegamento: '%s'
+msg.selgate		Hai selezionato %s con il nome '%s'.
+msg.selblock		Hai selezionato il blocco %s denominato '%s'.
+msg.modoverwt		Il modulo '%s' esiste già. Sovrascrivere?
+msg.foundgate		Trovato una porta con il nome '%s'.
+msg.foundwire		Trovato un collegamento con il nome '%s'.
+msg.searchagn		Stringa '%s' non trovata.  Inserisci 'find' per riavviare la ricerca.
+msg.sim.chgtoroot	La modalità di simulazione richiede il modulo "root" in cima allo stack di edizione.
+msg.sim.nogatemod	La modalità di simulazione richiede moduli istanziati ("Concrete module stack).
+msg.setinterface	Impostato interfaccia per il modulo '%s'
+msg.needsel		Seleziona un'istanza di modulo.
+msg.wroteckpt		"Checkpointed" in %s...
+msg.save		Circuito salvato in '%s'
+msg.reallynew		Il circuito è stato modificato. Vuoi veramente scartare le tue modifiche e creare un circuito nuovo?
+msg.reallyquit		Il circuito è stato modificato. Vuoi veramente uscire senza salvare?
+msg.notlib		Il modulo '%s' non è un modulo di libreria.
+
+##############################################################################
+# Messaggi par ul Giuan (Dupraa quant ul Giuan Bambela 'l dupera ul TkGate)
+#	
+miles.msg1		Dumà un cücümar al metaresa ul %s%s lì, Giuan.
+miles.msg2		L'è propi un post stupit par met ul %s%s, Giuan.
+miles.msg3		L'è un pustasc par ul %s%s, Giuan; pesc d'inscì ta pudevat mia catà fö!
+miles.msg4		Ma no Giuan, lè mia ul post par ul %s%s linscì.
+miles.msg5		Propi dumà ti ta po met ul %s%s lì, Giuan.
+miles.msg6		S'al metat lì da fa 'stu %s%s?! Ta see propi dür da cumprendoni, Giuan.
+miles.msg7		Pianta lì Giuan, l'è propi un lavur da ciola.
+miles.msg8a		L'è propi mia ul to mestee Giuan, lasa pert.
+miles.msg8b		Ta se propi mia bun da met giò 'stu schema.
+
+##############################################################################
+# Balloon Help
+#
+
+ho.new		-begin-
+Abbandona il circuito attuale
+e inizia a disegnarne uno nuovo.
+-end-
+
+ho.open		Carica (open) un circuito da un file.
+ho.save		Salva il circuito nel file corrente.
+ho.print	Stampa il circuito corrente.
+
+ho.move		-begin-
+Move/Connect - By clicking and dragging you can:
+  Scegliere la posizione per una nuova porta
+  Spostare porte e collgamenti
+  Collegare fili
+By double-clicking you can:
+  Modificare le proprietà di porte logiche, collegamenti e ports
+  Modificare commenti
+-end-
+
+ho.delgat	-begin-
+Delete Gate - Elimina porte logiche.
+-end-
+
+ho.cutw		-begin-
+Cut Wire - Interrompe collegamenti.
+-end-
+
+ho.inv		-begin-
+Invert - Aggiunge o toglie inverters
+dalle entrate/uscite delle porte logiche.
+-end-
+
+ho.bitw		-begin-
+Bit Width - Cambia la larghezza di un bus. 
+Inserisci il numero di bits nel box in basso
+a destra della finestra.
+-end-
+
+ho.modopen	Apre il modulo selezionato.
+ho.modclose	Chiude il modulo attuale.
+
+ho.undo	Annulla operazioni precedenti ("Undo")
+ho.redo	Ripristina operazioni annullate ("Redo")
+
+ho.simstart	-begin-
+Attiva il simulatore, apre l'analizzatore logico
+ed esegue eventuali script di inizializzazione.
+-end-
+
+ho.simgo	-begin-
+Mette il simulatore in modalità di simulazione continua.
+Nota che per circuiti combinatori il simulatore calcola
+solo fino al raggiungimento dello stato stazionario.
+-end-
+
+ho.simpause	-begin-
+Mette in pausa il simulatore.
+-end-
+
+ho.simstep	-begin-
+Avanza per un intervallo di tempo fisso.
+Definisci la durata dell'intervallo ("Epoch Step Size")
+nel formulario di opzioni del simulatore.
+-end-
+
+ho.simclock	-begin-
+Avanza per una quantità fissa di cicli di clock.
+Definisci la durata dell'intervallo ("Step size")
+nel formulario di opzioni del simulatore.
+-end-
+
+ho.simstop	-begin-
+Termina la simulazione e torna alla modalità di disegno.
+-end-
+
+ho.simbreak	-begin-
+Modifica i breakpoints.
+La simulazione viene sospesa non appena 
+la condizione di un breakpoint è verificata.
+-end-
+
+ho.simexec Esegui uno script di simulzione.
+
+ho.simload	-begin-
+Carica un file.mem in memoria.
+-end-
+
+ho.simdump	-begin-
+Scarica il contenuto di una memoria in un file.mem.
+-end-
+
+ho.sim.break	-begin-
+Inserisci un breakpoint per il simulatore.
+I breakpoints sono espressioni che causano la sospensione
+della simulazione quanto sono verificate.
+Attualmente sono supportate espressioni con un unico
+operatore relazionale come "w1 == 0" o "w7 != 8".
+Possono essere usate anche espressioni come "w8" o "!w2"
+per eseguire il test "diverso da zero", rispettivamente
+"uguale a zero".
+-end-
+
+ho.f.modlist	-begin-
+Elenco di tutti i moduli caricati.
+Il modulo "top-level" è indicato con il segno "+".
+Moduli di libreria sono fra parentesi.
+-end-
+
+ho.netlist	-begin-
+Elenco dei collegamenti nel modulo attuale.
+Collegamenti segnati con '@' hanno nomi nascosti.
+Collegamenti multi-bit sono mostrati con il range.
+-end-
+
+ho.ports	-begin-
+Elenco delle porte del modulo attuale.
+Il segno '>' indica un input mentre 
+'<' indica un output; il segno '=' indica inout.
+-end-
+
+ho.status.logo		-begin-
+Indicatore di stato del simulatore.
+Se appare il cancello, TkGate è in modalità di disegno.
+Se si vede la porta AND a quattro zampe, TkGate
+si trova in modalità di simulazione: se la AND
+è ferma, la simulazione è in pausa mentre se
+cammina, la simulazione sta procedendo.
+-end-
+
+ho.status.msg		Messaggi di TkGate vengono mostrati qui.
+
+ho.status.block		La pila di moduli in lavorazione.
+
+ho.status.file		-begin-
+Il file in lavorazione.  Un '*' indica
+che il buffer è stato modificato dall'ultima
+volta che è stato salvato.
+-end-
+
+ho.print.selall		Stampa tutti i moduli attualmente caricati in TKGate.
+ho.print.selcur		Stampa solo il modulo attualmente nella finestra di edit.
+ho.print.seluse		-begin-
+Stampa tutti i moduli "attivi". I moduli "attivi" sono
+quelli nella gerarchia del modulo "root".
+-end-
+
+ho.print.fulltrace	Stampa tutta la traccia.
+
+ho.print.parttrace	-begin-
+Stampa una parte della traccia. Inserisci gli istanti di inizio
+e di fine nei campi qui sotto o usa il bottone destro 
+del mouse per selezionare una parte della finestra 
+delle tracce (usa shift-right per selezionare pezzi lunghi).
+-end-
+
+ho.print.parttracestart	Istante di inizio per la traccia da stampare.
+ho.print.parttraceend	Istante finale per la traccia da stampare.
+
+
+ho.print.selsel		-begin-
+Stampa solo i moduli selezionati qua sotto.
+Usa il tasto <ctrl> per selezionare più moduli.
+-end-
+
+ho.print.modlist	Seleziona i moduli da stampare.
+
+ho.circuit.discchg	-begin-
+TkGate non mostrerà avvertimenti se
+elimini cambiamenti senza salvare.
+-end-
+
+ho.circuit.extbar	-begin-
+Porte logiche di base (AND, OR, XOR) useranno 
+barre di estensione per dar posto a molti input.
+-end-
+
+ho.cmd.bitw		-begin-
+Fili selezionati con il puntatore verranno 
+trasformati in bus con questo numero di bit.
+-end-
+
+ho.edgat.extbar		-begin-
+Se selezionato, porte logiche di base
+a più ingressi useranno barre di estensione
+man mano che vengono aggiunte entrate.
+-end-
+
+ho.edgat.signam		-begin-
+Nome del segnale collegato al port selezionato. 
+Qui puoi cambiare il nome del segnale.
+-end-
+
+ho.edgat.port		-begin-
+Nome del port selezionato sul gate.
+Questo campo può venir modificato solo per istanze di moduli.
+-end-
+
+ho.edgat.iolab		-begin-
+Direzione del port selezionato sul gate. 
+Questo campo può venir modificato solo per istanze di moduli.
+-end-
+
+ho.edgat.bitlab		-begin-
+Larghezza del port e del segnale.
+Qui puoi cambiare il numero di bit del segnale.
+-end-
+
+ho.edgat.cycle		Il numero di epoche in un ciclo di clock.
+ho.edgat.phase		L'inizio del ciclo (in percento).
+ho.edgat.duty		La percentuale del ciclo, il clock è basso.
+
+ho.edgat.cname		Nome del collegamento.
+ho.edgat.cport		Port a cui è collegato il net.
+ho.edgat.ctype		Tipo di collegamento.
+ho.edgat.cbitw		Larghezza del collegamento (bit width).
+ho.edgat.cedit		Modifica la porta selezionata.
+ho.edgat.cadd		Aggiungi un port.
+ho.edgat.cdel		Cancella il port selezionato.
+
+ho.edgat.hide		-begin-
+Attiva questo flag per nascondere il nome della porta logica.
+-end-
+
+ho.edgat.gtype		Tipo di porta.
+ho.edgat.gname		Nome di questa istanza di porta logica.
+ho.edgat.ganchor	Attiva questo flag per fissare la posizione di una porta logica.
+ho.edgat.gx		Coordinata X del gate.
+ho.edgat.gy		Coordinata Y del gate.
+
+ho.edgat.swstate	-begin-
+Stato iniziale del commutatore da usare
+all'inizio della simulazione.
+-end-
+
+ho.edgat.dipstate	-begin-
+Stato iniziale del dip switch da usare
+all'inizio della simulazione.
+-end-
+
+ho.edgat.range		Il range di bits da estrarre dal bus.
+
+ho.edgat.memfile	-begin-
+Il file con lo stato iniziale di questa memoria.
+Il file viene letto quando il simulatore viene attivato.
+-end-
+
+ho.edgat.func		Il tipo di funzione di questo modulo.
+ho.edgat.frame		L'etichetta del riquadro.
+
+ho.traceprint		Stampa la traccia.
+
+ho.showxhair		-begin-
+Se questo pulsante è attivato, nella finestra
+delle tracce il cursore è una linea verticale.
+-end-
+
+ho.opt.sorttraces	-begin-
+Se questa opzione è abilitata, le tracce 
+nella finestra del logic analyzer vengono 
+ordinate in ordine alfabetico.
+Se l'opzione è disabilitata, le tracce vengono
+mostrate nell'ordine in cui sono state richiamate. 
+-end-
+
+ho.opt.rememberprobes	-begin-
+Se questa opzione è attiva, le sonde agganciate 
+durante la simulazione verranno memorizzate e saranno 
+riprese automaticamente al prossimo run di simulazione.
+-end-
+
+
+ho.opt.undolen		-begin-
+Quantità massima di comandi da mantenere nella lista "undo".
+-end-
+
+ho.opt.site		-begin-
+Nome del sito di istallazione di TkGate.
+Questo nome appare sui documenti stampati.
+-end-
+
+ho.opt.smooth		-begin-
+Se questa opzione è abilitata, lo scrolling
+è ottimizzato usando copie bitmap invece di 
+fare un redisplay completo.
+Spegni questa opzione se vi sono problemi
+con il tuo server.
+-end-
+
+ho.opt.clip		-begin-
+Se questa opzione è abilitata, verrà usato
+il meccanismo di clipping per aggiornare solo
+la parte visibile della finestra in caso di 
+un rinfresco. Altrimenti tutto il display viene
+ridisegnato.
+-end-
+
+ho.opt.outmove		-begin-
+Se questa opzione è abilitata, in caso di spostamento
+di moduli ne verrà mostrata solo la sagoma.
+Usa questa opzione solo su macchine con grafica lenta.
+-end-
+
+ho.opt.bhelp		-begin-
+Se questa opzione è abilitata, verranno mostrati
+messaggi di aiuto (balloons) sugli oggetti 
+toccati dal puntatore.
+-end-
+
+ho.opt.novice		-begin-
+Se non è specificato alcun circuito sulla linea
+di comando, all'inizio verrà caricato 
+un tutorial di TkGate.
+-end-
+
+ho.opt.debug		-begin-
+Abilita diverse opzioni di debugging
+utili solo per gli sviluppatori di TkGate.
+-end-
+
+ho.opt.ckpt		Abilita checkpointing di circuiti non ancora salvati.
+ho.opt.ckptfreq		Frequenza di checkpointing in secondi.
+
+ho.opt.beak		-begin-
+Disabilita queste opzioni inutili!
+Se lo fai, questa rubrica e questo checkbox non appariranno più. 
+Per riattivarle, dovrai editare il tuo file .tkgate-preferences.
+-end-
+
+ho.opt.miles		-begin-
+Se questa opzione è attiva, TkGate commenterà
+periodicamente l'intelligenza delle operazioni
+dell'utente;-)
+-end-
+
+ho.opt.bat		-begin-
+Se questa opzione è attiva, TkGate si predispone
+per progettare un computer di Batman...
+-end-
+
+ho.opt.trek		Lanciami Scoty! (...da Star Trek...)
+ho.opt.normal		Disabilita i divertimenti.
+
+ho.opt.simstep		-begin-
+Quantità di epoche di avanzamento per il comando "Step Epoch(s)".
+-end-
+
+ho.opt.ckstep		-begin-
+Quantità di cicli di clock di avanzamento per il comando "Step Cycle".
+-end-
+
+ho.opt.ckover		-begin-
+La quantità di epoche da simulare oltre il fianco positivo
+del clock per il comando "Step Cycle".
+-end-
+
+ho.opt.vpopupdelay		-begin-
+Il ritardo in millisecondi fra un click e la
+visualizzazione del valore di un segnale.
+Su alcuni sistemi, ritardi brevi compromettono 
+la possibilità di riconoscere il doppio click.
+Se hai questo problema, aumenta questo valore.
+Sono ammessi valori fra 1 e 10000.
+-end-
+
+ho.opt.init		-begin-
+Script da eseguire automaticamente
+quando si attiva la simulazione.
+-end-
+
+ho.opt.ckall		-begin-
+Se questa opzione è abilitata, il comando
+"Step Cycle" mette in pausa il simulatore 
+al fianco positivo di ogni clock del circuito.
+-end-
+
+ho.opt.ckspec		-begin-
+Se questa opzione è abilitata, il comando
+"Step Cycle" mette in pausa il simulatore
+unicamente al fianco positivo del segnale 
+di clock specificato. 
+Fa stato il nome del gate, non del net!
+-end-
+
+ho.deftech		-begin-
+Tecnologia di default per nuove porte logiche.
+Influenza il delay delle porte. Per cambiare
+la tecnologia di un gate specifico, apri
+il formulario delle sue proprietà (doppio
+click) e seleziona l'opzione "Delay".
+-end-
+
+ho.techbut		-begin-
+Usa i ritardi codificati nel file di 
+definizione della tecnologia standard.
+Per aggiungere tecnologie personalizzate,
+inseriscile nella lista nel menu 
+"File -> Options -> Simulate".
+-end-
+
+ho.custbut		-begin-
+Imposta valori di ritardo personalizzati per questa porta.
+-end-
+
+ho.contver		-begin-
+Verifica continuamente l'integrità delle strutture dati
+interne dopo ogni operazione.
+-end-
+
+ho.simwatch		-begin-
+Visualizza i comandi scambiati fra GUI e simulatore.
+-end-
+
+ho.simlog		-begin-
+Annota in un logfile i comandi passati al simulatore.
+Il log può venir usato senza GUI per passare comandi
+al simulatore. Applicazione: debugginig di TkGate.
+-end-
+
+ho.cpathanal		-begin-
+Trova i percorsi critici
+-end-
+
+###########################################
+# Added to the swiss-italian localization
+# P. Ceppi; SUPSI-DTI - April 2004
+##
+
+ho.edgate.frame		Etichetta del riquadro di commento
+msg.backupfail		Non posso creare il file di backup (protezioni/disco pieno?)

@@ -1,0 +1,32 @@
+/* XPM */
+static char *checkon[] = {
+/* width height num_colors chars_per_pixel */
+"    24    21        4            1",
+/* colors */
+". c #828282",
+"# c #b03060",
+"a c #d9d9d9",
+"b c #ffffff",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaa...........aaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"....aa.#########baaaaaaa",
+"bbbbaa.#########baaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"aaaaaa.#########baaaaaaa",
+"aaaaaa.bbbbbbbbbbaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaaaa"
+};

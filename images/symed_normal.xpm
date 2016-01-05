@@ -1,0 +1,25 @@
+/* XPM */
+static char * s[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+" 	c white",
+".	c #0000ff",
+"X	c #ff0000",
+/* pixels */
+"                ",
+"                ",
+"                ",
+"  ........      ",
+"  .       ..    ",
+"XX.         .   ",
+"XX.          .  ",
+"  .          .XX",
+"  .          .XX",
+"XX.          .  ",
+"XX.         .   ",
+"  .       ..    ",
+"  ........      ",
+"                ",
+"                ",
+"                "};

@@ -1,0 +1,30 @@
+/* XPM */
+static char *net[] = {
+/* width height num_colors chars_per_pixel */
+"    16    16        7            1",
+/* colors */
+". c #000000",
+"# c #7f7f7f",
+"a c #0000ff",
+"b c #008b00",
+"c c #cccccc",
+"d c #ddddff",
+"e c #ffffff",
+/* pixels */
+"eeccccccccccccee",
+"ecccccccccccccce",
+"ccdddddddddddd##",
+"ccddaaaddddddd##",
+"ccbbaaabbbbbbb##",
+"ccddaaaddddddd##",
+"ccdddbdddddddd##",
+"ccdddbdddd.ddd##",
+"ccdddbddd.d.dd##",
+"ccdddbddd.d.dd##",
+"ccdddbdd.....d##",
+"ccdddbdd.ddd.d##",
+"ccdddbd..ddd..##",
+"ccdddbdddddddd##",
+"ec#############e",
+"ee############ee"
+};

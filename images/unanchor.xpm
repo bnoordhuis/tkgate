@@ -1,0 +1,23 @@
+/* XPM */
+static char * unanchor_xpm[] = {
+"16 16 4 1",
+" 	c white",
+".	c black",
+"X	c red",
+"o	c grey75",
+"                ",
+"       ..   XXX ",
+"      .... XXXX ",
+"     ..  .XXXXX ",
+"     ..  XXXXX  ",
+"      ..XXXXX   ",
+"       XXXXX    ",
+"      XXXXX     ",
+"     XXXXX      ",
+"    XXXXX       ",
+" ..XXXXX.   ... ",
+" .XXXXX..  o... ",
+" XXXXXo..o..... ",
+" XXXX.......o   ",
+" XXX o....o     ",
+"                "};

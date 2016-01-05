@@ -1,0 +1,397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (Libraries)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+   <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<a name=vpdexamples>
+<h2>9. TkGate Library Components</h2>
+
+The TkGate distribution includes four libraries that can be loaded
+through the library manager.  Components from these libraries can be
+used to add additional functionality to your designs.  To use one of
+the libraries, open the library manager with the <img
+src=fig/file_lib.gif class=tool> toolbar button and select the library
+you wish to load.  You can then locate the module you wish to use in
+the module hierarchy and drag it onto the main window canvas to create
+an instance of it.  The libraries that are available with TkGate are
+described in the following sections.
+
+<a name=tty>
+<h3>9.1 TTY</h3>
+
+<div class=rfig>
+<a name=ttywin>
+<a href="fig/ttywindow.gif"><img src=fig/small-ttywindow.gif><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 9.2: TTY Device Window</b>
+</div>
+
+The TTY library, <tt>tty</tt> provides a Virtual Peripheral Device
+(VPD) modeling a TTY device.  The TTY supports input and output and
+models an interactive TTY terminal.  You can use it in your design to
+provide textual interaction with the user.  When you start the
+simulator, one TTY window will appear for each instance of a TTY VPD
+in your design.  Your design can send characters to and receive
+characters from the TTY device.
+<p>
+
+<div class=lfig>
+<a name=ttydev>
+<img src=fig/tty.gif><br><br>
+<b>Figure 9.1:<br>TTY Device</b><br><br>
+</div>
+To use the TTY device, open the library manager with the <img
+src=fig/file_lib.gif class=tool> toolbar button and load the "tty"
+library.  You can then locate the module in the module list or module
+hierarchy and drag it onto the main window canvas to create an
+instance of it.  Figure 9.1 shows the external view of the TTY
+instance which is defined with a symbolic module interface.
+<p>
+When a design containing the TTY device is simulated, it will open a
+window such as the one shown in Figure 9.2 (after the design has been
+running for a while).  The text shown in this window was transmitted
+from the "Menagerie CPU" example.  Keys pressed while the window has
+focus will be transmitted back to the controlling design.
+
+<p style="clear: right;">
+
+<div class=rfig>
+<a name=txchar>
+<img src=fig/txchar.gif><br><br>
+<b>Figure 9.3:<br>Transmit Character</b>
+</div>
+
+To send a character to a TTY device, use the following protocol (see
+Figure 9.3):
+<ul>
+<li> Unassert the DSR line.
+<li> Wait for the DTR (Data Terminal Ready) line to be low.
+<li> Drive the RD line with the ASCII code of the character to be transmitted.
+<li> Assert the DSR (Data Set Ready) line.
+<li> Wait for the DTR line to go high.
+<li> Unassert the DSR line
+</ul>
+<p style="clear: right;">
+
+<div class=rfig>
+<a name=rxchar>
+<img src=fig/rxchar.gif><br><br>
+<b>Figure 9.4:<br>Receive Character</b>
+</div>
+
+To receive a character from the TTY device, use the following
+protocol(see Figure 9.4):
+<ul>
+<li> Unassert the CTS line.
+<li> Wait for the RTS line to go high.
+<li> Read the received value on the TD line.
+<li> Assert the CTS line.
+<li> Wait for the RTS line to go low.
+<li> Unassert the CTS line.
+</ul>
+<p>
+Note that transmitting a character to the TTY uses "RD" and receiving a
+character from the TTY uses "TD" because the RD and TD are named from
+the perspective of the TTY device.
+
+<h4>9.1.1 Forcing TTY Characters from Simulation Scripts</h4>
+
+You can use a simulation script to force input into a TTY device.
+This is done by using a special named channel
+"<i>instaname</i><tt>.FORCE</tt>" where "<i>instaname</i>" is the
+fully instantiated instance name of the TTY.  You can use the <a
+href="systemTasks.html#tkg_send"><tt>$tkg$send</tt></a> system task to
+send the string to be forced.  For example, to force the input
+"<tt>Hello World</tt>" into the TTY named "<tt>main.memory.tty0</tt>",
+you could use the simulation script:
+
+<pre>
+  initial
+    begin
+      # 10000 ;
+      $tkg$send("main.memory.tty0.FORCE","Hello World");
+  end
+</pre>
+
+
+<br style="clear: right;">
+
+
+<a name=drink>
+<h3>9.2 Drink Vending Machine</h3>
+
+<div class=rfig>
+<a name=drinkdev>
+<center>
+<img src=fig/cokemachine.gif><br><br>
+</center>
+<b>Figure 9.5: Drink Machine Device</b>
+<br><br>
+<a name=drinkwin>
+<a href="fig/cokemachinewin.gif"><img src=fig/small-cokemachinewin.gif><br>
+(Click to Enlarge)</a><br><br>
+<b>Figure 9.6: Drink Machine GUI</b>
+</div>
+
+The drink vending machine library, "<tt>coke</tt>", provides a Virtual
+Peripheral Device (VPD) modeling a drink vending machine.  The device
+provides input and output signals for the actuators and sensors in the
+virtual vending machine.  You can use this device to design a vending
+machine circuit that controls an interactive model of a vending machine.
+<p>
+To use the drink machine device, open the library manager with the
+<img src=fig/file_lib.gif class=tool> toolbar button and load the
+"<tt>coke</tt>" library.  You can then locate the <tt>cokemachine</tt>
+module in the module hierarchy and drag it onto the main window canvas
+to create an instance of it.  Figure 9.5 shows the external view of
+the cokemachine instance.
+<p>
+The virtual drink vending window that appears when you start the
+simulation is shown in Figure 9.6.  It is comprised of an external
+view (left side) and an internal view (right side).  The external view
+includes buttons that can be pressed to make a drink selection, a coin
+slot, and a bill reader.
+<p>
+The following interactions can be made through the drink machine GUI:
+<ul>
+<li>Coins are inserted by dragging them from the user's stock of cash in
+the upper left corner to the coin slot.
+<li>Bills are inserted by dragging them from the user's stock of cash in 
+the upper left corner to the bill reader.
+<li> Fake bills can be dragged to the bill reader to test if the
+control logic detects and rejects them correctly.
+<li> Drink selections are made by pressing the drink buttons on the external view.
+<li> Pressing the coin return lever should cause inserted coins to be returned.
+<li> Purchased drinks appear in the margin along the bottom.
+</ul>
+<p>
+The internal view
+shows the columns of drinks that are available in the machine, the
+status of the bill scanner, the coins that have been inserted (but not
+used for a purchase), the coins that have been committed to a
+purchase, and coins that are available to make change.
+
+<p style="clear: both;">
+The input signals on the drink machine and their function are as follows:
+<p>
+<table class=display>
+<tr><th width=100>Signal</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td class=tt>DISP</td><td class=wide>
+
+<b>Dispense</b> - Each of the six bits dispenses a drink from one of
+the six columns.  Drinks are dispensed on the rising edge of the
+signal.  Only one bit should be asserted at a time, and only after
+ensuring the the <tt>DISPACK</tt> (Dispense Acknowledge) signal is
+low.  The asserted bit should remain high until the <tt>DISPACK</tt>
+signal goes high.</td></tr>
+
+<tr><td class=tt>ELIGHT</td><td class=wide>
+
+<b>Empty Light</b> - Each bit corresponds to the empty light on each
+of the six buttons. If a bit is asserted, then the corresponding empty
+light will be illuminated.</td></tr>
+
+
+<tr><td class=tt>CHGQ<br>CHGD<br>CHGN</td><td class=wide>
+<b>Dispense Change</b> - Drop a quarter (<tt>CHGQ</tt>), dime
+(<tt>CHGD</tt>) or nickel (<tt>CHGN</tt>) from the "Change" bin.  Only
+one of these signals (or the <tt>CHGCOM</tt> or <tt>RETINS</tt>
+signals) may be asserted at a time.  Change is dropped on the rising
+edge of the signal.  The signal should not be raised unless the
+<tt>CHGACK</tt> (Change Acknowledge) signals is low.  The Dispense
+Change signal should be held high until the <tt>CHGACK</tt> signal
+goes high.</td></tr>
+
+<tr><td class=tt>NOCHG</td><td class=wide> <b>No Change</b> - If asserted,
+illuminates the "No Change" light on the vending machine to indicate
+that change can not be made.</td></tr>
+
+<tr><td class=tt>BILLIN</td><td class=wide>
+<b>Bill In</b> - Drives the bill motor to feed the inserted bill into
+the bill tester.  Bills in the bill tester will be dropped into the "Collected"
+bin.  The motor is activated on a positive edge of this signal.  This
+signal should not be raised unless the <tt>BILLACK</tt> (Bill
+Acknowledge) signal is low.  The Bill In signal should be held high
+until the <tt>BILLACK</tt> signal goes high. 
+</td></tr>
+
+<tr><td class=tt>BILLLT</td><td class=wide><b>Bill Light</b> - This signal
+illuminates the light on the bill reader.</td></tr>
+
+<tr><td class=tt>BILLOUT</td><td class=wide> <b>Bill Out</b> - Drives the bill
+motor to feed out the bill currently in the bill tester.  The motor is
+activated on a positive edge of this signal.  This signal should not
+be raised unless the <tt>BILLACK</tt> (Bill Acknowledge) signal is
+low.  The Bill Out signal should be held high until the
+<tt>BILLACK</tt> signal goes high.
+
+<tr><td class=tt>CHGCOM</td><td class=wide><b>Change Commit</b> - This
+signal commits any change in the "Inserted" area to the "Collected"
+area.  Change is committed on the rising edge of this signal.  
+The signal should not be raised unless the
+<tt>CHGACK</tt> (Change Acknowledge) signals is low.  The Dispense
+Change signal should be held high until the <tt>CHGACK</tt> signal
+goes high.</td></tr>
+
+<tr><td class=tt>RETINS</td><td class=wide><b>Coin Return</b> - This
+signal returns any change in the "Inserted" area back to the user.
+Change is returned on the rising edge of this signal.  The signal
+should not be raised unless the <tt>CHGACK</tt> (Change Acknowledge)
+signals is low.  The Dispense Change signal should be held high until
+the <tt>CHGACK</tt> signal goes high.</td></tr>
+
+<tr><td class=tt>INSACK</td><td class=wide><b>Insert Acknowledge</b> -
+This signal should be raised after seeing a positive edge on the
+<tt>INSQ</tt>, <tt>INSD</tt> or <tt>INSN</tt> signals indicating that
+a coin was inserted.</td></tr>
+
+<tr><td>COST</td><td class=wide><b>Drink Cost</b> - This signal drives
+the drink cost displayed on the external view of the vending machine.
+It should be the cost in nickels.</td></tr>
+
+<tr><td>RESET</td><td class=wide><b>Reset</b> - Resets the drink
+machine.  This is an active low signal.  It should be driven low to
+reset the machine, then kept high while using the device.</td></tr>
+</table>
+
+<p>
+The output signals on the drink machine and their function are as follows:
+<p>
+
+<table class=display>
+<tr><th width=100>Signal</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td>PRESS</td><td class=wide><b>Button Pressed</b> - Each bit is
+for one of the six buttons on the drink machine and is asserted while
+the corresponding button is pressed.</td></tr>
+
+<tr><td>EMPTY</td><td class=wide><b>Empty Sensor</b> - Each bit
+corresponds to one of the drink columns and is asserted when the
+sensor indicates that there are no more drinks in a column.</td></tr>
+
+<tr><td class=tt>INSQ<br>INSD<br>INSN</td><td class=wide>
+
+<b>Coin Inserted</b> - These signals indicate that a quarter
+(<tt>INSQ</tt>), dime (<tt>INSD</tt>) or nickel (<tt>INSN</tt>) have
+been inserted.  A rising edge indicates the insertion.  The
+controlling circuit should assert the <tt>INSACK</tt> signal to
+acknowledge the insertion.</td></tr>
+
+
+<tr><td class=tt>NUMQ<br>NUMD<br>NUMN</td><td class=wide> <b>Change
+Available</b> - Indicates the number of quarters (<tt>NUMQ</tt>),
+dimes (<tt>NUMD</tt>) and nickels (<tt>NUMN</tt>) available for making
+change (up to 7).  If there are more than 7 coins of a type available,
+then the signal will indicate 7.</td></tr>
+
+<tr><td>BILLSNS</td><td class=wide><b>Bill Sense</b> - A high value indicates that
+a bill is sensed in the bill insertion slot.  The controlling circuit
+should assert <tt>BILLIN</tt> to feed the bill into the bill tester</td></tr>
+
+<tr><td>BILLOK</td><td class=wide><b>Bill OK</b> - A high value
+indicates that the bill in the bill tester is a valid bill.</td></tr>
+
+<tr><td>CNRET</td><td class=wide><b>Coin Return Request</b> - A high
+value indicates that the user is pressing the coin return lever.</td></tr>
+
+<tr><td>BILLACK</td><td class=wide><b>Bill Acknowledge</b> - This
+signal is asserted to acknowledge a <tt>BILLIN</tt> or <tt>BILLOUT</tt>
+signal.</td></tr>
+
+<tr><td>CHGACK</td><td class=wide><b>Change Acknowledge</b> - This
+signal is asserted to acknowledge a <tt>CHGQ</tt>, <tt>CHGD</tt>,
+<tt>CHGN</tt>, <tt>CHGCOM</tt> or <tt>RETINS</tt> signal.</td></tr>
+
+<tr><td>DISPACK</td><td class=wide><b>Dispense Acknowledge</b> - This
+signal is asserted to acknowledge a <tt>DISP</tt> signal.</td></tr>
+
+<tr><td>BILLNG</td><td class=wide><b>Bill No Good</b> - This signal is
+asserted to indicate that a fake bill is in the bill tester.</td></tr>
+</table>
+
+
+<a name=timer>
+<h3>9.3 Timers and One-Shots</h3>
+
+Timers and one-shots are devices that operate in real time.  To use a
+timer or one-shot device, open the library manager with the <img
+src=fig/file_lib.gif class=tool> toolbar button and load the "timer"
+library.  You can then locate the desired device in the module list or
+module hierarchy and drag it onto the main window canvas to create an
+instance of it.
+
+<h4>9.3.1 OSCILLATOR Device</h4>
+
+<div class=rfig>
+<img src=fig/oscillator.gif><br>
+<b>Figure 9.7:<br>Oscillator</b>
+
+</div>
+
+The <tt>OSCILLATOR</tt> device provides a signal that oscillates at a
+set frequency in real-world time.  You can use it to design circuits
+such as digital clocks using the LED gates.  The default frequency is
+one hertz.  To change the frequency, double click on the OSCILLATOR
+module to open the <a href="gateEdit.html#gateprops">Gate
+Properties</a> dialog box and select the "Parameters" tab.  Set the
+"HZ" parameter to the desired period in milliseconds. 
+
+
+<br style="clear: right;">
+<h4>9.3.2 ONESHOT Device</h4>
+
+<div class=rfig>
+<img src=fig/oneshot.gif><br>
+<b>Figure 9.8:<br>One Shot</b>
+</div>
+
+A one-shot device asserts its output a set time period after being
+reset by the input.  The ONESHOT is triggered by an active low signal.
+You can connect the input to ground, to cause the ONESHOT device to
+assert its output after a set amount of real-world time after the
+simulation begins.  Raising the input and lowering it again resets the
+one-shot.  The default delay is one second.  To change the time delay
+of the ONESHOT, double click on it to open the <a
+href="gateEdit.html#gateprops">Gate Properties</a> dialog box and
+select the "Parameters" tab.  Set the "HZ" parameter to the desired
+delay in milliseconds.
+
+<a name=ttl>
+<h3>9.4 TTL Devices</h3>
+
+The TTL device library provides access to a small number of commonly
+used 7400 series TTL modules. To use this library, open the library
+manager with the <img src=fig/file_lib.gif class=tool> toolbar button
+and load the "74xx" library.  You can then locate the desired device in
+the module list or module hierarchy and drag it onto the main window
+canvas to create an instance of it. The supported devices are: 
+<p>
+<table class=display>
+<tr><th align=left width=100>Device</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>7400</tt></td><td>Quad 2-input NAND gates</td></tr>
+<tr><td><tt>7402</tt></td><td>Quad 2-input NOR gates</td></tr>
+<tr><td><tt>7404</tt></td><td>Hex Inverters</td></tr>
+<tr><td><tt>7408</tt></td><td>Quad 2-input AND gates</td></tr>
+<tr><td><tt>7410</tt></td><td>Tri 3-input NAND gates</td></tr>
+<tr><td><tt>7430</tt></td><td>8-input NAND gate</td></tr>
+<tr><td><tt>7432</tt></td><td>Quad 2-input OR gate</td></tr><tr>
+<tr><td><tt>7474</tt></td><td>Dual D-Latch, edge triggered with clear and preset</td></tr>
+<tr><td><tt>7486</tt></td><td>Quad 2-input XOR gates</td></tr>
+<tr><td><tt>74154</tt></td><td>4-16 Decoder</td></tr>
+<tr><td><tt>74157</tt></td><td>Quad 2-1 Mux</td></tr>
+<tr><td><tt>74163</tt></td><td>4-bit Synchronous Counter</td></tr>
+<tr><td><tt>74175</tt></td><td>Quad D-Latch, edge triggered with clear</td></tr>
+</table>
+<p>
+Please see standard TTL data sheets for a description of these devices.
+
+</body>
+</html>

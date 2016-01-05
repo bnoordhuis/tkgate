@@ -1,0 +1,949 @@
+#
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Wed Apr  6 23:43:13 2005
+#
+# Traduction effectuée par Laurent.Bonnaud@iut2.upmf-grenoble.fr
+#
+
+\language French
+
+##############################################################################
+#
+# basic strings
+#
+b.dismiss	Annuler
+b.close		Fermer
+b.ok		OK
+b.clear		Effacer
+b.cancel	Annuler
+b.open		Ouvrir...
+b.bitw		Largeur de bus
+b.in		entrée
+b.out		sortie
+b.inout		E/S
+b.browse	Parcourir...
+b.label		Étiquette
+b.find		Chercher
+b.edit		Éditer...
+b.add		Ajouter...
+b.delete	Supprimer
+b.deleteb	Supprimer...
+b.apply		Appliquer
+b.anchor	Ancre
+b.tech		Technologie
+
+##############################################################################
+# Menu strings
+#
+menu.file		Fichier
+menu.edit		Éditer
+menu.tool		Outils
+menu.simulate		Simuler
+menu.module		Module
+menu.format		Élément
+menu.make		Ajouter
+menu.circ		Circuit
+
+menu.file.new		Nouveau circuit
+menu.file.open		Ouvrir...
+menu.file.openlib	Ouvrir bibliothèque...
+menu.file.save		Sauver
+menu.file.saveas	Sauver...
+menu.file.print		Imprimer...
+menu.tool.options	Options...
+menu.file.quit		Quitter
+menu.file.cprop		Propriétés du circuit...
+
+menu.edit.cut		Couper
+menu.edit.copy		Copier
+menu.edit.paste		Coller
+menu.edit.selall	Tout sélectionner
+menu.edit.find		Chercher...
+menu.format.algnv		Aligner Vert.
+menu.format.algnh		Aligner Horz.
+menu.edit.zoomin	Zoom +
+menu.edit.zoomout	Zoom -
+
+menu.tool.move		Déplacer/Connecter
+menu.tool.delg		Supprimer élément
+menu.tool.cutw		Couper connexion
+menu.tool.inv		Poser inverseurs
+menu.tool.bitw		Largeur de connexion
+menu.tool.debug		Debug
+menu.format.rot.0		Rot. 0
+menu.format.rot.90		Rot. 90
+menu.format.rot.180	Rot. 180
+menu.format.rot.270	Rot. 270
+
+menu.simulate.begin	Commencer simulation
+menu.simulate.end	Terminer simulation
+menu.simulate.run	Lancer
+menu.simulate.pause	Pause
+menu.simulate.step	Avancer d'un quantum
+menu.simulate.cycle	Avancer d'un cycle
+menu.simulate.break	Point d'arrêt...
+menu.simulate.script	Exécuter Script...
+menu.simulate.load	Charger mémoire...
+menu.simulate.dump	Sauver mémoire...
+
+menu.module.open	Ouvrir
+menu.module.close	Fermer
+menu.module.new		Nouveau...
+menu.module.del		Supprimer...
+menu.module.copy	Copier...
+menu.module.rename	Renommer...
+menu.module.claim	Claim...
+
+menu.interface.set	Appliquer interface
+menu.interface.edit	Éditer interfaces...
+
+menu.circ.path		Chemin critique...
+
+menu.gate.addin		Ajouter entrée
+menu.gate.addout	Ajouter sortie
+menu.gate.addinout	Ajouter E/S
+menu.gate.iochg		Changer type
+menu.format.anchor	Ancrer la sélection
+menu.format.unanchor	Dé-ancrer la sélection
+menu.format.prop		Propriétés...
+menu.tool.rep		Répliquer
+menu.format.del		Supprimer
+menu.format.settech	Choisir technologie
+
+# Scope Menu
+menu.scope.prtrace	Imprimer chronogramme...
+menu.scope.close	Fermer
+menu.scope.trace	Chronogramme
+menu.scope.zoomin	Zoom +
+menu.scope.zoomout	Zoom -
+
+gm.switch	E/S
+gm.gate		Porte
+gm.rgate	Réduction
+gm.msi		MSI
+gm.alu		UAL
+gm.mem		Mémoire
+gm.mod		Module
+gm.comment	Commentaire
+gm.frame	Cadre
+
+gm.io.switch	Interrupteur
+gm.io.dip	Interrupteurs
+gm.io.ground	Terre
+gm.io.vdd	Vdd
+gm.io.merge	Fusionner connexions
+gm.io.clock	Horloge
+
+gm.io.led	Diode
+gm.io.ledbar	Barre de diodes
+gm.io.ledhex	chiffre (hexa)
+gm.io.leddec	chiffre (décimal)
+gm.io.ledseg	chiffre (direct)
+
+gm.io.tty	TTY
+
+gm.gate.and		AND
+gm.gate.nand		NAND
+gm.gate.or		OR
+gm.gate.nor		NOR
+gm.gate.xor		XOR
+gm.gate.xnor		XNOR
+gm.gate.buf		Buffer
+gm.gate.inv		Inverter
+gm.gate.tribuf	Tri-Buffer
+gm.gate.nmos		NMOS
+gm.gate.pmos		PMOS
+
+gm.rgate.and		AND
+gm.rgate.nand		NAND
+gm.rgate.or		OR
+gm.rgate.nor		NOR
+gm.rgate.xor		XOR
+gm.rgate.xnor		XNOR
+
+gm.alu.add		Additionneur
+gm.alu.mult		Multiplicateur
+gm.alu.div		Diviseur
+gm.alu.lshift	Décalage à gauche
+gm.alu.rshift	Décalage à droite
+gm.alu.arshift	Décalage à droite arithmétique
+gm.alu.roll		Permutation circulaire
+
+gm.mem.reg		Registre
+gm.mem.ff		Bascule D
+gm.mem.ram		RAM
+gm.mem.rom		ROM
+
+gm.msi.21mux		2-1 Multiplexeur
+gm.msi.41mux		4-1 Multiplexeur
+gm.msi.81mux		8-1 Multiplexeur
+gm.msi.12dec		1-2 Décodeur
+gm.msi.14dec		1-4 Décodeur
+gm.msi.18dec		1-8 Décodeur
+
+gm.mod.inst	Module Instance
+gm.mod.in		Module Input
+gm.mod.out	Module Output
+gm.mod.inout	Module InOut
+
+addwireseg	Ajouter une dérivation
+
+help		Aide
+hlpabout	À propos...
+hlplicense	License...
+hlpdoc		Documentation...
+hlptut		Didacticiel
+hlpexample	Exemples
+exampcomb	Logique combinatoire
+examp3bit	Compteur 3 bits
+examp8bit	Compteur 8 bits
+examptrff	FF niveau transistor
+exampcpu	Processeur "Ménagerie"
+tutwelcome	Introduction à TkGate
+tutcreate	Création d'un circuit
+tutedit1	Édition d'un circuit (1)
+tutedit2	Édition d'un circuit (2)
+tutmods		Utilisation des modules
+tutsim		Simulation d'un circuit
+
+
+##############################################################################
+# Interface strings
+#
+ifile		Fichier
+imodule		Module
+iblmodule	Modules :
+iports		Ports :
+ibits		Bits :
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.name	Nom de la connexion
+db.net.hide	Cacher le nom
+db.net.bits	Largeur de bus
+db.net.port	Type de port
+db.net.in	entrée
+db.net.out	sortie
+db.net.inout	E/S
+db.net.inets	Connexion
+
+##############################################################################
+# Gate dialog box
+#
+db.gate.signam		Nom du signal
+db.gate.portnam		Nom du port
+db.gate.iotype		Type
+db.gate.bitw		Nombre de bits
+db.gate.cyclew		Largeur de cycle
+db.gate.phase		Phase
+db.gate.duty		Duty
+db.gate.port		Port
+db.gate.bitws		Bits
+db.gate.gtype		Type d'élément
+db.gate.gname		Nom de l'élément
+db.gate.hidenam		Cacher le nom
+db.gate.anchor		Ancré
+db.gate.cpbreak		Partition du chemin critique
+db.gate.butstate	État de l'interrupteur
+db.gate.dipval		Valeur de l'interrupteur
+db.gate.memfilenam	Fichier de la mémoire
+db.gate.modname		Fonction
+db.gate.islink		Hypertexte
+db.gate.link		Lier au fichier
+db.gate.findw		Chercher des connexions uniquement
+db.gate.findg		Chercher des éléments uniquement
+db.gate.findwg		Chercher des connexions et des éléments
+db.gate.general		Général
+db.gate.details		Détails
+db.gate.ports		Port
+db.gate.delay		Délai
+db.gate.stddelay	Délai standard
+db.gate.custdelay	Délai personnalisé
+
+db.led.type		Type de diode
+db.led.bit		Bit
+db.led.bar		Bar Graph
+db.led.hex		chiffre (hexa)
+db.led.dec		chiffre (décimal)
+db.led.seg		chiffre (Direct)
+
+cpath.cloops -begin-
+Une boucle a été détectée dans votre circuit.
+Afin de pouvoir effectuer une analyse des délais
+sur ce circuit, vous devez soit
+1. faire disparaître cette boucle
+2. marquer certaines portes de la boucle comme
+   un point de "Partition du chemin critique".
+Les connexions formant une boucle sont listées
+ci-dessous.
+-end-
+
+##############################################################################
+# Print dialog box
+#
+print.outto		Imprimer vers
+print.printer		Imprimante
+print.file		Fichier
+print.prcmd		Commande d'impression
+print.filename		Nom de fichier
+print.epssave		Sauver en Postscript encapsulé
+print.doctit		Titre du document
+print.prmod		Impression des modules :
+print.epcm		Quanta/cm
+print.estpg		Nombre de pages estimé
+print.all		Tous
+print.cur		Courant
+print.use		Utilisé
+print.sel		Sélectionné
+print.inclib		Inclure les modules des bibliothèques
+print.papsz		Format de papier
+print.orient		Orientation
+print.portrait		Portrait
+print.landscape		Paysage
+print.2side		Imprimer en double face (recto-verso)
+print.opts		Options
+print.scale		Réduction des gros modules pour tenir sur une page
+print.partition		Impression des gros modules sur plusieurs pages
+print.incidx		Inclure l'index
+print.incgraph		Inclure le graphe de hiérarchie
+print.4up		Impression des petits modules 4 par page
+print.range		Sélection d'intervalle
+print.fulltr		Trace complète
+print.parttr		Trace partielle
+print.start		Démarrer
+print.end		Fin
+
+##############################################################################
+#
+# Options dialog
+#
+opt.site		Nom du site
+opt.inst		Instances
+opt.mods		Modules
+opt.modports		Ports d'un module
+opt.frames		Cadres
+opt.comment		Commentaires
+opt.hlink		Hyperliens
+opt.wire		Connexions 1 bit
+opt.bus			Connexions n bits
+opt.tools		Outils pour porte
+opt.cpath		Chemin critique
+opt.grid		Scope Grid
+opt.logic1		1 logique
+opt.logic0		0 logique
+opt.float		Flottant
+opt.unknown		Inconnu/Conflit
+opt.offled		Diode éteinte
+opt.onled		Diode allumée
+opt.zled		Floating LED
+opt.restdef		Restaurer valeurs par défaut
+opt.regudate		Réaffichage minimal
+opt.smoothscroll	Défilement fluide
+opt.outmove		Déplacement d'un fantôme
+opt.balloon		Activer les infobulles
+opt.debug		Activer la mise au point
+opt.novice		Mode débutant
+opt.ckpoint		Sauvegarde automatique
+opt.freq		intervalle
+opt.beak		Activer les modes spéciaux
+opt.mode		Mode
+opt.normal		Normal
+opt.bat			Bat
+opt.trek		Star Trek
+opt.miles		Miles
+opt.showsimcmd		Afficher les commandes du simulateur
+opt.logfile		Fichier journal du simulateur
+opt.estepsz		Avance rapide par quanta (nombre de quanta)
+opt.cstepsz		Avance rapide par cycles d'horloges (nombre de cycles)
+opt.overstep		Arrêt débordant sur cycle d'horloge (nombre de quanta)
+opt.initscript		Script d'initialisation
+opt.posedge		Le mode pas à pas sur les cycles d'horloge s'arrête sur tous les fronts montants
+opt.setclock		Le mode pas à pas sur les cycles d'horloge s'arrête sur l'horloge
+opt.delayfilepath	Fichiers contenant les délais
+opt.general		Général
+opt.print		Impression
+opt.simulate		Simulation
+opt.analysis		Analyse
+opt.color		Couleurs
+
+opt.cpopts		Options pour chemin critique :
+opt.maxpath		Nombre maximal de chemins :
+opt.cpflash		Affichage avec chemin clignotant
+
+opt.vercheck		-begin-
+Vérifier automatiquement la sortie d'une nouvelle version
+de tkgate sur Internet.  Ne pas activer à moins d'avoir
+une connexion permanente à Internet.
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+blklst.newmod		Nouveau module
+blklst.delmod		Supprimer module
+blklst.frommod		Copier module depuis
+blklst.tomod		Vers
+blklst.oldname		Ancien nom
+blklst.newname		Nouveau nom
+blklst.claim		Claim Module
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.topmod		Module principal
+circ.discchg		annuler changements
+circ.iniscript		Scripts d'initialisation
+circ.noscript		Pas de fichier script sélectionné.
+circ.really1		Voulez-vous vraiment supprimer
+circ.really2		de la liste des scripts d'initialisation ?
+
+##############################################################################
+# Simulator
+#
+sim.breakpt		Point d'arrêt
+
+##############################################################################
+#
+# Command box
+#
+cmd.file		Nom du fichier
+cmd.topname		Nom du module principal
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		Délai sur chemin :
+cp.pathl		Chemin :
+cp.numpath		Nombre de chemins :
+cp.recompute		Recalculer
+
+##############################################################################
+# Error messages - Messages d'erreur
+#
+err.verilog		Erreurs dans le fichier :
+err.nopin		Impossible de changer la patte sélectionnée.
+err.badhex		Valeur hexadécimale illégale ('%s') ignorée.
+err.gatanchor		Les éléments sont ancrés et ne peuvent pas être déplacés.
+err.libmode		Opération illégale sur un module de bibliothèque (convertir le module en module normal pour pouvoir l'éditer).
+err.badfind		Impossible de trouver la cible '%s'.
+err.badopendel		Impossible de supprimer un module ouvert.
+err.nosrcmod		Module source '%s' non trouvé.
+err.noerr		Impossible de trouver l'erreur.
+err.misserr		Information sur l'erreur incomplète (plantage du simulateur ?)
+err.pounimpl		Erreur non implémentée dans ParseOption
+
+err.badinadd		Impossible d'ajouter plus d'entrées à l'élément sélectionné.
+err.badoutadd		Impossible d'ajouter plus de sorties à l'élément sélectionné.
+err.badinoutadd		Impossible d'ajouter plus de pattes d'E/S à l'élément sélectionné.
+err.badpinchg		Impossible de changer le type de patte pour l'élément sélectionné.
+err.badnetname		Caractères illégaux supprimés dans l'identificateur.
+err.netbcrename		Identificateur renommé en '%s' à cause de caractères illégaux.
+err.netconfnet		Identificateur renommé en '%s' à cause d'un conflit de noms.
+err.netconfgat		Identificateur renommé pour éviter un conflit avec un nom d'élément.
+err.netconfkw		Identificateur renommé pour éviter un conflit avec mot réservé.
+err.badconsame		Connexion refusée car les fils font partie du même bus.
+err.badconptsp		Connexion refusée car les deux fils sont des ports de modules ou des ??.
+err.badconbitw		Connexion refusée car les largeurs des bus sont différentes.
+err.badrange		Non-positive range for scope trace is not allowed.
+err.badlprcmd		Impossible d'exécuter la commande d'impression '%s'.
+err.badpsopen		Impossible d'ouvrir le fichier '%s' pour une sortie PostScript.
+
+err.bkpt.badexp		Erreur de syntaxe dans l'expression du point d'arrêt.  Liste des expressions possibles : 'net', '!net', 'net==value', 'net!=value'
+err.bkpt.badnet		Nom de connexion invalide : '%s'. Les noms doivent commencer par une lettre et ne contenir que des lettres, des chifrres et '.'.
+err.bkpt.badval		Erreur de syntaxe dans la valeur '%s'.  Ce doit être une constante décimale ou Vérilog.
+err.bkpt.toomany	Trop de points d'arrêt.  Le maximum est %d.
+
+err.sim.badtmp		Impossible de sauver dans le fichier temporaire '%s' (disque plein ?)
+err.sim.syntx		Erreur de syntaxe dans la commande '%s'.
+err.sim.noincl		Fichier include '%s' non trouvé.
+err.sim.clockbadedge	Illegal edge indicator '%c' in clock command.
+err.sim.nobkpt		Point d'arrêt '%s' inconnu.
+err.sim.nonet		Connexion '%s' inconnue.
+err.sim.nogate		Élément '%s' inconnu.
+err.sim.badbin		Caractère illégal dans la constante binaire '%s'.
+err.sim.notswitch	L'élément '%s' n'est ni un interrupteur, ni un registre.
+err.sim.badcmd		Commande '%s' non reconnue dans script de simulation.
+
+err.noteditpchg		Les propriétés peuvent seulement être changées en mode d'édition.
+err.badeditop		Opération illégale en mode d'édition.
+err.badopen		Impossible d'ouvrir le fichier '%s'.
+err.badlibopen		Impossible d'ouvrir la bibliothèque '%s'.
+
+err.nomark		Poser une marque avec le bouton gauche de la souris avant de choisir un type d'élément, SVP.
+err.badgate		Type d'élément inconnu.
+err.badmake		Impossible de créer un élément.
+
+err.manypages		-begin-
+Le document que vous voulez imprimer
+contient de très nombreuses pages.
+Êtes vous sur de vouloir l'imprimer ?
+-end-
+
+err.nojump  -begin-
+La fonctionnalité de saut vers un module ne peut pas être utilisée en
+mode de simulation ou en mode d'analyse de chemin critique.  Il est
+possible de naviguer manuellement vers le bloc cible en sélectionnant
+un module et en l'ouvrant avec la touche '>'.  Pour fermer un module,
+utiliser la touche '<'.
+-end-
+
+err.nomod		Le module '%s' n'est pas défini.
+err.modlock		Ce bloc logique est vérouillé !
+err.closeroot		Impossible de fermer le module principal.  Quitter tkgate.
+err.sim.isrun		Le simulateur est déjà lancé (Taper 'Ctrl-s e' pour le tuer).
+err.sim.isnotrun	Le simulateur ne tourne pas (Taper 'Ctrl-s b' pour le démarrer).
+err.editonly		Commande invalide en mode de simulation.
+err.simonly		Commande valide seulement en mode de simulation.
+
+err.nodel		Pas de sélection supprimable.
+err.modnotdef		Le module '%s' n'est pas défini.
+err.moddef		Le bloc '%s' existe déjà.
+err.noprop		L'élément sélectionné n'a pas de propriétés éditables.
+err.openscript		Impossible d'ouvrir le script de simulation '%s'
+err.oldversion		Chargement d'un fichier avec un numéro de version (%s) obsolète (la version actuelle est %s).
+err.futureversion	Chargement d'un fichier avec un numéro de version (%s) futur (la version courante est %s).
+err.badversion		Numéro de version inconnu.  À vos risques et périls.
+err.nodrive		Le réseau %s n'a pas de driver dans le module %s.
+err.noconn		Le fil %s{%d} n'est pas connecté -> supprimé.
+
+err.noback		-begin-
+Ce fichier a été créé avec tkgate %s,
+et peut ne pas être lisible par une
+version antérieure à la version actuelle (%s),
+si vous le sauvez.
+-end-
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		Sélection de la connexion  : '%s'.
+msg.selgate		Sélection : %s nommé '%s'.
+msg.selblock		Sélection du bloc %s nommé '%s'.
+msg.modoverwt		Le module destination '%s' existe déjà.  L'écraser ?
+msg.foundgate		Élément '%s' trouvé.
+msg.foundwire		Connexion '%s' trouvée.
+msg.searchagn		Chaîne '%s' non trouvée.  Cliquer sur 'chercher' pour chercher de nouveau.
+msg.sim.chgtoroot	Simulation mode requires root module at top of edit stack.
+msg.sim.nogatemod	Simulation mode requires concrete module stack.
+msg.setinterface	L'interface du module '%s' a été appliquée.
+msg.needsel		Choisir une instance de module SVP.
+msg.wroteckpt		Sauvegarde automatique dans %s...
+msg.save		Circuit sauvé dans '%s'.
+msg.badsave		Impossible de créer le fichier '%s'.
+msg.reallynew		Le circuit a été modifié.  Voulez-vous vraiment le supprimer et créer un nouveau circuit ?
+msg.reallyquit		Le circuit a été modifié.  Voulez-vous vraiment quitter ?
+msg.notlib		Le module '%s' ne fait pas partie d'une bibliothèque.
+
+##############################################################################
+# Miles messages (Activated when Miles Bader uses tkgate)
+#
+miles.msg1		Only a fool would put %s%s there, Miles.
+miles.msg2		That's a really stupid place to put %s%s, Miles.
+miles.msg3		That's a terrible place for %s%s, Miles.
+miles.msg4		Miles, you are a fool for putting %s%s there.
+miles.msg5		Only you would put %s%s there, Miles.
+miles.msg6		Putting %s%s there is proof of your absolute stupidity, Miles.
+miles.msg7		Why don't you give up Miles, this is a stupid circuit.
+miles.msg8a		It's pointless to continue, Miles.
+miles.msg8b		It's obvious you can't design a circuit
+
+
+##############################################################################
+# Balloon Help - Infobulles
+#
+
+ho.new		-begin-
+Effacer le circuit courant
+et créer un nouveau circuit.
+-end-
+
+ho.open		Lire un circuit dans fichier.
+ho.save		Sauver le circuit dans le fichier courant.
+ho.print	Imprimer le circuit courant.
+
+ho.move		-begin-
+-> Déplacer/Connecter
+En cliquant et en faisant glisser :
+  Choisir la position d'un nouvel élément
+  Déplacer les éléments et les connexions
+  Relier des connexions
+En double-cliquant :
+  Éditer les propriétés d'un élément, d'une connexion ou d'un port
+  Éditer le texte d'un commentaire
+-end-
+
+ho.delgat	-begin-
+-> Supprimer élément
+Utiliser cet outil pour supprimer des éléments.
+-end-
+
+ho.cutw		-begin-
+-> Couper connexion
+Utiliser cet outil pour couper des connexions.
+-end-
+
+ho.inv		-begin-
+-> Poser inverseurs
+Utiliser cet outil pour ajouter ou enlever des inverseurs
+en entrée ou en sortie des portes ou des modules.
+-end-
+
+ho.bitw		-begin-
+-> Largeur de connexion
+Utiliser cet outil pour changer le nombre de bits d'un bus.
+Entrer le nombre de bits souhaité dans la petite boîte
+en bas à droite de la fenêtre principale.
+-end-
+
+ho.modopen	Ouvrir le module sélectionné.
+ho.modclose	Fermer le module courant.
+
+ho.simgo	-begin-
+Si la simulation n'est pas active,
+  démarrer une simulation
+  et exécuter les scripts d'initialisation.
+Si la simulation est active,
+  faire avancer la simulation automatiquement.
+-end-
+
+ho.simpause	-begin-
+Mettre en pause une simulation
+avançant automatiquement.
+-end-
+
+ho.simstep	-begin-
+Avancer d'un nombre fixe de quanta de temps.
+Pour régler ce nombre, aller dans le menu Fichier->Options,
+choisir l'onglet des options de la simulation
+et régler l'avance rapide par quanta.
+-end-
+
+ho.simclock	-begin-
+Avancer d'un nombre fixe de cycles d'horloge.
+Pour régler ce nombre, aller dans le menu Fichier->Options,
+choisir l'onglet des options de la simulation
+et régler l'avance rapide par cycles d'horloge.
+-end-
+
+ho.simstop	-begin-
+Terminer la simulation en cours
+et revenir au mode d'édition.
+-end-
+
+ho.simbreak	-begin-
+Éditer les points d'arrêts.
+La simulation sera stoppée
+si l'une des conditions des
+points d'arrêt devient vraie.
+-end-
+
+ho.simexec	Exécuter un script de simulation.
+
+ho.simload	-begin-
+Charger la mémoire avec le contenu
+d'un fichier ".mem".
+-end-
+
+ho.simdump	-begin-
+Sauver le contenu d'une mémoire
+dans un fichier ".mem".
+-end-
+
+ho.sim.break	-begin-
+Définir un point d'arrêt du simulateur.  Un point d'arrêt est une expression
+qui si elle devient vraie, stoppe la simulation.  Seules des expressions avec
+un seul opérateur relationnel sont supportées, par exemple "w1==0" ou "w7!=8".
+Des expressions comme "w8" ou "!w2" peuvent aussi être utilisée sur un signal
+booléen.
+-end-
+
+ho.f.modlist	-begin-
+Les de tous les modules chargés.
+ - Le module principal est indiqué par un + ajouté à son nom,
+ - Les modules de bibliothèques sont indiqués entre parenthèses.
+-end-
+
+ho.netlist	-begin-
+Liste des connexions dans le module courant.
+ - Les connexions marquées avec un @ ont leur nom caché.
+ - Les connexions à plusieurs bits (bus) sont accompagnées d'un intervalle.
+-end-
+
+ho.ports	-begin-
+Liste des ports du module courant.
+ - un > indique une sortie
+ - un < indique une entrée
+ - un = indique une entrée/sortie
+-end-
+
+ho.status.logo		-begin-
+Affichage de l'état de la simulation.
+ - Si un portail d'entrée est affiché, tkgate est en mode d'édition.
+ - Si le quadrupède est affiché, tkgate est en mode de simulation.
+ - Si le quadrupède est immobile, la simulation est en pause.
+ - Si le quadrupède marche, la simulation avance automatiquement.
+-end-
+
+ho.status.msg		Les messages de tkgate sont affichés ici.
+
+ho.status.block		Le nom du module en cours d'édition.
+
+ho.status.file		-begin-
+Le fichier en cours d'édition.
+Une * indique que le circuit a été modifié
+depuis la dernière sauvegarde.
+-end-
+
+ho.print.selall		Imprimer tous les modules chargés actuellement dans TKGate.
+ho.print.selcur		Imprimer uniquement le module dans la fenêtre d'édition de TKGate.
+ho.print.seluse		-begin-
+Imprimer tous les modules "utilisés".
+Les modules "utilisés" sont ceux qui sont
+des descendants du module principal.
+-end-
+
+ho.print.selsel		-begin-
+Imprimer uniquement les modules
+sélectionnés ci-dessous.  Utiliser
+la touche "CTRL" pour sélectionner
+des modules.
+-end-
+
+ho.print.modlist	Sélectionner les modules à imprimer.
+
+ho.circuit.discchg	-begin-
+TkGate n'affichera pas d'avertissement
+si vous annulez les éditions sans sauver.
+-end-
+
+ho.cmd.bitw		-begin-
+Les connexions sélectionnées avec le curseur
+auront pour largeur ce nombre de bits.
+-end-
+
+ho.edgat.signam		-begin-
+Le nom du signal sélectionné sur l'élément sélectionné.
+Vous pouvez changer le nom du signal en le modifiant ici.
+-end-
+
+ho.edgat.port		-begin-
+Le nom du port pour ce signal sur l'élément.
+Ce champ peut uniquement être édité
+pour des instances de modules.
+-end-
+
+ho.edgat.iolab		-begin-
+La direction du signal sélectionné sur l'élément sélectionné.
+Ce champ peut uniquement être édité
+pour des instances de modules.
+-end-
+
+ho.edgat.bitlab		-begin-
+Le nombre de bits du signal sélectionné sur l'élément sélectionné.
+Vous pouvez changer le nombre de bits en le modifiant ici.
+-end-
+
+ho.edgat.cycle		Le nombre total de quanta de temps dans un cycle d'horloge.
+ho.edgat.phase		Le point de départ du cycle (en pourcentage).
+ho.edgat.duty		Le pourcentage du cycle pendant lequel le signal d'horloge est bas.
+
+ho.edgat.cname		Nom de la connexion.
+ho.edgat.cport		Port auquel la connexion est attachée.
+ho.edgat.ctype		Type de connexion.
+ho.edgat.cbitw		Nombre de bits de la connexion.
+ho.edgat.cedit		Éditer le port sélectionné.
+ho.edgat.cadd		Ajouter un port.
+ho.edgat.cdel		Supprimer le port sélectionné.
+
+ho.edgat.hide		-begin-
+Désactive l'affichage du nom de l'élément.
+-end-
+
+ho.edgat.gtype		Type de l'élément.
+ho.edgat.gname		Nom de cette instance d'élément.
+ho.edgat.ganchor	Activer pour ancrer un élément.
+ho.edgat.gx		Coordonnée X de l'élément.
+ho.edgat.gy		Coordonnée Y de l'élément.
+
+ho.edgat.swstate	-begin-
+L'état initial de l'interrupteur
+à utiliser au début d'une simulation.
+-end-
+
+ho.edgat.dipstate	-begin-
+L'état initial d'un interrupteur DIP
+à utiliser au début d'une simulation.
+
+-end-
+
+ho.edgat.range		L'intervalle des bits à extraire d'un bus.
+
+ho.edgat.memfile	-begin-
+Le fichier contenant l'état initial de cette mémoire.
+Ce fichier est lu quand le simulateur démarre.
+-end-
+
+ho.edgat.func		La fonction de ce module.
+ho.edgat.frame		L'étiquette du cadre.
+
+ho.opt.site		-begin-
+Le nom du site sur lequel tkgate est installé.
+Ce nom sera utilisé sur toutes les impressions.
+-end-
+
+ho.opt.smooth		-begin-
+Quand cette option est activée, le défilement est optimisé
+pour utiliser des copies de morceaux d'écran au lieu de redessiner.
+Vous pouvez la désactiver en cas de problème avec votre serveur X11.
+-end-
+
+ho.opt.clip		-begin-
+Si cette option est activée, du clipping est utilisé
+pour mettre à jour uniquement les zones découvertes
+de la fenêtre lors d'un réaffichage.
+Sinon, la fenêtre entière est redessinée.
+-end-
+
+ho.opt.outmove		-begin-
+Si cette option est activée,
+seul le cadre d'un module
+en cours de déplacement sera affiché.
+Utiliser cette option sur des machines
+avec un affichage peu rapide.
+-end-
+
+ho.opt.bhelp		-begin-
+Utiliser cette option pour activer les infobulles.
+Les infobulles, comme celle-ci, fournissent une aide
+sur les éléments de l'interface graphique de tkgate
+quand on positionne le curseur sur eux.
+-end-
+
+ho.opt.novice		-begin-
+Si aucun circuit n'est spécifié sur la ligne de commande,
+un didacticiel de TkGate sera chargé comme circuit initial
+au démarrage de TkGate.
+-end-
+
+ho.opt.debug		-begin-
+Activer quelques options de mise au point.
+C'est utile uniquement pour les
+développeurs de TkGate.
+-end-
+
+ho.opt.ckpt		Activer la sauvegarde automatique des circuits non sauvés.
+ho.opt.ckptfreq		Fréquence des sauvegardes automatiques (en secondes).
+
+ho.opt.beak		-begin-
+Enable these totally useless features.
+If you disable this feature, these modes
+(and this checkbox) will no longer appear
+in the options box.  The only way to
+reenable them will be to edit
+your .tkgate-properties file.
+-end-
+
+ho.opt.miles		-begin-
+If this mode is enable, TkGate will
+periodically insult the intelligence of
+the user.
+-end-
+
+ho.opt.bat		-begin-
+If this mode is enable, TkGate will
+set up an enviornment for designing a
+bat computer.
+-end-
+
+ho.opt.trek		Beam me up Scoty!
+ho.opt.normal		Disable fun Stuff.
+
+ho.opt.simstep		-begin-
+Le nombre de quanta de temps
+duquel avancer en mode d'avance rapide
+par quanta.
+-end-
+
+ho.opt.ckstep		-begin-
+Le nombre de cycles d'horloge
+duquel avancer en mode d'avance rapide
+par cycles d'horloge.
+-end-
+
+ho.opt.ckover		-begin-
+Le nombre de quanta de temps
+au delà du front montant de l'horloge,
+duquel avancer en mode pas à pas.
+-end-
+
+ho.opt.init		-begin-
+Fichier de script de simulation
+à exécuter automatiquement
+au démarrage de la simulation.
+-end-
+
+ho.opt.ckall		-begin-
+Si ce mode est activé,
+le mode avance rapide par cycles d'horloge
+mettra la simulation en pause à chaque
+front montant de chaque horloge.
+-end-
+
+ho.opt.ckspec		-begin-
+Si ce mode est activé,
+le mode avance rapide par cycles d'horloge
+mettra la simulation en pause à chaque
+front montant, uniquement pour l'horloge spécifiée.
+-end-
+
+ho.deftech		-begin-
+Technologie par défaut de tous les éléments nouvellement créés.
+La technologie affecte les délais des portes.
+Pour changer la technologie d'une porte en particulier,
+double-cliquer dessus pour ouvrir sa fenêtre de propriétés
+et cliquer sur l'onglet "Délai".
+-end-
+
+ho.techbut		-begin-
+Utiliser les délais de la technologie standard.
+Pour ajouter une technologie personnalisée,
+utiliser le menu "Fichier -> Options -> Simulation".
+-end-
+
+ho.custbut		-begin-
+Régler les délais pour cette porte.
+-end-
+
+ho.simwatch		-begin-
+Affichage des commandes échangées
+entre le simulateur et l'interface graphique.
+-end-
+
+ho.simlog		-begin-
+Écrire les commandes envoyées au simulateur
+dans un fichier journal.
+Le journal peut ensuite être utilisé
+en entrée du simulateur à des fins de mise au point.
+-end-
+
+ho.cpathanal		-begin-
+Calculer les chemins critiques du circuit.
+-end-

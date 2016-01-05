@@ -1,0 +1,46 @@
+yellow1
+yellow
+yellow2
+yellow3
+khaki1
+khaki2
+lemon chiffon
+LemonChiffon
+PaleGoldenrod
+pale goldenrod
+LemonChiffon1
+light goldenrod yellow
+LightGoldenrodYellow
+khaki3
+LightYellow1
+light yellow
+LightYellow
+cornsilk1
+cornsilk
+LemonChiffon2
+yellow4
+ivory
+beige
+ivory1
+OldLace
+old lace
+LightYellow2
+FloralWhite
+DarkKhaki
+cornsilk2
+floral white
+dark khaki
+ivory2
+seashell2
+LemonChiffon3
+LightYellow3
+cornsilk3
+ivory3
+seashell3
+khaki4
+LemonChiffon4
+LightYellow4
+cornsilk4
+AntiqueWhite4
+ivory4
+seashell4

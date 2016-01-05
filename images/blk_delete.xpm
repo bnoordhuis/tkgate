@@ -1,0 +1,30 @@
+/* XPM */
+static char * blk_delete_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 8 1",
+/* colors */
+" 	c #ff00ff",
+".	c #555556565757",
+"X	c black",
+"o	c magenta4",
+"O	c yellow",
+"+	c #ff0000",
+"@	c white",
+"#	c #FFFF55552222",
+/* pixels */
+"                ",
+"            ..XX",
+"    ooooooo.OOXX",
+"  ++oooooo.OOOO.",
+"  ++oo@@@.OOOOO.",
+"    oo@@.OOOOO. ",
+"  ++oo@.OOOOO.  ",
+"  ++oo#OOOOO.   ",
+"    o###OOO.    ",
+"  ++####OO.++   ",
+"   +o#####o++   ",
+"      ###oo     ",
+"       #@oo++   ",
+"       oooo++   ",
+"        ooo     ",
+"                "};

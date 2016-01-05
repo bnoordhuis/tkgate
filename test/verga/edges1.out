@@ -1,0 +1,10 @@
+a = 0
+a = 1
+a = 2
+a = 4
+x=x
+6: posedge x=1
+7: negedge x=0
+8: posedge x=1
+9: negedge x=0
+done

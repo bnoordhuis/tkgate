@@ -1,0 +1,24 @@
+/* XPM */
+static char * symed_sel_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 2 1",
+/* colors */
+" 	s None	c None",
+".	c black",
+/* pixels */
+"                ",
+"                ",
+"  ..  ....  ..  ",
+"  .          .  ",
+"                ",
+"                ",
+"  .          .  ",
+"  .          .  ",
+"  .          .  ",
+"  .          .  ",
+"                ",
+"                ",
+"  .          .  ",
+"  ..  ....  ..  ",
+"                ",
+"                "};

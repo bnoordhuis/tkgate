@@ -1,0 +1,56 @@
+*****************************************************************************
+INSTALLATION
+
+To install tkgate follow the steps below:
+
+1) Obtain and install tcl/tk 8.4 or later (preferably tcl/tk 8.5).
+
+2) If you have already installed tkgate 1.* and do not wish to overwrite that
+installation, see "INSTALLING MULTIPLE VERSIONS" below.
+
+3) cd to the directory in which you unpacked this distribution.
+
+4) Run the configuration script:
+
+      ./configure
+
+5) Compile TkGate using the command:
+
+      make
+
+6) Become root so you can install files
+
+      su
+
+7) Install TkGate using the commands:
+
+      make install
+
+*****************************************************************************
+DEFAULT INSTALLATION
+
+   On older versions of FreeBSD using Xfree86, the default directories into
+   which files are installed are:
+
+      /usr/X11R6/bin			Binaries for tkgate, verga and gmac
+      /usr/X11R6/man/man1		Man pages for tkgate and gmac 
+      /usr/X11R6/share/tkgate		Data files used by tkgate
+
+   On newer FreeBSD systems, Linux and other OSes, the default directories
+   into which files are installed are:
+
+      /usr/local/bin			Binaries for tkgate, verga and gmac
+      /usr/local/man/man1		Man pages for tkgate and gmac 
+      /usr/local/share/tkgate		Data files used by tkgate
+
+*****************************************************************************
+INSTALLING MULTIPLE VERSIONS
+
+  To install tkgate-2.0 without affecting other installed versions do:
+
+     ./configure --program-suffix=20
+     make pkgdatadir=/usr/local/share/tkgate-2.0
+     su
+     make pkgdatadir=/usr/local/share/tkgate-2.0 install
+
+  This will install tkgate with the executable name "tkgate20".

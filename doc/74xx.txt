@@ -1,0 +1,299 @@
+    IC        Pins  #/IC   Function
+--------------------------------------------------------------------------------------
+    7400      14    4      Dual Input NAND  {MC74ACT00N,DM74ALS00AN}      
+    7401      14    4      Dual Input NAND gate (OC)                  
+    7402      14    4      Dual Input NOR gate                        
+    7403      14    4      Dual Input NAND gate (OC)                  
+    7404      14    6      Inverter     {SN7404N}    {MC74F04N}       
+    7405      14    6      Inverter (OC) {HD74LS05P} (Keyboard)       
+    7406      14    6      30V/40mA Inverter                          
+    7407      14    6      Buffer/Driver (OC)                         
+    7408      14    4      Dual Input AND gate                        
+    7409      14    4      Dual Input AND gate (OC) {SN74LS09N}       
+    7410      14    3      Triple Input NAND gate {SN74LS10}          
+    7411      14    3      Triple Input AND gate                      
+    7412      14    3      Triple Input AND gate                      
+    7413      14    2      Schmitt Trigger NAND                       
+    7414      14    6      Schmitt Trigger Inverter                   
+    7415      14    3      Tri-State AND gate                         
+    7416      14    6      15V/40mA Inverter                          
+    7417      14    6      15V/40mA Buffer                            
+    7420      14    2      Quad Input NAND gate                       
+    7421      14    2      Quad Input AND gate                        
+    7422      14    2      Quad Input NAND gate (OC)                  
+    7423      16    2      Quad Input NOR gate with strobe            
+    7424      -     2      Quad Input NOR gate                         
+    7425      14    2      Quad Input NOR gate with strobe            
+    7426      14    4      Dual Input NAND gate                       
+    7427      14    3      Triple Input NOR gate                      
+    7428      14    4      Dual Input NOR Buffer                      
+    7430      14    1      8 Input NAND gate                          
+    7432      14    4      Dual Input OR gate                         
+    7433      14    4      Dual Input NOR Buffer                      
+    7437      14    4      Dual Input NAND Buffer                     
+    7438      14    4      Dual Input NAND Buffer (OC)                
+    7439      14    4      Dual Input NAND Buffer (OC)                
+    7440      14    2      Quad Input NAND Buffer                     
+    7442      16    -      BCD to Decimal Decoder/Driver               
+    7445      16    -      BCD to Decimal Decoder/Driver               
+    7446      16    -      BCD to 7 Segment LED Decoder/Driver         
+    7447      16    1      BCD to 7 Segment LED Decoder/Driver        
+    7448      16    -      BCD to 7 Segment LED Decoder                
+    7449      14    -      BCD to 7 Segment LED Decoder                
+    7450      14    2      Dual Input AND inverter                    
+    7451      14    2      Dual Input AND/OR                          
+    7453      14    -      4 Wide AND/OR inverter gate                 
+    7454      14    4      Dual Input Inverter                        
+    7464      -     -      4-2-3-2 Input AND/OR inverter               
+    7470      14    -      Gated edge-triggered JK Flip-Flop          
+    7472      14    -      J-K Master/Slave Pulse-Triggered J-K FF     
+    7473      14    2      J-K Flip-Flop with Clear                  
+    7474      14    2      D Flip-Flop With Preset and Clear         
+    7475      16    1      4-bit Bistable Latch                      
+    7476      16    2      J-K Flip-Flop                             
+    7478      14    2      Edge Triggered J-K Flip-Flop              
+    7480      14    -      Gated Full Adder                           
+    7483      16    1      4-bit Binary Full Adder                   
+    7485      16    -      4-bit Magnitude Comparator                 
+    7486      14    4      Dual Input XOR gate                       
+    7489      16    1      64-bit RAM, open collector output         
+    7490      14    -      Decade Counter                             
+    7491      14    -      8-bit Shift Register                       
+    7492      -     -      Divide by 12 Counter                        
+    7493      14    -      Divide by 16 Counter                       
+    7495      14    -      4-bit Right/Left Shift Register            
+    7496      -     -      5-bit Shift Register                        
+    7497      16    -      6-bit Rate Multiplier                      
+    74100     -     -      8-bit Bistable Latch                        
+    74107     14    2      J-K Flip-Flop                             
+    74109     16    2      J-K Pos. Flip-Flop                        
+    74112     16    2      J-K Neg. Flip-Flop                        
+    74113     14    2      J-K edge Triggered Flip-Flop w/ Preset    
+    74114     -     2      J-K Neg. Edge Flip-Flop w/Com Clk & Clr  National
+    74116     24    2      4-bit with clear latch                    
+    74120     16    2      Pulse Sync/Driver                         
+    74121     14    -      Monostable Multivibrator                   
+    74122     -     -      Retriggerable Monostable Multivibrator      
+    74123     16    -      Dual Reset Multivibrator                   
+    74125     14    -      Quad Bus Buffer gate                       
+    74126     14    -      Quad Bus Buffer gate                       
+    74128     14    4      Dual Input Schmitt Trigger NOR Buffer     
+    74132     14    4      Dual Input Schmitt Trigger NAND gate      
+    74133     16    1      13 Input NAND gate                        
+    74134     16    1      12 Input NAND gate Tri-State              
+    74135     16    4      XOR/NOR gate                              
+    74136     -     4      XOR gate                                   
+    74137     16    -      3 to 8 line Decoder/Dmultiplexer           
+    74138     16    -      Expandable 3/8 Decoder                     
+    74139     16    2      Expandable 2/4 Decoder                    
+    74140     14    2      Quad Input NAND 50 Driver         
+    74141     -     -      1 of 10 Decoder/Driver/Nixie                
+    74143     24    -      4-bit 7-segment counter/latch              
+    74145     16    -      1 of 10 Decoder/Driver                     
+    74147     16    -      10-4 Line Encoder                          
+    74148     16    -      Octal Encoder                              
+    74150     24    -      16 Input Multiplexer                       
+    74151     16    -      8 Input Multiplexer                        
+    74153     16    2      Quad Input Multiplexer                    
+    74154     24    -      1 of 16 Decoder/Demultiplexer              
+    74155     16    2      2-4 Decoder/Demultiplexer                 
+    74156     16    2      2-4 Decoder/Demultiplexer                 
+    74157     16    4      Dual Input Multiplexer                    
+    74158     16    4      2/1 Multiplexer                           
+    74159     24    -      1 of 16 decoder/demultiplexer (OC)         
+    74160     16    -      BCD Decade Counter                         
+    74161     16    -      Syncronous Binary Counter 4-bit            
+    74162     16    -      BCD Decade Counter                         
+    74163     16    -      Syncronous Binary Counter                  
+    74164     14    -      Serial In/ Parallel Out Register           
+    74165     -     -      8-bit Parallel to Serial Converter          
+    74166     16    -      8-bit Shift Register                       
+    74167     16    -      Sync Decade Rate Multiplier                
+    74168     16    -      4-bit Up/Down Sync Decade Counter          
+    74169     16    -      4-bit Up/Down Sync Binary Counter          
+    74170     16    -      4x4 Register File                          
+    74172     24    -      16-bit Mult Port Register File             
+    74173     16    -      4-bit D Register 3-State                   
+    74174     16    6      D Flip-Flop                               
+    74175     16    4      D Flip-Flop                               
+    74176     14?   -      Preset Decade Counter  35MHz               
+    74177     14    -      Preset Binary Counter  35MHz               
+    74180     14    -      9-bit Odd/Even Parity Generator            
+    74181     24    -      4-bit Arithmetic Logic                     
+    74182     16    -      Look ahead Carry Generator                 
+    74184     -     -      BCD to Binary Converter                     
+    74185     -     -      Binary to BCD Converter                     
+    74188     16    -      256-bit PROM (TBP18SA030)                  
+    74189     16    -      16x4 SRAM                                  
+    74190     16    -      BCD/Decade Up/Down Counter                 
+    74191     16    -      Up/Down Binary Converter 4-bit             
+    74192     16    -      Up/Down Decade Counter BCD                 
+    74193     16    -      Up/Down Binary Counter 4-bit               
+    74194     16    -      4-bit Bidirectional Universal Shift Reg.   
+    74195     16    -      Universal 4-bit Shift Register             
+    74196     14    -      Preset Decade Counter                      
+    74197     14    -      Preset Binary Counter                      
+    74198     24    -      8-bit Bidirectional Universal Shift Reg.   
+    74219     -     -        64-Bit RAM w/ Tristate Outputs               National
+    74221     16    2      Monostable Multivibrator                  
+    74238     16    -      3 to 8 line Decoder/Demultiplexer          
+    74240     20    -      Tri-State Octal Line Driver                
+    74241     20    -      Tri-State Octal Line Driver                
+    74242     -     -      Quad Bus Transceiver                        
+    74243     14    -      Tri-State Quad Bus Transceiver             
+    74244     20    8      Tri-State Octal Line Driver               
+    74245     20    -      Tri-State Octal Transcender                
+    74247     16    -      BCD to 7-Segment Decoder/Driver            
+    74248     16    -      BCD to 7-Segment Decoder/Driver            
+    74249     16    -      BCD to 7-Segment Decoder/Driver            
+    74251     16    -      Tri-State 8/1 Multiplexer                  
+    74253     16    2      Tri-State 4/1 Multiplexer                 
+    74257     16    4      2/1 Multiplexer                           
+    74258     16    4      2/1 Multiplexer                           
+    74259     16    -      8-bit Addressable Latch                    
+    74260     14    2      5 Input NOR gate                          
+    74265     16    4      Comp-Out Element                          
+    74266     14    4      Dual Input XNOR gate (OC)                 
+    74273     20    8      D Flip-Flop                               
+    74278     14    -      4-bit Priority Register                    
+    74279     16    -      Quad Set/Reset Latch                       
+    74280     14    -      Octal D Flip-Flop                          
+    74283     16    -      4-bit Full Adder                           
+    74287     16    -      1024bit PROM (6301)                        
+    74288     16    -      256-bit PROM (TB18S030N)                   
+    74289     16    -      64-bit RAM Open Collector Outputs          
+    74290     14    -      Decade Counter                             
+    74293     14    -      4-bit Binary Ripple Counter                
+    74298     16    4      Two Port Register                         
+    74299     20    -      8 Input Shift/Storage Register             
+    74322     -     8      Serial/Parallel Register with Sign Extend
+    74323     -     8      Shift/Storage Reg w/Sync Rst & Common I/O
+    74348     16    -      8 to 3 Priority Register                    
+    74350     -     -      4-Bit Shifter with 3-STATE Outputs
+    74352     -     2      4 input Multiplexer (MUX)            
+    74353     16    2      4-bit Multiplexer, Inverting Output         
+    74365     16    6      Three State Buffer                          
+    74366     16    6      Three State Inverting Buffer                
+    74367     16    6      Three State Buffer                          
+    74368     16    6      Three State Inverting Buffer                
+    74373     20    -      Octal Transparent (D) Latch                  
+    74374     20    8      D Flip-Flop Tri-State                       
+    74375     16    -      4-bit Bisettable Latch                      
+    74377     20    8      D Flip-Flop With Clock Enable              
+    74378     16    6      D Flip-Flop With Clock Enable              
+    74379     16    4      D Flip-Flop With Clock Enable              
+    74381     20    -      ALU/Function Generator                      
+    74382     -     -      4 bit Arithmetic Logic Unit (ALU)
+    74386     14    4      Dual Input XOR gate                        
+    74387     16    -      1024-bit PROM (OC)                          
+    74390     16    2      Decade Ripple Counter                      
+    74393     14    2      Modulo 16 Counter                          
+    74396     16    8      Storage Register                           
+    74398     -     4      2 port Register                     
+    74399     16    4      Dual Input Multiplexer, Dual Port Register 
+    74401     -     -      Cyclic Redundancy Check (CRC) Gen/Check
+    74402     -     -      Serial Data Polynomial Generator/Checker
+    74413     -     -      64x4 FIFO w/Parallel I/O     
+    74425     14    -      Quad Bus Buffer                             
+    74426     14    -      Quad Bus Buffer                             
+    74433     -     -      FIFO                         
+    74472     20    -      512x8 3-state PROM                          
+    74474     24    -      512x8 3-State PROM                          
+    74490     16    2      BCD decade ripple counter                  
+    74521     20    -      Octal Comparator                            
+    74524     -     -      Octal Registered Comparator  
+    74533     -     -      Octal Transparent Latch w/tristate output
+    74534     -     8      D Flip-Flop                                  
+    74537     -     -      1 of 10 decoder w/tristate outputs
+    74538     -     -      1 of 8 decoder w/tristate outputs 
+    74539     -     2      1 of 4 decoder w/tristate outputs        
+    74540     20    8      Tri-State Inverter Buffer                    
+    74541     20    8      Non-Inverting Buffer/ Line Driver            
+    74543     -     8      Registered Transceiver                
+    74544     -     8      Registered Transceiver (Inverting)    
+    74545     -     8      Bidirectional Transceiver w/tristate outputs
+    74552     -     8      Registered Transceiver w/parity & flags     
+    74563     -     8      D Latch w/tristate outputs                  
+    74564     -     8      D Flip-Flop w/tristate outputs              
+    74569     -     -      4-bit bidirectional counter w/tristate out
+    74571     16    -      512x4 3-State PROM                          
+    74573     20    8      D Latch w/tristate outputs                 
+    74574     20    8      D Flip-Flop w/tristate outputs             
+    74579     -     -      8-bit binary counter w/trista
+    74583     -     -      4-bit BCD Adder              
+    74590     16    1      8-bit Three-State Binary Counter           
+    74595     16    -      8-bit Serial to Parallel Shift Register     
+    74620     -     8      Inverting bus transceiver w/tristate outputs
+    74623     -     8      Inverting bus transceiver w/tristate outputs
+    74624     14    1      Voltage Controlled Oscillator               
+    74629     16    2      Voltage Controlled Oscillator               
+    74640     20    -      Tri-State Octal Bus Transceiver              
+    74641     -     -      Octal Bus Transceiver (OC)                  
+    74644     -     -      Octal Bus Transceiver (OC)                  
+    74645     20    -      Tri-State Octal Bus Transceiver            
+    74646     24    8      Trans/Reg Three-State (.3" Wide)          
+    74648     -     8      bus transceiver w/tristate output  
+    74651     -     -      transceiver/register        
+    74652     -     -      transceiver/register        
+    74657     -     8      bidir xceive w/8bit parity gen/chk & 3state
+    74670     16    -      4x4 Register File 3-State                   
+    74673     -     -      16bit Ser/Parallel shift reg w/com ser i/o
+    74675     -     -      16bit Serial/Parallel shift reg           
+    74676     -     -      16bit Parallel/Serial shift reg           
+    74682     20    -      8-bit Comparator                            
+    74684     20    -      8-bit Comparator                            
+    74685     20    -      8-bit Comparator                            
+    74688     20    -      8-bit Magnitude Comparitor (AM25LS2521)     
+    74779     -     -      8bit bidir binary counter w/tristate outputs
+    74794     -     -      8bit register w/readback                    
+    74821     -     -      10bit D Flip Flop                           
+    74823     -     -      9bit D Flip Flop                            
+    74825     -     -      8bit D Flip Flop                            
+    74827     -     -      10bit buffer/line driver                     
+    74828     -     -      10bit buffer/line driver                    
+    74841     -     -      10bit transparent latch                      
+    74843     -     -      9bit transparent latch                       
+    74845     -     -      8bit transparent latch                       
+    74899     -     -      9bit latchable transceiver w/parity gen/chk  
+    74900     -     -      9bit 3port latchable datapath multiplexer    
+    74902     14    6      Non-Inverting TTL Buffer                  
+    74903     14    6      Inverting Buffer                          
+    74905     24    -      12-bit Successive Approximation Register   
+    74906     14    6      Open Drain N-Channel Buffer               
+    74907     14    6      Open Drain P-Channel Buffer               
+    74911     28    -      4-digit expandable Display Cont            
+    74914     14    6      Schmitt Trigger ?                         
+    74921     22    -      1024-bit Static SG CMOS RAM                
+    74922     18    -      16-key Encoder                             
+    74923     20    -      20-key Encoder                             
+    74925     16    1      4-digit Counter/Multiplexer/7-Seg Display 
+    74928     18    1      4-digit Counter/Multiplexer/7-Seg Display 
+    74942     20    -      {MM74HC942N} (Modem)                       
+    741056    -     -      8-Bit Schottky Barrier Diode Array
+    741071    -     -      18-Bit Undershoot/Overshoot Clamp w/ESD Prot
+    741074    -     2      D Flip Flop                                  
+    742240    -     8      Buffer/Line Drv w/25 Ohm Resistors           
+    742243    -     4      Bus Transceiver w/25 Ohm Resistors           
+    742244    -     8      Buffer/Line Driver w/25 ohm resistors        
+    742245    -     8      bidirectional transceiver w/tristate outputs 
+    744002    -     2      Quad Input NOR                              
+    744017    16    -      Decade Counter / Divider                    
+    744020    16    -      14-Stage Ripple Carry Counter               
+    744024    14    -      7-Stage Ripple Carry Counter                
+    744040    16    -      12-stage Ripple Carry Counter               
+    744046    16    -      Phase Locked Loop                           
+    744049    16    6      Invering Buffer                            
+    744050    16    6      Non-Inverting Buffer                       
+    744051    16    -      8-channel Analog Mux/Demux                  
+    744060    16    -      14-Stage Ripple Carry Counter               
+    744066    14    4      Analog Switch                              
+    744075    -     3      Triple Input OR                             
+    744351    20    -      Analog Multiplexer with Latch               
+    744511    16    -      BCD to 7-Segment Latch/Decoder              
+    744538    16    -      Dual Monostable Multivibrator               
+    749240    -     -      9bit buffer/line driver w/tristate outputs
+    749244    -     -      9bit buffer/line driver w/tristate outputs
+    749245    -     -      9bit bidir transceiver w/tristate outputs 
+    7416245   -     -      16bit transceiver w/tristate outputs      
+    7416540   -     -      16bit buffer/line driver w/tristate outputs
+    7425900   -     -      9bit 3port latchable datapath MUX w/25 ohm 

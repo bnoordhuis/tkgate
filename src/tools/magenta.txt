@@ -1,0 +1,26 @@
+magenta1
+magenta
+magenta2
+magenta3
+orchid1
+orchid2
+violet
+plum1
+orchid
+plum2
+orchid3
+thistle1
+plum
+DarkMagenta
+magenta4
+dark magenta
+thistle2
+plum3
+LavenderBlush2
+thistle
+thistle3
+LavenderBlush3
+orchid4
+plum4
+thistle4
+LavenderBlush4

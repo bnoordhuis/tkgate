@@ -1,0 +1,29 @@
+starting top.f1 with delay 1.
+starting top.f2 with delay 2.
+This is a hello world test string <string tester> 23.
+if statment got a 'then' because 9 > 5 .
+while i = 0
+while i = 1
+while i = 2
+while i = 3
+while i = 4
+for i = 3
+for i = 4
+for i = 5
+for i = 6
+for i = 7
+for i = 8
+for i = 9
+top done @0.
+in top.f1 i = 0 @ 1
+in top.f2 i = 0 @ 2
+in top.f1 i = 1 @ 2
+in top.f1 i = 2 @ 3
+in top.f2 i = 1 @ 4
+in top.f1 i = 3 @ 4
+in top.f1 i = 4 @ 5
+in top.f2 i = 2 @ 6
+in top.f1 i = 5 @ 6
+in top.f2 i = 3 @ 8
+in top.f2 i = 4 @ 10
+in top.f2 i = 5 @ 12

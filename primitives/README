@@ -1,0 +1,129 @@
+
+This directory contains verilog templates for all of the built-in
+gates.  User editing of these templates is not currently supported
+because, but can be done subject to the following caveats:
+ * the syntax is still subject to change across releases.
+ * changing the order of module parameters in a template is not
+   guaranteed to work.
+
+SUBSTITUTION:
+
+Variable substitutions are indicated with a sequence of the form
+"${NAME}".  If "NAME" is a template parameter for a gate type, the
+value of that variable will be substituted.
+
+GENERATION:
+
+Generating sequences have the form "$${NAME:str}" or
+"$${NAME:sep:str}".  The variable "NAME" is assumed to be a numeric
+value for the number of times to generate the string "str".  If there
+is a "%" character in the string, it will be replaced with the decimal
+value of the count starting at "0".  The second form is similar to the
+first except that the string "sep" will be placed between each
+instance of "sep" that is generated.  The "sep" and "str" strings
+themselves may also contain variable substitution sequences.
+
+PARAMETER NAMING CONVENTIONS:
+
+By convention, parameter names that end in "_RANGE" are bit or memory
+range strings having the form "[msb:0]" or "[0:max]".  Parameters that
+end in "_BITS" expand to numbers representing the number of bits
+in the corresponding "_RANGE" parameter.  The parameters names "NUMIN"
+and "NUMOUT" are used for gates with a variable number of inputs or
+outputs, respectively.  Finally, names of the form "invX" contain
+either a "~" or an empty string depending on whether the output "X"
+requires an inverter.
+
+LIST OF TEMPLATE PARAMETERS:
+
+and, or, xor:
+	NUMIN		Number of inputs
+	Z_RANGE		Bit range of output
+	I_RANGE		Bit range of input
+	invZ		Optional inverter on Z output
+
+rand, ror, rxor:
+	Z_RANGE		Bit range of output
+	I_RANGE		Bit range of input
+	invZ		Optional inverter on Z output
+
+flipflop:
+	DQ_RANGE	Bit range of D/Q input/output.
+	DQ_BITS		Number of bits on D/Q input/output.
+	invQ		Optional inverter on Q output.
+	invNQ		Optional inverter on _Q output.
+
+register:
+	DQ_RANGE	Bit range of D/Q input/output.
+	DQ_BITS		Number of bits on D/Q input/output.
+	invQ		Optional inverter on Q output.
+
+adder:
+	ABS_RANGE	Bit range of A, B and S inputs/output
+	invCO		Optional inverter on CO output.
+	invS		Optional inverter on S output.
+
+mult:
+	AB_RANGE	Bit range of A and B inputs
+	P_RANGE		Bit range of P output
+	invP		Optional inverter on P output.
+
+div:
+	ABQR_RANGE	Bit range of A, B, Q and R inputs/output
+	invQ		Optional inverter on Q output.
+	invR		Optional inverter on R output.
+
+lshift, rshift, arshift:
+	IZ_RANGE	Bit range of I/Z input/output
+	S_RANGE		Bit range of S input
+	invZ		Optional inverter on Z output.
+
+roll:
+	IZ_RANGE	Bit range of I/Z input/output
+	IZ_BITS		Number of bits of I/Z input/output
+	S_RANGE		Bit range of S input
+	invZ		Optional inverter on Z output.
+
+clock:
+	PHASE		Time to wait before entering loop
+	INITIAL		Initial value of clock
+	ON_TIME		Time clock is "on"
+	OFF_TIME	Time clock is "off"
+	invZ		Optional inverter on Z output.
+
+mux:
+	NUMIN		Number of data inputs
+	IZ_RANGE	Bit range of inputs/output
+	S_RANGE		Bit range of S input
+
+demux:
+	NUMOUT		Number of outputs
+	OUT_RANGE	Bit range of internal output net.
+	I_RANGE		Bit range of input I.
+	invZ		Bit-by-bit inversion for outputs
+
+ram:
+	A_RANGE		Bit range of address line
+	D_RANGE		Bit range of data line
+	D_BITS		Number of bits in data line
+	MEM_RANGE	Memory address range.
+
+rom:
+	A_RANGE		Bit range of address line
+	D_RANGE		Bit range of data line
+	D_BITS		Number of bits in data line.
+	MEM_RANGE	Memory address range.
+	invD		Optional inverter on D output.
+
+nmos_trans, pmos_trans:
+	SGZ_RANGE	Bit range of source, gate and drain.
+	invZ		Optional inverter on Z output.
+
+buf:
+	IZ_RANGE	Bit range of input/output
+	invZ		Optional inverter on Z output.
+
+tribuf:
+	IZ_RANGE	Bit range of inputs/output
+	IZ_BITS		Number of bits in inputs/output
+	invZ		Optional inverter on Z output.

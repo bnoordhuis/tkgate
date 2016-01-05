@@ -1,0 +1,38 @@
+#
+# Das Simulationsskript für das Menagerie CPU Beispiel. Es läuft 
+# automatisch, wenn das Beispiel simuliert wird.
+#
+
+#
+# Initialisiere die Speicher mit den Daten in der menagerie.mem Datei.
+# Die menagerie.mem Datei wurde mit gmac aus der Datei menagerie.gm 
+# kompiliert.
+#
+load "menagerie.mem"
+
+#
+# Setze den Zoomfaktor für das Scope.  Das Koomando zoomt drei Stufen
+# aus um einen größeren Zeitbereich zu zeigen. 
+#
+zoom 3
+
+#
+# Diese Kommandos können einkommentiert werden, um Tastköpfe oder 
+# Haltepunkte zu setzen.
+#
+#probe clk
+#break iunit.extra==8'h15
+
+#
+# Setze die  Resetleitung (aktiv low) auf '0', mache zwei Taktschritte
+# und setze die Resetleitng zurück auf '1'.  Diese Folge setzt die CPU
+# in den Initialzustand. 
+#
+set reset 1'b0
+clock +2
+set reset 1'b1
+
+#
+# Starte die Simulation der Schaltung im kontinuierlichen Modus.
+#
+run

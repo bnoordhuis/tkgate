@@ -1,0 +1,4 @@
+#define joint_width 3
+#define joint_height 7
+static unsigned char joint_bits[] = {
+   0x07, 0x07, 0x07, 0x00, 0x07, 0x07, 0x07};

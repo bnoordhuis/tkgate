@@ -1,0 +1,22 @@
+/* XPM */
+static char * bp_standby_xpm[] = {
+"16 16 3 1",
+" 	c blue",
+".	c red",
+"X	c white",
+"       ..       ",
+"       ..       ",
+"   .. X..X ..   ",
+"  ..XXX..XXX..  ",
+" ..XXXX..XXXX.. ",
+" ..XXXX..XXXX.. ",
+"..XXXXXXXXXXXX..",
+"..XXXXXXXXXXXX..",
+"..XXXXXXXXXXXX..",
+"..XXXXXXXXXXXX..",
+" ..XXXXXXXXXX.. ",
+" ..XXXXXXXXXX.. ",
+"  ..XXXXXXXX..  ",
+"   ...XXXX...   ",
+"    ........    ",
+"      ....      "};

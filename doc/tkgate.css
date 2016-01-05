@@ -1,0 +1,32 @@
+body { font-family: helvetica; background: beige; }
+
+tt {  font-size: 14; }
+
+img.canvas { background:white ; padding: 2;  }
+img.tool { background:#d9d9d9 ; padding: 2;  }
+font.tool { background:#d9d9d9 ; padding: 2;  }
+
+div.lfig {  float: left; margin: 5; }
+div.rfig {  float: right; margin: 5; }
+div.frame_rfig {  float: right; margin: 5; border: solid black; padding: 5; border-width: 1; }
+div.display { padding-left: 30;   }
+
+td { vertical-align: top; }
+td.wide { padding-bottom: 10; }
+td.center { text-align: center; vertical-align: center; }
+td.tlb {  text-align: center; vertical-align: top; width: 60; }
+td.tld {  text-align: left; vertical-align: top; }
+table.display {  padding-left: 30; padding-right: 30; }
+td.tt { font-family: courier; padding-bottom: 10; }
+
+table.tbar {  padding-left: 30 }
+th.tbar-b { text-align: left; width: 75;}
+th.tbar-d { text-align: left; }
+
+
+table.truthtable { table-layout: fixed; font-family: courier; border-collapse: collapse; }
+td.ttleft { border-right: 1px solid black; width: 45; height: 25; text-align: center;}
+td.tttop { border-bottom: 1px solid black; width: 25; }
+td.tttopleft { border-right: 1px solid black; border-bottom: 1px solid black; width: 40; }
+
+li.pad { padding-bottom: 10; }

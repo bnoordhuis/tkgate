@@ -1,0 +1,786 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (System Tasks)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H2><![section=4]>B. List of System Tasks</H2>
+
+<A NAME="tasks"></A>
+<h3>B.1 Data Display Tasks</h3>
+
+The system tasks described in this section generate output to the
+console.  When simulating through the TkGate interface, the output
+will go to the <a href="gateSiml.html#simOutputConsole">simulator
+output console</a>.  When simulating in stand-alone mode with "Verga",
+output will go to the standard output.
+
+<h4>B.1.1 $display</h4>
+
+<div class=display>
+Usage: <tt>$display(</tt><i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+This tasks outputs a message to the standard output when running Verga
+in standalone mode, and to the simulation console when running under
+TkGate.  A newline is appended to the output.  It is similar to the
+<tt>printf()</tt> function used in C.
+<p>
+Unlike the C <tt>printf</tt> function, the first argument is not
+necessarily a control string.  The <tt>$display</tt> function can have
+from zero up to an arbitrary number of control strings.  For example:
+<pre>
+     integer r1,r2;
+
+     r1 = 7; r2 = 12;
+     $display(r1,r2);
+</pre>
+will print:
+<pre>
+7 12
+</pre>
+The same output could have been produced with a control string using
+the statement:
+<pre>
+    $display("%d %d",r1,r2);
+</pre>
+The general rule is that if an argument is a string, then it is
+treated as a control string and consumes as many arguments after it as
+there are conversions (e.g., "<tt>%d</tt>", etc.).  If an argument is
+not a string, its value is printed.  The format in which it is printed
+depends on the variable type.  Unsized values are printed in decimal,
+sized values are printed using the Verilog hexadecimal notation.  For
+example:
+<pre>
+     integer r1;
+     reg [16:0] r2;
+
+     r1 = 7; r2 = 12;
+     $display(r1,r2);
+</pre>
+will print
+<pre>
+7 16'hc
+</pre>
+When printing constants and expressions, <tt>$display</tt> will use
+the base specified in any constants.  For example
+<tt>$display(1'o0+r2)</tt> would produce <tt>16'o14</tt>.
+<p>
+You can get greater control of the output using control strings with
+conversions.  Strings are enclosed by the double quote character
+(<tt>&quot;</tt>).  Use a backslash (<tt>\</tt>) before a double quote to
+output the double quote itself and use <tt>\\</tt> to output a single
+backslash character.  In addition, you can use "<tt>\n</tt>" to insert
+extra newlines into the output.
+<p>
+The conversions supported in Verga are (case is ignored):
+<br><br>
+<table class=display>
+<tr><th>Conversion</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>%%</tt></td><td>Output a single percent character.</td>
+<tr><td><tt>%m</tt></td><td>Output the name of the current module instance.</td>
+
+<tr><td><tt>%t</tt></td><td>Output a simulation time value.  The raw
+simulation time in epochs is converted to the units specified in any
+<tt>`timescale</tt> declaration for the current module. If a precision
+smaller than the units is specified, then the time value will be
+output with a decimal point and the appropriate number of digits after
+the decimal point.</td>
+
+<tr><td><tt>%d</tt></td><td>Output a value in decimal format.</td>
+<tr><td><tt>%b</tt></td><td>Output a value in binary format.</td>
+<tr><td><tt>%h</tt></td><td>Output a value in hexadecimal format.</td>
+<tr><td><tt>%o</tt></td><td>Output a value in octal format.</td>
+<tr><td><tt>%c</tt></td><td>Output the character with the specified ASCII value.</td>
+<tr><td><tt>%s</tt></td><td>Output the value as a string.</td>
+<tr><td><tt>%f</tt></td><td>Output the value in floating point format.</td>
+<tr><td><tt>%g</tt></td><td>Output the value in floating point format while minimizing the number of characters needed.</td>
+</table>
+<br>
+The binary, hexadecimal and octal conversions output the raw number
+without the leading radix and bit-size indication.  For example,
+<pre>
+   $display("%h",8'h1e);
+</pre>
+will output only "<tt>1e</tt>".
+<p>
+Like the C <tt>printf()</tt>, you can specify a number of spaces with
+the conversion.  For example <tt>%4h</tt> will output a hexadecimal
+value in a four character field, padding with spaces if necessary.  If
+you use leading zero as in <tt>%04h</tt>, then Verga will pad the
+output with zeros if necessary (e.g., "<tt>16'h2e</tt>" will be output
+as "<tt>002e</tt>").
+<p>
+As a final example including multiple control strings, consider the
+statement:
+<pre>
+   $display(9," a=%d b=%d ",42, 77, 12,13," c=%d d=%d ",5,9, 88);
+</pre>
+This will produce:
+<pre>
+9 a=42 b=77 12 13 c=6 d=9 88
+</pre>
+
+<h4>B.1.2 $monitor</h4>		
+
+<div class=display>
+Usage: <tt>$monitor(</tt><i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+The <tt>$monitor</tt> task formats the output from its arguments in
+exactly the same way as the <tt>$display</tt> task.  The difference is
+that instead of outputting the text immediately, it places a watch on
+all variables referenced in the statement and outputs its message any
+time a variable changes.  This can be used to generate a trace of any
+variable changes.
+<p>
+As an example, consider this module:
+<pre>
+   module top;
+   
+     reg [15:0] a,b,c;
+     
+     initial
+       $monitor("%t: a=16'h%04h  b=16'h%04h  c=16'h%04h",$time,a,b,c);
+   
+     initial
+       begin
+         #1 a = 'h4ef; b = 'h6def;
+         #1 c = 'h84ff;
+         #5 b = 42;
+   
+       end
+
+   endmodule
+</pre>
+When simulated, it will produce the following output:
+<pre>
+1: a=16'h04ef  b=16'h6def  c=16'hxxxx
+2: a=16'h04ef  b=16'h6def  c=16'h84ff
+7: a=16'h04ef  b=16'h002a  c=16'h84ff
+</pre>
+Each time any of the variables <tt>a</tt>, <tt>b</tt> or <tt>c</tt>
+change, the <tt>$monitor</tt> task will output the stored line.  In
+this example, we set <tt>a</tt> and <tt>b</tt> after one time step.
+The value of <tt>c</tt> was printed as <tt>16'hxxxx</tt> because it is
+still uninitialized.  One time step later, we set <tt>c</tt>, then
+five time steps later we set <tt>b</tt>.  This results in output from
+<tt>$monitor</tt> at times steps 1, 2 and 7.
+<p>
+Only one <tt>$monitor</tt> may be active at a time.  If you call
+<tt>$monitor</tt> more than once, only the last call will remain in
+effect.
+
+<h4>B.1.3 $monitoroff</h4>	
+
+<div class=display>
+Usage: <tt>$monitoroff;</tt>
+</div>
+<p>
+This task temporarily disables a <tt>$monitor</tt> that has been
+placed.  The monitor remains registered, but all output from it is
+disabled.
+
+<h4>B.1.4 $monitoron</h4>	
+
+<div class=display>
+Usage: <tt>$monitoron;</tt>
+</div>
+<p>
+<p>
+This task re-enables a <tt>$monitor</tt> that has been disabled by
+<tt>$monitoroff</tt>.
+
+<h4>B.1.5 $strobe</h4>		
+
+<div class=display>
+Usage: <tt>$strobe(</tt><i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+The <tt>$strobe</tt> task formats the output from its arguments in
+exactly the same way as the <tt>$display</tt> task.  The primary
+difference is that instead of outputting the message immediately, it
+waits until the end of the time step and does the output with the
+values at that time.  It can be used when you want to ensure that you
+are outputting the final value of a variable for the time step.  As an
+example, consider the module:
+<pre>
+ (1)    module top;
+ (2)     reg [15:0] a, b, c;
+ (3)
+ (4)     initial
+ (5)       begin
+ (6)         a = 4; b = 7; c = a + b;
+ (7)         $strobe("%t: strobe a=%d b=%d c=%d",$time,a,b,c);
+ (8)         $display("%t: display a=%d b=%d c=%d",$time,a,b,c);
+ (9)         a = c*b;
+ (10)        c = a + 9;
+ (11)        #1 b = a + 99;
+ (12)      end
+ (13)
+ (14)  endmodule
+</pre>
+when this module is simulated, the following output is produced:
+<pre>
+0: display a=4 b=7 c=11
+0: strobe a=77 b=7 c=86
+</pre>
+This <tt>$display</tt> tasks output the values as they are when
+<tt>$display</tt> is called, but <tt>$strobe</tt> waits until the end
+of the time step at Line 11 before it generates its output. 
+
+<h4>B.1.6 $write</h4>		
+
+<div class=display>
+Usage: <tt>$write(</tt><i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+The <tt>$strobe</tt> task formats the output from its arguments in
+exactly the same way as the <tt>$display</tt> task.  The only
+difference is that it does not append a newline.  Use this task when
+you want to use multiple <tt>$write</tt> statements to construct a
+line of output.  You can use a <tt>\n</tt> in a string to generate a
+newline.
+
+<h3>B.2 File Tasks</h3>
+
+The tasks described in this section allow Verilog descriptions to open
+and write to files. 
+
+<h4>B.2.1 $fopen</h4>		
+
+<div class=display>
+Usage: <i>descriptor</i><tt> = $fopen(</tt><i>file-name</i><tt>);</tt>
+</div>
+<p>
+The <tt>$open</tt> task opens the specified file and returns a
+descriptor.  The descriptor should be declared as an <tt>integer</tt>.
+Files are always open for writing, so any file you specify will be
+overwritten.  You may have at most 31 files open at once.  Below is an
+example, of how to use <tt>$open</tt> to open a file.
+<pre>
+  integer d;
+
+  initial
+    begin
+      d = $fopen("myfile.log");
+      ... 
+</pre>
+You may use the bit-wise OR operator "<tt>|</tt>" to combine two or
+more descriptors.  This will cause an write operations on that
+descriptor to output to all of the files combined in this way.  You
+may also OR in the value "1" to include output to the console.  For
+example, given the statements:
+<pre>
+    d1 = $fopen("myfile1.log");
+    d2 = $fopen("myfile2.log");
+    d = d1 | d2 | 1;       
+</pre>
+writing to <tt>d</tt> will cause that output to be written to
+<tt>myfile1.log</tt>, <tt>myfile2.log</tt> and the standard output.
+
+<h4>B.2.2 $fclose</h4>		
+
+<div class=display>
+Usage: <tt>$fclose(</tt><i>descriptor</i><tt>);</tt>
+</div>
+<p>
+Closes the file or files referenced by the descriptor.  If
+<i>descriptor</i> has been formed by ORing together two or more
+descriptors, all of the referenced files will be closed.
+
+<h4>B.2.3 $fdisplay, $fmonitor, $fstrobe and $fwrite </h4>		
+
+<div class=display>
+Usage: <tt>$fdisplay(</tt><i>descriptor</i><tt>,</tt> <i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt><br>
+Usage: <tt>$fmonitor(</tt><i>descriptor</i><tt>,</tt> <i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt><br>
+Usage: <tt>$fstrobe(</tt><i>descriptor</i><tt>,</tt> <i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt><br>
+Usage: <tt>$write(</tt><i>descriptor</i><tt>,</tt> <i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+
+These tasks operate in exactly the same way as their counter-parts
+without the leading "<tt>f</tt>", except that they take a descriptor
+as the first argument and write their output to the file (or files)
+referenced by that descriptor.
+
+<h3>B.3 Timing Check Tasks</h3>
+
+The timing check tasks may only be used in the context of a
+<tt>specify...endspecify</tt> block. They are described briefly here, but more
+information on their use can be found in <a
+href="gateHDL.html#constraintTasks">Section 4.10.3 Constraint
+Tasks</a>.
+
+<h4>B.3.1 $hold</h4>		
+
+<div class=display>
+Usage: <tt>$hold(</tt> <i>clock</i><tt>, </tt><i>data</i><tt>,</tt> <i>limit</i> <tt>);</tt>
+</div>
+<p>
+The <tt>$hold</tt> task generates a warning message when a hold-time
+constraint is not satisfied.  <i>clock</i> specifies a clock event
+after which a data line must be held constant.  <i>data</i> specifies
+the data signal that must not change for the hold period, and
+<i>limit</i> specifies the time periods for which changes in
+<i>data</i> are forbidden.  The <tt>$hold</tt> task may only be used
+in a <tt>specify</tt> block.
+
+ <h4>B.3.2 $setup</h4>
+
+<div class=display>
+Usage: <tt>$setup(</tt><i>data</i><tt>,</tt> <i>clock</i><tt>,</tt> <i>limit</i> <tt>);</tt>
+</div>
+<p>
+The <tt>$setup</tt> task generates a warning message when a setup-time
+constraint is not satisfied.  <i>data</i> specifies the data signal
+that must not change for the setup period.  <i>clock</i> specifies a
+clock event that ends the setup period, and <i>limit</i> specifies the
+length of the setup period.  If the <i>clock</i> event occurs less
+than <i>limit</i> time steps from the last change of <i>data</i>, a
+warning message is generated.  The <tt>$setup</tt> task may only be used
+in a <tt>specify</tt> block.
+
+<h4>B.3.3 $width</h4>		
+
+<div class=display>
+Usage: <tt>$width(</tt> <i>event</i><tt>, </tt> <i>limit</i> <tt>);</tt>
+</div>
+<p>
+The <tt>$width</tt> task generates a warning message when a pulse
+width is shorter than a specified limit.  <i>event</i> specifies the
+the leading edge of the pulse that is to be tested.  Use the
+<tt>posedge</tt> or <tt>negedge</tt> keyword to indicate which edge is
+to be tested.  <i>limit</i> is the minimum allowable pulse width.  If
+the opposite transition is detected in fewer than <i>limit</i> time
+steps, then warning message will be generated.  The <tt>$width</tt>
+task may only be used in a <tt>specify</tt> block.
+
+<h3>B.4 Simulation Information/Control and Miscellaneous Tasks</h3>
+
+The tasks described in this section can be used to control the
+simulation, get information about the simulation, and do other
+miscellaneous tasks.
+
+<h4>B.4.1 $finish</h4>		
+
+<div class=display>
+Usage: <tt>$finish;</tt>
+</div>
+<p>
+This task terminates the simulation.  If called while running Verga in
+stand-along mode, Verga will terminate immediately.  If called from a
+description running under the TkGate, the simulator will terminate,
+and TkGate will revert to edit mode.
+
+<h4>B.4.2 $stop</h4>		
+
+<div class=display>
+Usage: <tt>$stop;</tt>
+</div>
+<p>
+This task suspends the simulation and puts it into pause mode. If
+called while running Verga in stand-along mode, it will have the same
+effect as <tt>$finish</tt>, terminating the simulation immediately.
+If called from a description running under the TkGate, the simulator
+will enter paused mode allowing you to examine the values of variables
+before unpausing the simulation.
+
+<h4>B.4.3 $time</h4>		
+
+<div class=display>
+Usage: <i>variable</i><tt> = $time;</tt>
+</div>
+<p>
+
+This task returns the current simulation time.  When assigning it to a
+variable, that variable should be declared as a <tt>time</tt>
+variable.  This is normally a 64-bit integer.  One of the most useful
+places to use <tt>$time</tt> is in conjunction with a
+<tt>$display</tt> or <tt>$monitor</tt> task to show the simulation
+time at which the output is produced.  When using <tt>$time</tt> in
+this way, you should use the <tt>%t</tt> conversion in the control
+string.
+
+<h4>B.4.4 $stime</h4>		
+
+<div class=display>
+Usage: <i>variable</i><tt> = $stime;</tt>
+</div>
+<p>
+This task returns the low 32 bits of the current simulation time.  You
+may assign it to an <tt>integer</tt> variable.
+
+
+<h4>B.4.5 $random</h4>		
+
+<div class=display>
+Usage: <i>variable</i><tt> = $random;</tt><br>
+Usage: <tt>$random(</tt><i>seed</i><tt>);</tt>
+</div>
+<p>
+When called without an argument, this task returns a random number.
+When called with an argument, that argument is used as the seed value
+for the random number generator.
+
+<h3>B.5 Memory Tasks</h3>
+
+These tasks can be used to save and load the contents of a memory to or
+from a file.
+
+<h4>B.5.1 $readmemb and $readmemh</h4>		
+
+<div class=display>
+Usage: <tt>$readmemb(</tt><i>file</i><tt>);</tt><br>
+Usage: <tt>$readmemb(</tt><i>file</i><tt>, </tt><i>memory</i><tt>);</tt><br>
+Usage: <tt>$readmemb(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>);</tt><br>
+Usage: <tt>$readmemb(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>, </tt><i>stop</i><tt>);</tt><br>
+<br>
+Usage: <tt>$readmemh(</tt><i>file</i><tt>);</tt><br>
+Usage: <tt>$readmemh(</tt><i>file</i><tt>, </tt><i>memory</i><tt>);</tt><br>
+Usage: <tt>$readmemh(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>);</tt><br>
+Usage: <tt>$readmemh(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>, </tt><i>stop</i><tt>);</tt><br>
+</div>
+<p>
+
+These tasks initialize one or more memories in a design from the
+contents of a file.  The forms ending in "<tt>b</tt>" assume binary
+formatted data, while the forms ending in "<tt>h</tt>" assume
+hexadecimal formatted data.  If only a file name is specified, then
+the name(s) of the memories to be initialized must be encoded in the
+file.  If a memory is specified, than the file is loaded into that
+memory.  You may also specify a start and stop address.
+<p>
+The file should contain a space separated list of values for the
+memory.  The unknown (x) and floating (z) values may also be used in
+one or more bits.  There are also several special control lines
+beginning with "<tt>@</tt>" that can be used to specify the memory,
+the address, or the radix of the file.  An example of a memory file is
+shown below:
+<pre>
+@memory top.m
+@0
+3 4 9 16 25
+36 49 64 81
+
+@C
+100 x x 99 z 12 x8 z12
+
+@100
+4 3 9x x x11
+
+@1000000
+12 13 14 z 19 20 x x x 30 31
+</pre>
+The <tt>@memory top.m</tt> specifies the name of the memory to be
+loaded.  It should be a fully qualified path name.  The <tt>@0</tt>
+line indicates that the following data is to be load beginning at
+address 0, the <tt>@C</tt> line indicates data to be loaded beginning
+at address hexadecimal <tt>C</tt>, and so forth.  You can also use a
+line such as:
+<pre>
+@radix 8
+</pre>
+To change the radix for data in the file to binary (2), octal (8),
+decimal (10) or hexadecimal (16).
+
+<h4>B.5.2 $writememb and $writememh</h4>	
+
+<div class=display>
+Usage: <tt>$writememb(</tt><i>file</i><tt>);</tt><br>
+Usage: <tt>$writememb(</tt><i>file</i><tt>, </tt><i>memory</i><tt>);</tt><br>
+Usage: <tt>$writememb(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>);</tt><br>
+Usage: <tt>$writememb(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>, </tt><i>stop</i><tt>);</tt><br>
+<br>
+Usage: <tt>$writememh(</tt><i>file</i><tt>);</tt><br>
+Usage: <tt>$writememh(</tt><i>file</i><tt>, </tt><i>memory</i><tt>);</tt><br>
+Usage: <tt>$writememh(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>);</tt><br>
+Usage: <tt>$writememh(</tt><i>file</i><tt>, </tt><i>memory</i><tt>, </tt><i>start</i><tt>, </tt><i>stop</i><tt>);</tt><br>
+</div>
+<p>
+These tasks write the contents of one or more memories to a file.  The
+forms ending in "<tt>b</tt>" write the data in binary, while the forms
+ending in "<tt>h</tt>" write the data in hexadecimal.  The files
+written are of a format suitable for being read by the
+<tt>$readmemb</tt> and <tt>$readmemh</tt> tasks.  If only a file name
+is given, the contents of all memories in the design will be written.
+If a memory name is given, only the contents of that memory will be
+saved.  You can also specify a start and stop address to save a
+portion of a memory.  If there are large regions of uninitialized
+values in a memory, those values will not be explicitly saved.  Only
+memory pages in which data has been stored will be saved to the file.
+
+<h3>B.6 TkGate-Specific Tasks</h3>
+
+These tasks are tasks that are not part of the normal Verilog
+specification, but are specific to TkGate descriptions.  These tasks
+all begin with the <tt>$tkg</tt> prefix.  Most of these tasks are only
+useful when running a simulation under the TkGate GUI.  
+
+<h4>B.6.1 $tkg$command</h4>	
+
+<div class=display>
+Usage: <tt>$tkg$command(</tt><i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+When the simulator is running under the TkGate GUI, TkGate and the
+simulator communicate over a pipe.  This task writes a command from
+the simulator to TkGate directly on that pipe.  The arguments are
+combined into a string in the same way as for <tt>$display</tt>, and
+the resulting string is feed directly to the TkGate GUI.  When running
+Verga directly, this task performs identically to <tt>$display</tt>.
+<p>
+This task is subject to security settings set through the <a
+href="gateOptions.html#security">TkGate Security Options</a> dialog
+box.
+
+<h4>B.6.2 $tkg$exec</h4>		
+
+<div class=display>
+Usage: <tt>$tkg$exec(</tt><i>arg1</i><tt>,</tt> <i>arg2</i><tt>,</tt> ... <tt>);</tt>
+</div>
+<p>
+This task executes a Tcl/Tk command in the context of the TkGate GUI.
+It can be used to control a <a href="vpdCreation.html">Virtual
+Peripheral Device (VPD)</a>, although its use for this purpose is
+currently discouraged.  The <tt>$tkg$post</tt>, <tt>$tkg$send</tt> and
+<tt>$tkg$recv</tt> tasks are now the preferred tasks to use for
+interacting with VPDs.
+<p>
+When executing this task, the arguments are combined into a string in
+the same way as for <tt>$display</tt>, and the resulting string is
+sent to the TkGate GUI to be executed as a Tcl/Tk command.  The
+command will only be executed if it is enabled through the <a
+href="gateOptions.html#security">TkGate Security Options</a> dialog
+box.  There are three possible security settings: fully enabled,
+enabled for registered functions, and disabled.  When enabled only for
+registered functions, only Tcl commands that have been registered by a
+VPD on loading can be executed.  Furthermore, the "[" and "]"
+characters are not allowed in the string.  For more information on how
+to use this task in designing VPDs, see the section on <a
+href="vpdCreation.html">Creating Virtual Peripheral Devices</a>.
+<p>
+If running Verga directly, this task will simply print the simulator
+command requesting a Tcl/Tk command to be executed.
+
+<h4>B.6.3 $tkg$post</h4>		
+
+<div class=display>
+Usage: <tt>$tkg$post(</tt><i>name</i><tt>, </tt><i>id</i><tt>);</tt>
+</div>
+<p>
+This task is used to start/post a <a href="vpdCreation.html">Virtual
+Peripheral Device (VPD)</a>.  The <i>name</i> argument specifies the
+name of the VPD.  The <i>id</i> argument specifies the name of a
+unique identifier for this instance of the VPD.  Normally, the string
+<tt>"%m"</tt> should be specified as the <i>id</i>.  The <tt>"%m"</tt>
+will be replaced with the instance name of the calling module in the
+same way that <tt>"%m"</tt> is expanded in the <tt>$display</tt> task.
+For more information on how to use this task in designing VPDs, see
+the section on <a href="vpdCreation.html">Creating Virtual Peripheral
+Devices</a>.
+<p>
+If running Verga directly, this task will simply print the simulator
+command requesting a VPD to be posted.
+
+<h4>B.6.4 $tkg$probe</h4>	
+
+<div class=display>
+Usage: <tt>$tkg$probe(</tt><i>signal1</i><tt>,</tt> <i>signal2</i><tt>,</tt> ...<tt>);</tt>
+</div>
+<p>
+This task is used to set a probe on a signal or signals.  You can list
+an arbitrary number of signals specified either with their local
+names, or with fully qualified path names.  This task will cause the
+TkGate GUI to display the probed signals in the logic analyzer window
+and begin displaying value changes on those signals.  You can use this
+task in a simulator script to setup the signals you want to probe at
+the beginning of a simulation.
+<p>
+If running Verga directly, this task will simply print the simulator
+command requesting a probe to be set, and print value changes on that
+signal until the probe is removed with and <tt>$unprobe</tt>.
+<p>
+If running Verga directly, this task will simply print the simulator
+command setting a probe and reporting the values on the probed signals.
+
+<h4>B.6.5 $tkg$recv</h4>		
+
+<div class=display>
+Usage: <i>value</i><tt> = $tkg$recv(</tt><i>channel</i><tt>);</tt>
+</div>
+<p>
+The <tt>$tkg$recv</tt> task is used receive value on a channel from a
+<a href="vpdCreation.html">Virtual Peripheral Device (VPD)</a>.  A
+channel is essentially a queue that can be read to or written from
+either from the Tcl/Tk side of a VPD, or the Verilog side.  The
+<tt>$tkg$recv</tt> task dequeues and returns the next value in the
+queue.  If the queue is empty, the task blocks until a value is placed
+on the queue.
+<p>
+The channel name is an arbitrary string.  Channels are dynamically
+created when referenced by a <tt>$tkg$recv</tt> or <tt>$tkg$send</tt>
+task.  When used for communicating with a VPD, the channel name should
+be constructed from the VPD instance name (the same name used as the
+<i>id</i> in <tt>$tkg$post</tt>), followed by a "." character and a
+local name.  This convention ensures that each instance of a VPD has
+its own set of channels to use.  You can use <tt>"%m"</tt> in place of
+the instance name which will be replaced with the instance name for
+the current module.
+<p>
+For more information on how to use this task in designing VPDs, see
+the section on <a href="vpdCreation.html">Creating Virtual Peripheral
+Devices</a>.
+<p>
+While this task is primarily intended to be used for communication
+with VPDs, you can use it in conjunction with the <tt>$tkg$send</tt>
+task to send values from one Verilog thread to another.
+
+<h4>B.6.6 $tkg$reportbreak</h4>	
+
+<div class=display>
+Usage: <tt>$tkg$reportbreak(</tt><i>id</i><tt>,</tt> <i>value</i><tt>);</tt>
+</div>
+<p>
+This task pauses the simulation and sends a command indicating that a
+breakpoint has fired.  <i>id</i> is the name of the breakpoint, and
+<i>value</i> is the value that has caused the break.  This task is
+primarily used for TkGate testing purposes.
+
+<a name="tkg_send">
+<h4>B.6.7 $tkg$send</h4>		
+
+<div class=display>
+Usage: <tt>$tkg$send(</tt><i>channel</i><tt>,</tt> <i>value</i><tt>);</tt>
+</div>
+<p>
+The <tt>$tkg$send</tt> task is used send a value on a channel from the
+Verilog description to a <a href="vpdCreation.html">Virtual Peripheral
+Device (VPD)</a>.  A channel is essentially a queue that can be read
+to or written from either from the Tcl/Tk side of a VPD, or the
+Verilog side.  The <tt>$tkg$send</tt> task enqueues a value on the
+queue for the specified channel.
+<p>
+The channel name is an arbitrary string.  Channels are dynamically
+created when referenced by a <tt>$tkg$recv</tt> or <tt>$tkg$send</tt>
+task.  When used for communicating with a VPD, the channel name should
+be constructed from the VPD instance name (the same name used as the
+<i>id</i> in <tt>$tkg$post</tt>), followed by a "." character and a
+local name.  This convention ensures that each instance of a VPD has
+its own set of channels to use.  You can use <tt>"%m"</tt> in place of
+the instance name which will be replaced with the instance name for
+the current module.
+<p>
+For more information on how to use this task in designing VPDs, see
+the section on <a href="vpdCreation.html">Creating Virtual Peripheral
+Devices</a>.
+<p>
+While this task is primarily intended to be used for communication
+with VPDs, you can use it in conjunction with the <tt>$tkg$recv</tt>
+task to send values from one Verilog thread to another.
+
+<h4>B.6.8 $tkg$systime</h4>	
+<div class=display>
+Usage: <i>value</i><tt> = $tkg$systime;</tt>
+</div>
+<p>
+This task returns the current system time as a 64-bit <tt>time</tt>
+value with the number of milliseconds since January 1, 1970.
+
+<h4>B.6.9 $tkg$unprobe</h4>	
+
+<div class=display>
+Usage: <tt>$tkg$unprobe(</tt><i>signal1</i><tt>,</tt> <i>signal2</i><tt>,</tt> ...<tt>);</tt>
+</div>
+<p>
+This task removes one or more probes set either with the
+<tt>$probe</tt> system task, or manually through the TkGate GUI.
+
+<h4>B.6.10 $tkg$wait</h4>		
+
+<div class=display>
+Usage: <tt>$tkg$wait(</tt><i>value</i><tt>);</tt>
+</div>
+<p>
+
+This task will block the calling thread for the specified number of
+milliseconds.  The simulation itself will continue, and all other
+threads will advance normally (unless the calling thread is the only
+unblocked thread).  As an example, consider the code fragment:
+<pre>
+   always
+     begin
+       $tkg$wait(1000)
+       $display("Hello World");
+     end
+</pre>
+This will cause the message "Hello World" to be printed once per
+second.
+
+<h4>B.6.11 $tkg$waituntil</h4>	
+
+<div class=display>
+Usage: <tt>$tkg$waituntil(</tt><i>value</i><tt>);</tt>
+</div>
+<p>
+This task blocks a thread in the same way as <tt>$tkg$wait</tt> until
+a specified absolute time.  The <tt>$tkg$systime</tt> task should be
+used to get a reference time to be used with <tt>$tkg$waituntil</tt>.
+If the time specified by <i>value</i> is less than the current time,
+<tt>$tkg$waituntil</tt> will return immediately and do nothing.  This
+task can be used to create real time clocks.  For example, the
+following module generates a clock signals that oscillates once per
+second:
+<pre>
+module realclock(z);
+output reg z;
+time t;
+
+  initial
+    z = 1'b0;
+
+  initial
+    begin
+      t = $tkg$systime;
+      forever
+        begin
+          t = t + 500;
+          $tkg$waituntil(t);
+	  z = ~z;
+        end
+    end
+
+endmodule
+</pre>
+<p>
+The advantage of using <tt>$tkg$waituntil</tt> instead of
+<tt>$tkg$wait</tt> to generate the clock signal is to avoid drift.  If
+<tt>$tkg$wait</tt> were used instead, there would be additional real
+time delay as the simulation was running between calls to
+<tt>$tkg$wait</tt>.  This small error would accumulate over time
+causing the number of oscillations to diverge from the proper value
+over a long time period.
+<p>
+Real time clocks such as this can be used to create real-time
+simulations of devices such as digital clocks, or other simulation
+using LEDs where you wish to run them synchronized with real time.
+
+<h4>B.6.12 $tkg$zoom</h4>	
+
+<div class=display>
+Usage: <tt>$tkg$zoom(</tt><i>factor</i><tt>);</tt>
+</div>
+<p>
+This task sets the zoom level in the TkGate scope window reletive to
+the default zoom factor.  The <i>factor</i> parameter is an integer
+representing the zoom factor.  A factor of 0 sets the default zoom
+factor.  Negative values represent the number of zoom-out steps
+(showing more time on the x-axis), and positive values represent the
+number of zoom-in steps (showing less time on the x-axis).
+
+</body>
+</html>

@@ -1,0 +1,3030 @@
+#
+#   Copyright (C) 1987-2000 by Jeffery P. Hansen
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+# Last edit by hansen on Sun Feb 22 19:51:17 2009
+
+##############################################################################
+#
+# Explaination of file format.
+#
+# Messages files are used to "localize" tkgate so that it can run under
+# different languages.  Lines beginning with a '#' character are comments.
+# Most entries in the file are of the form:
+#
+# tag value
+#
+# A tag is any abitrary string of non-whitespace characters.  By convention
+# a dot notation is used to suggest groups of related tags.  The value of the
+# tag begins at the first non-whitespace character after the tag and can include
+# white space.  Normally the value is the localized text message.  By convension,
+# tags beginning with a '@' character are used to control interface layout
+# as opposed to being actual text.  Explainations for this tags will be given
+# in preceeding comments.
+#
+# Multi-line comments have the form:
+#
+# tag	-begin-
+# line1
+# line2
+# -end-
+#
+# or
+#
+# tag	-fillbegin-
+# line1
+# line2
+# -end-
+#
+# When -begin- is used, the newlines in the text are preserved as is.  When
+# -fillbegin- is used the newlines are replaced with spaces and it is assumed
+# that the text will be automatically justified.
+#
+# If the first character of a value is a back-quote, then it is interpreted
+# as a reference to another tag.  For example:
+#
+# foo	This is tag foo.
+# bar	`foo
+#
+# In this instance both 'foo' and 'bar' will translate to 'This is tag foo'.
+#
+# The last type of entry that can occur in the file are declarations.  The
+# declarations should normally be specified before any tags are specified.
+# The currently supported declarations are:
+#
+# \font-encoding	code
+# \messages-encoding	code
+# \verilog-encoding	code
+# \language		name
+#
+# where "code" is a font encoding.  Typical encodings are:
+#
+#   iso8859-1		English and many European languages
+#   iso8859-2 		Some other European languages (e.g., Bosnian, Czech, Polish)
+#   euc-ja		Japanese EUC
+#   utf-8		Unicode
+#
+# "\font-encoding" selects the encoding to use when displaying strings from
+# comments and frames in the main edit window.  It should be "iso8859-1" or
+# "iso8859-2".
+#
+# "\messages-encoding" specifies the encoding of this messages file.
+#
+# "\verilog-encoding" specifies the default encoding to use for verilog files
+# when editing files in this locale.
+#
+# "\language" specifies the full language name of this messages file.  It should
+# be after the \messages-encoding delcaration so that it will be processed
+# using the correct encoding.
+#
+##############################################################################
+
+\font-encoding		iso8859-1
+\display-encoding       iso8859-1
+\messages-encoding	iso8859-1
+\verilog-encoding	iso8859-1
+\postscript-encoding	iso8859-1
+
+\language		English
+
+##############################################################################
+#
+# basic strings
+#
+b.new		New...
+b.dismiss	Dismiss
+b.close		Close
+b.ok		OK
+b.clear		Clear
+b.cancel	Cancel
+#b.open		Open...
+#b.bitw		Bit Width
+b.in		in
+b.out		out
+b.inout		inout
+b.browse	Browse...
+b.label		Label
+b.find		Find
+b.edit		Edit...
+b.add		Add...
+b.delete	Delete
+#b.deleteb	Delete...
+b.remove	Remove
+b.apply		Apply
+b.anchor	Anchor
+b.tech		Technology
+#b.enable	Enable
+#b.disable	Disable
+#b.flush		Clear
+
+##############################################################################
+#
+# Main tab strings
+#
+tab.edit	Edit
+tab.editintr	Interface
+tab.simulate	Simulate
+tab.cpath	Critical Path
+
+
+#############################################################################
+#
+# Module tree/list box
+#
+module.tree		Tree
+module.list		List
+module.box.libraries	Libraries
+
+#############################################################################
+#
+# Tabs for Nets/Ports
+#
+sidetab.nets	Nets
+sidetab.ports	Ports
+
+#############################################################################
+#
+# MsgMgr strings (including breakpoint and script handling) 
+#
+@mm.width	7
+mm.add		Add...
+mm.delete	Delete
+mm.edit		Edit...
+mm.enable	Enable
+mm.disable	Disable
+
+##############################################################################
+# Menu strings
+#
+# Menu strings (tags beginning with "menu.") can take an option prefix consisting
+# of a number and a colon.   If this prefix exists, it indicates the character
+# position in the string that will be underlined.  This enables keyboard shortcuts
+# using the Alt key. 
+#
+menu.file	0:File
+menu.edit	0:Edit
+menu.tool	0:Tool
+menu.symbol	0:Symbol
+menu.simulate	0:Simulate
+menu.module	0:Module
+menu.interface	0:Interface
+menu.format	0:Format
+menu.make	0:Components
+menu.help	0:Help
+
+menu.file.new		0:New...
+menu.file.open		0:Open...
+menu.file.openlib	0:Library Manager...
+menu.file.save		0:Save
+menu.file.saveas	5:Save As...
+menu.file.print		0:Print...
+menu.file.quit		0:Quit
+menu.file.cprop		0:Circuit Properties...
+menu.file.import	0:Import Image...
+menu.file.export	0:Export Image...
+
+menu.edit.undo		0:Undo
+menu.edit.redo		0:Redo
+menu.edit.cut		0:Cut
+menu.edit.copy		3:Copy
+menu.edit.paste		0:Paste
+menu.edit.overlay	0:Overlay Paste
+menu.edit.selall	0:Select All
+menu.edit.find		0:Find...
+menu.edit.zoomin	5:Zoom In
+menu.edit.zoomout	5:Zoom Out
+
+menu.edit.rshift	10:Bit Shift Right 
+menu.edit.lshift	10:Bit Shift Left 
+menu.edit.ushift	10:Bit Shift Up 
+menu.edit.dshift	10:Bit Shift Down 
+menu.edit.cwrotate	11:Bit Rotate C-W
+menu.edit.ccwrotate	15:Bit Rotate C-C-W
+menu.edit.pcwrotate	12:Port Rotate C-C-W
+menu.edit.pccwrotate	16:Port Rotate C-C-W
+menu.edit.autobold	Boldify Bits
+menu.edit.resize	Resize Bitmap
+
+menu.tool.move		0:Move/Connect
+menu.tool.delg		0:Delete Component
+menu.tool.cutw		0:Cut Wire
+menu.tool.inv		0:Invert
+menu.tool.bitw		0:Bit Width
+menu.tool.debug		0:Debug
+menu.tool.point		0:Point
+menu.tool.line		0:Line
+menu.tool.rect		0:Rectangle
+menu.tool.fillrect	0:Fill Rectangle
+menu.tool.port		0:Port
+menu.tool.select	0:Select Region
+menu.tool.options	0:Options...
+
+menu.format.addport	4:Add Port
+menu.format.ioset	0:Set Type
+menu.format.anchor	0:Anchor Selected
+menu.format.unanchor	0:Unanchor Selected
+menu.format.prop	0:Instance Properties...
+menu.format.del		0:Delete
+menu.format.settech	0:Set Technology
+menu.format.rot		0:Rotation
+menu.format.rot.0	17:Default Rotation 0
+menu.format.rot.90	17:Default Rotation 90
+menu.format.rot.180	17:Default Rotation 180
+menu.format.rot.270	17:Default Rotation 270
+menu.format.rot.rotate	10:Clockwise Rotate
+menu.format.rot.brotate	0:Counter-Clockwise Rotate
+menu.format.algnv	6:Align Ver.
+menu.format.algnh	6:Align Horz.
+
+
+menu.tool.tclshell	0:Tcl Shell
+menu.tool.rep		0:Replicate
+
+menu.simulate.begin	0:Begin Simulation
+menu.simulate.end	0:End Simulation
+menu.simulate.addprobe	0:Add/Delete Probe
+menu.simulate.run	0:Run
+menu.simulate.pause	0:Pause
+menu.simulate.step	0:Step Epoch(s)
+menu.simulate.cycle	5:Step Cycle
+menu.simulate.break	0:Breakpoint...
+menu.simulate.script	1:Exec. Script...
+menu.simulate.load	1:Load Memory...
+menu.simulate.dump	1:Dump Memory...
+menu.simulate.view	1:View Memory...
+
+menu.module.open	0:Open
+menu.module.close	0:Close
+menu.module.new		0:New...
+menu.module.del		0:Delete...
+menu.module.copy	1:Copy...
+menu.module.rename	0:Rename...
+menu.module.claim	1:Claim...
+menu.module.setroot	1:Set As Root...
+menu.module.prop	0:Properties...
+menu.module.interface		0:Interface
+menu.module.interface.set	0:Set As Default
+menu.module.interface.update	1:Sync. to Default
+menu.module.interface.updateall	6:Sync. All to Default...
+menu.module.interface.edit	0:Edit...
+menu.module.interface.auto	5:Auto Generate...
+
+
+menu.help.about		0:About...
+menu.help.license	0:License...
+menu.help.doc		0:Documentation...
+menu.help.tut		1:Tutorials
+menu.help.home		1:Home Page
+menu.help.example	1:Examples
+
+#############################################################################
+# Scope Menu
+#
+menu.scope_file			0:File
+menu.scope_sim			0:Simulate
+menu.scope_trace		0:Trace
+menu.scope_help			0:Help
+
+menu.scope_file.ptrace		0:Print Trace...
+menu.scope_file.close		0:Close
+menu.scope_trace.zoomin		5:Zoom In
+menu.scope_trace.zoomout	5:Zoom Out
+menu.scope_sim.addprobe		0:Add/Delete Probe
+menu.scope_sim.run		0:Run
+menu.scope_sim.pause		0:Pause
+menu.scope_sim.step		0:Step Epoch(s)
+menu.scope_sim.cycle		5:Step Cycle
+menu.scope_sim.break		0:Breakpoint...
+menu.scope_sim.script		1:Exec. Script...
+menu.scope_sim.load		1:Load Memory...
+menu.scope_sim.dump		1:Dump Memory...
+menu.scope_help.about		0:About...
+menu.scope_help.license		0:License...
+menu.scope_help.doc		0:Documentation...
+
+mod.intf	Interface
+
+port.title	TkGate: Port Properties
+port.parms	Port Parameters
+port.in		In
+port.out	Out
+port.inout	InOut
+
+
+##############################################################################
+#
+# Tags for built-in gate types
+#
+
+gm.io		I/O
+gm.gate		Gate
+gm.rgate	Reduction
+gm.msi		MSI
+gm.alu		ALU
+gm.mem		Memory
+gm.mod		Module
+gm.comment	Comment
+gm.script	Verilog Script
+gm.frame	Frame
+
+gm.io.switch	Switch
+gm.io.dip	DIP Switch
+gm.io.ground	Ground
+gm.io.vdd	Vdd
+gm.io.merge	Concat
+gm.io.clock	Clock
+
+gm.io.led	LED
+gm.io.ledbar	LED Bar
+gm.io.ledhex	7-Seg. LED (HEX)
+gm.io.leddec	7-Seg. LED (DEC)
+gm.io.ledseg	7-Seg. LED (Direct)
+
+gm.io.tty	TTY
+
+gm.gate.and	AND
+gm.gate.nand	NAND
+gm.gate.or	OR
+gm.gate.nor	NOR
+gm.gate.xor	XOR
+gm.gate.xnor	XNOR
+gm.gate.buf	Buffer
+gm.gate.inv	Inverter
+gm.gate.tribuf	Tri-Buffer
+gm.gate.nmos	NMOS
+gm.gate.pmos	PMOS
+
+gm.rgate.and	AND
+gm.rgate.nand	NAND
+gm.rgate.or	OR
+gm.rgate.nor	NOR
+gm.rgate.xor	XOR
+gm.rgate.xnor	XNOR
+
+gm.alu.add	Adder
+gm.alu.mult	Multiplier
+gm.alu.div	Divider
+gm.alu.lshift	Left Shift
+gm.alu.rshift	Right Shift
+gm.alu.arshift	Arith. Right Shift
+gm.alu.roll	Roll
+
+gm.mem.reg	Register
+gm.mem.ff	D Flip-Flop
+gm.mem.rff	Rev. D Flip-Flop
+gm.mem.ram	RAM
+gm.mem.rom	ROM
+
+gm.mem.jkff	JK Flip-Flop
+gm.mem.rjkff	Rev. JK Flip-Flop
+
+gm.msi.21mux	2-1 Multiplexor
+gm.msi.41mux	4-1 Multiplexor
+gm.msi.81mux	8-1 Multiplexor
+gm.msi.12dec	1-2 Decoder
+gm.msi.14dec	1-4 Decoder
+gm.msi.18dec	1-8 Decoder
+gm.msi.12demux	1-2 Demultiplexor
+gm.msi.14demux	1-4 Demultiplexor
+gm.msi.18demux	1-8 Demultiplexor
+    
+gm.mod.inst	Module Instance
+gm.mod.in	Module Input
+gm.mod.out	Module Output
+gm.mod.inout	Module InOut
+
+tutorial.prev		PREVIOUS
+tutorial.next		NEXT
+tutorial.chapter	CHAPTER LIST
+tutorial.reload		RELOAD
+
+##############################################################################
+#
+# Popup menus
+#
+pop.make		Components
+pop.tool		Tool
+
+pop.edit.paste		Paste
+pop.edit.cut		Cut
+pop.edit.copy		Copy
+
+pop.port.in		In
+pop.port.out		Out
+pop.port.inout		InOut
+
+pop.wire.addseg		Add Wire Segment
+pop.wire.prop		Net Properties...
+pop.wire.hidesize	Hide Bit Width
+pop.wire.showsize	Show Bit Width
+pop.wire.hidelabel	Hide Label 
+pop.wire.hidealllabel	Hide All Labels
+pop.wire.clearalllabel	Clear All Labels
+pop.wire.showlabel	Show Label 
+
+pop.gate.open		Open
+pop.gate.close		Close
+pop.gate.prop		Instance Properties...
+pop.gate.addport	Add Port
+pop.gate.addin		Add Input...
+pop.gate.addout		Add Output...
+pop.gate.addinout	Add InOut...
+pop.gate.anchor		Anchor/Unanchor
+pop.gate.settech	Set Technology
+pop.gate.delete		Delete
+pop.gate.ioset		Set Type
+
+pop.module.new		New...
+pop.module.del		Delete...
+pop.module.copy		Copy...
+pop.module.rename	Rename...
+pop.module.claim	Claim...
+pop.module.setroot	Set As Root...
+pop.module.prop		Module Properties...
+pop.module.int		Edit Interface...
+
+
+pop.simulate.end	End Simulation
+pop.simulate.begin	Begin Simulation
+pop.simulate.addprobe	Add/Delete Probe
+pop.simulate.delprobe	Delete Probe
+pop.simulate.run	Run
+pop.simulate.pause	Pause
+pop.simulate.step	Step Epoch(s)
+pop.simulate.cycle	Step Cycle
+pop.simulate.break	Breakpoint...
+pop.simulate.script	Exec. Script...
+pop.simulate.load	Load Memory...
+pop.simulate.dump	Dump Memory...
+pop.simulate.view	View Memory...
+
+pop.interface		Interface
+pop.interface.set	Set As Default
+pop.interface.update	Sync. to Default
+pop.interface.updateall	Sync. All to Default...
+pop.interface.edit	Edit...
+pop.interface.auto	Auto Generate...
+pop.interface.replace	Replace
+
+pop.igen.type		Type
+pop.igen.side		Side
+pop.igen.size		Size
+pop.igen.delete		Delete
+pop.igen.in		in
+pop.igen.out		out
+pop.igen.inout		inout
+pop.igen.left		left
+pop.igen.right		right
+pop.igen.top		top
+pop.igen.bottom		bottom
+pop.igen.other		other
+
+pop.library.mgr		Library Manager...
+pop.library.close	Unload
+
+##############################################################################
+#
+# Symbol editor strings
+#
+#symed.bsave		Store
+#symed.file		File
+#symed.file.load		Load Bitmap...
+#symed.file.save		Save Bitmap...
+#symed.file.updateclose	Close and Update
+#symed.file.discardclose	Close and Discard
+#symed.help		Help
+#symed.help.about	About...
+#symed.edit		Edit
+#symed.edit.cut		Cut
+#symed.edit.copy		Copy
+#symed.edit.paste	Paste
+#symed.edit.overlay	Overlay Paste
+#symed.edit.rclock	Rotate Clockwise
+#symed.edit.rcclock	Rotate Counter-Clockwise
+#symed.module		Module
+#symed.modes		Modes
+#symed.cutpaste		Cut/Paste
+#symed.rotate		Port Rotation
+#symed.zoom		Zoom
+#symed.cancel		Cancel
+
+#symed.update		Update
+symed.tab.normal	UnSelected
+symed.tab.select	Selected
+symed.link		Link selected to unselected
+# width of symbol editor tabs
+
+
+
+##############################################################################
+## memory viewer
+#
+memview.title	Memory Viewer
+memview.exp	-fillbegin-
+View and modify the contents of a RAM
+or ROM component.  Select memory page,
+then type new hex values to change
+memory content.
+-end-
+
+##############################################################################
+
+scope.title	TkGate: Scope
+scope.emptymsg	Double-click on a wire to add or delete a trace.
+comment.empty	[Double click to add text.]
+
+##############################################################################
+# Interface strings
+#
+ifile		File
+imodule		Module
+iblmodule	Modules
+iports		Ports
+ibits		Bits:
+itype		Type:
+
+#############################################################################
+# Module Dialog Box
+#
+db.mod.name	Name
+db.mod.file	File Name
+db.mod.type	Type
+db.mod.flags	Flags
+db.mod.dataprot	Prevent editing of module definition.
+db.mod.intfprot	Prevent all interface changes.
+db.mod.edprot	Prevent edit mode interface changes.
+db.mod.props	Properties
+db.mod.inuse.0	Module is not in use.
+db.mod.inuse.1	Module is in use.
+db.mod.lmod.0	Module has not been modified since loading.
+db.mod.lmod.1	Module has been modified since loading.
+db.mod.smod.0	Module has not been modified since saving.
+db.mod.smod.1	Module has been modified since saving.
+db.mod.islib.1	Module is part of [%s] library.
+db.mod.islib.0	Module is not a library module.
+db.mod.netlist	Netlist
+db.mod.hdl	HDL
+
+db.mod.netexpl	-begin-
+Define module using a
+graphical editor to connect
+wires between components. 
+-end-
+
+db.mod.hdlexpl	-begin-
+Define module using a
+textual editor to describe
+behavior in Verilog.
+-end-
+
+#############################################################################
+# Error List Dialog box
+#
+db.err.title		TkGate: Error List
+db.err.caption		Error List
+db.err.explain.warn	-fillbegin-
+There were warnings in your circuit, but simulation will continue.  Return to edit mode
+to examine the warnings.
+-end-
+db.err.explain.err	-fillbegin-
+There were errors in your circuit.  TkGate is unable to continue the simulation.
+-end-
+
+db.err.neededit		-fillbegin-
+You must first switch to Edit mode before navigating to warnings.
+-end-
+
+#############################################################################
+# Net Dialog Box
+#
+db.net.title	TkGate: Net Properties
+db.net.caption	Net Properties
+db.net.name	Net Name
+db.net.hide	Hide Name
+db.net.bits	Bit Width	
+db.net.type	Net Type	
+db.net.port	Port Type
+db.net.in	in
+db.net.out	out
+db.net.inout	inout
+db.net.inets	Nets
+
+##############################################################################
+#
+# New circuit dialog box
+#
+db.newcirc.title	TkGate: New Circuit
+db.newcirc.directory	Directory:
+db.newcirc.cap		New Circuit
+db.newcirc.exp		-fillbegin-
+Discard the current circuit and start editing
+a new circuit.
+-end-
+db.newcirc.file		File Name
+db.newcirc.topname	Top Module Name
+
+
+
+##############################################################################
+# Gate dialog box
+#
+db.gate.title		TKGate: Component Properties
+db.gate.signam		Signal Name
+db.gate.portnam		Port Name
+db.gate.iotype		Type
+db.gate.bitw		Bit Width
+db.gate.cyclew		Period
+db.gate.phase		Phase
+db.gate.duty		Duty
+db.gate.waveform	Clock Waveform
+db.gate.port		Port
+db.gate.bitws		Bits
+db.gate.side		Side
+db.gate.gtype		Type
+db.gate.gname		Instance Name
+db.gate.hidenam		Hide Name
+db.gate.anchor		Anchor
+db.gate.cpbreak		Critical Path Partition
+db.gate.butstate	Button State
+db.gate.dipval		Switch Value
+db.gate.range		Bit Range
+db.gate.memfilenam	Memory File
+db.gate.modname		Type
+db.gate.general		General
+db.gate.details		Details
+db.gate.text		Text
+db.gate.ports		Port
+db.gate.delay		Delay
+db.gate.parameters	Parameters
+db.gate.stddelay	Standard Delay
+db.gate.custdelay	Custom Delay
+db.gate.catdiruse	Port Placement
+db.gate.edit		Edit
+db.gate.delete		Delete
+db.gate.add		Add
+
+db.gate.ff.type		D Flip-Flop Orientation 
+db.gate.ff.normal.hdr	Normal
+db.gate.ff.normal.exp	-fillbegin-
+D Flip-Flop with data
+flowing left to right.
+-end-
+db.gate.ff.reverse.hdr	Reversed
+db.gate.ff.reverse.exp	-fillbegin-
+D Flip-Flop with data
+flowing right to left.
+-end-
+
+db.gate.jkff.type		JK Flip-Flop Orientation 
+db.gate.jkff.normal.hdr		Normal
+db.gate.jkff.normal.exp	-fillbegin-
+JK Flip-Flop with data
+flowing left to right.
+-end-
+db.gate.jkff.reverse.hdr	Reversed
+db.gate.jkff.reverse.exp	-fillbegin-
+JK Flip-Flop with data
+flowing right to left.
+-end-
+
+db.gate.cat.asc.hdr	Ascending
+db.gate.cat.dec.hdr	Decending
+db.gate.cat.asc.exp	-fillbegin-
+Bits are concatenated in ascending order from top to bottom.
+-end-
+db.gate.cat.dec.exp	-fillbegin-
+Bits are concatenated in descending order from top to bottom.
+-end-
+
+db.gate.cat.sigdir	Signal Direction 
+db.gate.cat.auto.hdr	Auto
+db.gate.cat.multin.hdr	Multi-Input
+db.gate.cat.singin.hdr	Single-Input
+db.gate.cat.tran.hdr	Bidirectional
+
+
+db.gate.cat.auto.exp	-fillbegin-
+Determine signal direction automatically
+from connected nets.
+-end-
+
+db.gate.cat.multin.exp	-fillbegin-
+Always assume multi-port side is the
+input.
+-end-
+
+db.gate.cat.singin.exp	-fillbegin-
+Always assume single-port side is the
+input.
+-end-
+
+db.gate.cat.tran.exp	-fillbegin-
+Allow bidirectional (tran) signal flow.  Cannot 
+be connected to switches or registers.
+-end-
+
+#
+# Minimum size of textbox for comment
+#
+@db.gate.comment.width		*900
+@db.gate.comment.height		*550
+
+db.gate.tab.General.cap		General Properties
+db.gate.tab.Ports.cap		Port Properties
+db.gate.tab.Delay.cap		Delay Properties
+db.gate.tab.Parameters.cap	Module Parameters
+db.gate.tab.CLOCK.cap		Clock Properties
+db.gate.tab.SWITCH.cap		Switch Properties
+db.gate.tab.DIP.cap		DIP Properties
+db.gate.tab.TAP.cap		Tran Properties
+db.gate.tab.RAM.cap		RAM Properties
+db.gate.tab.ROM.cap		ROM Properties
+db.gate.tab.MODULE.cap		Module Properties
+db.gate.tab.FRAME.cap		Frame Properties
+db.gate.tab.LED.cap		LED Properties
+db.gate.tab.AND.cap		AND Properties
+db.gate.tab.OR.cap		OR Properties
+db.gate.tab.XOR.cap		XOR Properties
+db.gate.tab.MUX.cap		Mux Properties
+db.gate.tab.DEMUX.cap		Demux Properties
+db.gate.tab.DECODER.cap		Decoder Properties
+db.gate.tab.CONCAT.cap		Concat Properties
+db.gate.tab.COMMENT.cap		Text Properties
+db.gate.tab.FF.cap		D Flip-Flop Properties
+db.gate.tab.JKFF.cap		JK Flip-Flop Properties
+db.gate.tab.SCRIPT.cap		Verilog Script
+
+
+
+db.gate.tab.General.exp	-fillbegin-
+View and modify basic properties of an instance.
+-end-
+
+db.gate.tab.Ports.exp	-fillbegin-
+Add, edit or delete ports on an instance.
+-end-
+
+db.gate.tab.Delay.exp	-fillbegin-
+Delay can be specified either as a technology or as specific values
+for this instance.
+-end-
+
+db.gate.tab.Parameters.exp	-fillbegin-
+Set the module parameters for this instance of this module if any are
+defined.  Module parameters are used to configure delays and constant values used in a module.
+-end-
+
+db.gate.tab.details.exp -fillbegin-
+Set detailed type-specific properties
+of a component here. 
+-end-
+
+
+db.gate.tab.CLOCK.exp	`db.gate.tab.details.exp
+db.gate.tab.SWITCH.exp	`db.gate.tab.details.exp
+db.gate.tab.DIP.exp	`db.gate.tab.details.exp
+db.gate.tab.TAP.exp	`db.gate.tab.details.exp
+db.gate.tab.RAM.exp	`db.gate.tab.details.exp
+db.gate.tab.ROM.exp	`db.gate.tab.details.exp
+db.gate.tab.MODULE.exp	`db.gate.tab.details.exp
+db.gate.tab.FRAME.exp	`db.gate.tab.details.exp
+db.gate.tab.LED.exp	`db.gate.tab.details.exp
+db.gate.tab.AND.exp	`db.gate.tab.details.exp
+db.gate.tab.OR.exp	`db.gate.tab.details.exp
+db.gate.tab.XOR.exp	`db.gate.tab.details.exp
+db.gate.tab.MUX.exp	`db.gate.tab.details.exp
+db.gate.tab.DEMUX.exp	`db.gate.tab.details.exp
+db.gate.tab.DECODER.exp	`db.gate.tab.details.exp
+db.gate.tab.CONCAT.exp	`db.gate.tab.details.exp
+db.gate.tab.FF.exp	`db.gate.tab.details.exp
+db.gate.tab.JKFF.exp	`db.gate.tab.details.exp
+
+db.gate.tab.COMMENT.exp	-fillbegin-
+Set the text to be displayed in a comment.
+Limited html commands including links can be
+used here.
+-end-
+
+db.gate.tab.SCRIPT.exp	-fillbegin-
+Enter free-form Verilog code here to
+be included as part of this module.
+-end-
+
+db.gate.mparm.parameter	Parameter
+db.gate.mparm.value	Value
+db.gate.mparm.exampleA	-begin-
+This module does not have any parameters.  Parameters
+can be added to Verilog text modules.  The value of
+each parameter can be customized for each instance
+through this dialog box.  Module parameters are
+declared in a parenthesized list starting with a '#'
+character.  Below is an example module declaration
+with a parameter named "base_value" that has a 
+default value of 1'b1.
+-end-
+db.gate.mparm.exampleB	-begin-
+module foo #(.base_value(1'b1)) (Z,A,B);
+  assign Z = A ^ B ^ base_value;
+endmodule
+-end-
+
+db.gate.switch.state		Initial Switch State
+db.gate.switch.state.on.hdr	Switch On
+db.gate.switch.state.on.exp	Switch begins simulation in the "on" state.
+db.gate.switch.state.off.hdr	Switch Off
+db.gate.switch.state.off.exp	Switch begins simulation in the "off" state.
+
+db.gate.switch.shownet		Show Net Name
+db.gate.switch.shownet.on.hdr	Show
+db.gate.switch.shownet.on.exp	Show the name of the net next to switch.
+db.gate.switch.shownet.off.hdr	Hide
+db.gate.switch.shownet.off.exp	Do not show the name of the net next to switch.
+
+
+db.gate.dip.value	Initial DIP Value
+db.gate.dip.value.exp	Initial value of DIP switch at start of simulation.
+db.gate.dip.value.hex	Hex Value:
+@db.gate.dip.value.exp.width	150
+
+db.gate.dip.shownet		Show Net Name
+db.gate.dip.shownet.on.hdr	Show
+db.gate.dip.shownet.on.exp	Show the name of the net next to dip.
+db.gate.dip.shownet.off.hdr	Hide
+db.gate.dip.shownet.off.exp	Do not show the name of the net next to dip.
+
+
+db.gate.tap.select	Bit Tap Selection
+db.gate.tap.exp.bit	Select the bit to pull off of the multi-bit bus. 
+db.gate.tap.exp.bus	Select the least-significant bit of the bit range to pull off of the multi-bit bus. 
+db.gate.tap.lbl.bit	Bit:
+db.gate.tap.lbl.bus	LSB:
+@db.gate.tap.exp.width	*180
+
+db.gate.mux.dataorder	Input Ordering
+db.gate.mux.ord1.hdr	Left-to-Right
+db.gate.mux.ord2.hdr	Right-to-Left
+db.gate.mux.ord1.exp	-fillbegin-
+Order MUX inputs from left to right.
+-end-
+db.gate.mux.ord2.exp	-fillbegin-
+Order MUX inputs from right to left.
+-end-
+
+db.gate.mux.select	Selector Placement
+db.gate.mux.sel1.hdr	On Left
+db.gate.mux.sel2.hdr	On Right
+db.gate.mux.sel1.exp	-fillbegin-
+Place the data selector on the left side of
+the MUX.
+-end-
+db.gate.mux.sel2.exp	-fillbegin-
+Place the data selector on the right side of
+the MUX.
+-end-
+
+db.gate.demux.dataorder	Output Ordering
+db.gate.demux.ord1.hdr	Left-to-Right
+db.gate.demux.ord2.hdr	Right-to-Left
+db.gate.demux.ord1.exp	-fillbegin-
+Order DEMUX outputs from left to right.
+-end-
+db.gate.demux.ord2.exp	-fillbegin-
+Order DEMUX outputs from right to left.
+-end-
+
+db.gate.demux.select	Select Placement
+db.gate.demux.sel1.hdr	On Left
+db.gate.demux.sel2.hdr	On Right
+db.gate.demux.sel1.exp	-fillbegin-
+Place the select input on the left side of the DEMUX.
+-end-
+db.gate.demux.sel2.exp	-fillbegin-
+Place the select input on the right side of the DEMUX.
+-end-
+
+db.gate.decoder.dataorder	Output Ordering
+db.gate.decoder.ord1.hdr	Left-to-Right
+db.gate.decoder.ord2.hdr	Right-to-Left
+db.gate.decoder.ord1.exp	-fillbegin-
+Order DECODER outputs from left to right.
+-end-
+db.gate.decoder.ord2.exp	-fillbegin-
+Order DECODER outputs from right to left.
+-end-
+
+db.gate.decoder.select	Enable Placement
+db.gate.decoder.sel1.hdr	On Left
+db.gate.decoder.sel2.hdr	On Right
+db.gate.decoder.sel1.exp	-fillbegin-
+Place the enable input on the left side of the DECODER.
+-end-
+db.gate.decoder.sel2.exp	-fillbegin-
+Place the enable input on the right side of the DECODER.
+-end-
+
+
+
+db.gate.aox.extbaruse	Extender Bar Use
+db.gate.aox.use.hdr	Extender Bars
+db.gate.aox.nouse.hdr	No Extender Bars
+db.gate.aox.use.exp	-fillbegin-
+Basic gates (AND, OR, etc.) will
+use extender bars as inputs
+are added.
+-end-
+db.gate.aox.nouse.exp	-fillbegin-
+Basic gates (AND, OR, etc.) will
+not use extender bars as inputs
+are added.
+-end-
+
+
+db.gate.led.type	LED Type
+db.gate.led.bit.hdr	Bit
+db.gate.led.bar.hdr	Bar Graph
+db.gate.led.hex.hdr	7-Segment (HEX)
+db.gate.led.dec.hdr	7-Segment (DEC)
+db.gate.led.seg.hdr	7-Segment (Direct)
+
+db.gate.led.bit.exp	-fillbegin-
+Single-lamp LED display for 1-bit signals.
+-end-
+db.gate.led.bar.exp	-fillbegin-
+LED bar graph with one bar per bit.
+-end-
+db.gate.led.hex.exp	-fillbegin-
+Display signal in hexidecimal.
+-end-
+db.gate.led.dec.exp	-fillbegin-
+Display signal in decimal.
+-end-
+db.gate.led.seg.exp	-fillbegin-
+Signal bits directly control LED segments.
+-end-
+
+db.seq.back		<Back
+db.seq.next		Next>
+
+db.hdl.namechange.title	HDL Module Name Changed
+db.hdl.textdisp.title	HDL Text Disposition
+
+db.hdl.savecap		Multiple Modules
+
+db.hdl.saveexp		-fillbegin-
+The text buffer for the module you have just edited contains more
+than one module definition.  Please select one of the three actions described
+on the right.
+-end-
+
+db.hdl.autoedit		Auto Edit
+db.hdl.split		Split
+db.hdl.comment		Comment
+db.hdl.cancel		Cancel
+db.hdl.ignore		Ignore
+
+db.hdl.autoeditcap	Name Mismatch
+
+db.hdl.autoeditexp		-fillbegin-
+The textual description of the module does
+not match the expected name.  Please select
+an option to the right to handle the discrepancy.
+-end-
+
+db.dip.title		TkGate: Dip Value
+
+cpath.cloops -fillbegin-
+Combinational loops were detected in your circuit.
+In order to do delay analysis on this circuit, you
+must either break the loop, or mark some of the
+components in the loop as a "Critical Path Partition"
+point.  Nets at which a loop was detected are
+listed below.
+-end-
+
+##############################################################################
+# Print dialog box
+#
+#print.outto		Output to
+
+print.title		TkGate: Print
+print.config.title	TkGate: Printer Configuration
+print.scope.title	TkGate: Scope Print
+
+print.printer		Printer:
+print.file		File
+print.prcmd		Print Command:
+print.prname		Printer
+print.advanced		Advanced...
+
+print.filename		File Name
+print.epssave		Save as Encapsulated Postscript.
+#print.doctit		Document Title
+#print.prmod		Print Modules
+print.epcm		Epochs/cm
+print.estpg		Estimated pages
+print.all		All
+print.cur		Current
+print.use		Used
+print.sel		Selected
+print.inclib		Include library modules.
+print.incunused		Include unused modules.
+print.papsz		Paper Size
+print.orient		Orientation
+print.portrait		Portrait
+print.landscape		Landscape
+print.2side		Print Double-Sided
+print.opts		Content Options
+print.scale		Scale large modules to fit page.
+print.partition		Partition large modules into multiple pages.
+print.incidx		Include index.
+print.incgraph		Include hierarchy graph.
+print.4up		Print small modules four per page.
+print.rangeselection	Range Selection
+print.scaleselect	Scale Selection
+print.fulltr		Full Trace
+print.parttr		Partial Trace
+print.start		Start
+print.range		Range
+print.linelen		Line Length
+print.filesel		Output to file
+print.printersel	Output to printer
+print.defaultprinter	Default Printer
+print.pageset		Page Setup
+print.modulesel		Module Selection
+
+##############################################################################
+#
+# TkGate 2.0 print dialog strings
+#
+print.ok			Print
+print.printtrace.cap		Print Trace
+print.printcirc.cap		Print Schematic
+print.printcirc.out.exp		-fillbegin-
+Choose whether to send
+your schematic to the
+printer or to a PostScript
+file.
+-end-
+
+print.printcirc.page.exp	-fillbegin-
+Choose page and printer
+options here.
+-end-
+
+print.printcirc.mod.exp		-fillbegin-
+Choose which modules are
+to be printed and set
+options controlling the
+presentation.
+-end-
+
+print.printtrace.trace.exp	-fillbegin-
+Choose the time range
+over which to produce
+output.  Also set the
+scale to compute the
+estimated page count.
+-end-
+
+print.tab.output	Output
+#print.tab.page		Page
+print.tab.modules	Modules
+print.tab.content	Content
+print.tab.advanced	Advanced
+
+##############################################################################
+#
+# Options dialog
+#
+# Number of columns in list of toolbars
+@opt.tool.columns	2
+# Width of columns in list of toolbars
+@opt.tool.colwidth	30
+# Width of image sidebar
+@opt.sidebar.width	*200
+# Width of tree box with option categories
+@opt.tree.width		*150
+
+opt.title		TkGate: Options
+opt.treelabel		Options
+
+opt.general		General
+opt.interface		Interface
+# opt.circuit		Circuit Defaults
+opt.toolbars		Toolbars
+opt.toolbars.edit	Editor
+opt.toolbars.sim	Simulation
+opt.toolbars.symed	Symbol Editor
+opt.editor		HDL
+opt.print		Print
+opt.print.output	Output
+opt.print.content	Content
+opt.simulate		Simulate
+opt.simulate.basic	Basic
+opt.simulate.tech	Technology
+opt.simulate.error	Error Handling
+opt.library		Libraries
+opt.library.path	Path
+opt.library.load	Auto Loading
+opt.library.vpd		VPD
+opt.analysis		Analysis
+opt.color		Color
+opt.color.title		TkGate: Color Selection
+opt.color.edit		Editor
+opt.color.scope		Scope
+opt.color.hdl		HDL Editor
+opt.html		HTML
+opt.debug		Debug
+
+opt.lib.load.available	Available Libraries
+opt.lib.load.selected	Selected Libraries
+
+opt.identity		Identity
+opt.site		Site Name
+opt.username		User Name
+opt.libname		Library Name:
+opt.inst		Instances
+opt.mods		Modules
+opt.modports		Module Ports
+opt.frames		Frames
+opt.comment		Comments
+opt.hlink		Hyperlinks
+opt.wire		Single-Bit Wires
+opt.bus			Multi-Bit Wires
+opt.tools		Gate Tools
+opt.background		Background
+opt.cpath		Critical Path
+opt.grid		Scope Grid
+opt.logic1		Logic One
+opt.logic0		Logic Zero
+opt.float		Float
+opt.unknown		Unknown/Conflict
+opt.offled		Off LED
+opt.onled		On LED
+opt.zled		Floating LED
+opt.restdef		Restore Defaults
+opt.regudate		Region Update
+opt.smoothscroll	Smooth Scrolling
+opt.balloon		Enable Help Balloons
+opt.tearawaymenus	Enable tear-away main menus
+opt.safeSave		Do safe file saving
+opt.saveCells		Include cells in save files
+opt.showimage		Show side-bar images in dialog boxes
+opt.novice		Novice mode
+opt.blockDropConnect	Wire drop port creation
+opt.ckpoint.1		Do checkpointing every
+opt.ckpoint.2		commands.
+opt.freq		Interval
+opt.beak		Enable Special Modes
+opt.bat			Bat
+opt.trek		Star Trek
+opt.miles		Miles 
+opt.contver		Automatic Integrity Checking
+opt.showsimcmd		Display Simulator Stream
+opt.estepsz		Epoch Step Size
+opt.cstepsz		Clock Cycle Step Size
+opt.overstep		Clock Overstep
+opt.sorttraces		Sort traces alphabetically on scope
+opt.vpopupdelay		Pop-Up Delay
+#opt.initscript		Global Initialization Script
+opt.posedge		Clock step stops on all clock posedges
+opt.setclock		Clock step stops on clock
+opt.delayfilepath	Technology Files
+opt.devfilepath		VPD (Virtual Peripheral Device) File Path
+opt.vlibpath		Verilog Library Path
+opt.vlibnames		Base Libraries
+opt.display		Display
+opt.interaction		Interaction
+opt.input		Input
+opt.security		Security
+opt.undolen		Max Undo
+opt.keybind		Key Binding Style
+opt.useless		Enable Useless Features
+opt.features		Save File Features
+opt.simbase		Basic Simulator Options
+opt.simclock		Clock Options
+#opt.circdefaults	Circuit Defaults
+
+opt.cpopts		Critical Path Options
+opt.maxpath		Maximum Number of Paths:
+opt.cpflash		Display with Flashing Path
+
+opt.general.fontset	Font Set
+
+opt.simulator.savetraces	Save probe locations between simlation runs.
+opt.simulator.noglitch	Enable simulator glitch suppression.
+
+opt.simulator.err	Error Handling
+opt.simulator.stopany	Treat warnings as errors.
+opt.simulator.showall	Always display warnings.
+opt.simulator.showiferr	Display warnings only with errors.
+opt.simulator.ignore	Ignore all warnings.
+
+opt.tool.file		File
+opt.tool.edit		Edit
+opt.tool.gateopt	Rotation/Alignment
+opt.tool.gateprop	Gate
+opt.tool.undo		Undo/Redo
+opt.tool.zoom		Zoom
+opt.tool.mode		Editor Tools
+opt.tool.module		Module
+opt.tool.tech		Technology
+opt.tool.simctl		Simulator Control
+opt.tool.simaux		Simulator Commands
+opt.tool.simmode	Simulator Tools
+opt.tool.symmode	Symbol Editor Tools
+opt.tool.symedit	Cut/Paste
+opt.tool.symport	Ports
+opt.tool.symshift	Bit Shift
+opt.tool.symopr		Bit Ops
+
+opt.editor.features	Basic Editor Features
+opt.editor.format	Enable Automatic Indenting
+opt.editor.colorize	Enable Code Colorization
+opt.editor.comments	Comments
+opt.editor.strings	Strings
+opt.editor.reserved	Reserved Words
+opt.editor.gateword	Built-in Gates
+opt.editor.instword	Module Instances
+opt.editor.taskword	System Tasks
+opt.editor.color	Color
+opt.editor.bold		Bold
+opt.editor.italic	Italic
+opt.editor.indentlevel	Indentation per level:
+opt.editor.beginindent	Make begin...end flush with enclosing level.
+opt.editor.movesel	Enable drag-and-drop of selection.
+opt.editor.returntab	Auto indent after return.
+
+
+
+opt.vercheck		-begin-
+Periodically check for new versions of TkGate over
+the Internet.  Do not enable unless you have continuous
+access to the Internet.
+-end-
+
+opt.sec.execlevel	The $tkg$exec() system task is
+opt.sec.exec		fully enabled.
+opt.sec.regexec		enabled only for registered functions.
+opt.sec.noexec		disabled.
+
+opt.sec.simfeatures	Simulator Features
+opt.sec.send		Enable the $tkg$command() system task.
+opt.sec.open		Enable the $fopen() system task.
+opt.sec.writemem	Enable the $writememb() and $writememh() system tasks.
+opt.sec.enqueue		Enable the $tkg$recv() and $tkg$send() system tasks.
+
+opt.sec.handle		Security Violation Handling
+opt.sec.stop		Stop simulator when disabled feature is used.
+opt.sec.warn		Display warning message when disabled feature is used.
+opt.sec.ignore		Ignore attempted usage of disabled features.
+
+opt.html.linkopts	Link Options
+opt.html.browser	Browser Command
+opt.html.email		e-Mail Command 
+
+opt.debug.opt		Debugging Options
+
+opt.color.editwin	Edit Window Colors
+opt.color.scopewin	Scope Window Colors
+
+opt.vlibadd.title	TkGate: Add Library
+
+
+opt.gen.basetoolbar	Core Editor Toolbars
+opt.gen.simtoolbar	Simulation Mode Toolbars
+opt.gen.symedtoolbar	Symbol Editor Toolbars
+
+opt.bbar.restore	Restore Page Defaults
+opt.bbar.restoreall	Restore All Defaults
+
+##############################################################################
+#
+# Interface generator
+#
+igen.title		TkGate: Module Interface Generation
+
+igen.port		Port
+igen.type		Type
+igen.side		Side
+igen.size		Size
+igen.bits		Bits
+
+igen.modname		Module Name:
+
+#igen.resort		Re-sort
+igen.add		Add...
+igen.delete		Delete
+igen.edit		Edit...
+
+igen.in			in
+igen.out		out
+igen.inout		inout
+
+igen.left		left
+igen.right		right
+igen.top		top
+igen.bottom		bottom
+
+#igen.other		other
+
+igen.mod		Use ports used in module only.
+igen.int		Use ports from exisiting interface only.
+igen.modint		Use both module and interface ports.
+
+igen.portsel		Port Selection
+igen.portpos		Port Positions
+igen.portpos.keep	Keep exiting port positions when possible.
+igen.portpos.renew	Regenerate all port positionings.
+
+igen.caption		Generate Interface
+
+igen.description	-begin-
+Create a new interface
+for a module.
+-end-
+
+info.script.error	Script Errors
+
+module.props.title	TkGate: Module Properties
+module.props		Module Properties
+
+ipanel.plist		Port List
+ipanel.props		Interface Properties
+#ipanel.itype.change	Change Type...
+#ipanel.itype.edsymbol	Edit Symbol...
+ipanel.block		Standard
+ipanel.symbol		Symbol
+
+ipanel.autogen		Auto Generate...
+ipanel.updateall	Synchronize All...
+
+ipanel.itype.select	Interface Type
+
+#ipanel.block.description	Standard Interface
+#ipanel.symbol.description	Custom Symbol Interface
+
+ipanel.ppos.label	Block resize port position handling:
+ipanel.ppos.fix		Fixed
+ipanel.ppos.scale	Scaled
+#ipanel.ppos.grid	Grid
+
+ipanel.warn.toblock		-begin-
+You are about to change the
+interface type for this module
+to "block".  This will result
+in the current interface data
+being destroyed.
+
+Are you sure you want to do this?
+-end-
+
+ipanel.warn.tosymbol		-begin-
+You are about to change the
+interface type for this module
+to "symbol".  This will result
+in the current interface data
+being destroyed.  You will also
+need to create a bitmap image
+for your new symbol.
+
+Are you sure you want to do this?
+-end-
+
+##############################################################################
+#
+# Block list dialog boxes
+#
+blklst.delete.title	TKGate: Module Delete
+blklst.copy.title	TKGate: Module Copy
+blklst.rename.title	TKGate: Module Rename
+blklst.claim.title	TKGate: Claim Module
+blklst.setroot.title	TKGate: Set Root Module
+blklst.new.title	TKGate: Module New
+
+blklst.claim		Claim Module
+blklst.to		To
+blklst.from		From
+blklst.name		Name
+blklst.new.cap		Create New Module
+blklst.del.cap		Delete Module
+blklst.copy.cap		Copy Module
+blklst.rename.cap	Rename Module
+blklst.claim.cap	Claim Module
+blklst.setroot.cap	Set Root Module
+
+blklst.new.exp		-fillbegin-
+Use this dialog box to create
+a new module definition.  You
+can create the module as a
+netlist or an HDL module, but
+once created you will not be
+able to modify the type without
+deleting and rebuilding the
+module.
+-end-
+
+blklst.del.exp		-fillbegin-
+Delete the definition and interface data
+for the specified module.  Existing instances
+of the deleted module will be retained but
+will be marked as undefined.
+-end-
+
+blklst.copy.exp		-fillbegin-
+Create a copy of the specified module definition.  Use this to create
+a new variant of an existing module.
+-end-
+
+blklst.rename.exp	-fillbegin-
+Rename a module definition.  This operation will affect only the
+definition, any existing instances of this module will continue to
+point to the old module name.
+-end-
+
+blklst.claim.exp	-fillbegin-
+Convert a library module to a user module.  This allows the module to be
+edited and to be saved with the user circuit.
+-end-
+
+blklst.setroot.exp	-fillbegin-
+Make the specified module the top-level module.
+-end-
+
+
+find.title		TkGate: Find Object
+find.label		Find Objects
+find.exp		-fillbegin-
+Look for text either in
+a component name, a wire name
+or in the text of a comment.
+Double click on a result to
+go to that item.
+-end-
+
+find.ignorecase		Ignore Case
+
+find.result.module	Module
+find.result.type	Type
+find.result.name	Object Name
+
+#
+# These are special tags used by the search feature.  Do not change their value.
+#
+@find.type.gate		gate
+@find.type.net		net
+@find.type.comment	comment
+
+find.options		Search Options
+find.results		Search Results
+
+#
+# This is a special tag used to indicate whether the position qualifier box
+# should be "before" or "after" the text entry box.  Use the keywords before
+# or after to indicate the position.
+#
+@find.qual.pos		before
+
+find.qual.contains	Contains...
+find.qual.begins	Begins with...
+find.qual.ends		Ends with...
+find.qual.matches	Matches...
+
+find.dom.label		Look for objects in:
+find.dom.gates		Components
+find.dom.nets		Nets
+find.dom.text		Comment Text
+
+find.search		Find:
+find.target		Target
+
+#
+# These are special tags used to indicate the image file to be used for
+# displaying port types.
+#
+@portlist.in		port_in1.gif
+@portlist.out		port_out1.gif
+@portlist.inout		port_inout1.gif
+@portlist.in2		port_in2.gif
+@portlist.out2		port_out2.gif
+@portlist.inout2	port_inout2.gif
+
+
+##############################################################################
+#
+# Circuit Dialog box
+#
+circ.wintitle		TkGate: Circuit Properties
+circ.label		Circuit Properties
+circ.ident		Identification
+circ.filev		File Version
+circ.file		File Name
+circ.title		Circuit Title
+circ.encoding		File Encoding
+circ.lang		File Language
+circ.discchg		Do not warn about discarding changes.
+circ.flags		Options
+circ.defaults		Component Defaults
+circ.extbar		Use extender bars on AND, OR and XOR gates.
+circ.shownet		Show net name on switches and dips.
+circ.autostart		Enable auto-start of simulation.
+circ.iniscript		Initialization Scripts
+#circ.noscript		No script files selected.
+#circ.really		Do you really want to remove '%s' from the list of initialization scripts.
+
+circ.reallyupdate	-fillbegin-
+Do you really want to update the interface of all '%s' instances?
+-end-
+
+circ.reallyoverwrite	-fillbegin-
+Do you really want to overwrite the existing file '%s'?
+-end-
+
+@circ.library.width	*500
+@circ.library.height	*350
+
+
+circ.general		General
+circ.library		Libraries
+circ.script		Scripts
+circ.simulator		Simulation
+circ.timescale		Default Simulation Time Scale
+circ.timescale.unit	Units:
+circ.timescale.prec	Precision:
+
+circ.sim.features	Features
+
+#
+# Strings for timing violation reporting styles.  The "after" case
+# is broken into the string before the time period box and after the
+# time period box.  You can use the string "-empty-" to make a string
+# empty if it is not needed in a particular language.
+#
+circ.sim.tv.title	Timing Violation Handling
+circ.sim.tv.all		Report all timing violations.
+circ.sim.tv.after.1	Report timing violations after 
+circ.sim.tv.after.2	-empty-
+circ.sim.tv.never	Never report timing violations.
+
+circ.exp.general	-fillbegin-
+View and modify circuit specific properties.
+These properties will be stored with the
+circuit when you save.
+-end-
+
+circ.exp.library	-fillbegin-
+Select libraries required by this circuit.
+Library requirements are saved with the circuit
+and will be automatically loaded the next time
+you load this circuit.
+-end-
+
+circ.exp.script	-fillbegin-
+Add any simulation scripts that should be
+automatically read and excuted when this
+circuit is simulated.
+-end-
+
+
+circ.exp.simulator	-fillbegin-
+View and modify simulation preferences for this circuit.
+-end-
+
+##############################################################################
+#
+# Library Manager
+#
+libmgr.cap		Library Manager
+libmgr.library		Library
+libmgr.description	Description
+libmgr.status		Status
+libmgr.status.load	Loaded
+libmgr.status.unload	Not Loaded
+libmgr.status.loadp	[Loaded]
+libmgr.status.unloadp	[Not Loaded]
+libmgr.exp		-fillbegin-
+Select libraries to be loaded or unloaded.
+-end-
+libmgr.load		Load
+libmgr.unload		Unload
+libmgr.unloadall	Unload All
+
+libmgr.notedit		-fillbegin-
+Must be in circuit edit mode to open library manager.
+-end-
+
+#############################################################################
+#
+# Dynamic Verilog Module Manager
+#
+break.tab		Breakpoints
+break.id		ID
+break.state		S
+break.condition		Condition
+break.value		Value
+
+
+##############################################################################
+# Simulator
+#
+#sim.breakpt		Breakpoint
+
+sim.recursive	-fillbegin-
+Recursive module definition found
+at '%s'.  Can not start simulator or
+perform critical path analysis.
+-end-
+sim.hyperlinkstop	-fillbegin-
+The simulator is currently running.  Would you like
+to stop the simulation and follow the link?
+-end-
+
+
+##############################################################################
+#
+# Critical path messages
+#
+cp.delay		Path Delay:
+cp.pathl		Path List:
+cp.numpath		Number of Paths:
+cp.recompute		Recompute
+
+##############################################################################
+# Error messages
+#
+err.notinsim		Not allowed while simulator is active.
+err.nomemselect		Memory is not selected.
+err.rootinterface	Can not set interface of root module.
+err.nopin		Can't change selected pin.
+err.badhex		Illegal hex value '%s' ignored.
+err.gatanchor		Components(s) are anchored and can not be moved.
+err.protdata		Can not modify contents of protected or library module.
+err.badfind		Can't find target '%s'.
+err.badopendel		Can't delete open module.
+err.nosrcmod		Source module '%s' not found.
+err.noerr		Can not locate error.
+err.misserr		Error information incomplete (did the simulator crash?)
+err.nofunc		Bad or missing function name for module interface.
+err.wirerot		Selection can not be rotated due to attaching wires.
+
+err.badinadd		Can't add any more inputs to selected component.
+err.badoutadd		Can't add any more outputs to selected component.
+err.badinoutadd		Can't add any more inout pins to selected component.
+err.badpinchg		Can't change pin types on selected component.
+err.badnetname		Illegal characters in identifier deleted.
+err.netbcrename		Identifier renamed to '%s' because of illegal characters.
+err.netconfnet		Identifier renamed to '%s' because of conflict.
+err.netconfgat		Identifier renamed to avoid conflict with built-in component name
+err.netconfkw		Identifier renamed to avoid conflict with reserved word.
+err.badconsame		Connection refused because wires are part of the same net.
+err.badconptsp		Connection refused because both wires are module ports or supply.
+err.badconbitw		Connection refused because bit widths do not match.
+err.badrange		Non-positive range for scope trace is not allowed.
+err.badlprcmd		Unable to exectute printer command '%s'.
+err.badpsopen		Unable to open file '%s' for postscript output.
+err.badid		Illegal identifier '%s'.
+err.noinvgate		Inverters are not allowed on components of this type.
+
+err.protintf		Can't modifiy protected interface on module '%s'.
+
+err.bkpt.badexp		Syntax error in breakpoint expression.  Must be one of: 'net', '!net', 'net==value', 'net!=value'
+err.bkpt.badnet		Invalid net name '%s'. Names must start with a letter and contain only letters, digits and '.'.
+err.bkpt.badval		Syntax error in value '%s'.  Must be decimal or verilog-style constant.
+err.bkpt.toomany	Too many breakpoints.  Maximum is %d.
+
+err.sim.badtmp		Could not save temporary file '%s' for simulator (disc full?)
+err.sim.syntx		Syntax error in '%s' command.
+err.sim.noincl		Include file '%s' not found.
+err.sim.badedge		Illegal edge indicator '%c' in clock command.
+err.sim.nobkpt		No such breakpoint '%s'.
+err.sim.nonet		Can't find net '%s'.
+err.sim.nogate		Can't find component '%s'.
+err.sim.badbin		Illegal charcter in binary constant '%s'.
+err.sim.notswitch	Component '%s' is not a switch, dip or register.
+err.sim.badcmd		Unrecognized command '%s' in simulation script.
+err.sim.isrun		Simulator is already running (Use 'Ctrl-s e' to end).
+err.sim.run		Run-time error at time %s:
+err.sim.cmd		Internal Command Error
+
+err.noteditpchg		Properties can only be changed in edit mode.	
+err.badeditop		Illegal interface edit mode operation.
+err.badopen		Unable to open input file '%s'.
+err.badlibopen		Unable to open library file '%s'.
+
+err.nomark		Please set a mark with the left mouse button before selecting a component type.
+err.badgate		Unknown component type '%s'.
+
+err.badportadd		Can't add ports to components of this type.
+
+err.modmissing		HDL module text missing for module "%s".
+err.modtoomany		Excess module definitions in module "%s".
+err.modmismatch		Name mismatch between text definition and module name in "%s".
+
+err.manypages		-fillbegin-
+There are an awful lot of
+pages in this document.  Are
+you sure you want to print it?
+-end-
+
+err.nojump		-fillbegin-
+The 'jump-to-module' feature can not be used
+in simulation or critical path analysis mode.
+Please navigate manully to the target block
+by selecting modules and opening them with the
+'>' keyboard command.  You can leave a module
+you are in with the '<' keyboard command.
+-end-
+
+err.nomod		Module '%s' is not defined.
+err.modlock		Logic Block is Locked!
+err.closeroot		No higher level module opened on the module stack.
+err.editonly		Command not valid when in simulation mode.
+err.simonly		Command valid only in simulation mode.
+
+err.deltop		Can not delete top-level module '%s'.
+err.delprot		Can not delete protected module '%s'.
+err.nodel		No deletable selection.
+err.modnotdef		Module '%s' is undefined.
+err.moddef		The module '%s' already exists.
+err.primredef		Built-in element name '%s' can not be redefined.
+err.primprefix		Illegal module name '%s' begins with built-in prefix '%s'.
+err.iskeyword		Verilog keyword '%s' can not be used as an identifier.
+err.noprop		Selected component has no editable properites.
+err.openscript		Can't open simulation script file '%s'
+err.oldversion		Loaded file '%s' with obsolete version number %s (current version is %s).
+err.futureversion	Loaded file '%s' saved by future TkGate version %s (this version is %s).
+err.badversion		Unknown version number.  Use at your own risk.
+err.nodrive		Net %s has no driver in module %s.
+err.noconn		Wire %s{%d} has no connections - deleted.
+err.oldportact		Please right click on port or module edge to add/change port.
+err.nomodule		No selected module.
+err.nomodop		No suitable modules for operation.
+err.protexec		Attempted execution of protected command '%s' in $tkg$exec().
+
+err.notwritable		File '%s' is not writable.
+err.backupfail		Unable to create backup file '%s'.
+
+err.yy.badprop		Ignoring unknown circuit property '%s'.
+err.yy.badpropval	Bad value '%s' for circuit property '%s'.
+err.yy.baddata		Bad data type supplied for circuit property '%s'.
+err.yy.nosym		No current module symbol.
+err.yy.badicon		Bad icon type '%s'.
+err.yy.toomuchdata	Too much icon data.
+err.yy.nosyminst	Missing symbol %d on instance %s of %s.
+err.yy.badmodprop	Ignoring unknown module property '%s'.
+err.yy.badmoddata	Bad data type supplied for module property '%s'.
+err.yy.badprim		Unknown primitive name '%s'.
+err.yy.nonet		Undeclared net '%s'.
+err.yy.bogussave	Bogus save data detected. circuit may be damaged.
+err.yy.pinformat	Illegal pin name format '%s'.
+err.yy.pinname		Pin name '%s' not defined for component type '%s'
+err.yy.nonetpos		No net for position %d on component %s.
+err.yy.baddirective	Illegal or badly formed directive '%s'.
+err.yy.badlocale	Unknown locale '%s' in save file.  Using English locale.
+
+err.corruptnewsave	-fillbegin-
+TkGate was able to save your file in '%s', but it appears
+to be corrupted.  If you have checkpointing enabled try
+loading one of the checkpoint files.  Use 'tkgate -V' to
+check the integrety of a save file.
+-end-
+
+err.corruptsave		-fillbegin-
+TkGate detetected a problem while trying to save the file '%s'.
+The existing file has been left unmodified and the damaged file has
+been written to '%s'.  If you have checkpointing enabled you
+can try loading one of the checkpoint files.  You can also use
+'tkgate -V' to check the integrety of a save file.
+-end-
+
+err.badsave		-fillbegin-
+A problem has occured trying to open or write the file '%s'.  Check
+file/directory protections and or disk space.
+-end-
+
+err.nosafesave		-fillbegin-
+A problem has occured attempting to save '%s'.  If you wish, you can
+try again without save validation.  If you say "no", the original file
+will remain unmodified.  If you say "yes" the original file will be
+overwritten, but may be destroyed if a problem occurs.  Would you like
+to attempt an unvalidated save?
+-end-
+
+err.noback		-fillbegin-
+File '%s' was created by TkGate
+%s, and may not be readable
+by versions earlier than
+current version (%s) if you
+save.
+-end-
+
+err.viewfile		Can not open file '%s'.
+
+
+##############################################################################
+#
+# Internal error messages (indicating a problem with tkgate)
+#
+err.internal.nomod	internal error: Failed to find module '%s'.
+
+
+##############################################################################
+# Informational messages
+#
+msg.selwire		Selected %s named '%s'.
+msg.selgate		Selected %s named '%s'.
+msg.selblock		Selected %s block named '%s'.
+msg.iselwire		Selected port '%s' on block '%s'.
+msg.iselgate		Selected %s named '%s' (huh? this message should be impossible).
+msg.iselblock		Selected module interface for '%s'.
+
+msg.modoverwt		Destination module '%s' already exists.  Overwrite?
+msg.foundgate		Found component named '%s'.
+msg.foundwire		Found wire named '%s'.
+msg.searchagn		Target string '%s' not found.  Hit 'find' to restart search again.
+msg.sim.chgtoroot	Simulation mode requires root module at top of edit stack.
+msg.sim.nogatemod	Simulation mode requires concrete module stack.
+msg.setinterface	Set module interface for '%s'.
+msg.needsel		Please select a module instance.
+msg.wroteckpt		Checkpointed to %s...
+msg.save		Saved circuit to '%s'.
+msg.reallynew		Circuit has been modified.  Do you really want to discard your changes and create a new circuit?
+msg.reallyquit		Circuit has been modified.  Do you really want to exit?
+msg.notlib		Module '%s' is not a library module.
+
+##############################################################################
+# Miles messages (Activated when Miles Bader uses tkgate)
+#
+miles.msg1			Only a fool would put %s%s there, Miles.
+miles.msg2			That's a really stupid place to put %s%s, Miles.
+miles.msg3			That's a terrible place for %s%s, Miles.
+miles.msg4			Miles, you are a fool for putting %s%s there.
+miles.msg5			Only you would put %s%s there, Miles.
+miles.msg6			Putting %s%s there is proof of your absolute stupidity, Miles.
+miles.msg7			Why don't you give up Miles, this is a stupid circuit.
+miles.msg8a			It's pointless to continue, Miles.
+miles.msg8b			It's obvious you can't design a circuit
+
+
+#############################################################################
+#
+# Error messages generated by verga
+#
+verga.err.OK			Don't worry, be happy.
+verga.err.INPORT		Port size mismatch on input port '%s'.
+verga.err.OUTPORT		Port size mismatch on output port '%s'.
+verga.err.FLOATNET		Net '%s' has no drivers (floating net).
+verga.err.DIRECTCONN		Direct connect operator '=>' unsupported.  Treated as '*>'.
+verga.err.MEMADDR		Attempt to write to memory %s with unknown address.
+verga.err.MEMBITS		Attempt to write to memory %s with unknown bitrange.
+verga.err.BADARRAYUSG		Array '%s' used in expression without index.
+verga.err.BADARRAYLHS		Array '%s' used without index on left-hand-side.
+verga.err.BADCLOSE		Attempt to close non-open descriptor in task '%s'.
+verga.err.BADAUTORNG		Auto range [*] is only valid with 'wire' declaration.
+verga.err.BADGATERNG		Bad component instance range expression.
+verga.err.BADARGVALUE		Bad value for argument '%s' in task '%s'.
+verga.err.DIVZERO		Divide by zero.
+verga.err.NODIV			Divide/module unsupported on this machine - sizeof(short) must be 2.
+verga.err.BADEDGEEVENT		Event on multi-bit net '%s' can not have posedge/negedge.
+verga.err.NEEDEDGE		Must specify posedge or negedge on event for %s.
+verga.err.ASGNEVENT		Event wait on assign is illegal.
+verga.err.PROTTASK		Execution of protected system task '%s' blocked.
+verga.err.NEEDIDENT		Expecting identifier for argument %s of task '%s'.
+verga.err.BADOP			Expression operator error in '%s'.
+verga.err.NOREAD		Failed to load source file '%s'.
+verga.err.MEMFILE		Failed to open memory file '%s'.
+verga.err.WRONGMOD		Found module '%s' when expecting '%s'.
+verga.err.NOTPARM		Identifier '%s' in constant expression is not a parameter.
+verga.err.BADADDR		Illegal address range on port '%s'.
+verga.err.BADADDRSPEC		Illegal address range specification '%s'.
+verga.err.BADCHAR		Illegal character (%s) '%s'.
+verga.err.BADEVENT		Illegal event control expression.
+verga.err.BADCONSTOP		Illegal operator in constant expression.
+verga.err.BADXOP		Illegal operator in expression.
+verga.err.NETREDEF		Illegal redefinition of net '%s'.
+verga.err.BADINOUT		Inout connections must be net-to-net on port '%s'.
+verga.err.MODUNDEF		Instance of undefined module '%s'.
+verga.err.BADASGNLHS		Invalid left-hand-side in 'assign'.
+verga.err.LHSNOTREG		Illegal use of '%s' in left-hand-side of assignment.
+verga.err.BADLHS		Invalid left-hand-side in assignment.
+verga.err.BADOUT		Invalid output assignment.
+verga.err.NOTREG		Memories must be declared as register.
+verga.err.PORTMIX		Mixed named and unnamed ports on interface '%s' of '%s'.
+verga.err.REPCASE		More than one default: in case statement.
+verga.err.NOMEM			No current memory in memory file read.
+verga.err.BADCMD		No such command '%s'.
+verga.err.CMDNOTNET		No such net '%s' in '%s' command.
+verga.err.MEMNONBLK		Non-blocking assignments to memories not implemented.
+verga.err.NOTPPORT		Parameter '%s' is not declared as a port.
+verga.err.REDEFP		Parameter redefines identifier '%s'.
+verga.err.PORTNOTDEF		Port '%s' on interface '%s' is not defined in module '%s'.
+verga.err.NOCONN		Port '%s' has no connections on interface '%s' of '%s'.
+verga.err.MULTCONN		Port '%s' has multiple connections on interface '%s' of '%s'.
+verga.err.PORTCOUNT		Port count does not match definition on interface '%s' of '%s'.
+verga.err.BADPRTRANGE		Range on port '%s' is not numeric.
+verga.err.BADARRAYRNG		Range specification not allowed for memory reference of '%s'.
+verga.err.CMDMODREDEF		Redefinition of dynamic module '%s'.
+verga.err.REDEF			Redefinition of identifier %s.
+verga.err.PROTTASKSTOP		Simulation stopped on attempted execution of protected system task '%s'.
+verga.err.NOTMEM		Specified net '%s' is not a memory.
+verga.err.CMDNOTMEM		Specified net '%s' is not a memory in '%s' command.
+verga.err.SYNTAX		Syntax error.
+verga.err.TOOFEWPP		Too few parameter ports on instance %s.
+verga.err.OPENTOOMANY		Too many files open in task '%s'.
+verga.err.TOOMANYPP		Too many parameter ports on instance %s.
+verga.err.NOTOP			Top-module '%s' not defined.
+verga.err.BADOPEN		Unable to open output file '%s' in task '%s'.
+verga.err.CMDNOMOD		Undefined dynamic module '%s' in '%s' command.
+verga.err.BADEVENTNET		Undefined net '%s' in event control expression.
+verga.err.NOTASK		Undefined task '%s'.
+verga.err.NOTDEF		Undefined variable '%s'.
+verga.err.BADRANGE		Unsupported bit range [%s] on net '%s' (must be of form [n:0]).
+verga.err.GATEUNIMP		Unimplemented primitive component type on instance '%s'.
+verga.err.USAGE			Usage: thyme [options][files...]
+verga.err.CLSDWRITE		Write to closed descriptor.
+verga.err.PRIMPTCOUNT		Wrong number of ports on primitive component instance '%s'.
+verga.err.CMDARGS		Wrong number of arguments in '%s' command.
+verga.err.YYERROR		YYError - %s.
+verga.err.TASKARGS		Task '%s' called with wrong number of arguments.
+verga.err.BADSTART		Illegal start value in task '%s'.
+verga.err.BADSTOP		Illegal stop value in $readmemb.
+verga.err.SPECTASKUSG		Task '%s' must be used in a specify block.
+verga.err.BADSPECTASK		Task '%s' can not be used in a specify block.
+verga.err.TIMING		Timing violation in %s[%s] %s.
+verga.err.RAMDCHG		Data line changed while write enabled on %s
+verga.err.RAMACHG		Address line changed while write enabled on %s
+verga.err.NOIFDEF		No matching `ifdef/`ifndef for %s declaration.
+verga.err.BADSPECLVAL		Bit-ranges on path delay specifiers unsupported.
+verga.err.PATHDITEM		Unsupported construct in module with path-delay specification.
+verga.err.PATHDINOUT		Use of 'inout' in module with path-delay specification is unsupported.
+verga.err.PATHDLOOP		Loops in modules with path-delay specification are unsupported.
+verga.err.PATHDCOND		DelaMust set through both # expression and specify block. 
+verga.err.TASKREDEF		Redefinition of task or function '%s' in module '%s'.
+verga.err.TASKASFUNC		Task '%s' used as function.
+verga.err.FUNCASTASK		Function '%s' used as task.
+verga.err.TASKBADTYPE		Non-register type used in task or function.
+verga.err.TASKBADPORT		Only input ports are allowed on functions.
+verga.err.TIMESCALEU            Invalid units '%s' in `timescale declaration.
+verga.err.TIMESCALEN            Invalid scale '%s' in `timescale declaration (must be 1, 10 or 100).
+verga.err.TIMESCALES            Invalid syntax in `timescale declaration.
+verga.err.TIMESCALEX            Units must be larger than precision in `timescale declaration.
+verga.err.TIMESCALEAN           Design contains some modules with `timescale and some without.
+verga.err.BADPORTTYPE		Invalid type declaration used on port '%s'
+verga.err.BADVALUE		Bad numeric value '%s'.
+verga.err.NONEXPCTL		Event control @(*) applied to non-expression.
+verga.err.NONSTATCTL		Event control @(*) applied to non-statment.
+verga.err.MODREDEF		Redefinition of module '%s'.
+verga.err.IE_TASK		Task definition '%s' found outside module - internal error.
+verga.err.IE_NONET		Failed to find net '%s' - internal error.
+verga.err.IE_NOOP		Can not find operator description -- internal error.
+verga.err.IE_BADEXP		Unexpected expression type %s - internal error.
+verga.err.IE_BADVAR		Undefined variable or unknown net - internal error.
+verga.err.IE_BADSTATE		Unexpected internal state at %s  - internal error.
+verga.err.IE_RETURN		Executed BCReturn bytecode with empty return stack - internal error.
+
+##############################################################################
+#
+# Errors for primitive handling.  These are internal errors and probably do
+# not need to be translated.
+#
+primitive.err.missing		Internal Error: primitive definition for '%s' is missing.
+primitive.err.nomodule		Internal Error: primitive definition for '%s' is missing 'module'.
+primitive.err.nomodname		Internal Error: missing module name in definition of '%s' module.
+primitive.err.wrongname		Internal Error: module name mismatch in definition of '%s' module.
+
+
+##############################################################################
+##############################################################################
+##############################################################################
+# Balloon Help
+##############################################################################
+##############################################################################
+##############################################################################
+
+
+ho.setsel.allr		Move all items to selected list.
+ho.setsel.alll		Move all items to unselected list.
+ho.setsel.ltor		Move highlighted items to selected list. 
+ho.setsel.rtol		Move highlighted items to unselected list. 
+
+ho.net.in		Single-Bit Input
+ho.net.out		Single-Bit Output
+ho.net.inout		Single-Bit Inout
+ho.net.in2		Multi-Bit Input
+ho.net.out2		Multi-Bit Output
+ho.net.inout2		Multi-Bit Inout
+ho.net.wire		Single-Bit Wire (Name Visible)
+ho.net.wire2		Multi-Bit Wire (Name Visible)
+ho.net.hwire		Single-Bit Wire (Name Hidden)
+ho.net.hwire2		Multi-Bit Wire (Name Hidden)
+ho.net.reg		Single-Bit Register
+ho.net.reg2		Multi-Bit Register
+
+
+ho.opt.tool.file		Save, load of circuit files
+ho.opt.tool.edit		Cut, Paste and Find operations
+ho.opt.tool.gateopt		Component rotation and alignment operations
+ho.opt.tool.gateprop		Basic editing of components
+ho.opt.tool.undo		Undo and redo operations
+ho.opt.tool.zoom		Zoom in and zoom out
+ho.opt.tool.mode		Select the editing tool
+ho.opt.tool.module		Create, delete, rename,etc. of module definitions
+ho.opt.tool.tech		Select default technology for components
+ho.opt.tool.simctl		Start, stop and pause of simulator
+ho.opt.tool.simaux		Auxliary simulator commands (read/write memory files, etc.)
+ho.opt.tool.simmode		Choose between the select and scroll tool in simulator.
+ho.opt.tool.symmode		Selecting editing tool in symbol editor
+ho.opt.tool.symedit		Cut and paste operations for symbol editor
+ho.opt.tool.symport		Port rotation operations for symbol editor
+ho.opt.tool.symshift		Shift the bit map or portion of bitmap
+ho.opt.tool.symopr		Miscellaneous symbol editor operations
+
+ho.opt.editor.movesel		-begin-
+If this option is enabled, a selected block of
+text can be grabbed with the mouse pointer and
+moved to a new location.
+-end-
+
+ho.opt.editor.format		-begin-
+If enabled, verilog source code will be automatically
+indented when pressing the tab key.
+-end-
+
+ho.opt.editor.indent		-begin-
+Number of spaces to indent per level.
+-end-
+
+ho.opt.editor.rtab		-begin-
+Automatically indent the current line
+and tab to the appropriate level when
+pressing the return key.
+-end-
+
+ho.opt.editor.beginindent	-begin-
+Causes a begin..end block to be indented
+to the same level as its parent block.
+-end-
+
+ho.opt.editor.colorize		-begin-
+Enable context-dependent colorization of
+code according to the options listed below.
+-end-
+
+ho.hdl.splitexp		-begin-
+Multiple modules in the HDL text will
+be split into different modules defining
+new modules as necessary.  Any name
+conflicts will be resolved by slightly
+modifying module names as necessary.
+-end-
+
+ho.hdl.commentexp	-begin-
+Modules other than the first module or
+module matching the expected name will
+be converted to HDL comments.
+-end-
+
+ho.hdl.autoeditexp	-begin-
+Automatically edit the HDL description
+to fix the module name.
+-end-
+
+ho.hdl.cancelexp	-begin-
+Take no action and continue editing
+the current module.
+-end-
+
+ho.hdl.ignoreexp	-begin-
+Ignore the inconsistency and continue
+with the selected action.
+-end-
+
+ho.new		-begin-
+Clear the current circuit,
+and start editing a new one.
+-end-
+
+ho.open		Open a circuit from a file.
+ho.save		Save circuit to current file.
+ho.saveas	Save circuit to specified file.
+ho.print	Print current circuit.
+ho.library	Open the library manager.
+
+ho.symed.tab.normal	-begin-
+Edit the unselected symbol bitmap.
+-end-
+
+ho.symed.tab.select	-begin-
+Edit the selected symbol bitmap.
+-end-
+
+ho.simmove	-begin-
+Select wires and modules, flip
+switches and enter dip values.
+Clicking and holding on a wire
+will show its current  value.
+-end-
+
+
+ho.move		-begin-
+Move/Connect - By clicking and dragging you can:
+  Set the position for a new component
+  Move components and wires
+  Connect wires
+By double-clicking you can:
+  Edit component, wire and port properties
+  Edit comment text
+-end-
+
+ho.delgat	-begin-
+Delete Component - Use this
+tool to delete components.
+-end-
+
+ho.cutw		-begin-
+Cut Wire - Use this
+tool to cut wires.
+-end-
+
+ho.scroll	-begin-
+Scroll - Grab and drag the 
+editing canvas.
+-end-
+
+ho.inv		-begin-
+Invert - Use this tool to
+add or remove inverters
+from component ports.
+-end-
+
+ho.bitw		-begin-
+Net Attributes - Use this tool to change
+the attributes of a net.  The bit size
+and wire type of nets selected with this
+tool will be changed to the those shown
+in the drop-down boxes to the right.
+-end-
+
+ho.ipanel.select	-begin-
+Use "standard" modules
+for regular rectangular
+interfaces.  Use "symbol"
+modules for custom
+bitmaped symbols.
+-end-
+
+ho.ipanel.addport	-begin-
+Add a port to the module.  You
+can also double-click after the
+last item to add port.
+-end-
+
+ho.ipanel.deleteport	-begin-
+Delete the selected port.
+-end-
+
+ho.ipanel.editport	-begin-
+Edit the selected port.  You
+can also double-click to edit
+a field in a port.
+-end-
+
+ho.ipanel.generate	-begin-
+Generate a new interface for a
+module based on ports in the
+port list and port elements used
+in the module definition.
+-end-
+
+ho.ipanel.updateall	-begin-
+Replace the interface on all
+instances of this module with
+the canonical interface shown
+here.
+-end-
+
+
+ho.ipanel.prot		-begin-
+Do not allow the definition of
+a module to be modified.
+-end-
+
+ho.ipanel.protint	-begin-
+Do not allow the interface of
+a module to be modified.
+-end-
+
+ho.ipanel.proted	-begin-
+Do not allow the interface of a module to
+be modified except through the interface
+editor.  Use this to prevent accidental
+modification of the interface in the
+main edit window.
+-end-
+
+ho.ipanel.scale		-begin-
+Scale the distance between ports
+as a module is resized.
+-end-
+
+ho.ipanel.fix		-begin-
+Keep the distance between ports
+fixed even if the module is resized.
+-end-
+
+ho.mod.open	Open the selected module.
+ho.mod.close	Close the current module.
+
+ho.mod.new	Create a new module type.
+ho.mod.del	Delete a module.
+ho.mod.copy	Copy a module.
+ho.mod.rename	Rename a module.
+ho.mod.claim	-begin-
+Convert a library module to
+a regular module.
+-end-
+ho.mod.setroot	-begin-
+Designate a module to
+be the root module.
+-end-
+
+ho.mod.type.allparts	Set of Libraries
+ho.mod.type.partlib	Library
+ho.mod.type.part	Library module
+ho.mod.type.unknown	Unknown module type
+ho.mod.type.unused	Set of unused modules
+ho.mod.type.conflict	Module recursion
+ho.mod.type.root	Top-level module
+ho.mod.type.netlist	Netlist module
+ho.mod.type.Lnetlist	Netlist module (locked)
+ho.mod.type.hdl		HDL module
+ho.mod.type.Lhdl	HDL module (locked)
+
+ho.undo	Undo previous action(s)
+ho.redo	Redo undone action(s)
+
+ho.tab.edit		-begin-
+Primary editing mode.
+-end-
+
+
+ho.tab.interface	-begin-
+Edit module interfaces.  While in interface
+mode, double click on a module in the module
+list to edit its interface, or on the root
+module to display all interface.
+-end-
+
+
+ho.tab.simulate		-begin-
+Start the simulator, open the logic analyzer
+and execute any initialization scripts if defined.
+-end-
+
+
+ho.tab.cpath		-begin-
+Find critical paths in a circuit.
+-end-
+
+ho.log		-begin-
+Log of TkGate messages including
+error messages, information messages
+and simulator console output.
+-end-
+
+ho.simgo	-begin-
+Run simulator in continuous execution mode.
+Note that combinational circuits simulate
+only until the circuit reaches steady state.
+-end-
+
+ho.simpause	-begin-
+Pause a continuously running simulation.
+-end-
+
+ho.simstep	-begin-
+Step a fixed interval of time.
+Open the simulation options
+window to set the step size.
+-end-
+
+ho.simclock	-begin-
+Step a fixed number of clock
+cycles.  Open the simulation options
+window to set the step size.
+-end-
+
+ho.simstop	-begin-
+End the current simulation
+and return to edit mode.
+-end-
+
+ho.simbreak	-begin-
+Edit the current breakpoints.  Simulation
+will be halted when a breakpoint condition
+becomes true.  Breakpoints can be edited
+in both simulation mode and edit mode.
+-end-
+
+ho.simexec	-begin-
+Manage the set of active scripts.
+-end-
+
+ho.simoptions	-begin-
+Set various options that control the simulation.
+-end-
+
+ho.simload	-begin-
+Load memory with contents of
+a .mem file.
+-end-
+
+ho.simdump	-begin-
+Dump the contents of a memory
+to a .mem file.
+-end-
+
+ho.simview	-begin-
+View/modify the contents
+of a memory (RAM or ROM).
+-end-
+
+
+ho.modlist	-begin-
+List of all modules currently loaded in
+alphabetical order.  Drag modules to the
+edit window to create new instances.
+-end-
+
+ho.modtree	-begin-
+List of all modules currently in
+a hierarchical list.  Drag modules to the
+edit window to create new instances.
+-end-
+
+ho.netlist	-begin-
+List of nets in the current module.
+The symbol to the left of the name
+indicates whether the net is single
+bit (green) or multi-bit (red).  An
+"A" shown in the symbol indicates
+that the net name is marked as
+visible.
+-end-
+
+ho.ports	-begin-
+List of ports on the interface
+of the module displayed in the
+edit window.  The symbol before
+the port indicates the direction
+of the port.
+-end-
+
+ho.status.logo		-begin-
+Simulation status indicator.  If the iron gate
+logo is shown, TkGate is in edit mode.  If the
+quadrapedal AND gate is shown, TkGate is in
+simulation mode.  If the AND gate is stationary,
+the simulation is paused, and if it is walking
+the simulation is running.
+-end-
+
+ho.status.msg		Messages from TkGate are displayed here.
+
+ho.status.block		The stack of modules being edited.
+
+ho.status.file		-begin-
+The current file being edited.  A '*' indicates
+that the buffer has been modifed since
+the last save.
+-end-
+
+ho.print.selall		Print all modules currently loaded by TkGate.
+ho.print.selcur		Print only the current module in the TkGate edit window.
+ho.print.seluse		-begin-
+Print all modules "in use". In use modues are 
+those that are a decendent of the root module.
+-end-
+
+ho.print.fulltrace	Print the entire trace.
+
+ho.print.parttrace	-begin-
+Print a portion of the trace.  Enter the starting
+and stopping times in the entry windows below, or
+use the right mouse button to select a range on the
+scope window (use shift-right to select long ranges).
+-end-
+
+ho.print.parttracestart	Starting time of trace output.
+ho.print.parttraceend	Ending time of trace output.
+
+
+ho.print.selsel		-begin-
+Print only the modules selected below.  Use
+the control key to select multiple modules.
+-end-
+
+ho.print.modlist	Select the modules to be printed.
+
+ho.print.timegraph	-begin-
+The display of the region selected
+to be printed is shown here.  The
+green area is the entire range of
+trace data available, and the grey
+area shows the area to be printed.
+Use the selectors to the left to
+select a region, or select the region
+in the scope window before bringing 
+up this diaglog box. 
+-end-
+
+ho.circuit.discchg	-begin-
+TkGate will not display a warning if you
+discard changes without saving.
+-end-
+
+ho.circuit.extbar	-begin-
+Newly created basic gates (AND, OR,
+XOR) will use extender bars to handle
+many input gates.
+-end-
+
+ho.circuit.shownet	-begin-
+Newly created switches and dips will
+initially show the net name next to
+them.
+-end-
+
+
+ho.circuit.autostart	-begin-
+If enabled, simulation will begin as
+soon as the simulation pane is selected.
+-end-
+
+ho.circuit.file		-begin-
+This is the file name from which the current
+circuit was loaded.
+-end-
+
+ho.circuit.ver		-begin-
+This is the version of TkGate that created
+the file that is currently loaded.
+-end-
+
+ho.circuit.encoding	-begin-
+Use this encoding for save files.
+-end-
+
+ho.circuit.language	-begin-
+Use fonts for this encoding to display
+circuit data.
+-end-
+
+ho.circuit.title	-begin-
+Description of your circuit.  This title is
+used on printed output.
+-end-
+
+ho.cmd.bitw		-begin-
+Wires selected with the ribbon
+cable tool will be set to this
+bit width.
+-end-
+
+ho.edgat.signam		-begin-
+The name of the selected signal
+on the selected component.  You
+can change the name of the signal
+by editing it here.
+-end-
+
+ho.edgat.port		-begin-
+The name of the port for this
+signal on the component.  This
+field can only be edited for
+module instances.
+-end-
+
+ho.edgat.iolab		-begin-
+The direction of the selected
+signal on the selected component.
+This field can only be edited
+for module instances.
+-end-
+
+ho.edgat.bitlab		-begin-
+The bit width of the selected
+signal on the selected component.
+You can change the bitwidth by
+editing it here.
+-end-
+
+ho.edgat.cycle		The total number of epochs in a clock cycle.
+ho.edgat.phase		The starting point of the cycle (in percent).
+ho.edgat.duty		The percent of the cycle, the clock is low.
+
+
+ho.edgat.hide		-begin-
+Set this flag to disable
+display of component names.
+-end-
+
+ho.edgat.gtype		Type of the component.
+ho.edgat.gname		Name of this component instance.
+ho.edgat.ganchor	Set this flag to anchor the position of a component.
+ho.edgat.gx		X coordinate of component.
+ho.edgat.gy		Y coordinate of component.
+
+ho.edgat.swstate	-begin-
+The initial state of the switch to use when
+starting a simulation.
+-end-
+
+ho.edgat.dipstate	-begin-
+The initial state of the dip switch to use
+when starting a simulation.
+-end-
+
+ho.edgat.range		The range of bits to pull off a bus.
+
+ho.edgat.memfile	-begin-
+The file with the initial state for this memory.
+This file is read when the simulator is started.
+-end-
+
+ho.edgat.func		The function type of this module.
+ho.edgat.frame		The frame label.
+
+ho.traceprint		-begin-
+Print the logic trace range selected
+using the right mouse button.  Shift-right
+click can be used to expand the selected
+region.  The range visible in the scope
+view is used when there is no selection. 
+-end-
+
+ho.showxhair		-begin-
+If this button is depressed, a vertical crosshair
+line will be displayed in the scope window.
+-end-
+
+ho.opt.general.fontset	-begin-
+Specifies the basic font size to
+use in the TkGate interface.  This
+option will not take effect until
+restarting TkGate.
+-end-
+
+ho.opt.sec.send		-begin-
+Enabling the $tkg$command() system task will allow
+user circuits to send arbitrary simulator control
+commands to the TkGate GUI.  This includes the ability
+to execute arbitrary shell commands.  If the simulator
+will be used to execute untrusted circuits, it is
+recommended that this task be disabled.  Enabling this
+option has a very high security risk.
+-end-
+
+ho.opt.sec.open		-begin-
+Enabling the $fopen() system task will allow user
+circuits to write to any file that the user invoking
+TkGate has access to.  Enabling this option has a
+high security risk.
+-end-
+
+ho.opt.sec.writemem	-begin-
+Enabling the $writememb() and $writememh() system tasks
+will allow user circuits to write to any file that the
+user invoking TkGate has access to.  Enabling this option
+has a high security risk.
+-end-
+
+ho.opt.sec.enqueue	-begin-
+Enabling the $tkg$recv() and $tkg$send() system tasks
+will enable virtual peripheral devices to send messages
+to TkGate circuits.  Enabling this option has a low
+security risk.
+-end-
+
+ho.opt.ssave		-begin-
+Perform consistency checks on circuit
+files before overwriting existing save
+file to verify that there are no problems
+with the save file.
+-end-
+
+ho.opt.sec.exec		-begin-
+Fully enabling the $tkg$exec() system task allows user
+circuit to execute arbitrary tcl/tk commands including
+the ability to execute arbitrary shell commands.  Enabling
+this option has a very high security risk.
+-end-
+
+ho.opt.sec.regexec		-begin-
+Enabling the $tkg$exec() system task for registered functions
+allows user circuits to execute only tcl/tk commands that have
+been registered as safe.  As long has all Virtual Peripheral
+Device files are trusted, enabling $tkg$exec() at this level
+should prevent dangerous commands from being executed.  Enabling
+this option has a medium security risk.
+-end-
+
+ho.opt.sec.noexec		-begin-
+Fully disabling the $tkg$exec() command will prevent user
+circuits from executing tcl/tk commands.  This will make it
+impossible to use Virtual Peripheral Devices.  Selecting this
+option has a minimal security risk.
+-end-
+
+ho.opt.sec.stop		-begin-
+If this setting is enabled, the simulation will be terminated
+as soon as any attempt is made by the user circuit to execute
+a disabled feature.
+-end-
+
+ho.opt.sec.warn		-begin-
+If this setting is enabled, the simulation will continue, but
+an error message will be displayed when any attempt is made by
+the user circuit to execute a disabled feature.
+-end-
+
+ho.opt.sec.ignore	-begin-
+If this setting is enabled, use of any disabled features will
+be ignored and no error messages will be displayed.
+-end-
+
+ho.opt.html.browser	-begin-
+Command to be execute when the user clicks on a link to
+an html file.  A "%s" in the command will be replaced
+with the link URL. 
+-end-
+
+ho.opt.html.email	-begin-
+Command to be execute when the user clicks on a link to
+send an e-mail message.  A "%s" in the command will be
+replaced with the link URL.
+-end-
+
+ho.opt.fsave		-begin-
+Save TkGate internal cells with circuit
+data.  This will increase save file size
+by about 20% for a typical circuit, but
+will result in save files that can be
+exported to third party tools.
+-end-
+
+ho.opt.sorttraces	-begin-
+If this option is enabled, traces on the
+scope window will be displayed in sorted
+order.  If this option is disabled, traces
+on the scope window will be displayed in
+the order in which the probes were set.
+-end-
+
+ho.opt.sim.noglitch	-begin-
+If this option is enabled, rapidly changing
+inputs to a component will cause the component to
+output unknown rather simply the time shifted
+input signal.  This can eliminate spurious
+events and prevent oscilations in gate-level
+sequential circuits.
+-end-
+
+ho.opt.sim.savetraces	-begin-
+Probes placed during a simulation run will
+be remembered and replaced when restarting
+the simulation of the same circuit.
+-end-
+
+
+ho.opt.sim.tech		-begin-
+List of files to load as potential "technology"
+files.  Technology files specify delay and area
+estimates for built-in components.
+-end-
+
+ho.opt.sim.err		-begin-
+Select how warnings from the simulator
+should be handled.
+-end-
+
+ho.opt.sim.err.stopany	-begin-
+Do not simulate the circuit if there are any
+warnings in the circuit, even if there are no
+actual erros.
+-end-
+
+ho.opt.sim.err.showall	-begin-
+Always show warnings in the circuit, even if
+there are no errors.  If there are only warnings,
+the simualtor will be started and the list of
+warnings will be displayed in a separate window.
+-end-
+
+ho.opt.sim.err.showiferr	-begin-
+Show warnings only if there are also errors
+in the circuit.  If a circuit contains only
+warnings, they will be ignored and the simulator
+will be started.
+-end-
+
+ho.opt.sim.err.ignore		-begin-
+Never display warning messages, even if there
+are errors in the circuit.
+-end-
+
+ho.opt.lib.vpath		-begin-
+List of directories to search for TkGate library
+files.  Library files should have a .v extention
+and contain modules useful for use in user circuits.
+-end-
+
+ho.opt.lib.vlib			-begin-
+List of libaries that should automatically be loaded
+when TkGate starts.
+-end-
+
+ho.opt.lib.vpd			-begin-
+List of directories to search for virtual peripheral
+devices.  Virtual peripheral devices have a .tcl
+extension and typically implement a GUI representing
+a peripheral device that can be controlled by a user
+circuit.
+-end-
+
+ho.opt.undolen		-begin-
+Maximum number of undo actions to retain.
+-end-
+
+ho.opt.name		-begin-
+User name to be used on TkGate generated
+reports such as circuit printouts.
+-end-
+
+ho.opt.site		-begin-
+The name of the site where TkGate is
+installed.  This name will be used on
+any printer or postscript output.
+-end-
+
+ho.opt.smooth		-begin-
+If this option is enabled, scrolling will
+be optimized by using bitmap copies instead
+of a complete redisplay.  You can turn this
+off if there are any problems with your server.
+-end-
+
+ho.opt.clip		-begin-
+If this option is enabled, clipping will be
+used to update only the exposed portion of
+the window on a redisplay.  Otherwise the
+entire display will be redrawn for all
+exposures.  Unset only if you are having
+problems on your display.
+-end-
+
+ho.opt.showimage	-begin-
+Unset this option to suppress display of
+the image and explanitory text at the
+edge of dialog boxes.
+-end-
+
+
+ho.opt.outmove		-begin-
+If this option is enabled, only an outline
+of module instances being moved will be displayed
+while dragging.  Use this feature only on machines
+with slow displays.
+-end-
+
+ho.opt.bhelp		-begin-
+If this option is enabled,  help balloons will 
+be activated.  Help balloons, such as this one,
+provide tips on interface elements when the
+mouse is over them.
+-end-
+
+ho.opt.tearawaymenus	-begin-
+If enabled, the main menues will be detachable
+from the interface.  This option will take effect
+next time you restart TkGate.
+-end-
+
+ho.opt.novice		-begin-
+If no other circuit is specified on the command
+line.  A TkGate tutorial will be disaplyed as
+the initial circuit on start up.
+-end-
+
+ho.opt.blockDropConnect		-begin-
+Allow ports on module interfaces to be created
+by dropping free wires near an edge.
+-end-
+
+ho.opt.debug		-begin-
+Enables several debugging features
+only useful to TkGate developers.
+-end-
+
+ho.opt.ckpt		Enable checkpointing of unsaved circuits.
+ho.opt.ckptfreq		Frequency of checkpoints in seconds.
+
+ho.opt.beak		-begin-
+Enable these totally useless features.
+If you disable this option, the useless
+features checkbox will no longer appear
+in this dialog box.  The only way to
+see the useless features again will be
+to edit your .tkgate2-properties file.
+-end-
+
+ho.opt.miles		-begin-
+If this mode is enabled, TkGate will
+periodically insult the intelligence of
+the user.
+-end-
+
+ho.opt.bat		-begin-
+If this mode is enabled, TkGate will
+set up an enviornment for designing a
+bat computer.
+-end-
+
+ho.opt.trek		Beam me up Scoty!
+
+ho.opt.simstep		-begin-
+The number of epochs to advance when
+the step command is issued.
+-end-
+
+ho.opt.ckstep		-begin-
+The number of clock cycles to advance
+when the clock step command is issued.
+-end-
+
+ho.opt.ckover		-begin-
+The number of epochs past rising edge
+of the clock to advance when the clock
+step command is issued.
+-end-
+
+ho.opt.vpopupdelay		-begin-
+The delay in milliseconds between pressing
+and holding the mouse button and the display
+of a signal value.  On some systems, short
+delay values interfere with the ability to
+recognize a double click.  If you have this
+problem, increase this value.  Values between
+1 and 10000 are allowed.
+-end-
+
+ho.opt.init		-begin-
+A simulation script file to execute
+automatically when simulation of any
+circuit is initiated.  Do not use this
+for circuit specific scripts, use the
+circuit properties instead. 
+-end-
+
+ho.opt.ckall		-begin-
+If this mode is enabled, the clock step
+command will pause the simulation on the
+positive edge of any clock in the circuit.
+-end-
+
+ho.opt.ckspec		-begin-
+If this mode is enabled, the clock step
+command will pause the simulation only on
+the positive edge of the specified clock.
+Use the name of the net to which the 
+clock is attached.
+-end-
+
+ho.opt.keybind		-begin-
+Specifies the basic style for key
+bindings.  If you change this
+option, bindings will be updated
+immediately, but you will need to
+restart TkGate to see any user
+defined keybindings.
+-end-
+
+ho.deftech		-begin-
+Default technology for new components.
+Affects delay of components. To change
+the technology of a specific component,
+open its properties box (double
+click) and select the "Delay" tab.
+-end-
+
+ho.techbut		-begin-
+Use delays from standard technology
+definition file.  To add custom
+technologies, add them to the list
+in the "File -> Options -> Simulate"
+menu.
+-end-
+
+ho.custbut		-begin-
+Set custom delay values for this component.
+-end-
+
+ho.contver		-begin-
+Continuously verify the integrity of internal
+data structures after every operation.
+-end-
+
+ho.simwatch		-begin-
+Display commands sent between
+the GUI and the simulator.
+-end-
+
+ho.symed.point		-begin-
+Pixel edit mode.  Use the left
+mouse button to set pixels and
+the right button to clear them.
+-end-
+
+ho.symed.line		-begin-
+Line mode.  Use the left
+mouse button to set pixels and
+the right button to clear them.
+-end-
+
+ho.symed.rect		-begin-
+Rectangle mode.  Use the left
+mouse button to set pixels and
+the right button to clear them.
+-end-
+
+ho.symed.fillrect	-begin-
+Filled rectangle mode.  Use the
+left mouse button to set pixels
+and the right button to clear them.
+-end-
+
+ho.symed.select	-begin-
+Bitmap select mode.  Use the left
+mouse buttons to select regions of
+the bitmap and do cut and paste
+operations on the selection.
+-end-
+
+ho.symed.port	-begin-
+Port select mode.  Select ports and
+move them or rotate them.
+-end-
+
+ho.symed.rshift		Shift selected pixels right.
+ho.symed.lshift		Shift selected pixels left.
+ho.symed.ushift		Shift selected pixels up.
+ho.symed.dshift		Shift selected pixels down.
+ho.symed.cwrotate	Rotate selected pixels clockwise.
+ho.symed.ccwrotate	Rotate selected pixels counter-clockwise.
+ho.symed.autobold	Make selected image bold.
+ho.symed.resize		Resize the image editor.
+ho.symed.import		Import image from file.
+ho.symed.export		Export image to file.
+
+ho.tool.currot	-begin-
+Displays the current default
+rotation.  Click on this
+button to change the current
+default rotation.
+-end-
+
+
+ho.tool.zoomin		Zoom in
+ho.tool.zoomout		Zoom out
+ho.tool.rotate		Rotate selected component(s) counter-clockwise.
+ho.tool.brotate		Rotate selected component(s) clockwise.
+ho.tool.valgn		Align selected component(s) vertically.
+ho.tool.halgn		Align selected component(s) horizontally.
+
+ho.tool.cut		Cut selection.
+ho.tool.copy		Copy selection.
+ho.tool.paste		Paste from cut buffer.
+ho.tool.find		Find component, wire or text.
+
+ho.tool.addport		Add a port to the selected component.
+ho.tool.anchor		Anchor the selected component(s).
+ho.tool.unanchor	Unanchor the selected component(s).
+ho.tool.replicate	Replicate a component.
+ho.tool.delete		Delete the selection.
+
+#ho.opt.circuit.extbar	TODO
+#ho.opt.circuit.shownet	TODO
+#ho.circuit.shownet	TODO

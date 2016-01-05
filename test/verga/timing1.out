@@ -1,0 +1,34 @@
+   0: ck=1 data=0 en=1 - out=0
+  50: ck=0 data=0 en=1 - out=0
+  95: ck=0 data=1 en=1 - out=0
+Expect $setup violation at time 100.
+Runtime Error at 100: Timing violation in top.l1[latch] $setup(data, (posedge ck) &&& en, 10).
+ 100: ck=1 data=1 en=1 - out=1
+ 150: ck=0 data=1 en=1 - out=1
+ 185: ck=0 data=0 en=1 - out=1
+Expect no violations at time 200.
+ 200: ck=1 data=0 en=1 - out=0
+ 250: ck=0 data=0 en=1 - out=0
+ 291: ck=0 data=1 en=1 - out=0
+Expect $setup violation at time 300.
+Runtime Error at 300: Timing violation in top.l1[latch] $setup(data, (posedge ck) &&& en, 10).
+ 300: ck=1 data=1 en=1 - out=1
+ 350: ck=0 data=0 en=1 - out=1
+Expect no violations at time 400.
+ 400: ck=1 data=0 en=1 - out=0
+ 450: ck=0 data=0 en=1 - out=0
+ 495: ck=0 data=1 en=0 - out=0
+Expect no violations at time 500.
+ 500: ck=1 data=1 en=0 - out=0
+Expect no violations at time 502.
+ 502: ck=1 data=1 en=1 - out=0
+ 550: ck=0 data=1 en=1 - out=0
+ 600: ck=1 data=1 en=1 - out=1
+Expect $hold violation at time 602.
+Runtime Error at 602: Timing violation in top.l1[latch] $hold((posedge ck) &&& en, data, 10).
+ 602: ck=1 data=0 en=1 - out=1
+ 650: ck=0 data=0 en=1 - out=1
+ 700: ck=1 data=0 en=1 - out=0
+Expect no violation at time 711.
+ 711: ck=1 data=1 en=1 - out=0
+ 750: ck=0 data=1 en=1 - out=0

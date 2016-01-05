@@ -1,0 +1,149 @@
+######################################################################
+#
+# Built-in bindings for "windows"-like mode
+#
+<Control-n>		newFile
+<Control-o>		loadFile
+<Control-l>		loadLibrary
+<Control-s>		saveFile
+#<Control-x><Control-w>	saveAsFile
+<Control-p>		print
+#<Control-x><Control-c>	exit
+#<Control-x><o>		editOptions
+
+<Control-z>		undo
+#<Alt-r>		redo
+#<Control-x><u>		undo
+#<Control-x><r>		redo
+
+<Control-c>		copyToBuf
+<Control-a>		selectAll
+<Control-x>		cutToBuf
+<Control-v>		yankFromBuf
+<Control-f>		findObject
+<bar>			vAlign
+<minus>			hAlign
+<Tab>			simCycleOrRotate
+<ISO_Left_Tab>		backRotate
+<Control-d>		duplicate
+#<Control-z><i>		zoomIn
+#<Control-z><o>		zoomOut
+
+<F1>			editMode
+<F2>			cutMode
+<F3>			invertMode
+<F4>			scrollMode
+<F5>			sizeMode
+<Control-F1>		rot0
+<Control-F2>		rot90
+<Control-F3>		rot180
+<Control-F4>		rot270
+
+#<Control-x><Control-e>	editCProps
+
+<space>			simStep
+<Alt-s>			startSimulator
+<Alt-e>			endSimulator
+<Alt-g>			simRun
+<Alt-v>			simStop
+<Alt-b>			editBreakpoints
+<Alt-r>			doSimScript
+<Alt-l>			simLoadMem
+<Alt-d>			simDumpMem
+<Alt-t>			scopePrint
+<Alt-p>			toggleProbe
+
+<greater>		openMod
+<less>			closeMod
+<Control-b><n>		blockNew
+<Control-b><d>		blockDelete
+<Control-b><c>		blockCopy
+<Control-b><r>		blockRename
+<Control-b><s>		setBlockDesc
+<Control-b><e>		editBlockDesc
+<Control-b><l>		blockClaim
+<Control-b><t>		blockSetRoot
+<Control-b><p>		blockProp
+
+<bracketleft>		addIn
+<bracketright>		addOut
+<apostrophe>		addInOut
+<Control-r>		replicate
+<Delete>		delete
+<Control-e>		editProps
+#<Control-x><Control-a>	anchor
+#<Control-x><Control-u>	unAnchor
+
+<Left>			nudgeLeft
+<Right>			nudgeRight
+<Up>			nudgeUp
+<Down>			nudgeDown
+
+#<Control-p>		errBoxUp
+#<Control-n>		errBoxDown
+
+#<Control-l>		refreshScreen
+<Escape>		cancel
+
+#############################################################################
+#
+# HDL Editor bindings
+#
+<Control-n>		newFile				-groups {hdlmodule}
+<Control-o>		loadFile			-groups {hdlmodule}
+#<Control-x><Control-l>	loadLibrary			-groups {hdlmodule}
+<Control-s>		saveFile			-groups {hdlmodule}
+#<Control-x><Control-w>	saveAsFile			-groups {hdlmodule}
+<Control-p>		print				-groups {hdlmodule}
+#<Control-x><Control-c>	exit				-groups {hdlmodule}
+#<Control-x><o>		editOptions			-groups {hdlmodule}
+
+<Control-z>		undo				-groups {hdledit hdlmodule}
+#<Alt-r>		redo				-groups {hdledit hdlmodule}
+#<Control-x><u>		undo				-groups {hdledit hdlmodule}
+#<Control-x><r>		undo				-groups {hdledit hdlmodule}
+
+<Delete>		hdlDeleteForward		-groups {hdledit hdlmodule}
+#<Control-d>		hdlDeleteForward		-groups {hdledit hdlmodule}
+<BackSpace>		hdlDeleteBackward		-groups {hdledit hdlmodule}
+#<Control-h>		hdlDeleteBackward		-groups {hdledit hdlmodule}
+
+<Control-x>		hdlCut				-groups {hdledit hdlmodule}
+<Control-v>		hdlYank				-groups {hdledit hdlmodule}
+
+#<Control-k>		hdlKillLine			-groups {hdledit hdlmodule}
+#<Control-t>		hdlTransposeChar		-groups {hdledit hdlmodule}
+<Control-f>		hdlSearch			-groups {hdledit hdlmodule}
+<Control-r>		hdlReverseSearch		-groups {hdledit hdlmodule}
+
+#<Control-v>		hdlPageDown			-groups {hdledit hdlmodule}
+#<Escape><v>		hdlPageUp			-groups {hdledit hdlmodule}
+
+#<Escape><d>		hdlDeleteWord			-groups {hdledit hdlmodule}
+
+#<Control-o>		hdlOpenLine			-groups {hdledit hdlmodule}
+
+#<Control-e>		hdlGotoLineEnd			-groups {hdledit hdlmodule}
+#<Control-a>		hdlGotoLineStart		-groups {hdledit hdlmodule}
+#<Escape><less>		hdlGotoTop			-groups {hdledit hdlmodule}
+#<Escape><greater>	hdlGotoEnd			-groups {hdledit hdlmodule}
+#<Escape><f>		hdlForwardWord			-groups {hdledit hdlmodule}
+#<Escape><b>		hdlBackwardWord			-groups {hdledit hdlmodule}
+
+
+#<Control-b>		hdlBackwardChar			-groups {hdledit hdlmodule}
+#<Control-f>		hdlForwardChar			-groups {hdledit hdlmodule}
+#<Control-p>		hdlUpLine			-groups {hdledit hdlmodule}
+#<Control-n>		hdlDownLine			-groups {hdledit hdlmodule}
+
+<Left>			hdlBackwardChar			-groups {hdledit hdlmodule}
+<Right>			hdlForwardChar			-groups {hdledit hdlmodule}
+<Up>			hdlUpLine			-groups {hdledit hdlmodule}
+<Down>			hdlDownLine			-groups {hdledit hdlmodule}
+
+#<Control-space>	hdlSetMark			-groups {hdledit hdlmodule}
+#<Control-at>		hdlSetMark			-groups {hdledit hdlmodule}
+#<Control-x><Control-x>	hdlExchangePointAndMark		-groups {hdledit hdlmodule}
+<Control-g>		hdlCancel			-groups {hdledit hdlmodule}
+
+<Tab>			hdlIndent			-groups {hdledit hdlmodule}

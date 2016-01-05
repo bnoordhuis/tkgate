@@ -1,0 +1,119 @@
+blue
+blue1
+blue2
+medium blue
+blue3
+MediumBlue
+DarkBlue
+blue4
+dark blue
+navy
+NavyBlue
+navy blue
+DodgerBlue
+DodgerBlue1
+dodger blue
+DodgerBlue2
+DodgerBlue3
+RoyalBlue1
+DeepSkyBlue
+DeepSkyBlue1
+deep sky blue
+dark violet
+DarkViolet
+MidnightBlue
+midnight blue
+RoyalBlue2
+DeepSkyBlue2
+RoyalBlue
+royal blue
+purple1
+RoyalBlue3
+DeepSkyBlue3
+purple2
+purple
+BlueViolet
+DodgerBlue4
+blue violet
+purple3
+RoyalBlue4
+DeepSkyBlue4
+purple4
+SlateBlue1
+SlateBlue2
+light slate blue
+SlateBlue3
+MediumSlateBlue
+medium slate blue
+LightSlateBlue
+turquoise1
+SlateBlue
+slate blue
+SlateBlue4
+dark slate blue
+DarkSlateBlue
+DarkOrchid1
+DarkOrchid2
+dark orchid
+DarkOrchid
+DarkOrchid3
+DarkOrchid4
+cornflower blue
+CornflowerBlue
+SteelBlue4
+SteelBlue
+steel blue
+SteelBlue3
+MediumPurple4
+SteelBlue2
+SteelBlue1
+MediumPurple3
+MediumOrchid4
+medium purple
+MediumPurple
+MediumPurple2
+MediumPurple1
+SkyBlue4
+MediumOrchid3
+MediumOrchid
+medium orchid
+MediumOrchid2
+SkyBlue3
+MediumOrchid1
+LightSkyBlue4
+SkyBlue2
+SkyBlue1
+LightSkyBlue
+light sky blue
+SlateGray4
+LightSteelBlue4
+slate gray
+slate grey
+SlateGray
+SlateGrey
+LightSlateGrey
+light slate grey
+LightSlateGray
+light slate gray
+SkyBlue
+sky blue
+LightSkyBlue3
+SlateGray3
+LightSkyBlue2
+LightSteelBlue3
+LightBlue3
+CadetBlue1
+LightSkyBlue1
+light steel blue
+LightSteelBlue
+SlateGray2
+light blue
+LightBlue
+LightSteelBlue2
+LightBlue2
+SlateGray1
+LightSteelBlue1
+LightBlue1
+lavender
+GhostWhite
+ghost white

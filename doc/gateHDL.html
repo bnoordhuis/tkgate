@@ -1,0 +1,2161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <TITLE>TKGate User Documentation (HDL)</TITLE>
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" href="tkgate.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H2><![section=4]>4. HDL Modules</H2>
+
+<div class=rfig>
+<a name=hdleditor>
+<a href="fig/hdl_main.gif" type="image/gif" target=_blank><IMG SRC="fig/small-hdl_main.gif"><br>
+(click to enlarge)</a><br><br>
+<b>Figure <![figure:hdleditor]>4.1: HDL Editor Window</b>
+</div>
+
+Verilog is a widely-used textual language for specifying high-level
+designs for simulation, synthesis and verification.  It is an example
+of a Hardware Description Language (HDL).  It is quite versatile
+allowing specification from CMOS transistor level, up to high-level
+algorithmic specifications.  TkGate supports a subset of the complete
+Verilog specification.  This chapter assumes that the reader is
+already familiar with Verilog, and is not intended to be a complete
+description of Verilog and its features.  The reader is directed to
+one of the many books on Verilog for this purpose.  Instead, this
+chapter is intended to document the features of Verilog that are
+supported in TkGate's implementation.
+<p>
+The TkGate simulator, called Verga (VERilog simulator for GAte), is a
+discrete time simulator with time advancing in discrete units called
+"epochs".  All delay must be an integer number of epochs.  The Verga
+simulator is normally used through the TkGate interface, but it can
+also be run by itself directly on text Verilog files.
+
+<a name=hdlmain>
+<h3><![subsection]>4.1 HDL Editor Window</h3>
+
+
+When you open a module that you have designated as an HDL module, the
+HDL editor window will appear as shown in <a href="#hdleditor">Figure
+<![#hdleditor]>4.1</a>.  This window is essentially a text editor, and you can edit
+the Verilog text directly in this window.  The editing commands that
+are available depend on which key-binding style you have selected
+through the <a href="gateOptions.html#interface">Interface Options</a>
+dialog box.  Additional editor options controlling indentation and
+colorization can be set through the <a href="gateOptions.html#hdl">HDL
+Options</a> dialog box.
+
+<h4><![subsubsection]>4.1.1 Net List</h4>
+
+The nets in your module are shown in the "Nets" list in the lower left
+corner.  The nets list is updated when you open the module, but may
+not display correctly if there are too many syntax errors in your
+module.
+
+<h4><![subsubsection]>4.1.2 Cut/Paste</h4>
+
+<div class=rfig>
+<a name=fullAdder>
+<IMG SRC="fig/adder_circuit.gif"><br><br>
+<b>Figure <![figure:fullAdder]>4.2: Full Adder</b>
+</div>
+
+You can use the cut <img class=tool src="fig/edit_cut.gif"> and paste
+<img class=tool src="fig/edit_paste.gif"> tools to cut and paste
+blocks of text that you select with the mouse.  You can also drag the
+selected block of text with the mouse to a new location if you have
+that option enabled in the <a href="gateOptions.html#hdl">HDL
+Options</a> dialog box.
+<p>
+It is also possible to paste chunks of gates that you have cut or
+copied from a graphical module.  When you paste such modules into a
+text HDL module, TkGate will convert that chunk into Verilog netlist
+format.  For example, if you cut or copied the full adder shown in <a
+href="#fullAdder">Figure 4.2</a>, pasting it into an HDL module would
+result in the following Verilog code being generated:
+
+<pre>
+  _GGOR2 #(6) g34 (.I0(w3), .I1(w4), .Z(co));   //: @(216,139) /sn:0 /w:[ 0 0 1 ] /eb:0
+  _GGAND2 #(6) g28 (.I0(a), .I1(b), .Z(w4));   //: @(150,141) /sn:0 /w:[ 5 5 1 ] /eb:0
+  //: joint g32 (w8) @(172, 65) /w:[ 1 -1 2 4 ]
+  //: SWITCH g27 (ci) @(56,26) /sn:0 /w:[ 0 ] /st:0
+  _GGAND2 #(6) g31 (.I0(w8), .I1(ci), .Z(w3));   //: @(175,110) /sn:0 /R:3 /w:[ 5 5 1 ] /eb:0
+  //: LED g15 (s) @(246,87) /sn:0 /R:2 /w:[ 0 ] /type:0
+  //: joint g29 (a) @(117, 62) /w:[ 2 -1 1 4 ]
+  //: SWITCH g25 (a) @(56,62) /sn:0 /w:[ 0 ] /st:0
+  //: LED g14 (co) @(245,122) /sn:0 /w:[ 0 ] /type:0
+  _GGXOR2 #(8) g24 (.I0(w8), .I1(ci), .Z(s));   //: @(213,68) /sn:0 /w:[ 0 3 1 ] /eb:0
+  _GGXOR2 #(8) g23 (.I0(a), .I1(b), .Z(w8));   //: @(138,65) /sn:0 /w:[ 3 3 3 ] /eb:0
+  //: SWITCH g26 (b) @(56,97) /sn:0 /w:[ 0 ] /st:1
+  //: joint g33 (ci) @(177, 70) /w:[ 2 1 -1 4 ]
+  //: joint g30 (b) @(111, 97) /w:[ -1 2 1 4 ]
+</pre>
+
+The generated code includes comments (positions starting with "//")
+that are included as part of TkGate save files indicating the position
+information for that circuit element.  For circuit elements that do
+not have direct Verilog counter-parts, such as the LEDs and switches,
+pure comments are generated.  In this example, the only actual Verilog
+code generated is for the five gates.  These are represented in terms
+of TkGate cells with names beginning in "_GG".
+
+<h4><![subsubsection]>4.1.3 Module Navigation</h4>
+
+Just as you can open a module in the graphical editor by right
+clicking on a module and selecting "<img class=tool
+src=fig/blk_open.gif>Open", you can do the same thing with modules in
+the Verilog text.  Right click on the text with the name of the module
+and select "<img class=tool src=fig/blk_open.gif>Open".  Right click
+and select "<img class=tool src=fig/blk_close.gif>Close" to close the
+current module and reopen the next one on the stack.  In TkGate, each
+Verilog module should be opened individually.  If you define more than
+one module, or you change the name in the text description so that it
+no longer matches the name of the module you have open, TkGate will
+complain and give you options on how to resolve the problem.
+
+<br style="clear: right;">
+
+<a name=basics>
+<h3><![subsection]>4.2 Verilog Basics</h3>
+
+This section gives a very brief overview of Verilog.
+
+
+<h4><![subsubsection]>4.2.1 Comments</h4>
+
+Comments in Verilog follow the same rules as in C.  Block comments are
+enclosed between "<tt>/*</tt>" and "<tt>*/</tt>".  Line comments begin with "<tt>//</tt>" and run
+to the end of the line.
+
+<h4><![subsubsection]>4.2.2 Literals</h4>
+
+Verilog literals begin with a letter or a "<tt>_</tt>" character.  The
+subsequent characters can be letters, digits or "<tt>_</tt>" characters.
+TkGate supports escaped literals, but their use is discouraged.
+Escaped literals begin with a backslash "<tt>\</tt>" and continue to the next
+white-space character.  "<tt>\3+4jk</tt>", "<tt>\u8[]*9</tt>" and "<tt>\3342</tt>" are examples of
+escaped literal.
+
+<h4><![subsubsection]>4.2.3 Numbers and Values</h4>
+
+<h5>Sized Numbers</h5>
+
+Verilog numbers can be sized or unsized.  Sized numbers have the
+general form:<br><br>
+<div>
+&nbsp;&nbsp;&nbsp;  &lt;<i>size</i>>'&lt;<i>base</i>>&lt;value>
+</div><br>
+
+where &lt;<i>size</i>> is the number of bits, &lt;<i>base</i>> is a
+single letter indicating the number base, and &lt;value> is the actual
+value of the number.  The possible bases are <tt>'d</tt> for decimal,
+<tt>'h</tt> for hexadecimal, <tt>'o</tt> for octal and <tt>'b</tt> for
+binary.  Examples of sized numbers include:
+<pre>
+   8'd42        // The 8-bit decimal number 42
+   16'h4fe3     // The 16-bit hexadecimal number 4fe3
+   8'b10010011  // The 8-bit binary number 10010011
+</pre>
+
+<h5>Unsized Numbers</h5>
+
+Unsized numbers can be those that still include the base, or plain
+numbers with an implied decimal base such as:
+<pre>
+   83           // The decimal number 83
+   'd42         // The decimal number 42
+   'o53         // The octal number 53
+   'b11         // The binary number 11
+</pre>
+The actual size used to represent unsized numbers is machine
+dependent, but is guaranteed to be at least 32 bit.
+
+<h5>Special digit values</h5>
+
+Binary, octal and hexadecimal number may also use a "<tt>z</tt>" digit
+to indicate the floating or high impedance state in one or more
+digits.  Similarly an "<tt>x</tt>" or <tt>?</tt> digit can be used to
+indicate an unknown value.  Numbers including a base, may also contain
+one or more "<tt>_</tt>" characters to help make the number more
+readable.  The "<tt>_</tt>" characters are ignore in interpreting the
+value.  Some examples are:
+<pre>
+   12'b0101_0111_0010
+   16'h7zz3
+   1'bx
+   8'bx
+</pre>
+
+When the highest digit of a number is <tt>x</tt> or <tt>z</tt>, that
+value is extended to the highest bit in the number.  For example
+<tt>8'bx</tt> is equivalent to <tt>8'bxxxxxxxx</tt> not
+<tt>8'b0000000x</tt>.  If you really mean the later, you should use
+<tt>8'b0x</tt>.
+
+
+<h5>Floating Point Numbers</h5>
+
+Verilog specifications can also use floating point numbers.  Examples
+of floating point numbers are "<tt>42.0</tt>", "<tt>0.45</tt>" and
+"<tt>3.14</tt>".  The bit size of floating point numbers is machine
+dependent, but is at least 32 bits.
+<p>
+
+<h5>Strings</h5>
+
+Verilog strings are delimited by the double quote character. The
+backspace character can be used to quote any double quote characters
+used in the string.  Some examples of string values are:
+<pre>
+   "Hello world."
+   "Please push \"Enter\" to begin."
+   "Exterminate! Exterminate! Exterminate!"
+</pre>
+
+String values are essentially bit vectors with a size equal to eight
+times the number of characters.
+
+
+<A NAME="wiretypes"></A>
+<h3><![subsection]>4.3 Data Types</h3>
+
+Variables in Verilog can be used to represent registers, or nets
+connecting components.  Each bit in a variables can take on one of six
+states:
+<br><br>
+<table class=display>
+<tr><th>Value</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td>0</td><td>Logic 0 or false</td></tr>
+<tr><td>1</td><td>Logic 1 or true</td></tr>
+<tr><td>x</td><td>Unknown state (could be 0, 1 or z)</td></tr>
+<tr><td>z</td><td>Floating state</td></tr>
+<tr><td>H</td><td>High unknown state (could be 1 or z)</td></tr>
+<tr><td>L</td><td>Low unknown state (could be 0 or z)</td></tr>
+</table>
+<br>
+
+<h4>4.3.1 Net Types</h4>
+
+Net data types are those that must be driven to have a value. The
+difference between the types is primarily in how collisions are
+handled.  Collisions occur when two or more gates attempt to drive the
+wire to different values.  The supported net types are:
+<br><br>
+<table class=display>
+<tr><th width=75 align=left>Type</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>wire</tt></td><td>Basic net used to connect components.  Collisions result in unknown value.</td></tr>
+<tr><td><tt>wand</tt></td><td>Wired AND net.  Collisions result in the AND of the values driven on the net.</td></tr>
+<tr><td><tt>wor</tt></td><td>Wired OR net.  Collisions result in the OR of the values driven on the net.</td></tr>
+<tr><td><tt>tri</tt></td><td>Equivalent to "wire", but indicates to reader that tri state values will be used.</td></tr>
+<tr><td><tt>tri1</tt></td><td>Net with resistive pull up.  Takes on 1 value if nothing is driving it.</td></tr>
+<tr><td><tt>tri0</tt></td><td>Net with resistive pull down.  Takes on 0 value if nothing is driving it.</td></tr>
+<tr><td><tt>triand</tt></td><td>Same as wand.  Collisions result in the AND of the values driven on the net.</td></tr>
+<tr><td><tt>trior</tt></td><td>Same as wor.  Collisions result in the OR of the values driven on the net.</td></tr>
+<tr><td><tt>trireg</tt></td><td>Net with capacitance store.  Retains last value written if all drivers are floating.</td></tr>
+</table>
+<br>
+
+Nets are declared by specifying the data type followed by a comma
+separated list of variables, and terminated with a semicolon.  Some
+example net declarations are:
+<pre>
+  wire w1;
+  wire a,b,c;
+  wor p;
+  trireg x;
+</pre>
+
+<h4>4.3.2 Supply Types</h4>
+
+
+Supply types are used to model ground and supply signals fixed to a 0
+or 1 value.  The supply types are:
+<br><br>
+<table class=display>
+<tr><th width=75 align=left>Type</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>supply0</tt></td><td>Net fixed at logic 0.</td></tr>
+<tr><td><tt>supply1</tt></td><td>Net fixed at logic 1.</td></tr>
+</table>
+<br>
+Examples of supply types are:
+<pre>
+   supply1 vdd;
+   supply0 gnd;
+</pre>
+
+<h4>4.3.3 Register Types</h4>
+
+Register types retain their value until they are assigned again.  The
+behave similarly to variables in a C program.
+<br><br>
+<table class=display>
+<tr><th width=75 align=left>Type</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>reg</tt></td><td>One bit register variable.</td></tr>
+<tr><td><tt>integer</tt></td><td>General purpose integer variable.</td></tr>
+<tr><td><tt>real</tt></td><td>General purpose floating point variable.</td></tr>
+<tr><td><tt>time</tt></td><td>64-bit simulation time variable.</td></tr>
+</table>
+<br>
+Examples of register types are:
+<pre>
+   reg r1, r2;
+   integer i, j;
+   time t;
+   real f;
+</pre>
+
+<h4>4.3.4 Port Types</h4>
+
+Port types are used to declare the type of a port.  Variables using
+one of these types must also appear in the port list of a module.
+<br><br>
+<table class=display>
+<tr><th width=75 align=left>Type</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>input</tt></td><td>Module input port.</td></tr>
+<tr><td><tt>output</tt></td><td>Module output port.</td></tr>
+<tr><td><tt>inout</tt></td><td>Module inout (bidirectional) port.</td></tr>
+</table>
+<br>
+
+The port types normally act like "wire" nets, but the output variables
+may be also declared as <tt>reg</tt> in addition to <tt>output</tt>.
+This can either be in two separate declarations such as:
+<pre>
+   output z;
+   reg z;
+</pre>
+or in a combined declaration:
+<pre>
+   output reg z;
+</pre>
+
+<h4>4.3.5 Event Types</h4>
+
+Event variables do not take on a value per se.  Instead, they can be
+used in signaling from one portion of the design to another.  They
+are declared with the <tt>event</tt> keyword.  For example:
+<pre>
+  event e;
+</pre>
+
+<a name=parmtype>
+<h4>4.3.6 Parameter Types</h4>
+
+You may also use the <tt>parameter</tt> type to declare constant
+variables.  Constant variables must be assigned from constant value,
+or an expression involving only constants and other parameter
+variables.  Examples of <tt>parameter</tt> declarations are:
+<pre>
+   parameter delay1 = 9;
+   parameter delay2 = 2*delay1 + 7;
+   parameter myvalue = 8'h4e;
+   parameter mystring = "impudent moose";
+</pre>
+
+Parameters can be used both as values in expressions, and as the value
+in a delay.  
+
+<h4>4.3.7 Bit Size Declaration</h4>
+
+A bit size declaration can be used with any of the net, supply or port
+data types.  In addition they can be used with the <tt>reg</tt> data
+type.  The bit size is declared right after the keyword and before the
+variable.  The bit size specifier has the form
+"<tt>[</tt><i>msb</i><tt>:</tt><i>lsb</i><tt>]</tt>" where <i>msb</i>
+is the most significant bit and <i>msb</i> is the least significant
+bit.  Currently TkGate Verilog only supports bit ranges with a 0 least
+significant bit, and a non-negative most significant bit.
+
+Examples include:
+<pre>
+   wire [7:0] w1, w2;   // 8-bit wires
+   reg [11:0] r1, r2;   // 12-bit registers
+</pre>
+
+<h4>4.3.8 Memories</h4>
+
+Memories are declared by specifying an address range after the
+variable name in a <tt>reg</tt> declaration.  For example:
+<pre>
+reg [7:0] m[0:1023];
+</pre>
+Declares a memory with 1024 eight-bit values.  TkGate Verilog only
+supports memories that start at address 0.
+
+<h4>4.3.9 String Variables</h4>
+
+You can store strings in <tt>reg</tt> variables, but you must allocate
+enough bits to store the string.  For example:
+<pre>
+   reg [8*11-1:0] s = "hello world";
+</pre>
+
+
+<A NAME="expressions"></A>
+<h3>4.4 Expressions </h3>
+
+
+Verilog uses an infix notation for expressions similar to expressions
+in C.  A wide range of arithmetic, logical, bit-wise and comparison
+operators are supported.  Operator precedence is similar to C, and
+parenthesis may be used to group expressions.  Some example
+expressions are:
+<pre>
+   x*u*(3 + j) + 1
+   z + 8'h5
+   (q*8'h2) < 8'h5
+</pre>
+When the bit sizes of operands in an expression do not match, the bit
+size of the entire expression is expanded to the bit size of the
+largest value.  For example, when evaluating the expression
+<tt>16'h3423 + 8'hff</tt>, both values are first extended to 16 bits
+before performing the sum.
+
+<h4>4.4.1 Operators</h4>
+
+The operators supported in TkGate's implementation of Verilog are shown
+in the table below.  Operators are grouped by precedence from highest
+to lowest.
+
+<br><br>
+<table class=display>
+<tr><th width=100 align=left>Operator</th><th align=left>Description</th></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td valign=top><tt>{</tt><i>a</i><tt>,</tt> <i>b</i> <tt>,...}</tt></td><td valign=top>Concatenation - Concatenates the bits of two or more nets (or expressions) into a single expression.  If all of the components are nets, the concatenation may be used as the target of an assignment.</td></tr>
+<tr><td valign=top><tt>{</tt><i>n</i><tt>{</tt><i>a</i><tt>}}</tt></td><td valign=top>Bit Replications - Concatenates <i>n</i> copies of <i>a</i> together.  <i>n</i> must be a constant. </td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><tt>!</tt> <i>a</i></td><td>Logic NOT - Returns zero if <i>a</i> is zero, one if <i>a</i> is non-zero.</td></tr>
+<tr><td><tt>~</tt> <i>a</i></td><td>Bit-wise compliment - Reverses all bits in <i>a</i>.</td></tr>
+<tr><td><tt>-</tt> <i>a</i></td><td>Negation - Performs an arithmetic negation of <i>a</i>.</td></tr>
+<tr><td><tt>&</tt> <i>a</i></td><td>Reduction AND - ANDs together all the bits of <i>a</i> and returns the 1-bit result.</td></tr>
+<tr><td><tt>|</tt> <i>a</i></td><td>Reduction OR - ORs together all the bits of <i>a</i> and returns the 1-bit result.</td></tr>
+<tr><td><tt>^</tt> <i>a</i></td><td>Reduction XOR - XORs together all the bits of <i>a</i> and returns the 1-bit result.</td></tr>
+<tr><td><tt>~&</tt> <i>a</i></td><td>Reduction NAND - NANDs together all the bits of <i>a</i> and returns the 1-bit result.</td></tr>
+<tr><td><tt>~|</tt> <i>a</i></td><td>Reduction NOR - NORs together all the bits of <i>a</i> and returns the 1-bit result.</td></tr>
+<tr><td><tt>~^</tt> <i>a</i></td><td>Reduction XNOR - XNORs together all the bits of <i>a</i> and returns the 1-bit result.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> <tt>*</tt> <i>b</i></td><td>Multiplication -  Returns the product of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td><i>a</i> <tt>/</tt> <i>b</i></td><td>Division -  Returns the quotient of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td><i>a</i> <tt>%</tt> <i>b</i></td><td>Remainder/Modulo -  Returns the remainder of <i>a</i>/<i>b</i>.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> <tt>+</tt> <i>b</i></td><td>Addition - Returns the sum of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td><i>a</i> <tt>-</tt> <i>b</i></td><td>Subtraction - Returns the difference of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> >> <i>b</i></td><td>Right Shift - Shifts the bits in <i>a</i> to the right by <i>b</i> places.</td></tr>
+<tr><td><i>a</i> <tt>&lt;&lt;</tt> <i>b</i></td><td>Left Shift - Shifts the bits in <i>a</i> to the left by <i>b</i> places.</td></tr>
+<tr><td><i>a</i> >>> <i>b</i></td><td>Arithmetic Right Shift - Shifts the bits in <i>a</i> to the right by <i>b</i> places arithmetically.</td></tr>
+<tr><td><i>a</i> <tt>&lt;&lt;&lt;</tt> <i>b</i></td><td>Arithmetic Left Shift - Shifts the bits in <i>a</i> to the left by <i>b</i> places arithmetically.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> <tt>></tt> <i>b</i></td><td>Greater Than - Returns 1 if <i>a</i> is greater than <i>b</i>, otherwise returns 0.</td></tr>
+<tr><td><i>a</i> <tt>&lt;</tt> <i>b</i></td><td>Less Than - Returns 1 if <i>a</i> is less than <i>b</i>, otherwise returns 0.</td></tr>
+<tr><td><i>a</i> <tt>>=</tt> <i>b</i></td><td>Greater Than or Equal -  Returns 1 if <i>a</i> is greater than or equal to <i>b</i>, otherwise returns 0.</td></tr>
+<tr><td><i>a</i> <tt>&lt;=</tt> <i>b</i></td><td>Less Than r Equal -  Returns 1 if <i>a</i> is less than or equal to <i>b</i>, otherwise returns 0.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+
+<tr><td valign=top><i>a</i> <tt>==</tt> <i>b</i></td><td valign=top>
+Equality - Returns 1 if <i>a</i> and <i>b</i> are equal and  
+0 if they are not equal. Returns unknown (<tt>x</tt>) if any bits in <i>a</i> or
+<i>b</i> are unknown or floating.
+
+<tr><td valign=top><i>a</i> <tt>!=</tt> <i>b</i></td><td valign=top>
+Inequality - Returns 0 if <i>a</i> and <i>b</i> are equal and
+1 if they are not equal. Returns unknown (<tt>x</tt>) if any bits in <i>a</i> or
+<i>b</i> are unknown or floating.
+
+<tr><td><i>a</i> <tt>===</tt> <i>b</i></td><td>Case Equality - Returns 1 if <i>a</i> and <i>b</i> match exactly
+including unknown and floating bits.  Returns 0 otherwise.</td></tr>
+<tr><td><i>a</i> <tt>!==</tt> <i>b</i></td><td>Case Inequality - Returns 0 if <i>a</i> and <i>b</i> match exactly
+including unknown and floating bits.  Returns 1 otherwise.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> <tt>&</tt> <i>b</i></td><td>Bit-wise AND - Each bit of the result is the AND of the corresponding bits of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td><i>a</i> <tt>~&</tt> <i>b</i></td><td>Bit-wise NAND - Each bit of the result is the NAND of the corresponding bits of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> <tt>^</tt> <i>b</i></td><td>Bit-wise XOR -  Each bit of the result is the XOR of the corresponding bits of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td><i>a</i> <tt>~^</tt> <i>b</i></td><td>Bit-wise XNOR -  Each bit of the result is the XNOR of the corresponding bits of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td><i>a</i> <tt>|</tt> <i>b</i></td><td>Bit-wise OR -  Each bit of the result is the OR of the corresponding bits of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td><i>a</i> <tt>~|</tt> <i>b</i></td><td>Bit-wise NOR -  Each bit of the result is the NOR of the corresponding bits of <i>a</i> and <i>b</i>.</td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td valign=top><i>a</i> <tt>&&</tt> <i>b</i></td><td valign=top>Logical AND - If both <i>a</i> and <i>b</i> have non-zero bits, then return 1, otherwise return 0.  However, unknown will be returned if unknown bits in the operands prevent determining the actual result. </td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td valign=top><i>a</i> <tt>||</tt> <i>b</i></td><td valign=top>Logical OR - If either <i>a</i> and <i>b</i> have non-zero bits, then return 1, otherwise return 0.  However, unknown will be returned if unknown bits in the operands prevent determining the actual result. </td></tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td valign=top><i>a</i> <tt>?</tt> <i>b</i> <tt>:</tt> <i>c</i></td><td valign=top>Conditional Operator - If <tt>a</tt> is non-zero, then the result is <i>b</i>. If <i>a</i> is zero, then the result is <i>c</i>.  If <tt>a</tt> is unknown or floating, then the result is the bit-wise XNOR of the bits in <i>b</i> and <i>c</i>. </td></tr>
+</table>
+
+<h4>4.4.2 Bit and Memory Addressing</h4>
+
+Bits on sized multi-bit variables can be address using the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;  <i>name</i><tt>[</tt><i>bit</i><tt>]</tt>
+<br>
+<br>
+For example, suppose we have the declaration:
+<pre>
+   reg [7:0] r;
+</pre>
+The expression <tt>r[4]</tt> represents the single-bit expression for
+the value of bit-4 in <tt>r</tt>.  This syntax can be used either to
+use its value in an expression, or in an assignment statement.  The
+bit address can be either a constant or an expression.  For example,
+<tt>r[i+1]</tt> will address the bit corresponding to the current
+value of the expression <tt>i</tt>+1.  A run-time error will result if
+you attempt to simulate a circuit where <tt>i+1</tt> goes out of
+bounds.
+<p>
+You can also address ranges of bits using the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;  <i>name</i><tt>[</tt><i>high</i><tt>:</tt><i>low</i><tt>]</tt>
+<br>
+<br>
+For example, <tt>r[6:2]</tt> is a 5-bit value formed from bits 2 to
+bit 6 of <tt>r</tt>.  In this syntax, the <i>high</i> and <i>low</i>
+values specified must be constants, although they can be constant
+expressions that can be evaluated at compile time.
+<p>
+In order to get indexable ranges of bits, you can use the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;  <i>name</i><tt>[</tt><i>low</i><tt>+:</tt><i>num</i><tt>]</tt>
+<br>
+<br>
+In this expression <i>low</i> is the bit number of the lowest bit, and
+<i>num</i> is the number of bits.  <i>num</i> must be a constant
+expression, but <i>low</i> may be an expression evaluated at execution
+time.  For example <tt>r[i +: 3]</tt> will address a three bit
+sub-range of <tt>r</tt> starting at the bit addressed by <tt>i</tt>.   
+<p>
+Memories are addressed using the same syntax as bits.  For example, if
+you define the following memory of 1024 8-bit words:
+<pre>
+   reg [7:0] mem[0:1023];
+</pre>
+then <tt>mem[45]</tt> will address word 45 of the memory and
+<tt>mem[45][6]</tt> will address bit 6 of the word 45 of the memory.
+
+<a name=directives>
+<h3>4.5 Compiler Directives</h3>
+
+Verilog compiler directives are similar to the <tt>#define</tt> and
+<tt>#ifdef</tt> directives that are used in C programs.  Verilog
+compiler directives begin with the ` (back-quote) character.
+
+<h4>4.5.1 The <tt>`define</tt>  Directive</h4>
+
+The <tt>`define</tt> directive is analogous to the <tt>#define</tt> directive in C.
+It allows you to associate a value or piece of text with a symbolic
+macro.  For example:
+<pre>
+`define THEANSWER 42
+</pre>
+To use a macro that you have defined, you must use a back quote in
+front of the name.  For example, to use the value of the macro defined
+in the example above you might write:
+<pre>
+  x = y + `THEANSWER;
+</pre>
+
+<h4>4.5.3 The <tt>`ifdef</tt>, <tt>`ifndef</tt>, <tt>`else</tt> and  <tt>`endif</tt>  Directives</h4>
+
+The <tt>`ifdef</tt>, <tt>`ifndef</tt>, <tt>`else</tt> and
+<tt>`endif</tt> directives can be used to conditionally compile
+Verilog code.  They are analogous to the similarly named directives in
+C.  The <tt>`ifdef</tt> directive causes code to be compiled only if
+the macro given after it is defined.  The <tt>`ifndef</tt> directive
+causes code to be compiled only if the macro given after it is not
+defined.  You can nest <tt>`ifdef</tt> and <tt>`ifndef</tt> directives
+and use the <tt>`else</tt> directive to provide alternatives.  The
+<tt>`endif</tt> directive marks the end of the conditionally compiled
+portion.  
+<p>
+An example of conditionally compiled code is shown here:
+<pre>
+  `ifdef INCBY2
+     x = x + 2;
+  `else
+     x = x + 1;
+  `endif
+</pre>
+<p>
+In this example, if the macro <tt>INCBY2</tt> has been defined by a
+<tt>`define</tt> then the <tt>x = x + 2;</tt> statement is compiled,
+otherwise the <tt>x = x + 1;</tt> statement is compiled.  Note that
+when using macro names in an <tt>`ifdef</tt> you do not precede them
+with a ` (backquote).
+
+<h4>4.5.2 The <tt>`timescale</tt> Directive</h4>
+
+The <tt>`timescale</tt> directive is used to set the time scale of a
+module or modules for simulation.  It must be followed by a units
+value and a precision value.  These values must be a 1, 10 or 100
+followed by time units "s" (seconds), "ms" (milliseconds), "us"
+(microseconds), "ns" (nanoseconds), "ps" (picoseconds) or "fs"
+(femotoseconds).  For example:
+<pre>
+  `timescale 1ns / 100ps
+</pre>
+would set the time units to 1ns and the simulation precision to 100ps.
+This would cause any delay specifications in modules defined after the
+<tt>`timescale</tt> directive to be counted as 1ns.  The simulator
+itself would simulate in steps of 100ps.  It is important not to set
+the precision value lower than necessary (relative to the delay values
+of components used in your design) since this can impact simulator
+performance.  If the <tt>`timescale</tt> directive is not uses, the
+default time scale and precision is 1ns.
+
+<a name=modules>
+<h3><![subsection]>4.6 Module Declarations</h3>
+
+Module declarations begin with the <tt>module</tt> keyword, and end
+with the <tt>endmodule</tt> keyword.  Consider the simple module:
+
+<pre>
+ (1) module ANDOR(z, a, b, c);
+ (2) output z;
+ (3) input a,b,c;
+ (4) wire x;
+ (5)
+ (6)   or o1(z,a,x);
+ (7)   and a1(z,b,c);
+ (8)
+ (9) endmodule
+</pre>
+
+The literal <tt>ANDOR</tt> after the <tt>module</tt> keyword is the
+name of the module.  The module name is usually followed by a list of
+the port names in parenthesis.  The port list must be followed by a
+";".  Inside the body of the module are declarations for any nets used
+in the module.  The nets declared as ports for the module, should also
+have declarations to indicate if they are <tt>input</tt>,
+<tt>output</tt> or <tt>inout</tt> ports as shown on lines (2) and (3).
+<p>
+The port list may be omitted for a module as in this example:
+<pre>
+module main;
+reg a,b,c;
+wire x,y,z;
+
+  mycircuit m1(a,b,c,x,y,z);
+
+endmodule
+</pre>
+
+This is typically done for top-level modules.
+
+
+<a name=netlist>
+<h3>4.7 Netlist Modules</h3>
+
+Netlist modules are those that are defined as a collection of
+connected components.  The components can be built-in Verilog
+primitives (such as "<tt>and</tt>" and "<tt>or</tt>"), library
+modules, or user-defined modules.  Here is a simple example of a
+module for a 1-bit full adder circuit (the same basic circuit as shown
+in <a href="#fullAdder">Figure 4.2</a>):
+
+<pre>
+ (1) module ADD(s, co, a, b, ci);
+ (2) output s, co;
+ (3) input a,b,ci;
+ (4) wire w1,w2,w3 ;
+ (5) 
+ (6)   or (co, w1, w2);
+ (7)   and (w2, a, b);
+ (8)   and (w1, w3, ci);
+ (9)   xor (s, w3, ci);
+(10)   xor (w3, a, b);
+(11)
+(12) endmodule
+</pre>
+
+The names "<tt>or</tt>", "<tt>and</tt>" and "<tt>xor</tt>" are
+built-in Verilog primitives for computing the OR, AND and XOR of one
+or more signals.  The first parameter of each of these primitives is
+the output signal, and the remaining parameters are the inputs.  In
+gate-level descriptions like this, it is easy to see the mapping
+between the description and the hardware.
+<p>
+Input ports may be driven by any type of variable, but the outputs of
+primitives must be a "Net" type variable such as <tt>wire</tt>,
+<tt>tri</tt> or <tt>wand</tt>.
+<p>
+It is also possible to give names to the instances of each of the
+gates.  We do this by inserting an instance name after the name of the
+primitive.  For example, we could replace the body of the example
+above with:
+
+<pre>
+ (6)   or g1 (co, w1, w2);
+ (7)   and g2 (w2, a, b);
+ (8)   and g3 (w1, w3, ci);
+ (9)   xor g4 (s, w3, ci);
+(10)   xor g5 (w3, a, b);
+</pre>
+
+In this new body, "<tt>g1</tt>", "<tt>g2</tt>", etc. are the instance
+names of the gates and can be used to refer to those gates when
+necessary.  You can also specify more than one instance in a single
+statement.  For example, an alternative way of specifying the above
+design is:
+<pre>
+ (6)   or g1 (co, w1, w2);
+ (7)   and g2 (w2, a, b), g3 (w1, w3, ci);
+ (8)   xor g4 (s, w3, ci), g5 (w3, a, b);
+</pre>
+<p>
+In addition to primitives, netlist modules can also combine other
+modules.  For example, we can connect four of the adders shown above
+to create a module of a 4-bit adder as shown below:
+<pre>
+ (1) module ADD4(s, co, a, b, ci);
+ (2) output [3:0] s;
+ (3) output co;
+ (4) input [3:0] a,b;
+ (5) input ci;
+ (6) wire c1,c2,c3;
+ (7) 
+ (8)    ADD a1 (s[0], c1, a[0], b[0]);
+ (9)    ADD a2 (s[1], c2, a[1], b[1]);
+(10)    ADD a3 (s[2], c3, a[2], b[2]);
+(11)    ADD a4 (s[3], co, a[3], b[3]);
+(12)
+(13) endmodule
+</pre>
+
+In this example, we create four instances of our <tt>ADD</tt> module
+named <tt>a1</tt> through <tt>a4</tt>.  Ports connections are made in
+the order in which they appear in the port list of the module
+definition.  Alternative, you can explicitly specify the port
+connections using the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<tt>.</tt><i>port</i><tt>(</tt><i>net</i><tt>)</tt>
+<br>
+<br>
+For example, you could replace line (8) with:
+<pre>
+ (8)    ADD a1 (.a(a[0]), .b(b[0]), .s(s[0]), .co(c1));
+</pre>
+Since the ports for each connection are explicitly specified, you can
+list the connections in any order.  However, you must either specify
+no ports or all ports in this manner.  You must also ensure that all
+ports have exactly one connection.
+
+
+<h4> 4.7.1 Verilog Primitives</h4>
+
+This section will introduce the primitive gates that are supported in
+TkGate's implementation of Verilog.  By default, all primitives are
+single bit and all inputs and outputs must be single bit.  You can
+declare arrays of primitives by using a bit range after the instance
+name.  For example:
+<pre>
+  and a1[3:0] (x, a, b);
+</pre>
+will perform a bit-wise AND on the four-bit signals <tt>a</tt> and
+<tt>b</tt> and drive the four-bit result to <tt>x</tt>.  The following
+subsections describe the various types primitives.
+
+<h5>Logic Primitives</h5>
+
+The logic primitives include <tt>and</tt>, <tt>or</tt>, <tt>xor</tt>,
+<tt>nand</tt>, <tt>nor</tt> and <tt>xnor</tt>.  The first parameter is
+always the output, and the remaining parameters are the inputs.  You
+can specify anywhere from one to an arbitrary number of inputs.  The
+primitives are defined in terms of their truth tables shown below.
+
+<table>
+<tr><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td class=tttopleft>and</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>1</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>x</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td class=tttopleft>or</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>1</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>x</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td class=tttopleft>xor</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>1</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>x</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td class=tttopleft>nand</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>1</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>x</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td class=tttopleft>nor</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>1</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>x</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td class=tttopleft>xnor</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>1</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>x</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>0</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td></tr>
+
+</table>
+
+<h5>Buffer Primitives</h5>
+
+The buffer primitives include <tt>buf</tt> and <tt>not</tt>.  The last
+parameter of these primitives is the input, and all of the preceding
+parameters are outputs being driven with the same value.  The
+<tt>buf</tt> primitive simply drives its input to the output, while
+the <tt>not</tt> primitive drives the compliment logic value.
+However, if the input is unknown or floating, the output will be
+unknown for both primitives.
+<p>
+Consider the example:
+<pre>
+   buf b1 (w1, w2, w3, a);
+   not n1 (w4, w5,  b);
+</pre>
+This will drive the value of <tt>a</tt> to <tt>w1</tt>, <tt>w2</tt>
+and <tt>w3</tt>.  The compliment of <tt>b</tt> will be driven to
+<tt>w4</tt> and <tt>w5</tt>.
+
+<h5>Conditional Buffer Primitives</h5>
+
+The conditional buffer primitives include <tt>bufif1</tt>,
+<tt>bufif0</tt>, <tt>notif1</tt> and <tt>notif0</tt>.  These primitives
+have exactly three ports as shown below:
+
+<pre>
+   bufif0 b1 (out, in, ctl);
+   bufif1 b2 (out, in, ctl);
+   notif0 n1 (out, in, ctl);
+   notif1 n2 (out, in, ctl);
+</pre>
+The first parameter is the output of the primitive, the second
+parameter is the input, and the third parameter is the control.  The
+<tt>bufif1</tt> and <tt>notif1</tt> gates act like <tt>buf</tt> and
+<tt>not</tt>, respectively, when the control signal is 1.  They output
+floating when the control line is 0.  Conversely, the <tt>bufif0</tt>
+and <tt>notif0</tt> gates act like <tt>buf</tt> and <tt>not</tt>,
+respectively, when the control signal is 0.  They output floating when
+the control line is 1.  The truth tables for these primitives are
+shown in the tables below.
+
+<table>
+<tr><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td colspan=2></td><td align=center colspan=4>ctl</td></tr>
+<tr><td rowspan=5>in</td><td class=tttopleft>bufif0</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>z</td><td>L</td><td>L</td></tr>
+<tr><td class=ttleft>1</td><td>1</td><td>z</td><td>H</td><td>H</td></tr>
+<tr><td class=ttleft>x</td><td>x</td><td>z</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>x</td><td>z</td><td>x</td><td>x</td></tr>
+</table>
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td colspan=2></td><td align=center colspan=4>ctl</td></tr>
+<tr><td rowspan=5>in</td><td class=tttopleft>bufif1</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>z</td><td>0</td><td>L</td><td>L</td></tr>
+<tr><td class=ttleft>1</td><td>z</td><td>1</td><td>H</td><td>H</td></tr>
+<tr><td class=ttleft>x</td><td>z</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>z</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td></tr>
+
+<tr><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td colspan=2></td><td align=center colspan=4>ctl</td></tr>
+<tr><td rowspan=5>in</td><td class=tttopleft>notif0</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>1</td><td>z</td><td>H</td><td>H</td></tr>
+<tr><td class=ttleft>1</td><td>0</td><td>z</td><td>L</td><td>L</td></tr>
+<tr><td class=ttleft>x</td><td>x</td><td>z</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>x</td><td>z</td><td>x</td><td>x</td></tr>
+</table>
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td colspan=2></td><td align=center colspan=4>ctl</td></tr>
+<tr><td rowspan=5>in</td><td class=tttopleft>notif1</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>z</td><td>1</td><td>H</td><td>H</td></tr>
+<tr><td class=ttleft>1</td><td>z</td><td>0</td><td>L</td><td>L</td></tr>
+<tr><td class=ttleft>x</td><td>z</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>z</td><td>x</td><td>x</td><td>x</td></tr>
+</table>
+
+</td></tr>
+
+</table>
+
+<h5>MOS Transistor Primitives</h5>
+
+Transistor primitives model simple nmos and pmos devices.  However,
+TkGate does not do true transistor-level simulation in the sense of
+Spice and other such tools.  Instead, they are simulated in the same
+way as the gate primitives, driving an output depending on the value
+of the input and control signals.  Examples of these primitives are:
+<pre>
+  nmos n (out, in, ctl);
+  pmos p (out, in, ctl);
+</pre>
+The truth tables for determining the value driven to <tt>out</tt> from
+the values on the input <tt>in</tt> and the control line (or gate)
+<tt>ctl</tt> are shown in the table below. 
+
+<table>
+<tr><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td colspan=2></td><td align=center colspan=4>ctl</td></tr>
+<tr><td rowspan=5>in</td><td class=tttopleft>nmos</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>z</td><td>0</td><td>L</td><td>L</td></tr>
+<tr><td class=ttleft>1</td><td>z</td><td>1</td><td>H</td><td>H</td></tr>
+<tr><td class=ttleft>x</td><td>z</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>z</td><td>z</td><td>z</td><td>z</td></tr>
+</table>
+
+</td><td style="padding: 20; ">
+
+<table class=truthtable>
+<tr><td colspan=2></td><td align=center colspan=4>ctl</td></tr>
+<tr><td rowspan=5>in</td><td class=tttopleft>pmos</td><td class=tttop>0</td><td class=tttop>1</td><td class=tttop>x</td><td class=tttop>z</td></tr>
+<tr><td class=ttleft>0</td><td>0</td><td>z</td><td>L</td><td>L</td></tr>
+<tr><td class=ttleft>1</td><td>1</td><td>z</td><td>H</td><td>H</td></tr>
+<tr><td class=ttleft>x</td><td>z</td><td>z</td><td>x</td><td>x</td></tr>
+<tr><td class=ttleft>z</td><td>z</td><td>z</td><td>z</td><td>z</td></tr>
+</table>
+</td></tr>
+</table>
+
+This level of modeling is generally good enough to create CMOS
+circuits out of nmos and pmos components.  For example:
+<pre>
+  nmos n1 (out, gnd, a);
+  nmos n2 (out, gnd, b);
+  pmos p1 (x, vdd, a);
+  pmos p2 (out, x, b);
+</pre>
+will implement a 2-input OR gate. 
+
+<h4> 4.7.2 Specifying Delay Values</h4>
+
+In the examples presented so far, all of the primitives had zero
+delay.  In a real circuit, there is propagation delay over a gate.
+The delay is specified with the syntax <tt>#</tt><i>delay</i>.  For
+example, if we add delays to our full adder circuit we get:
+<pre>
+ (1) module ADD(s, co, a, b, ci);
+ (2) output s, co;
+ (3) input a,b,ci;
+ (4) wire w1,w2,w3 ;
+ (5) 
+ (6)   or #5 g1 (co, w1, w2);
+ (7)   and #5 g2 (w2, a, b);
+ (8)   and #5 g3 (w1, w3, ci);
+ (9)   xor #7 g4 (s, w3, ci);
+(10)   xor #7 g5 (w3, a, b);
+(11)
+(12) endmodule
+</pre>
+The <tt>or</tt> and <tt>and</tt> gates will have delays of 5 time
+units (or whatever was specified as the units in the
+<tt>`timescale</tt> directive).
+
+<h4> 4.7.3 <tt>assign</tt> Statements</h4>
+
+Rather than defining complex expression in terms of primitives, you
+can use an <tt>assign</tt> statement to assign an expression to an
+output, with much the same behavior as if you defined it in terms of
+gates.  The general syntax is:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<tt>assign</tt> <i>wire</i> <tt>=</tt> <i>expression</i><tt>;</tt>
+<br>
+<br>
+The <i>wire</i> must be a net type variable (<tt>wire</tt>,
+<tt>tri</tt>, <tt>wand</tt>, etc.), but the expression may contain both
+net and register type variables.  The value driven to <i>wire</i>
+changes whenever the value of the expression changes.  You can can
+also specify a delay value for the <tt>assign</tt> statement using the
+syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<tt>assign #</tt><i>delay</i> <i>wire</i> <tt>=</tt> <i>expression</i><tt>;</tt>
+<br>
+<br>
+An example of an <tt>assign</tt> statement with a delay is:  
+<pre>
+   assign #5 x = a &amp; (b + c);
+</pre>
+
+
+<a name=behavioral>
+<h3>4.8 Behavioral Modules</h3>
+
+In behavioral models, the design is specified algorithmically, more
+like a C program.  Unlike most C programs, however, Verilog
+specifications tend to be highly parallel with many threads.
+
+<h4> 4.8.1 <tt>initial</tt> and <tt>always</tt> Statements</h4>
+
+All behavioral Verilog is defined inside an <tt>initial</tt> or
+<tt>always</tt> statement.  Both of these statements create a new
+parallel thread for each statement occurring in the design.  The
+<tt>initial</tt> statement creates a thread that executes once and
+terminates, while the <tt>always</tt> statement creates a thread that
+repeats in an infinite loop.  An example of a clock-generator module
+defined in behavioral Verilog is shown below:
+<pre>
+ (1)  module myclock(x);
+ (2)  output reg x;
+ (3)  
+ (4)    initial
+ (5)       x = 1'b0;
+ (6)  
+ (7)    always
+ (8)       #100 x = ~x;
+ (9)  
+(10)  endmodule
+</pre>
+When the simulation starts, both the <tt>initial</tt> statement and
+the <tt>always</tt> statement begin execution in parallel.  The thread
+started by the <tt>initial</tt> statement sets the output register
+<tt>x</tt> to 0 as soon as the simulator starts.  The <tt>always</tt>
+thread waits for 100 simulation time steps, then inverts the value if
+<tt>x</tt>.  Since <tt>always</tt> statements repeat, control will go
+back to the top of the <tt>always</tt> statement, and after another
+100 time units, <tt>x</tt> will be inverted again.  The result is that
+<tt>x</tt> will be 0 for the first 100 time units, 1 for time units
+100 to 199, 0 again for time units 200 to 299, and so on.
+
+<h4> 4.8.2 Blocking Assignments</h4>
+
+Blocking assignments are assignments that use the <tt>=</tt> operator,
+and are the most similar to assignments in a C program.  Each
+blocking assignment is executed and the new value assigned to the
+left-hand side before the next statement is executed.  The left-hand
+side of blocking assignments must be a register type variable.
+<p>
+An example use of blocking assignments is in the module shown below:
+
+<pre>
+ (1)  module foo(z,a,b,c)
+ (2)  output reg [15:0] z;
+ (3)  input [15:0] a,b,c;
+ (4)  reg [15:0] r1,r2;
+ (5)  
+ (6)    always
+ (7)      begin
+ (8)        r1 = a + b;
+ (9)        r2 = r1 *(b + c);
+(10)        #5 z = r2 / r1;
+(11)      end
+(12)
+(13)  endmodule
+</pre>
+The statements at Lines (8) and (9) are executed sequentially.  The
+value of <tt>r1</tt> used in Line (9) is the value computed at Line
+(8).  The <tt>#5</tt> at Line (10) cause execution of the thread to be
+suspended for 5 time units.  After the 5 unit delay has elapsed, the
+expression <tt>r2 / r1</tt> is evaluated and assigned to <tt>z</tt>.
+Once the statement at Line (10) has completed, execution of the thread
+goes back to the top and Lines (8) and (9) are executed again.
+<p>
+The delay on Line (10) causes evaluation of the left-hand side to wait
+until the statement after the delay period has elapsed.  If some other
+thread were to change the values of <tt>r1</tt> or <tt>r2</tt> during
+the 5 time units Line (10) was delayed, the new values would be used
+instead.  If you wish to ensure that the values at the beginning of
+the delay period are used, you can use an intra-statement delay such as:
+<pre>
+        z = #5 r2 / r1;
+</pre>
+This will cause <tt>r2 / r1</tt> to be evaluated immediately, but the
+statement will delay 5 time units before assigning <tt>z</tt>.
+
+<h4> 4.8.3 Non-Blocking Assignments</h4>
+
+Non-Blocking assignments use the <tt>&lt;=</tt> operator and are
+executed in parallel.  The right-hand side expressions are evaluated
+immediately, but the assignment is deferred until the end of the
+current time step.  Like with blocking assignments, the left-hand side
+of non-blocking assignments must also be a register type variable.
+<p>
+An example of using non-blocking assignments to swap the values of two
+registers are:
+<pre> 
+ (1)  always
+ (2)    begin
+ (3)      # 10;
+ (4)      a &lt;= b;
+ (5)      b &lt;= a;
+ (6)    end
+</pre> 
+
+The statement at Line (3) is a delay statement.  It waits 10 time
+units before continuing execution.  The next two statements at Lines
+(4) and (5) are executed in parallel.  The current values of
+<tt>b</tt> and <tt>a</tt> are read, then when the next time unit
+starts, the new values are written to <tt>a</tt> and <tt>b</tt>.
+<p>
+You can specify a delay in non-blocking assignments using a statement
+such as:
+<pre>
+    a <=  #5 b + x;
+</pre>
+This statement will evaluate <tt>b + x</tt>, and schedule the
+assignment of that value to <tt>a</tt> five time units in the future.
+Execution of statements after this non-blocking assignment will
+continue immediately.
+<p>
+While you can place the delay before a non-blocking assignment as in:
+<pre>
+    #5 a <= b + x;    // A usually incorrect usage of non-blocking assignment
+</pre>
+This usage will result in the thread blocking for 5 time units, then
+executing the non-blocking assignment.  It is equivalent to writing:
+<pre>
+    #5;
+    a <= b + x;
+</pre>
+
+<h4> 4.8.4 Fully Qualified Path Names</h4>
+
+You can reference variables in other modules of your design by using
+fully qualified path names.  Fully qualified path names start with the
+name of the top level module, followed by the names of the path of
+instances down to the level in which the variable you wish to
+reference is.  The "<tt>.</tt>" character is used between each part of
+the name.  Consider the following example:
+
+<pre>
+  module top;
+    wire [15:0] x;
+    reg [15:0] a,b;
+
+    foo g1(x,a,b);
+
+    initial 
+      begin    
+        $monitor("x=%h a=%h b=%h",x,a,b);
+
+        #1 a = 16'h45;
+        #1 b = 16'h24;
+        #1 top.g1.i = 16'h100;
+      end    
+  endmodule
+
+  module foo(x,a,b);
+   output [15:0] x;
+   input [15:0] a,b;
+   
+    reg [15:0] i = 0;
+
+    assign #1 x = a + b + i;
+  endmodule  
+</pre> 
+
+The variable name "<tt>top.g1.i</tt>" used in <tt>top</tt> references
+the variable <tt>i</tt> in the instance <tt>g1</tt> of module
+<tt>foo</tt>.  When this example is simulated, it produces the output:
+<pre>
+x=x a=45 b=x
+x=x a=45 b=24
+x=69 a=45 b=24
+x=169 a=45 b=24
+</pre>
+Fully qualified path names allow any module to access variables of any
+other module in your design.  Normally, they should only be used in
+simulation scripts and for debugging.
+
+<h4> 4.8.5 System Tasks</h4>
+
+There are a number of system tasks supported in TkGate.  They are used
+somewhat like function calls and are built into the simulator.  System
+tasks begin with a <tt>$</tt>.  One useful system task is the
+<tt>$display</tt> task.  It is similar to a <tt>printf()</tt> in a C
+program.  Here is an example of a behavioral description using the
+<tt>$display</tt> task:
+
+<pre>
+   reg [7:0] x;
+
+   initial
+     begin
+       x = 8'hf;
+       $display("Hello world.  The value of x is %d",x);
+     end
+</pre>
+Simulating this description will produce the output: 
+<pre>
+Hello world.  The value of x is 15
+</pre>
+The <tt>$display</tt> task appends a newline to the end of the output.
+When simulating through the TkGate graphical interface, the output
+will be directed to the <a
+href="gateSiml.html#simOutputConsole">simulator output console</a>.
+When using the TkGate simulator stand-alone, output will go to
+standard output.  Like C, the <tt>%</tt> symbol is used to denote
+conversions for output.  For example:
+<pre>
+    $display("x=%d  x=%o  x=%h  x=%04h",x,x,x,x);
+</pre>
+will produce:
+<pre>
+x=15  x=17  x=f  x=000f
+</pre>
+Another useful system task is the <tt>$monitor</tt> task.  It has the
+same calling conventions as <tt>$display</tt>, except that instead of
+displaying immediately, it sets a watch on all the nets that are
+referenced in the statement.  Any time a variable referenced by the
+<tt>$monitor</tt> task changes value, output will be produced using the
+rules as in a <tt>$display</tt>.  For example, the module:
+
+<pre>
+   module top;
+   reg [7:0] x, y, z;
+
+     initial
+       $monitor("%t: x=%02h  y=%02h  z=%02h",$time,x,y,z);
+
+     initial
+       begin
+         x = 8'h42; y = 8'h23; z = 8'hfe;
+         #5 x = 8'h94;
+         #73 y = 8'h6d;
+         #21 z = 8'h88;
+       end
+    endmodule
+</pre>
+will produce the output:
+<pre>
+0: x=42  y=23  z=fe
+5: x=94  y=23  z=fe
+78: x=94  y=6d  z=fe
+99: x=94  y=6d  z=88
+</pre>
+The <tt>$monitor</tt> task produces output at most once per simulation
+time unit.  The output is produced at the end of the epoch if the
+simulator has detected a change on any of the variables references in
+the <tt>$monitor</tt> task.
+<p>
+You may have noticed that we also used the system task <tt>$time</tt>
+in this example.  This system task returns the current simulation time
+in simulation time units.  You should use the <tt>%t</tt> conversion
+when printing out time values.  The output produced when using the
+<tt>%t</tt> conversion is influenced by the current
+<tt>`timescale</tt> in force for the module in which it is used.
+
+<p>
+These are only a small fraction of the system tasks supported in
+TkGate.  For a complete list of all the system tasks, see <a
+href=systemTasks.html>Appendix D. List of System Tasks</a>.
+
+
+<h4> 4.8.6 Delay Triggering</h4>
+
+The delay operator "<tt>#</tt><i>delay</i>" has already been touched
+upon in the previous sections. This operator can be used to
+suspend/delay execution of a thread for a specified period of time.
+It can be placed at the beginning of a statement, in-line in a
+assignment statement, or by itself as a pure delay.
+<p>
+If a <tt>timescale</tt> directive has been used, the delay value may
+be fractional.  For example when the module:
+<pre>
+ (1)  `timescale 1ns / 100ps
+ (2)  
+ (3)  module top;
+ (4)  
+ (5)    initial
+ (6)      begin
+ (7)         $display("%t: starting simulation",$time);
+ (8)         # 1.5;
+ (9)         $display("%t: after delay",$time);
+(10)      end
+(11)  
+(12)  endmodule
+</pre>
+is simulated, the following output is produced:
+<pre>
+0.0: starting simulation
+1.5: after delay
+</pre>
+
+You can also use a zero delay to ensure that a statement is executed
+at the end of an epoch.  For example:
+<pre>
+   initial
+     i = 9;
+
+   initial
+     i = 7;
+
+   initial
+     #0 i = 42;
+</pre>
+will set <tt>i</tt> to <tt>42</tt> because the <tt>#0</tt> delay
+ensures that the <tt>i = 42;</tt> assignment is executed last.  If the
+<tt>#0</tt> were not used, then the value of <tt>i</tt> would be
+non-deterministic.
+
+<h4> 4.8.7 Event-Based Triggering</h4>
+
+Event-based triggering is another way to introduce blocking into your
+design.  Event-based triggers have the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>@(</tt> <i>event-expr</i> <tt>)</tt><i>statement</i><tt>;</tt>
+<br>
+<br>
+They cause the execution of the statement to block until the event
+described by <i>event-expr</i> occurs.  An example use of a
+event-based trigger is in the following example of a D-flip-flop:
+
+<pre>
+ (1)  module dff(q, d, clock);
+ (2)  input d, clock;
+ (3)  output reg q;
+ (4)  
+ (5)    always @(posedge clock)
+ (6)      q = d;
+ (7)  
+ (8)  endmodule
+</pre>
+The <tt>@(posedge clock)</tt> expression will cause the execution of
+the always block to be suspended until the rising edge of the
+<tt>clock</tt> signal.  The <tt>posedge</tt> and <tt>negedge</tt>
+operators indicate that we should wait for the rising/positive or
+falling/negative edge of the signal that follows it.  If we had
+instead written Lines (5) and (6) as:
+<pre>
+ (5)    always @(clock)
+ (6)      q = d;
+</pre>
+The design would have loaded <tt>q</tt> with the value of <tt>d</tt>
+on both the rising and falling edges of the <tt>clock</tt> signal.
+<p>
+You can use the <tt>or</tt> operator to trigger on the change of one
+or more signals.  For example:
+<pre>
+ (5)    always @(posedge clock or load)
+ (6)      q = d;
+</pre>
+would result in the assignment being executed on either the rising
+edge of <tt>clock</tt> or any change in the value of <tt>load</tt>.
+<p>
+You can also use the event-based trigger with <tt>event</tt>
+variables.  Event variables are declared with the <tt>event</tt>
+keyword.  The <tt>-></tt> operator is used to raise an event on an
+event variable.  The following example declares and uses an event
+variable:
+<pre>
+  (1)   module top;
+  (2)      event e;
+  (3)   
+  (4)      initial
+  (5)        @ (e) $display($time,": got event");
+  (6)   
+  (7)      initial
+  (8)        #24 -> e;
+  (9)      
+  (10)  endmodule
+</pre>
+when simulated, this example produces:
+<pre>
+24: got event
+</pre>
+The event variable <tt>e</tt> is declared at Line 2.  The
+<tt>initial</tt> statement at Line 4 executes and uses an event
+trigger to wait for a signal on <tt>e</tt>.  A parallel
+<tt>initial</tt> statement at Line 7 waits for 24 time units, then
+uses the <tt>-></tt> operator to raise an event on <tt>e</tt>.  The
+raise event operator only has an effect if there are other threads
+that are blocked waiting for an event.
+
+<h4> 4.8.8 The <tt>wait</tt> Statement</h4>
+
+The <tt>wait</tt> statement block until a condition is true, then
+executes its statement.  The general syntax is:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>wait (</tt> <i>expr</i> <tt>)</tt><i>statement</i><tt>;</tt>
+<br>
+<br>
+The <i>expr</i> is evaluated any time a variable in it changes, and if
+the expression is not satisfied, it continued to block, otherwise it
+executes its statement.  As an example, consider the simple latch:
+<pre>
+ (1)  module latch(q, d, load)
+ (2)  input d,load;
+ (3)  output reg q;
+ (4)  
+ (5)    always
+ (6)        wait (load == 1'b0)
+ (7)          #10 q = d;
+ (8)  
+ (9)  endmodule
+</pre>
+When the <tt>load</tt> signal becomes zero, the <tt>q</tt> register is
+loaded with the value of <tt>d</tt> after a delay of 10 time units.
+It is important to include a delay in here to avoid locking up the
+simulator.  With no delay, the statement would continue executing
+forever without advancing simulation time.  This is because simulation
+time is advanced only after all statements in the current time period
+(epoch) have been executed.
+
+<h4> 4.8.9 Conditional Statements</h4>
+
+Conditional statements are similar to C <tt>if</tt> statements and use
+essentially the same syntax.  For example:
+<pre>
+    if (load == 1'b0)
+      q = d;
+    else
+      q = q + 1;
+</pre>
+will load the value of <tt>d</tt> into <tt>q</tt> if <tt>load</tt> is
+zero, otherwise it will increment the value of <tt>q</tt>.  If the
+value of the expression is unknown (for example, if <tt>load</tt> had
+any unknown bits), then the <tt>else</tt> branch will be taken.
+<tt>if</tt> statements may be nested, and the <tt>else</tt> branch is
+optional.  You may also use a <tt>begin...end</tt> block in the body
+as in the example:
+<pre>
+    if (u > x)
+      begin
+        u = u - 1;
+        x = j + k;
+      end
+</pre>
+
+<h4> 4.8.10 Case Statements</h4>
+
+There are three variants of multi-way branching or <tt>case</tt>
+statements: <tt>case</tt>, <tt>casex</tt> and <tt>casez</tt>.  They
+all have the same basic syntax except for which keyword is used.  They
+are similar in purpose to the C <tt>switch</tt> statement, but have
+some important differences.  An example of a <tt>case</tt> statement
+is:
+<pre>
+     case (r)
+        2'b00: u = 3;
+        2'b0x, 2'b0z: u = 4;
+        2'b10, 2'b11, 2'bx1: u = 5;
+        2'bxx: u = 6;
+        default: u = 7;
+     endcase
+</pre>
+This statement will compare <tt>r</tt> against each of the branches in
+order until a match is found.  Comparison is done with case equality
+(<tt>===</tt>) meaning that there must be an exact bit-by-bit match
+including any unknown (x) or floating (z) bits.  You may also specify
+more than one value for each branch of the case.
+<p>
+The <tt>casez</tt> statement differs from <tt>case</tt> in that any
+floating (z) bits in the case values or in the expression are treated
+as don't cares.  You may also use a "?" in the case values in place of
+"z".  The <tt>casex</tt> statement differs in that both floating (z)
+and unknown (x) bits are treated as don't cares.  An example of a
+<tt>casex</tt> statement is:
+<pre>
+     casez (r)
+        8'b1101????: u = 3;
+        8'b1001????: u = 4;
+        8'b00????01: u = 5;
+        default: u = 7;
+     endcase
+</pre>
+Like conditional statements, you may nest <tt>case</tt> and
+<tt>if</tt> statements and use <tt>begin...end</tt> block in the body
+of a branch.
+<p>
+Another difference between the Verilog <tt>case</tt>, <tt>casez</tt>
+and <tt>casex</tt> statements compared to the C <tt>switch</tt>
+statement is that the case values need not be constants.  For example,
+you can write:
+<pre>
+    reg [7:0] r, v1, v2,v3;
+
+    case (r)
+       v1: $display("r matched v1"); 
+       (v2+1): $display("r matched v2+1"); 
+       v3: $display("r matched v3"); 
+       default: $display("r didn't match anything"); 
+    endcase
+</pre>
+The case expressions are evaluated as the simulator tries <tt>r</tt>
+against each expression looking for the first match.
+
+<h4> 4.8.11 Loops</h4>
+
+There are four types of looping statements in Verilog that will be
+described in this section.
+
+<h5><tt>while</tt> Loops</h5>
+
+<tt>while</tt> loops look and behave similarly to <tt>while</tt> loops
+in C programs.  An example use of a <tt>while</tt> loop is shown below:
+<pre>
+   always
+     begin
+       count = 0;
+       while (count < 10)
+         #12 count = count + 1;
+     end
+</pre>
+This description will set <tt>count</tt> to 0, then increment
+<tt>count</tt> ten times with a 12 epoch delay between each time it is
+incremented.
+
+<h5><tt>for</tt> Loops</h5>
+
+<tt>for</tt> loops also look and behave similarly to <tt>for</tt>
+loops in C programs.  An example use of a <tt>for</tt> loop is shown below:
+<pre>
+   reg [7:0] r;
+   integer i;
+
+   always @(r)
+     for (i = 0;i < 8;i = i + 1)
+       $display("Bit %d of r is %b.",i,r[i]);
+</pre>
+This code would wait or the value of <tt>r</tt> to change, then print
+out each bit of it individually.
+
+<h5><tt>repeat</tt> Loops</h5>
+
+<tt>repeat</tt> loops can be used to repeat a statement a specified
+number of times.  For example:
+<pre>
+   repeat (10)
+     #12 count = count + 1;
+</pre>
+would increment <tt>count</tt> ten times with a 12 time unit delay
+between each increment.
+
+<h5><tt>forever</tt> Loops</h5>
+
+<tt>forever</tt> loops can be used to repeat a statement indefinitely
+.  For example:
+<pre>
+   forever
+     #12 count = count + 1;
+</pre>
+would increment <tt>count</tt> every 12 time units.  Control would
+never pass to any statements after the <tt>forever</tt> statement.
+
+<h4> 4.8.12 <tt>fork...join</tt> Blocks</h4>
+
+<tt>fork...join</tt> blocks can be used to execute two or more
+statements in parallel.  A new thread is started for each statement in
+the fork, and the threads are executed in parallel.  Execution of the
+parent thread is suspended until all statements in the <tt>fork</tt>
+have completed.  The statements in the <tt>fork</tt> may be
+<tt>begin...end</tt> blocks in which case the statements enclosed
+within each <tt>begin...end</tt> block will be executed sequentially.
+Here is an example of a module using a <tt>fork...join</tt>.
+<pre>
+ (1)  module top;
+ (2)    reg [31:0] a,b,c;
+ (3)  
+ (4)    initial
+ (5)      begin
+ (6)        fork
+ (7)          @(a) $display("%t: got a",$time);
+ (8)          @(b) $display("%t: got b",$time);
+ (9)          @(c) $display("%t: got c",$time);
+(10)        join
+(11)        $display("%t: done with fork",$time);
+(12)      end
+(13)  
+(14)    initial
+(15)      begin
+(16)        #1 a = 1;
+(17)        #1 b = 1;
+(18)        #1 c = 1;
+(19)      end
+(20)  
+(21)  endmodule
+</pre>
+When simulated, this example would produce the output:
+<pre>
+1: got a
+2: got b
+3: got c
+3: done with fork
+</pre>
+The three threads at Lines (7), (8) and (9) are started in parallel.
+Each of those threads immediately suspend waiting for changes in
+<tt>a</tt>, <tt>b</tt> and <tt>c</tt>, respectively.  The
+<tt>initial</tt> block at Line (14) also begins executing at time 0,
+then sets <tt>a</tt>, <tt>b</tt> and <tt>c</tt> in order with a 1 time
+unit delay between each assignment.  As each assignment occurs, one of
+the forks in the <tt>fork...join</tt> sees the change, prints its
+message and terminates.  When all three forks of the
+<tt>fork...join</tt> have terminated, execution continues in the main
+thread after the <tt>fork...join</tt> and the "done with fork" message
+is displayed.
+
+<h4> 4.8.13 Tasks</h4>
+
+Tasks are similar to function calls in C.  Tasks are defined in the
+context of a module.  They begin with the <tt>task</tt> keyword, and
+are followed by the task name, an optional parameter list, a body, and
+the <tt>endtask</tt> keyword.  The body can contain any of the
+statements that may appear of the behavioral Verilog statements
+described in this section.  Tasks may address both local variables
+defined within them and variables in the parent module.  Here is
+example of a module that defines and uses a task:
+<pre>
+ (1)  module top;
+ (2)    reg [15:0] s1,s2;
+ (3)  
+ (4)     task domult(input [15:0] a, input [15:0] b, output [15:0] z);
+ (5)       begin
+ (6)         #1 z = a * b;
+ (7)       end
+ (8)     endtask
+ (9)     
+(10)     initial
+(11)       begin
+(12)         domult(3,5,s1);
+(13)         $display("%t: s1=%d",$time,s1);
+(14)         domult(7,11,s2);
+(15)         $display("%t: s2=%d",$time,s2);
+(16)       end
+(17)  
+(18)  endmodule
+</pre>
+The task <tt>domul</tt> take two inputs <tt>a</tt> and <tt>b</tt>,
+delays for one epoch, then stores their product in the output
+<tt>z</tt>.  We make two calls in to <tt>domul</tt> in the main body
+of the module, assigning values to <tt>s1</tt> and <tt>s2</tt>.  When
+simulated, this module will produce the output:
+<pre>
+1: s1=15
+2: s2=77
+</pre>
+Tasks can use <tt>input</tt>, <tt>output</tt> and <tt>inout</tt> ports
+declared in their parameter list as shown on Line (4) of the example.
+These ports can either be declared in a port list as shown in the
+example, or they may be declared in separate declarations as in:
+<pre>
+    task domult;
+    input [15:0] a, b;
+    output [15:0] z;
+      begin
+        #1 z = a * b;
+      end
+    endtask
+</pre>
+It is also possible to have tasks with no ports as in this example:
+<pre>
+ (1)  module myclock(x);
+ (2)  output reg x;
+ (3)
+ (4)    task initialize_clock;
+ (5)      begin
+ (6)        x = 1'b0;
+ (7)      end
+ (8)    endtask
+ (9)  
+(10)    initial
+(11)       initialize_clock();
+(12)  
+(13)    always
+(14)       #100 x = ~x;
+(15)  
+(16)  endmodule
+</pre>
+In this example, the <tt>initialize_clock</tt> task sets the register
+<tt>x</tt> to 0.  By placing all the initialization code in a task, we
+have made our design more general.  If future versions of our module
+become more complex, we have a place to put any additional
+initialization code.
+<p>
+Additional local variables can be declared before the
+<tt>begin...end</tt> block inside the task.  For example:
+<pre>
+    task printbits(input [7:0] a);
+      integer i;
+
+      begin
+        $display("Here are the bits in %d:",a);
+        for (i = 0;i < 8;i = i + 1)
+          $display("   bit %d is %b.",i,a[i]);
+      end
+    endtask
+</pre>
+will print out:
+<pre>
+Here are the bits in 184:
+   bit 0 is 0  
+   bit 1 is 0  
+   bit 2 is 0  
+   bit 3 is 1  
+   bit 4 is 1  
+   bit 5 is 1  
+   bit 6 is 0  
+   bit 7 is 1  
+</pre>
+when invoked with <tt>printbits(184)</tt>.
+
+<p>
+One important difference between Verilog tasks, and C functions is
+that local variables are shared across all invocations of the task.
+This can cause problems when a task is invoked concurrently on two
+different threads.  For example, consider this module in which
+<tt>domult</tt> is invoked concurrently in two different threads of a
+<tt>fork...join</tt> block:
+<pre>
+ (1) module top;
+ (2)   reg [15:0] s1,s2;
+ (3) 
+ (4)   task domult(input [15:0] a, input [15:0] b, output [15:0] z);
+ (5)     begin
+ (6)       #1 z = a * b;
+ (7)     end
+ (8)   endtask
+ (9)    
+(10)   initial
+(11)     fork
+(12)       begin
+(13)         domult(3,5,s1);
+(14)         $display("%t: s1=%d",$time,s1);
+(15)       end
+(16)       begin
+(17)         domult(7,11,s2);
+(18)         $display("%t: s2=%d",$time,s2);
+(19)       end
+(20)    join
+(21)  
+(22)  endmodule
+</pre>
+When this module was simulated,the following seemingly incorrect
+output was produced:
+<pre>
+1: s1=77
+1: s2=77
+</pre>
+The problem is that since, the local variables <tt>a</tt> and
+<tt>b</tt> are shared between the two invocations, which ever
+invocation gets invoked second, will overwrite those values.  In this
+case, the invocation at Line (17) was invoked second, so by the time
+Line (6) is called, <tt>a</tt> and <tt>b</tt> have been set to 7 and
+11 in both invocations.  In general, the values of <tt>a</tt> and
+<tt>b</tt> are non-deterministic since there is no guarantee as to
+which thread will execute first.  To solve this problem, you can use
+the <tt>automatic</tt> keyword in the task declaration, writing:
+<pre>
+ (4)   automatic task domult(input [15:0] a, input [15:0] b, output [15:0] z);
+ (5)     begin
+ (6)       #1 z = a * b;
+ (7)     end
+ (8)   endtask
+</pre>
+in place of Lines (4) through (8) above.  The <tt>automatic</tt>
+keyword causes local variables in a task to be private to each
+invocation at a slight performance penalty to the simulation.  When
+this corrected design is simulated, the simulator output becomes:
+<pre>
+1: s1=15
+1: s2=77
+</pre>
+This agrees more with our expectations, although technically, the
+order in which the two output lines is printed is still
+non-deterministic.
+
+<h4> 4.8.14 Functions</h4>
+
+Functions are very similar to tasks, but have some additional
+restrictions.  They must
+<ul>
+<li> return a single value,
+<li> use only <tt>input</tt> ports,
+<li> must not contain any delay or event-triggered statements, and
+<li> must not contain any non-blocking assignments.
+</ul>
+Unlike tasks, functions can also be used in <tt>assign</tt> statements
+outside of normal behavioral Verilog blocks.  Here is an example of a
+function definition and invocation:
+<pre>
+ (1)  module top;
+ (2)    reg [15:0] s1,s2;
+ (3)  
+ (4)     function [15:0] sqaddmult(input [15:0] a, input [15:0] b, input [15:0] c);
+ (5)       reg [15:0] temp;
+ (5)       begin
+ (6)         temp = b + c;
+ (7)         sqaddmult = a * temp * temp;
+ (8)       end
+ (9)     endtask
+(10)     
+(11)     initial
+(12)       begin
+(13)         #1 $display("%t: s1=%d",$time,sqaddmult(3,4,5));
+(14)         #1 $display("%t: s2=%d",$time,sqaddmult(6,7,8));
+(15)       end
+(16)  
+(17)  endmodule
+</pre>
+This function adds <tt>b</tt> and <tt>c</tt>, squares the sum and puts
+the result into the temporary variable <tt>temp</tt>, then multiplies
+<tt>temp</tt> by the value of <tt>a</tt>.  The return value of the
+function is indicated by the assignment to <tt>sqaddmult</tt>, the
+name of the function.  The <tt>[15:0]</tt> after the <tt>function</tt>
+keyword in Line 4 tells us that the return value is 16 bits.
+<p>
+Just as with tasks, you can also use the alternate syntax:
+<pre>
+     function [15:0] sqaddmult;
+     input [15:0] a, b, c;
+</pre>
+to declare the function and its ports.  Also just like with tasks,
+local variables are shared among invocations unless you use the
+<tt>automatic</tt> keyword before <tt>function</tt>.  However, due to
+a limitation in the TkGate Verilog simulator implementation, you can
+only use <tt>automatic</tt> to protect against alternate threads
+accessing the same function, you can not use it to write recursive
+functions.
+<p>
+One use of functions is to define complex combinational logic in a
+concise algorithmic manner such as:
+<pre>
+ (1)  module mylogic(x,a,b,c);
+ (2)  output [15:0] x;
+ (3)  input [15:0] a,b,c;
+ (4)  
+ (5)    function foo(input [15:0] a,input [15:0] b,input [15:0] c);
+ (6)      begin
+ (7)        r1 = (a[7:0] ^ b[7:0] ^ c[7:0]) + (a[15:8] ^ b[15:8] ^ c[15:8]);
+ (8)        r2 = (a[7:0] ^ b[15:8] ^ c[7:0]) + (a[15:8] ^ b[7:0] ^ c[15:8]);
+ (9)        r3 = (a[7:0] ^ b[7:0] ^ c[15:8]) + (a[15:8] ^ b[15:8] ^ c[7:0]);
+(10)        r4 = (a[7:0] ^ b[15:8] ^ c[15:8]) + (a[15:8] ^ b[7:0] ^ c[7:0])
+(11)        foo = r1 ^ r2 ^ r3 ^ r4;
+(12)      end
+(13)    endfunction
+(14)  
+(15)    assign x = foo(a,b,c);
+(16)  
+(17)  endmodule
+</pre>
+
+<A NAME=parameters></A>
+<h3>4.9 Module Parameters</h3>
+
+The <tt>parameter</tt> variable type was introduced in <a
+href="#parmtype">Section 4.3.6</a>.  You can also declare module
+parameters that can be overridden by instantiating modules.  Module
+parameters are declared in a separate list before the port list.  This
+list has the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <tt>#(
+.</tt><i>name1</i><tt>(</tt><i>value1</i><tt>), </tt>
+.</tt><i>name2</i><tt>(</tt><i>value2</i><tt>), </tt>...<tt>)</tt>
+<br>
+<br>
+
+The names <i>name1</i>, <i>name2</i>, etc. are the names of the module
+parameters, and the values <i>value1</i>, <i>value2</i>, etc. are the
+default values of those parameters.  As an example, consider this
+module implementing and AND gate with a parameter <tt>delay</tt> for
+specifying the delay.
+
+<pre>
+ (1) module AND2 #(.delay(5)) (z, a, b);
+ (2) output z;
+ (3) input a,b;
+ (4)
+ (5)   assign #delay z = a & b;
+ (6)
+ (7) endmodule
+</pre>
+
+The default value for <tt>delay</tt> in this example is 5.  When
+overriding the module parameters in an instantiation, the parameter
+list is specified after the module name, but before any instance
+names.  For example:
+<pre>
+ (1) module ADDER(s, co, a, b, ci);
+ (2) output s, co;
+ (3) input a,b,ci;
+ (4) wire w1,w2,w3 ;
+ (5) 
+ (6)   OR2 #(6) g1 (.a(w1), .b(w2), .z(co));
+ (7)   AND2 #(6) g2 (.a(a), .b(b), .z(w2));
+ (8)   AND2 #(7) g3 (.a(w3), .b(ci), .z(w1));
+ (9)   XOR2 #(8) g4 (.a(w3), .b(ci), .z(s));
+(10)   XOR2 #(8) g5 (.a(a), .b(b), .z(w3));
+(11)
+(12) endmodule
+</pre>
+This would create a design where the delay of instance <tt>g2</tt> is
+6, and the delay of <tt>g3</tt> is 7.  You can also omit the
+parameter values entirely writing:
+<pre>
+      AND2 g2 (.a(a), .b(b), .z(w2));
+</pre>
+to use the default values of the parameters.
+
+<A NAME=specify></A>
+<h3>4.10 Specify Blocks</h3>
+
+Specify blocks are an alternative way to specify the delay of
+combinational logic without specifying gate-by-gate delay.  They can
+also be used to specify setup and hold times for registers in your
+design.
+<p>
+A specify block is delimited by the <tt>specify...endspecify</tt>
+keywords.  Each statement in a specify block is either a path delay
+statement, or a constraint task used to verify timing constraints.
+
+<h4>4.10.1 Path Delay Statements</h4>
+
+Path delay statements specify the delay from one or more input ports
+to one or output ports.  The syntax is:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+ <tt>(</tt><i>in1</i><tt>,</tt> <i>in2</i><tt>,</tt> ...<tt> *></tt>
+</tt><i>out1</i><tt>,</tt> <i>out2</i><tt>,</tt> ...<tt>) =</tt> <i>value</i><tt>;</tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+or
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <tt>(</tt><i>in1</i><tt>,</tt> <i>in2</i><tt>,</tt> ...<tt> =></tt>
+</tt><i>out1</i><tt>,</tt> <i>out2</i><tt>,</tt> ...<tt>) =</tt> <i>value</i><tt>;</tt>
+<br>
+<br>
+where <i>in1</i>, <i>in2</i>, etc. are <tt>input</tt> ports and
+<i>out1</i>, <i>out2</i>, etc. are <tt>output</tt> ports.  These
+expressions specify a delay of <i>value</i> from each of the input
+ports to each of the output ports. The Verilog specification
+differentiates between the <tt>=></tt> and <tt>*></tt> versions in
+that the <tt>=></tt> only specifies delay for corresponding bits of
+each port, while the <tt>*></tt> specifies delay from each bit of each
+input port to every bit of each output port.  However, the TkGate
+Verilog simulator does not support bit-by-bit delay specifications, so
+in TkGate, both forms are treated the same as <tt>*></tt>.
+<p>
+Here is an example of a combinational logic circuit using a
+<tt>specify</tt> block:
+<pre>
+ (1)   module dosomething(a,b,c,x,y,z);
+ (2)   input a,b,c;
+ (3)   output x,y,z;
+ (4)   wire q,r;
+ (5)   
+ (6)     specify
+ (7)       (a,b *> x) = 12;
+ (8)       (c *> x) = 8;
+ (9)       (a *> y) = 11;
+ (10)      (c *> y) = 16;
+ (11)      (b *> z) = 23;
+ (12)      (c *> z) = 18;
+ (13)    endspecify
+ (14)   
+ (15)    assign r = q & c;
+ (16)    assign x = a ^ b ^ r;
+ (17)    assign y = a & c;
+ (18)    assign z = c & b;
+ (19)    assign q = a & b;
+ (20)   
+ (21)  endmodule
+</pre>
+The statement at Line 7 states that any changes on <tt>a</tt> or
+<tt>b</tt> will be reflected at <tt>x</tt> after 12 time units.
+Changes on <tt>c</tt> will appear at <tt>x</tt> after 8 time units,
+and so on.
+<p>
+A path delay statement may also have a condition attached to it using
+the <tt>if</tt> keyword.  For example:
+<pre>
+module XOR(a,b,x);
+input a,b;
+output x;
+
+  specify
+    if (a) (a *> x) = 10;
+    if (!a) (a *> x) = 21;
+    (b *> x) = 12;
+  endspecify
+
+  assign x = a ^ b;
+
+endmodule
+</pre>
+This will implement an XOR gate that has a delay of 10 when <tt>a</tt>
+has a 1 value, and a delay of 21 when <tt>a</tt> has a value of 0.
+The delay from input <tt>b</tt> is 12, irregardless of the input
+values.  There is no <tt>else</tt> in the <tt>if</tt> clause used with
+path delay statements, so you must ensure that you cover every
+possible condition.
+
+<h4>4.10.2 Specparam Declarations</h4>
+
+You can define parameters for use exclusively within a
+<tt>specify</tt> block using the <tt>specparam</tt> keyword.  You can
+assign either a constant, or an expression using other
+<tt>specparam</tt> parameters, or <tt>parameter</tt> variables defined
+in the module.  Here is an example using a <tt>specparam</tt>:
+
+<pre>
+  specify
+    specparam ab_delay = 7;
+    (a *> b) = ab_delay;
+  endspecify
+</pre> 
+
+<a name=constraintTasks>
+<h4>4.10.3 Constraint Tasks</h4>
+
+Another use of <tt>specify</tt> blocks is to ensure that certain
+timing constraints are met.  For example, most real hardware latches
+require that the input data line be held constant for some time period
+before the clock arrives.  This is called "setup" time.  There is also
+often a constraint that the input data line hold its value for some
+time period after the clock pulse.  This is called "hold" time.  There
+may also be width restrictions on the clock used to drive the latch.
+The example below uses a <tt>specify</tt> block to encode all of these
+requirements.  Each of the statements in the <tt>specify</tt> block
+will be addressed in turn.
+<pre>
+module latch(ck,data,out);
+input ck,data;
+output out;
+reg out = 1'bx;
+
+  specify
+    $setup(data, posedge ck, 10);
+    $hold(posedge ck, data, 10);
+    $width(posedge ck, 25);
+  endspecify
+
+  always @(posedge ck)
+    out = data;
+
+endmodule
+</pre>
+
+<h5>The <tt>$setup</tt> Check</h5>
+
+The <tt>$setup</tt> check has the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<tt>$setup(</tt><i>data</i><tt>,</tt> <i>clock</i><tt>,</tt> <i>limit</i> <tt>)</tt>
+<br>
+<br>
+It is used to verify that a setup constraint is satisfied.  The
+<i>data</i> parameter should reference the data line on which you wish
+to perform the setup check.  The <i>clock</i> parameter specifies the
+clock event for which the data must be set up.  The <i>limit</i>
+parameter specifies the minimum delay time allowed between the data
+event and the clock event.  If this constraint is violated, the TkGate
+Verilog simulator will issue a warning message, but normal simulation
+of the circuit will continue.
+<p>
+You can conditionally execute a check using the <tt>&&&</tt> operator
+in the <i>clock</i> parameter.  For example:
+<pre>
+    $setup(data, posedge ck &&& enable, 10);
+</pre>
+would only perform the setup check if the <tt>enable</tt> signal were
+asserted.
+
+<h5>The <tt>$hold</tt> Check</h5>
+
+The <tt>$hold</tt> check has the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<tt>$hold(</tt> <i>clock</i><tt>, </tt><i>data</i><tt>,</tt> <i>limit</i> <tt>)</tt>
+<br>
+<br>
+It is used to verify that a hold constraint is satisfied. The
+<i>clock</i> parameter references the clock event which begins the
+hold period.  The <i>data</i> parameter indicates the data signal that
+must be held constant during the hold period.  The <i>limit</i>
+indicates the time period for which the <i>data</i> line can not
+change after the clock event.  If this constraint is violated, the
+TkGate Verilog simulator will issue a warning message, but normal
+simulation of the circuit will continue.
+<p>
+Like with the <tt>$setup</tt> check,
+you can use the <tt>&&&</tt> operator in the <i>clock</i> parameter to
+set a condition on when to do the check.  
+
+<h5>The <tt>$width</tt> Check</h5>
+
+The <tt>$width</tt> check as the syntax:
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<tt>$width(</tt> <i>event</i><tt>, </tt> <i>limit</i> <tt>)</tt>
+<br>
+<br>
+It is used to verify that the width of a pulse exceeds a minimum
+value.  The <i>event</i> parameter indicates an event (rising or
+falling) on the signal that is to be tested.  The <tt>posedge</tt> and
+<tt>negedge</tt> keyword are used to indicate on which edge to start
+the test.  For example:
+<pre>
+    $width(posedge ck, 25);
+</pre>
+will check that the time the time between the positive/rising edge of
+<tt>ck</tt>, and the opposite (in this case negative/falling) edge of
+<tt>ck</tt> is at least 25 time units.  If this constraint is
+violated, the TkGate Verilog simulator will issue a warning message,
+but normal simulation of the circuit will continue.
+<br>
+<br>
+<br>
+</body>
+</html>
+
+

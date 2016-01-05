@@ -1,0 +1,53 @@
+cyan
+cyan1
+cyan2
+turquoise2
+dark turquoise
+DarkTurquoise
+cyan3
+turquoise3
+DarkSlateGray1
+MediumTurquoise
+medium turquoise
+DarkSlateGray2
+CadetBlue2
+PaleTurquoise1
+LightSeaGreen
+light sea green
+PaleTurquoise2
+pale turquoise
+PaleTurquoise
+DarkSlateGray3
+light cyan
+LightCyan1
+LightCyan
+CadetBlue3
+dark cyan
+cyan4
+PowderBlue
+powder blue
+DarkCyan
+turquoise4
+azure1
+azure
+LightCyan2
+AliceBlue
+alice blue
+mint cream
+MintCream
+PaleTurquoise3
+azure2
+LightCyan3
+cadet blue
+CadetBlue
+azure3
+DarkSlateGray4
+CadetBlue4
+PaleTurquoise4
+LightBlue4
+LightCyan4
+azure4
+dark slate gray
+dark slate grey
+DarkSlateGrey
+DarkSlateGray

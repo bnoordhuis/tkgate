@@ -1,0 +1,28 @@
+/* XPM */
+static char * simoptions_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+" 	c white",
+".	c gray47",
+"X	c #00b800",
+"o	c gray72",
+"O	c #ff00ff",
+"+	c black",
+/* pixels */
+"    ......      ",
+"    .     ..    ",
+"XXXX.     o .XX ",
+"   O. +++ o+++O ",
+"   O.       o+O ",
+"   O. ++ +++o+O ",
+"   O.       o+OO",
+"    . ++ + +o+  ",
+"  XX.oooooooo+XX",
+"  X ++++++++++  ",
+"  X  O  X O X   ",
+"  X  O  X O X   ",
+"OOX  OOOX OOX   ",
+"                ",
+"                ",
+"                "};

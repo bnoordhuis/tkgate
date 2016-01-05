@@ -1,0 +1,30 @@
+/* XPM */
+static char * blk_close_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"16 16 8 1",
+/* colors */
+" 	c grey",
+".	c magenta4",
+"X	c red",
+"o	c white",
+"O	c blue",
+"+	c gray40",
+"@	c black",
+"#	c gray60",
+/* pixels */
+"                ",
+"     .........  ",
+"   XX.........XX",
+"   XX..ooooo..XX",
+"     ..ooooo..  ",
+"   XX..ooooo..XX",
+"   XOOoooo+o..XX",
+"    OOOOO+@+..  ",
+"   XXOOOOO#o..XX",
+"   XOOOOOOoo..XX",
+"OOOOOOOOOooo..  ",
+"OOOOOoOOOooo..XX",
+"   XX..OO.....XX",
+"     .........  ",
+"                ",
+"                "};

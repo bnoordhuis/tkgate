@@ -1,0 +1,89 @@
+.TH VERGA 1
+.SH "NAME"
+verga \- VERrilog simulator for tkGAte
+.SH "SYNOPSIS"
+.B verga
+[\-eslqi] [\-d dtype] [\-S script] [\-P mods] [\-t mod] [\-B dir] [\-D hash] [\-W wmode] [files...]
+.SH "DESCRIPTION"
+\fIVerga \fR
+is a verilog simulator designed to be used with tkgate,
+but it can also be used as a stand-alone simulator.
+
+Verga documentation can be found at:
+.PP
+http://www.tkgate.org
+
+.SH "OPTIONS"
+
+The options are as follows:
+.TP 15
+\-e
+Dump the list of error codes and associated messages that can be produced by
+verga.  This option is primarily for developer purposes. 
+.TP 15
+\-s
+Scan a Verilog file and output information about its modules and nets.  This
+option is primarily used internally by tkgate. 
+.TP 15
+\-l
+Show the verga license. 
+.TP 15
+\-q
+Run in 'quiet' mode, suppressing extraneous messages.
+.TP 15
+\-i
+Run in 'interactive' mode.  This mode is intended primarily for use when verga
+is being invoked by tkgate.
+.TP 15
+\-d dtype
+Type of delays to use.  Can be 'min', 'max' or 'typical'.
+.TP 15
+\-S script
+Load simulation scripts for each '\-S' switch. 
+.TP 15
+\-P mod
+Print the named module from the parsed structure for each '\-P' specified.
+.TP 15
+\-t mod
+Override the default and designate 'mod' as the top-level module.
+.TP 15
+\-B dir
+Directory to use as base directory when loading files 
+.TP 15
+\-D hash
+Delete the input files after loading if 'hash' exactly matches a hash code
+computed on the file name.  This option should only be used by tkgate which
+writes the file to simulate to a temporary file before invoking the simulator.
+.TP 15
+\-W wmode
+Mode for warning message handling.  Can be 1 for "ignore warnings", 2
+for "report warnings only if there were errors", 3 for "always report
+warnings" or 4 for "always report warnings and stop simulator even if
+only warnings".
+
+.SH "HISTORY & CREDITS"
+
+TkGate begin life as an undergraduate project at Carnegie Mellon
+University (CMU) in 1987.  At that time it was called simply 'gate'
+and ran under the 'wm' window manager, a windowing system developed at
+CMU before X11 was widely used.  In this incarnation it was used by
+students in the computer architecture course at CMU to develop a
+simple microprocessor (dubbed "The Bat Computer").  After laying
+dormant for several years, it was resurrected in 1991 and ported to
+run under X11 with the Xlib API.  In this incarnation it was used
+several times by students in the introductory digital logic course,
+but after the author graduated and left CMU, it went into hibernation
+again.  This Tcl/Tk incarnation was begun in 1998.  While there is
+certainly some cruftyness in the implementation in places due to the
+multiple reincarnations, many new features have been added since the
+older wm and X11 versions, and the interface has been made much easier
+to use.
+
+.SH "SEE ALSO"
+gmac(1), tkgate(1)
+
+.SH "AUTHOR"
+Jeffery Hansen (hansen@tkgate.org)
+
+.SH "COPYRIGHT"
+Copyright (c) 1987-2007 by Jeffery Hansen

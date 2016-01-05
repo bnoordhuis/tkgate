@@ -1,0 +1,37 @@
+-----------------------------------------------------------------------------
+Features still needed for 2.0 before beta 3 release:
+	- Print options
+	- Hand tool scrolling
+	- Copyright update
+
+-----------------------------------------------------------------------------
+Features still needed for 2.0 before final release:
+
+	- implement the anti-glitch algorithm from 1.8.5
+	- complete balloon help messages
+	- translate new messages into Japanese (and request translators to update other locales)
+
+-----------------------------------------------------------------------------
+Features for 2.1:
+	- Debug symbol editor.
+	- PDF output of designs.
+	- EPSF output of scope traces.
+	- Positioning of sig_names on wires: fix the position of names
+	- Verilog "primitive" modules
+	- manual simulation stimuli should be automatically logged in 
+	   script format, "re-playable": one could start "by hand" 
+	   and edit the logfile to a simulation script out of it;
+	- Rename udev/TIP to VPD and check coke machine example.
+
+-----------------------------------------------------------------------------
+Features not yet assigned to a release:
+	- Other types of nets other than wire (e.g, wand, wor, trior, etc.)
+	- TTY input from simulation script
+	- Quick enable/disabled of probes
+	- Zoom out for overview of large circuit
+	- Drag-and-drop ports from port list box.
+	- "Reverse" simulation (simulation checkpoints) - use ob_malloc in verga?
+	- FPGA synthesis (or integration with existing synthesizer)
+	- Export modules to separate files.
+	- Export to synthesizable verilog (make it easy on synthesizers) 
+	- Support for defparam and modules using defparam

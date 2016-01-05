@@ -1,0 +1,37 @@
+r=0 in <top>
+@2 change in r=0 or b=x
+b=0
+@3 change in r=0 or b=0
+r=1 in <top>
+@4 change in r=1 or b=0
+b=1
+r=2 in <top>
+@6 change in r=2 or b=1
+r=3 in <top>
+@8 change in r=3 or b=1
+b=2
+@9 change in r=3 or b=2
+r=4 in <top>
+@10 change in r=4 or b=2
+b=3
+r=5 in <top>
+@12 change in r=5 or b=3
+r=6 in <top>
+@14 change in r=6 or b=3
+b=4
+@15 change in r=6 or b=4
+r=7 in <top>
+@16 change in r=7 or b=4
+b=5
+r=8 in <top>
+@18 change in r=8 or b=5
+r=9 in <top>
+@20 change in r=9 or b=5
+b=6
+@21 change in r=9 or b=6
+b=14
+@26 change in r=9 or b=14
+b=16
+@31 change in r=9 or b=16
+b=18
+@36 change in r=9 or b=18
