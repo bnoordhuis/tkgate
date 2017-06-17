@@ -908,7 +908,7 @@ void Block_VerSaveModParms(FILE *f,GCElement *g)
 	char buf2[STRMAX];
 	strcpy(buf2,value+1);
 	buf2[l-2] = 0;
-	sprintf(buf,quoteChars(buf,buf2,"\"\\"));
+	sprintf(buf,"%s",quoteChars(buf,buf2,"\"\\"));
 	fprintf(f,"\"%s\"",buf);
       } else
 	fprintf(f,"\"%s\"",quoteChars(buf,value,"\"\\"));

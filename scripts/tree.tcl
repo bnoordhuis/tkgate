@@ -1,5 +1,3 @@
-#!/usr/bin/wish
-#
 # I am D. Richard Hipp, the author of this code.  I hereby
 # disavow all claims to copyright on this program and release
 # it into the public domain. 

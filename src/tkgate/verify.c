@@ -144,7 +144,7 @@ void verify_gate(GCElement *g,GModuleDef *m)
   switch (g->typeinfo->Code) {
   case GC_TAP :
     if (g->wires[TAP_IN]->net != g->wires[TAP_OUT]->net)
-      verify_error(m,"tap 0x%x(%s) has inconsistant attachments.",
+      verify_error(m,"tap 0x%x(%s) has inconsistent attachments.",
 		   g,g->ename,g->wires[TAP_IN]->net->n_signame,g->wires[TAP_OUT]->net->n_signame);
     break;
   }

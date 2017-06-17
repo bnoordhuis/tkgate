@@ -497,7 +497,7 @@ int Expr_sprint(char *s,int n,Expr *e)
     if (l < 0) return -1;
     s += l; n -= l;
     if (n < 4) return -1;
-    s += sprintf("%s",findSymbol(e->op));n -= strlen(s);
+    s += sprintf(s,"%s",findSymbol(e->op));n -= strlen(s);
     l = Expr_sprint(s,n,e->r);
     if (l < 0) return -1;
     s += l; n -= l;

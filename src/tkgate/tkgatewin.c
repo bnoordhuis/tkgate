@@ -1651,7 +1651,7 @@ void init_mainWindow(Tcl_Interp *tcl)
   SimInterface_init(&TkGate.circuit->simulator);
 
   if (sync_Xserver) {
-    printf("[synchonized X11 connection]\n");
+    printf("[synchronized X11 connection]\n");
     XSynchronize(TkGate.D,True);
   }
   

@@ -443,7 +443,7 @@ void joint_fixwires(GCElement *j,GWire *w,int retry)
 
   td = wireorient(w->nodes,0);
   if (td == -1) {
-    logError(ERL_WARN,"Wierd place for 0-wire 1 in joint_fixwires.");
+    logError(ERL_WARN,"Weird place for 0-wire 1 in joint_fixwires.");
     return;
   }
 

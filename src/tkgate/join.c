@@ -190,7 +190,7 @@ void join_splice_middle(GWireNode *n,GWire *w1[],GWire *w2[],int x,int y,int dwi
     } else {
       w2[0]->nodes->x = w1[0]->nodes->x = x;
       w2[0]->nodes->y = w1[0]->nodes->y = y;
-      logError(ERL_WARN,"Bizzare attachment in join_splice_middle.");
+      logError(ERL_WARN,"Bizarre attachment in join_splice_middle.");
     }
 
   ob_touch(n);
