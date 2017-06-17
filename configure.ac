@@ -134,6 +134,9 @@ AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 LT_INIT
 
+# Checks for compiler flags.
+TKG_CHECK_CFLAGS([-Wno-deprecated-declarations])
+
 # Checks for header files.
 AC_PATH_XTRA
 AC_FUNC_ALLOCA

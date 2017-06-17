@@ -452,6 +452,20 @@ AC_DEFUN([TKG_MAKELIBEXEC],[
 
 ])
 
+AC_DEFUN([TKG_CHECK_CFLAGS],[
+  AC_MSG_CHECKING([if $CC supports $1])
+  AC_LANG_PUSH([C])
+  tkg_saved_CFLAGS="$CFLAGS"
+  CFLAGS="$1"
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+                    [AC_MSG_RESULT([yes])]
+                    CFLAGS="$tkg_saved_CFLAGS $1",
+                    [AC_MSG_RESULT([no])]
+                    CFLAGS="$tkg_saved_CFLAGS")
+  AC_LANG_POP([C])
+
+])
+
 # Local Variables:
 # mode: autoconf
 # End:
