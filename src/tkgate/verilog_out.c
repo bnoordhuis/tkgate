@@ -894,7 +894,7 @@ static int check_file(const char *name)
 
   sprintf(cmd,"%s/libexec/tkgate",TkGate.homedir);
   if (!(pid = fork())) {
-    execl(cmd,cmd,"-Vq",name,0);
+    execl(cmd,cmd,"-Vq",name,NULL);
     exit(1);
   }
 
