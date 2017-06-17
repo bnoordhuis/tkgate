@@ -123,7 +123,6 @@ if test "${CFLAGS+set}" != "set" ; then
 fi
 
 # Checks for programs.
-AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_YACC
 AM_PROG_LEX
