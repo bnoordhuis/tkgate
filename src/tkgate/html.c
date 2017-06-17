@@ -856,6 +856,14 @@ static void Html_popContext(Html *h)
   h->h_contextPool = hc;
 }
 
+static void on_image_changed(ClientData data,
+                             int x, int y,
+                             int width, int height,
+                             int image_width, int image_height)
+{
+  /* This space intentionally left blank. */
+}
+
 /*****************************************************************************
  *
  * Handle a <img> element.
@@ -894,7 +902,9 @@ void Html_handle_img(Html *h, HtmlTag *tag)
   ob_touch(hc);
 
   DoTcl("gifI %s",gifFile);
-  hu->hu_image = Tk_GetImage(TkGate.tcl, Tk_MainWindow(TkGate.tcl), TkGate.tcl->result, 0, 0);
+  hu->hu_image =
+      Tk_GetImage(TkGate.tcl, Tk_MainWindow(TkGate.tcl), TkGate.tcl->result,
+                  on_image_changed, 0);
   if (hu->hu_image)
     Tk_SizeOfImage(hu->hu_image, &width, &height);
 
