@@ -583,7 +583,7 @@ int main(int argc,char *argv[])
     vgio_comment("%s %s - Verilog Simulator for TkGate\n",VGSIM_NAME,VGSIM_VERSION);
     vgio_comment("%s\n",VGSIM_COPYRIGHT);
     vgio_comment("  %s comes with ABSOLUTELY NO WARRANTY;  run with -l switch\n",VGSIM_NAME);
-    vgio_comment("  for license and warranty details.  Report problems to hansen@tkgate.org\n");
+    vgio_comment("  for license and warranty details.  Report problems to tkgate@bnoordhuis.nl\n");
     vgio_comment("  [compiled on %s %s]\n",__DATE__,__TIME__);
   }
 

@@ -280,7 +280,7 @@ wire [1:0] w26;    //: /sn:0 /dp:1 {0}(637,356)(658,356)(658,393)(680,393){1}
   //: /line:"     erzeugen. Oder man lädt eine vorhandene Schaltung aus einer Datei "
   //: /line:"     mit \"Öffnen\" aus dem \"Datei\"-Menu."
   //: /line:"   * Die vollständige Dokumentation zu TKGate findet man unter"
-  //: /line:"     http://www.tkgate.org"
+  //: /line:"     http://bnoordhuis.nl/tkgate/"
   //: /line:""
   //: /line:"Es folgt ein kurzes Tutorium zur Benutzung von TkGate. Zur schnellen "
   //: /line:"Navigation durch die Abschnitte gibt es Links in der rechten oberen Ecke."

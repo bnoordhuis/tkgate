@@ -227,7 +227,7 @@ wire [7:0] w29;    //: /sn:0 {0}(#:141,339)(141,281){1}
   //: /line:""
   //: /line:"<value-of name=\"tkgate-copyright\">"
   //: /line:"  TKGate kommt mit KEINERLEI GARANTIE; siehe dazu auch im Menu 'Hilfe...Lizenz'"
-  //: /line:"  die Lizenz- und Garantiedetails.  Fehlerberichte bitte an <a href=\"mailto:hansen@tkgate.org\"><value-of name=\"tkgate-mailcontact\"></a> senden"
+  //: /line:"  die Lizenz- und Garantiedetails.  Fehlerberichte bitte an <a href=\"mailto:tkgate@bnoordhuis.nl\"><value-of name=\"tkgate-mailcontact\"></a> senden"
   //: /line:"  [freigegeben <value-of name=\"tkgate-release-date\">]"
   //: /line:""
   //: /line:"<font size=5>Zum Ausprobieren von TkGate auf einen der Links unten klicken!"

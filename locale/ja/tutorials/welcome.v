@@ -223,7 +223,7 @@ wire [7:0] reg_out;    //: {0}(#:684,194)(50:684,230)(729,230){1}
   //: /line:""
   //: /line:"<value-of name=\"tkgate-copyright\">"
   //: /line:"  TKGate comes with ABSOLUTELY NO WARRANTY; see 'Help...License' menu"
-  //: /line:"  for license and warranty details.  Report problems to <a href=\"mailto:hansen@tkgate.org\"><value-of name=\"tkgate-mailcontact\"></a>"
+  //: /line:"  for license and warranty details.  Report problems to <a href=\"mailto:tkgate@bnoordhuis.nl\"><value-of name=\"tkgate-mailcontact\"></a>"
   //: /line:"  [released <value-of name=\"tkgate-release-date\">]"
   //: /line:""
   //: /line:"<font size=5>以下のリンクにクリックして、tkgateを使え始めよう。"

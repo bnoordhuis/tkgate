@@ -249,7 +249,7 @@ wire [1:0] w26;    //: /sn:0 /dp:1 {0}(86,348)(107,348)(107,385)(129,385){1}
   //: /line:""
   //: /line:"   <a href=\"action:new\">新しい回路新を編集する。</a>"
   //: /line:""
-  //: /line:"   <a href=\"http://www.tkgate.org/1.8\"><value-of name=\"tkgate-homepage\">にあるドキュメントを見る。</a>"
+  //: /line:"   <a href=\"http://bnoordhuis.nl/tkgate/\"><value-of name=\"tkgate-homepage\">にあるドキュメントを見る。</a>"
   //: /end
   //: switch data_select (w28) @(69,285) /w:[ 0 ] /st:0
   //: switch g18 (a0) @(588,83) /sn:0 /w:[ 0 ] /st:0

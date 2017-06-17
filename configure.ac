@@ -20,9 +20,9 @@ AC_DEFINE(TKGATE_VERSION_SUFFIX,"-b10",					[TkGate version suffix])
 AC_DEFINE(TKGATE_FULL_VERSION,	(TKGATE_VERSION TKGATE_VERSION_SUFFIX), [Full TkGate version number])
 AC_DEFINE(TKGATE_DESCRIPTION,	"Digital Circuit Editor and Simulator",	[Tkgate short description])
 AC_DEFINE(TKGATE_LOCALDOC,	"file:@H/doc/index.html", 		[Local documentation location])
-AC_DEFINE(TKGATE_COPYRIGHT, 	"Copyright (C) 1987-2009 by Jeffery P. Hansen", [Copyright notice])
-AC_DEFINE(TKGATE_MAILCONTACT,	"hansen@tkgate.org",			[Email address for support])
-AC_DEFINE(TKGATE_HOMEPAGE,	"http://www.tkgate.org",		[TkGate web page])
+AC_DEFINE(TKGATE_COPYRIGHT, 	"Copyright (C) 1987-2009 by Jeffery P. Hansen 2016-2017 by Ben Noordhuis", [Copyright notice])
+AC_DEFINE(TKGATE_MAILCONTACT,	"tkgate@bnoordhuis.nl",			[Email address for support])
+AC_DEFINE(TKGATE_HOMEPAGE,	"https://github.com/bnoordhuis/tkgate",		[TkGate web page])
 
 
 #############################################################################
