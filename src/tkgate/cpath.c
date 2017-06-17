@@ -569,7 +569,7 @@ void cpath_flash()
   }
 }
 
-void init_cpathNetDelayTable()
+void init_cpathNetDelayTable(void)
 {
   net_delay_table = new_SHash();
   net_alias_table = new_SHash();

@@ -39,6 +39,8 @@ static int current_module_type = HDLMODULE;
 
 typedef void *Encoder;
 
+size_t recodeText(Encoder *encoder, char *toString,int len, const char *fromString);
+
 extern Encoder *parserEncoder;
 
 /*****************************************************************************

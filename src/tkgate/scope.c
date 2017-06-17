@@ -102,7 +102,7 @@ void ReqScopeRedisplay()
  * Request a redraw of only the traces and the left origin
  *
  *****************************************************************************/
-void ReqScopeTraceRedisplay()
+void ReqScopeTraceRedisplay(void)
 {
   TkGate.idle_ev.trace_redraw = 1;
 

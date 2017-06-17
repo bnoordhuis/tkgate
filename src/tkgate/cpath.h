@@ -18,6 +18,7 @@
 #ifndef __cpath_h
 #define __cpath_h
 
+void init_cpathNetDelayTable(void);
 void cpath_clear();
 void cpath_flush();
 GWire *cpath_findGatePort(const char *Gname,const char *Pname,int n,GModuleDef *M);

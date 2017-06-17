@@ -56,7 +56,7 @@ void SaveLast();
 
 int yyparse();
 int yylex();
-void yyerror(char*,...);
+void yyerror(const char*,...);
 
 void ycSetDefaultModuleType(int modType);
 void ycSetModuleType(int modType);

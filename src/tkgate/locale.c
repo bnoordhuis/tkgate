@@ -123,7 +123,7 @@ static Locale *getLocaleDescriptor(const char *locale)
 /*
  * Find the set of locales that are available 
  */
-void init_localeSet()
+void init_localeSet(void)
 {
   char dirName[STRMAX];
   DIR *d;

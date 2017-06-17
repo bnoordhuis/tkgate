@@ -117,6 +117,7 @@ void SimInterface_hit(SimInterface*,int x,int y,int isDoubleClick);
 void SimInterface_hitRelease(SimInterface*);
 void SimInterface_addDelProbe(SimInterface *si,GSimModule *sM,const char *name,GWire *w,GWireNode *n,int x,int y);
 void SimInterface_addDelHDLProbe(SimInterface *si,GSimModule *sM,const char *name,GNet *net);
+void SimInterface_delProbe(SimInterface *si,const char *name);
 int SimInterface_probeExists(SimInterface *si,GSimModule *sM,const char *name);
 void SimInterface_send(SimInterface*,const char*,...);
 int SimInterface_lookupGate(SimInterface*,const char*,GSimModule **M,GCElement **g,GSimSwitch **ss);

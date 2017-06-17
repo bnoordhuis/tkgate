@@ -26,7 +26,7 @@
 static SHash *icon_pixmaps = 0;			/* Table of pixmaps used for gate icons */
 static NHash *zoomed_pixmaps = 0;		/* Table of zoomed versions of icon_pixmaps */
 
-void init_iconTables()
+void init_iconTables(void)
 {
   icon_pixmaps = new_SHash_noob();
   zoomed_pixmaps = new_NHash_noob();

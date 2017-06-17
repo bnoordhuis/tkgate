@@ -151,4 +151,6 @@ void GScope_pickInterval(simtime_t *R,simtime_t *I,simtime_t precision);
 void GScope_saveProbes(GScope *S);
 void GScope_postFullName(GTrace *t);
 
+void ReqScopeTraceRedisplay(void);
+
 #endif

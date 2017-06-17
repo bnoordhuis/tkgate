@@ -853,7 +853,7 @@ void RegisterGate(GGateInfo *gi)
  * Initialize special icons if we are running in interactive mode.
  *
  *****************************************************************************/
-void init_specials()
+void init_specials(void)
 {
   if (TkGate.tcl) {
     Pixmap P;
@@ -924,7 +924,7 @@ void init_specials()
  * Make the basic gate type info hash tables and initialize special objects
  *
  *****************************************************************************/
-void init_gateHashTables()
+void init_gateHashTables(void)
 {
   GateTypeHash = new_SHash();
   OldGateTypeHash = new_SHash();

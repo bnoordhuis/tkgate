@@ -40,6 +40,7 @@ typedef struct {
   int 		width,height;		/* Base size of pixmap */
 } PixmapZoomSet;
 
+void init_iconTables(void);
 
 Pixmap Pixmap_register(char *name,unsigned char bits[],int w,int h);
 Pixmap Pixmap_registerFromFile(char *name,char *file);

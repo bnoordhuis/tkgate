@@ -410,6 +410,21 @@ typedef struct{
   New_Tcl_CmdProc	*func;
 } Tkg_Command;
 
+void init_cursors(void);
+void init_localeSet(void);
+void init_mainWindow(Tcl_Interp *tcl);
+void init_tclProcs(Tcl_Interp *tcl);
+
+void Comment_addLine(GCElement *g,const char *text);
+void Comment_flushLines(GCElement *g);
+void FlagScrolling(void);
+void HandScroll_drop(EditState *es);
+void HandScroll_move(EditState *es);
+void HandScroll_set(EditState *es);
+void SwitchDip_getCompositeName(GCElement *g,char *compositeName);
+void getFontName(char *fullName,fontfamily_t ff,fontprop_t fp,fontsize_t fs,int zoom);
+void guessPortName(char *buf,GCElement *g,int orient,int dir,int nbits);
+
 int Tkg_GetColor(const char *name);
 
 

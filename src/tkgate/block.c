@@ -21,6 +21,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "tkgate.h"
+#include "yybasic.h"
 
 #define BLOCK_STUBLEN	15
 

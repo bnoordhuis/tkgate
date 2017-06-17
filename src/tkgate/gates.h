@@ -93,6 +93,8 @@
 #define CONCAT_OUT 1
 
 
+void init_gateHashTables(void);
+void init_specials(void);
 
 void gate_add(GModuleDef*,GCElement *);
 void gate_remove(GModuleDef*,GCElement *);
@@ -139,7 +141,6 @@ void RegisterGate(GGateInfo *gi);
 
 void GetPinIOMark(GWire *w,int d,int iod,int atype,int *x,int *y,Icon **arrow);
 void DrawPinIOMark(GWire *w,int d,int iod,int atype);
-
 
 /*
  * Extra memory required for allocating a GCElement object with n ports.

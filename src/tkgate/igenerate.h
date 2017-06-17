@@ -57,6 +57,7 @@ void igen_freePortList(IGPort **portList,int n);
 int igen_generate_initial(GModuleDef *M);
 
 int igen_command(const char *op,const char *mod_name,int argc,const char *argv[]);
+int igen_strToSide(const char *side);
 
 #endif
 

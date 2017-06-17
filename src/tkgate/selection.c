@@ -35,8 +35,6 @@
 #include <assert.h>
 #include "tkgate.h"
 
-void Comment_addLine(GCElement *g,const char *text);
-
 GSelection *new_GSelection()
 {
   GSelection *S = (GSelection*) ob_malloc(sizeof(GSelection),"GSelection");

@@ -163,7 +163,7 @@ Cursor Cursor_find(int id)
   return *pC;
 }
 
-void init_cursors()
+void init_cursors(void)
 {
   XColor FGC,BGC,FGCreal,BGCreal;
   int MaxW,MaxH;

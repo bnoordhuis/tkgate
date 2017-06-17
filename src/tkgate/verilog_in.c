@@ -463,7 +463,7 @@ int VerilogOpenLibrary(const char *name)
   return 0;
 }
 
-void yyerror(char *err,...)
+void yyerror(const char *err,...)
 {
   char buf[STRMAX];
   extern int quietMode;

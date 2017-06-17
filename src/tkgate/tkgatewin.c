@@ -631,7 +631,7 @@ void FlagRedraw()
  * action is performed.
  *
  *****************************************************************************/
-void FlagScrolling()
+void FlagScrolling(void)
 {
   if (!TkGate.idle_ev.redraw) {
     TkGate.idle_ev.redraw = 1;
