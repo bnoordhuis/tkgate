@@ -6,7 +6,7 @@ module top;
   initial
     for (i = 0;i < 10;i = i + 1)
       begin
-	$display("writting %d",i);
+	$display("writing %d",i);
 	$tkg$send("xyz",i);
 	#1 ;
       end
