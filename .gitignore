@@ -25,4 +25,6 @@ src/tools/msgdiff
 src/tools/mvtag
 src/verga/verga
 stamp-h1
+tcl8.6.*/
+tk8.6.*/
 ylwrap

@@ -1,0 +1,37 @@
+DESTDIR = $(HOME)/opt/tkgate
+X11DIR = /opt/X11
+
+TAR = tar
+TCL = tcl8.6.10
+TK = tk8.6.10
+
+.PHONY: install
+all: src/tkgate/tkgate
+
+.PHONY: install
+install:
+	$(MAKE) -C install
+
+configure: autogen.sh $(DESTDIR)/lib/libtcl8.6.dylib $(DESTDIR)/lib/libtk8.6.dylib
+	sh autogen.sh
+
+config.h: configure
+	./configure --prefix=$(DESTDIR) --with-x --x-includes=$(X11DIR)/include --x-libraries=$(X11DIR)/lib TKGATE_TCLTK_VERSIONS=8.6 TKGATE_INCDIRS="$(X11DIR)/include $(DESTDIR)/include" TKGATE_LIBDIRS="$(X11DIR)/lib $(DESTDIR)/lib"
+
+src/tkgate/tkgate: config.h
+
+$(TCL)/unix/configure: $(TCL)-src.tar.gz
+	$(TAR) xfz $<
+	touch $@
+
+$(DESTDIR)/lib/libtcl8.6.dylib: $(TCL)/unix/configure
+	sh -c 'cd $(TCL)/unix && ./configure --prefix=$(DESTDIR)'
+	$(MAKE) -C $(TCL)/unix install
+
+$(TK)/unix/configure: $(TK)-src.tar.gz
+	$(TAR) xfz $<
+	touch $@
+
+$(DESTDIR)/lib/libtk8.6.dylib: $(TK)/unix/configure
+	sh -c 'cd $(TK)/unix && ./configure --prefix=$(DESTDIR) --with-tcl=$(DESTDIR)/lib --with-x --x-includes=$(X11DIR)/include --x-libraries=$(X11DIR)/lib'
+	$(MAKE) -C $(TK)/unix install
