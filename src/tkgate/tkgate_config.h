@@ -40,6 +40,7 @@
 #define TKGATE_STUBLEN	15		/* Default length of wires on new gates */
 #define MAXMODS		128		/* Maximum number of modules in text buffer */
 #define MODULE_PATH_MAX	2048		/* Maximum module depth */
+#define GRPMAX 64                       /* Size of list when calling getgroups */
 
 
 /*

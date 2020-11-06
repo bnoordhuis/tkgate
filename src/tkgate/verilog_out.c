@@ -20,7 +20,9 @@
 #include <stdarg.h>
 #include <string.h>
 #include <assert.h>
+#include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <pwd.h>
 #include "tkgate.h"
@@ -937,9 +939,11 @@ int VerilogQuickSave(const char *name,vsaveopts_t saveFlags)
 int isWritable(const char *name)
 {
   char dirName[STRMAX],*p;
+  gid_t sgid_list[GRPMAX];
   struct stat sb;
   int gid = getgid();
   int uid = getuid();
+  int i, sgid_n = getgroups(GRPMAX, sgid_list);
 
   /*
    * If the file exists, look at its permissions
@@ -951,6 +955,9 @@ int isWritable(const char *name)
       mode |= (sb.st_mode >> 6) & 7;
     if (gid == sb.st_gid)
       mode |= (sb.st_mode >> 3) & 7;
+    for(i=0; i<sgid_n; i++)
+       if (sgid_list[i] == sb.st_gid)
+         mode |= (sb.st_mode >> 3) & 7;
 
     if ((mode & 2))
       return 1;
@@ -983,6 +990,9 @@ int isWritable(const char *name)
       mode |= (sb.st_mode >> 6) & 7;
     if (gid == sb.st_gid)
       mode |= (sb.st_mode >> 3) & 7;
+    for(i=0; i<sgid_n; i++)
+       if (sgid_list[i] == sb.st_gid)
+         mode |= (sb.st_mode >> 3) & 7;
 
     if ((mode & 2))
       return 1;
